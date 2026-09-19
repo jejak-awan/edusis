@@ -38,24 +38,25 @@ Saat mengonfigurasi properti menu di konsol admin (**Menu Builder**), pengguna m
 - [x] Memperbarui root `CHANGELOG.md` dan modul `CHANGELOG.md` (Layout & Sarangenge).
 - [x] Memperbarui ops docs di `/home/jejakawan/dev/docs/` dan menjalankan rsync multi-host (`ja-srv`, `ja-aksara`).
 
-### Fase 2: Backend Core Hardening
-- [ ] Perbaiki `MenuItemUrlValidator.php` agar mengizinkan `#` dan `#anchor`.
-- [ ] Perbarui `MenuController.php` eager loading publik: `with(['parentItems.children.children'])`.
-- [ ] Tambahkan unit & feature test untuk validasi `#` dan hirarki 3-level di `MenuItemPersistTest.php`.
+### Fase 2: Backend Core Hardening (Done)
+- [x] Perbaiki `MenuItemUrlValidator.php` agar mengizinkan `#` dan `#anchor`.
+- [x] Perbarui `MenuController.php` eager loading publik: `with(['parentItems.children.children'])`.
+- [x] Tambahkan unit & feature test untuk validasi `#` dan hirarki 3-level di `MenuItemPersistTest.php`.
 
-### Fase 3: Frontend Menu Builder Parity
-- [ ] Perbaiki binding fallback di `ItemPropertyField.vue` (`value ?? setting.default ?? ''`).
-- [ ] Seragamkan schema layout di `CustomLinkItem`, `PageItem`, `PostItem`, `CategoryItem`.
-- [ ] Sinkronkan mutasi `current[key]` dan `current.metadata[key]` di `ItemPropertiesPanel.vue`.
-- [ ] Beri visual badge "Mega Menu" pada `MenuItemWrapper.vue`.
-- [ ] Implementasikan rendering Mega Menu multi-kolom di `MenuPreview.vue`.
+### Fase 3: Frontend Menu Builder Parity (Done)
+- [x] Perbaiki binding fallback di `ItemPropertyField.vue` (`value ?? setting.default ?? ''`).
+- [x] Seragamkan schema layout di `CustomLinkItem`, `PageItem`, `PostItem`, `CategoryItem`.
+- [x] Sinkronkan mutasi `current[key]` dan `current.metadata[key]` di `ItemPropertiesPanel.vue`.
+- [x] Beri visual badge "Mega Menu" dan "Col {n}" pada `MenuItemWrapper.vue`.
+- [x] Implementasikan rendering Mega Menu multi-kolom di `MenuPreview.vue`.
 
-### Fase 4: Public Theme Rendering
-- [ ] Jalankan `hydrateMenuItem()` rekursif pada `fetchMenuByLocation` dan `fetchMenuByIdentifier` di `useMenu.ts`.
-- [ ] Tambahkan renderer Mega Menu cerdas pada `Header.vue` (tema `sarangenge` & tema lainnya).
+### Fase 4: Public Theme Rendering (Done)
+- [x] Jalankan `hydrateTree()` rekursif pada `fetchMenuByLocation` dan `fetchMenuByIdentifier` di `useMenu.ts`.
+- [x] Tambahkan composable bersama `useMegaMenu.ts` untuk resolusi layout, kolom, divider, dan badge.
+- [x] Tambahkan renderer Mega Menu cerdas pada `Header.vue` (tema `sarangenge`) untuk desktop dan drawer mobile.
 
-### Fase 5: Build, Sync, & Deploy
-- [ ] Build frontend `ja-core_engine` & sync aset ke backend.
-- [ ] Jalankan verification tests (`php artisan test`).
+### Fase 5: Build, Sync, & Deploy (In Progress)
+- [x] Build frontend `ja-core_engine` & sync aset ke backend.
+- [x] Jalankan verification tests (`php artisan test` - 4 passed, 27 assertions).
 - [ ] Commit Conventional Commits `feat(...)`.
 - [ ] Merge ke `smkn1cijulang-portal` dan deploy ke CT-104.
