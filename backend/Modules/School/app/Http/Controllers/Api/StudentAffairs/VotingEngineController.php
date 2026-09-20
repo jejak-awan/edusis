@@ -7,33 +7,26 @@ namespace Modules\School\Http\Controllers\Api\StudentAffairs;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Modules\School\Exceptions\SchoolModuleException;
 use Modules\School\Http\Controllers\Api\Common\BaseController;
+use Modules\School\Http\Requests\StudentAffairs\AddVotingCandidateRequest;
+use Modules\School\Http\Requests\StudentAffairs\GenerateVotingVotersRequest;
+use Modules\School\Http\Requests\StudentAffairs\StoreVotingEventRequest;
 use Modules\School\Models\Academic\AcademicYear;
-use Modules\School\Models\Academic\StudyGroup;
-use Modules\School\Models\HR\Staff;
-use Modules\School\Models\Institution\School;
-use Modules\School\Models\Student\Student;
-use Modules\School\Models\Voting\VoteBallot;
 use Modules\School\Models\Voting\VoteCandidate;
 use Modules\School\Models\Voting\VoteEvent;
 use Modules\School\Models\Voting\VoteVoter;
+use Modules\School\Services\StudentAffairs\VotingEngineService;
 
 class VotingEngineController extends BaseController
 {
-    private function resolveSchoolId(Request $request): int
-    {
-        $schoolId = $request->header('X-School-Id');
-        if ($schoolId && is_numeric($schoolId)) {
-            return (int) $schoolId;
-        }
-
-        $school = School::first();
-        return $school ? $school->id : 1;
-    }
+    public function __construct(
+        protected VotingEngineService $votingService
+    ) {}
 
     public function getEvents(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $query = VoteEvent::where('school_id', $schoolId)
             ->withCount(['candidates', 'voters', 'ballots']);
 
@@ -50,21 +43,10 @@ class VotingEngineController extends BaseController
         return $this->sendResponse($events, 'Voting events retrieved successfully');
     }
 
-    public function storeEvent(Request $request): JsonResponse
+    public function storeEvent(StoreVotingEventRequest $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
-
-        $validated = $request->validate([
-            'title' => 'required|string|max:150',
-            'type' => 'required|in:osis,mpk,ekskul,guru_favorit,polling,komite',
-            'description' => 'nullable|string',
-            'target_audience' => 'nullable|in:all_students,specific_classes,teachers_only,parents,all',
-            'voting_mode' => 'nullable|in:token_kiosk,online_login,hybrid',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after:start_date',
-            'status' => 'nullable|in:draft,active,closed',
-            'allow_abstain' => 'nullable|boolean',
-        ]);
+        $schoolId = $this->getSchoolId();
+        $validated = $request->validated();
 
         $activeYear = AcademicYear::where('school_id', $schoolId)->where('is_active', true)->first();
 
@@ -123,13 +105,29 @@ class VotingEngineController extends BaseController
         return $this->sendResponse(null, 'Voting event deleted successfully');
     }
 
-    public function addCandidate(Request $request, int $eventId): JsonResponse
+    public function addCandidate(AddVotingCandidateRequest $request, int $eventId): JsonResponse
     {
         $event = VoteEvent::findOrFail($eventId);
 
+        $candidate = VoteCandidate::create(array_merge($request->validated(), [
+            'event_id' => $event->id,
+            'vote_count' => 0,
+        ]));
+
+        return $this->sendResponse(
+            $candidate->load(['leader', 'vice', 'staff']),
+            'Candidate added successfully to voting event',
+            201
+        );
+    }
+
+    public function updateCandidate(Request $request, int $candidateId): JsonResponse
+    {
+        $candidate = VoteCandidate::findOrFail($candidateId);
+
         $validated = $request->validate([
-            'candidate_number' => 'required|integer|min:1',
-            'title' => 'required|string|max:150',
+            'candidate_number' => 'sometimes|integer|min:1',
+            'title' => 'sometimes|string|max:150',
             'leader_student_id' => 'nullable|exists:sch_std_students,id',
             'vice_student_id' => 'nullable|exists:sch_std_students,id',
             'staff_id' => 'nullable|exists:sch_hr_staff,id',
@@ -138,100 +136,36 @@ class VotingEngineController extends BaseController
             'photo_url' => 'nullable|string|max:255',
         ]);
 
-        $candidate = VoteCandidate::updateOrCreate(
-            [
-                'event_id' => $event->id,
-                'candidate_number' => $validated['candidate_number'],
-            ],
-            $validated
-        );
+        $candidate->update($validated);
 
-        return $this->sendResponse($candidate, 'Candidate registered successfully', 201);
+        return $this->sendResponse($candidate, 'Candidate updated successfully');
     }
 
-    public function generateVoters(Request $request, int $eventId): JsonResponse
+    public function deleteCandidate(int $candidateId): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
-        $event = VoteEvent::where('school_id', $schoolId)->findOrFail($eventId);
+        $candidate = VoteCandidate::findOrFail($candidateId);
+        $candidate->delete();
 
-        $validated = $request->validate([
-            'source' => 'required|in:all_students,study_group,staff,all_school',
-            'study_group_id' => 'required_if:source,study_group|nullable|exists:sch_acad_study_groups,id',
-        ]);
+        return $this->sendResponse(null, 'Candidate deleted successfully');
+    }
 
-        $source = $validated['source'];
-        $generatedCount = 0;
-        $createdVoters = [];
+    public function generateVoters(GenerateVotingVotersRequest $request, int $eventId): JsonResponse
+    {
+        $event = VoteEvent::findOrFail($eventId);
+        $validated = $request->validated();
+        $schoolId = $this->getSchoolId();
 
-        if (in_array($source, ['all_students', 'study_group', 'all_school'], true)) {
-            $studentQuery = Student::where('school_id', $schoolId)->whereIn('status', ['active', 'aktif']);
-            if ($source === 'study_group' && !empty($validated['study_group_id'])) {
-                $groupId = $validated['study_group_id'];
-                $studentQuery->whereHas('studyGroups', function ($q) use ($groupId) {
-                    $q->where('study_group_id', $groupId);
-                });
-            }
+        $result = $this->votingService->generateVotersDpt(
+            $event,
+            $validated['source'],
+            isset($validated['study_group_id']) ? (int) $validated['study_group_id'] : null,
+            $schoolId
+        );
 
-            $students = $studentQuery->get();
-            foreach ($students as $student) {
-                // Check if already registered in DPT
-                $existing = VoteVoter::where('event_id', $event->id)
-                    ->where('student_id', $student->id)
-                    ->first();
-
-                if (!$existing) {
-                    $token = VoteVoter::generateUniqueToken($event->id);
-                    $voter = VoteVoter::create([
-                        'event_id' => $event->id,
-                        'voter_type' => 'student',
-                        'student_id' => $student->id,
-                        'voter_name' => $student->full_name,
-                        'voter_identifier' => $student->nisn ?? $student->nis,
-                        'token' => $token,
-                        'has_voted' => false,
-                        'token_generated_at' => Carbon::now(),
-                    ]);
-                    $createdVoters[] = $voter;
-                    $generatedCount++;
-                }
-            }
-        }
-
-        if (in_array($source, ['staff', 'all_school'], true)) {
-            $staffMembers = Staff::where('school_id', $schoolId)->get();
-            foreach ($staffMembers as $staff) {
-                $existing = VoteVoter::where('event_id', $event->id)
-                    ->where('staff_id', $staff->id)
-                    ->first();
-
-                if (!$existing) {
-                    $token = VoteVoter::generateUniqueToken($event->id);
-                    $voter = VoteVoter::create([
-                        'event_id' => $event->id,
-                        'voter_type' => 'staff',
-                        'staff_id' => $staff->id,
-                        'voter_name' => $staff->full_name,
-                        'voter_identifier' => $staff->nip ?? $staff->nuptk ?? 'GTK-' . $staff->id,
-                        'token' => $token,
-                        'has_voted' => false,
-                        'token_generated_at' => Carbon::now(),
-                    ]);
-                    $createdVoters[] = $voter;
-                    $generatedCount++;
-                }
-            }
-        }
-
-        return $this->sendResponse([
-            'event_id' => $event->id,
-            'generated_count' => $generatedCount,
-            'total_dpt' => $event->voters()->count(),
-            'sample_tokens' => array_slice(array_map(fn($v) => [
-                'name' => $v->voter_name,
-                'token' => $v->token,
-                'identifier' => $v->voter_identifier,
-            ], $createdVoters), 0, 5),
-        ], "Berhasil men-generate {$generatedCount} pemilih DPT dengan token unik 8-karakter");
+        return $this->sendResponse(
+            $result,
+            "Berhasil men-generate {$result['generated_count']} pemilih DPT dengan token unik 8-karakter"
+        );
     }
 
     public function getVoters(Request $request, int $eventId): JsonResponse
@@ -239,36 +173,28 @@ class VotingEngineController extends BaseController
         $event = VoteEvent::findOrFail($eventId);
         $query = VoteVoter::where('event_id', $event->id);
 
-        if ($request->filled('has_voted')) {
+        if ($request->has('has_voted')) {
             $query->where('has_voted', filter_var($request->input('has_voted'), FILTER_VALIDATE_BOOLEAN));
         }
 
         if ($request->filled('search')) {
-            $s = $request->input('search');
-            $query->where(function ($q) use ($s) {
-                $q->where('voter_name', 'like', "%{$s}%")
-                    ->orWhere('token', 'like', "%{$s}%")
-                    ->orWhere('voter_identifier', 'like', "%{$s}%");
+            $search = (string) $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('voter_name', 'like', "%{$search}%")
+                    ->orWhere('voter_identifier', 'like', "%{$search}%")
+                    ->orWhere('token', 'like', "%{$search}%");
             });
         }
 
-        $voters = $query->orderBy('voter_name')->paginate($request->input('per_page', 50));
+        $perPage = min((int) ($request->input('per_page', 25)), 200);
+        $voters = $query->latest('id')->paginate($perPage);
 
-        return $this->sendResponse($voters, 'Voter registry (DPT) retrieved successfully');
+        return $this->sendResponse($voters, 'Voters list retrieved');
     }
 
     public function castVote(Request $request, int $eventId): JsonResponse
     {
         $event = VoteEvent::findOrFail($eventId);
-
-        if ($event->status !== 'active') {
-            return $this->sendError('Pemilihan sedang tidak aktif atau sudah ditutup.', [], 422);
-        }
-
-        $now = Carbon::now();
-        if ($now->lt($event->start_date) || $now->gt($event->end_date)) {
-            return $this->sendError('Pemilihan berada di luar jadwal yang ditentukan.', [], 422);
-        }
 
         $validated = $request->validate([
             'candidate_id' => 'required|exists:sch_vote_candidates,id',
@@ -277,66 +203,18 @@ class VotingEngineController extends BaseController
             'mode' => 'nullable|in:kiosk,online',
         ]);
 
-        $candidate = VoteCandidate::where('event_id', $event->id)
-            ->findOrFail($validated['candidate_id']);
+        try {
+            $result = $this->votingService->castBallot(
+                $event,
+                $validated,
+                $request->ip(),
+                (string) $request->userAgent()
+            );
 
-        $voter = null;
-        if (!empty($validated['token'])) {
-            $tokenInput = strtoupper(trim($validated['token']));
-            $voter = VoteVoter::where('event_id', $event->id)
-                ->where('token', $tokenInput)
-                ->first();
-
-            if (!$voter) {
-                return $this->sendError('Token bilik suara tidak valid atau tidak terdaftar.', [], 422);
-            }
-        } elseif (!empty($validated['student_id'])) {
-            $voter = VoteVoter::where('event_id', $event->id)
-                ->where('student_id', $validated['student_id'])
-                ->first();
-
-            if (!$voter) {
-                return $this->sendError('Siswa tidak terdaftar dalam DPT pemilihan ini.', [], 422);
-            }
+            return $this->sendResponse($result, 'Suara berhasil dicoblos dan tercatat di kotak suara digital.');
+        } catch (SchoolModuleException $e) {
+            return $this->sendError($e->getMessage(), [], $e->getCode() ?: 422);
         }
-
-        if (!$voter) {
-            return $this->sendError('Identitas pemilih tidak ditemukan.', [], 422);
-        }
-
-        if ($voter->has_voted) {
-            return $this->sendError('Hak suara telah digunakan. Setiap pemilih hanya berhak mencoblos 1 kali.', [], 422);
-        }
-
-        // Tandai pemilih telah menggunakan hak suaranya
-        $voter->update([
-            'has_voted' => true,
-            'voted_at' => $now,
-        ]);
-
-        // Simpan suara ke dalam kotak suara terpisah (Secret Ballot)
-        $tokenRaw = $voter->token;
-        $tokenHash = hash('sha256', $tokenRaw . $event->id . $now->timestamp);
-
-        $ballot = VoteBallot::create([
-            'event_id' => $event->id,
-            'candidate_id' => $candidate->id,
-            'vote_mode' => $validated['mode'] ?? 'kiosk',
-            'token_hash' => $tokenHash,
-            'ip_address' => $request->ip(),
-            'device_info' => substr((string) $request->userAgent(), 0, 255),
-            'voted_at' => $now,
-        ]);
-
-        // Increment hitungan suara kandidat
-        $candidate->increment('vote_count');
-
-        return $this->sendResponse([
-            'voted' => true,
-            'receipt_code' => strtoupper(substr($tokenHash, 0, 10)),
-            'candidate_name' => $candidate->title,
-            'voted_at' => $now->toIso8601String(),
-        ], 'Suara berhasil dicoblos dan tercatat di kotak suara digital.');
     }
 
     public function quickCount(int $eventId): JsonResponse
@@ -347,37 +225,8 @@ class VotingEngineController extends BaseController
             'candidates.staff',
         ])->findOrFail($eventId);
 
-        $totalBallots = VoteBallot::where('event_id', $event->id)->count();
-        $totalDpt = VoteVoter::where('event_id', $event->id)->count();
-        $votedDpt = VoteVoter::where('event_id', $event->id)->where('has_voted', true)->count();
-        $turnout = $totalDpt > 0 ? round(($votedDpt / $totalDpt) * 100, 2) : 0;
+        $result = $this->votingService->calculateQuickCount($event);
 
-        $results = $event->candidates->map(function ($c) use ($totalBallots) {
-            $pct = $totalBallots > 0 ? round(($c->vote_count / $totalBallots) * 100, 2) : 0;
-            return [
-                'id' => $c->id,
-                'candidate_number' => $c->candidate_number,
-                'title' => $c->title,
-                'leader_name' => $c->leader?->full_name ?? ($c->staff?->full_name ?? '-'),
-                'vice_name' => $c->vice?->full_name ?? '-',
-                'vision' => $c->vision,
-                'mission' => $c->mission,
-                'photo_url' => $c->photo_url,
-                'vote_count' => $c->vote_count,
-                'percentage' => $pct,
-            ];
-        });
-
-        return $this->sendResponse([
-            'event_id' => $event->id,
-            'event_title' => $event->title,
-            'event_type' => $event->type,
-            'status' => $event->status,
-            'total_ballots' => $totalBallots,
-            'total_dpt' => $totalDpt,
-            'voted_dpt' => $votedDpt,
-            'turnout_percentage' => $turnout,
-            'candidates' => $results,
-        ], 'Quick count aggregated successfully');
+        return $this->sendResponse($result, 'Quick count aggregated successfully');
     }
 }

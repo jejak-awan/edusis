@@ -7,28 +7,17 @@ namespace Modules\School\Http\Controllers\Api\Academic;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\School\Http\Controllers\Api\Common\BaseController;
+use Modules\School\Http\Requests\Academic\StoreAssessmentRequest;
+use Modules\School\Http\Requests\Academic\StoreBulkGradesRequest;
 use Modules\School\Models\Academic\AcademicYear;
 use Modules\School\Models\Academic\Assessment;
 use Modules\School\Models\Academic\Grade;
-use Modules\School\Models\Academic\StudyGroup;
-use Modules\School\Models\Institution\School;
 
 class AssessmentController extends BaseController
 {
-    private function resolveSchoolId(Request $request): int
-    {
-        $schoolId = $request->header('X-School-Id');
-        if ($schoolId && is_numeric($schoolId)) {
-            return (int) $schoolId;
-        }
-
-        $school = School::first();
-        return $school ? $school->id : 1;
-    }
-
     public function index(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $query = Assessment::where('school_id', $schoolId)
             ->with(['studyGroup', 'subject', 'teacher', 'learningObjective']);
 
@@ -50,22 +39,9 @@ class AssessmentController extends BaseController
         return $this->sendResponse($assessments, 'Assessments retrieved successfully');
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreAssessmentRequest $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
-
-        $validated = $request->validate([
-            'study_group_id' => 'required|exists:sch_acad_study_groups,id',
-            'subject_id' => 'required|exists:sch_acad_subjects,id',
-            'teacher_id' => 'required|exists:sch_hr_staff,id',
-            'learning_objective_id' => 'nullable|exists:sch_acad_learning_objectives,id',
-            'title' => 'required|string|max:150',
-            'type' => 'required|in:formative,summative_material,summative_final',
-            'weight' => 'integer|min:1|max:10',
-            'max_score' => 'integer|min:10|max:100',
-            'date' => 'required|date',
-            'description' => 'nullable|string',
-        ]);
+        $schoolId = $this->getSchoolId();
 
         $activeYear = AcademicYear::where('school_id', $schoolId)
             ->where('is_active', true)
@@ -75,7 +51,7 @@ class AssessmentController extends BaseController
         $academicYearId = $activeYear ? $activeYear->id : 1;
         $semesterId = $activeYear && $activeYear->activeSemester ? $activeYear->activeSemester->id : 1;
 
-        $assessment = Assessment::create(array_merge($validated, [
+        $assessment = Assessment::create(array_merge($request->validated(), [
             'school_id' => $schoolId,
             'academic_year_id' => $academicYearId,
             'semester_id' => $semesterId,
@@ -123,19 +99,11 @@ class AssessmentController extends BaseController
         return $this->sendResponse($result, 'Assessment grades retrieved');
     }
 
-    public function storeBulkGrades(Request $request, int $id): JsonResponse
+    public function storeBulkGrades(StoreBulkGradesRequest $request, int $id): JsonResponse
     {
         $assessment = Assessment::findOrFail($id);
 
-        $validated = $request->validate([
-            'grades' => 'required|array|min:1',
-            'grades.*.student_id' => 'required|exists:sch_std_students,id',
-            'grades.*.score' => 'required|numeric|min:0|max:100',
-            'grades.*.remedial_score' => 'nullable|numeric|min:0|max:100',
-            'grades.*.notes' => 'nullable|string|max:500',
-        ]);
-
-        foreach ($validated['grades'] as $item) {
+        foreach ($request->validated()['grades'] as $item) {
             Grade::updateOrCreate(
                 [
                     'assessment_id' => $assessment->id,

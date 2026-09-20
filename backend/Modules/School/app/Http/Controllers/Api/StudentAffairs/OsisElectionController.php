@@ -8,27 +8,15 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\School\Http\Controllers\Api\Common\BaseController;
 use Modules\School\Models\Academic\AcademicYear;
-use Modules\School\Models\Institution\School;
 use Modules\School\Models\StudentAffairs\OsisCandidate;
 use Modules\School\Models\StudentAffairs\OsisElection;
 use Modules\School\Models\StudentAffairs\OsisVote;
 
 class OsisElectionController extends BaseController
 {
-    private function resolveSchoolId(Request $request): int
-    {
-        $schoolId = $request->header('X-School-Id');
-        if ($schoolId && is_numeric($schoolId)) {
-            return (int) $schoolId;
-        }
-
-        $school = School::first();
-        return $school ? $school->id : 1;
-    }
-
     public function index(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $query = OsisElection::where('school_id', $schoolId)
             ->with(['candidates.chairman', 'candidates.viceChairman', 'academicYear']);
 
@@ -43,7 +31,7 @@ class OsisElectionController extends BaseController
 
     public function store(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
 
         $validated = $request->validate([
             'title' => 'required|string|max:150',
@@ -125,7 +113,6 @@ class OsisElectionController extends BaseController
             'token' => 'nullable|string',
         ]);
 
-        // Verifikasi apakah siswa sudah mencoblos
         $existingVote = OsisVote::where('election_id', $electionId)
             ->where('voter_student_id', $validated['voter_student_id'])
             ->first();
@@ -134,7 +121,7 @@ class OsisElectionController extends BaseController
             return $this->sendError('Siswa telah menggunakan hak suara pada pemilihan ini.', [], 422);
         }
 
-        $tokenHash = !empty($validated['token']) ? hash('sha256', $validated['token']) : hash('sha256', (string) microtime());
+        $tokenHash = !empty($validated['token']) ? hash('sha256', (string) $validated['token']) : hash('sha256', (string) microtime());
 
         $vote = OsisVote::create([
             'election_id' => $electionId,
@@ -145,7 +132,6 @@ class OsisElectionController extends BaseController
             'voted_at' => now(),
         ]);
 
-        // Increment hitungan suara kandidat
         $candidate = OsisCandidate::findOrFail($validated['candidate_id']);
         $candidate->increment('vote_count');
 

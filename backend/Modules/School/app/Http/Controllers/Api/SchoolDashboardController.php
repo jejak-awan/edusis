@@ -19,14 +19,7 @@ class SchoolDashboardController extends BaseController
 {
     public function getOverview(Request $request): JsonResponse
     {
-        $schoolId = $request->header('X-School-Id');
-        if (!$schoolId || !is_numeric($schoolId)) {
-            $school = School::first();
-            $schoolId = $school ? $school->id : 1;
-        } else {
-            $schoolId = (int) $schoolId;
-        }
-
+        $schoolId = $this->getSchoolId();
         $school = School::find($schoolId);
 
         $activeYear = AcademicYear::where('school_id', $schoolId)

@@ -11,24 +11,17 @@ use Modules\School\Http\Controllers\Api\Common\BaseController;
 use Modules\School\Models\Academic\Attendance;
 use Modules\School\Models\Communication\WhatsAppLog;
 use Modules\School\Models\Institution\School;
-use Modules\School\Models\Student\Student;
+use Modules\School\Services\Integration\WhatsAppGatewayService;
 
 class WhatsAppController extends BaseController
 {
-    private function resolveSchoolId(Request $request): int
-    {
-        $schoolId = $request->header('X-School-Id');
-        if ($schoolId && is_numeric($schoolId)) {
-            return (int) $schoolId;
-        }
-
-        $school = School::first();
-        return $school ? $school->id : 1;
-    }
+    public function __construct(
+        protected WhatsAppGatewayService $waService
+    ) {}
 
     public function getLogs(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $query = WhatsAppLog::where('school_id', $schoolId)
             ->with('student:id,full_name,nisn');
 
@@ -60,7 +53,7 @@ class WhatsAppController extends BaseController
 
     public function getStats(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $base = WhatsAppLog::where('school_id', $schoolId);
 
         $stats = [
@@ -78,7 +71,7 @@ class WhatsAppController extends BaseController
 
     public function sendMessage(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
 
         $validated = $request->validate([
             'recipient_phone' => 'required|string|max:30',
@@ -88,11 +81,7 @@ class WhatsAppController extends BaseController
             'student_id' => 'nullable|exists:sch_std_students,id',
         ]);
 
-        // Normalize phone number (convert 08xx to 628xx)
-        $phone = preg_replace('/[^0-9]/', '', $validated['recipient_phone']);
-        if (str_starts_with($phone, '0')) {
-            $phone = '62' . substr($phone, 1);
-        }
+        $phone = $this->waService->normalizePhoneNumber($validated['recipient_phone']);
 
         $log = WhatsAppLog::create([
             'school_id' => $schoolId,
@@ -111,23 +100,14 @@ class WhatsAppController extends BaseController
 
     public function sendAttendanceAlerts(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $date = $request->input('date', Carbon::today()->toDateString());
         $inputStatuses = (array) $request->input('statuses', ['A', 'alpa']);
 
         $statusMap = [
-            'alpa' => 'A',
-            'sakit' => 'S',
-            'izin' => 'I',
-            'hadir' => 'H',
-            'a' => 'A',
-            's' => 'S',
-            'i' => 'I',
-            'h' => 'H',
-            'A' => 'A',
-            'S' => 'S',
-            'I' => 'I',
-            'H' => 'H',
+            'alpa' => 'A', 'sakit' => 'S', 'izin' => 'I', 'hadir' => 'H',
+            'a' => 'A', 's' => 'S', 'i' => 'I', 'h' => 'H',
+            'A' => 'A', 'S' => 'S', 'I' => 'I', 'H' => 'H',
         ];
 
         $statuses = array_values(array_unique(array_filter(array_map(
@@ -139,7 +119,6 @@ class WhatsAppController extends BaseController
             $statuses = ['A'];
         }
 
-        // Find attendance records matching the criteria
         $attendances = Attendance::where('date', $date)
             ->whereIn('status', $statuses)
             ->with(['student.parent', 'studyGroup'])
@@ -150,7 +129,7 @@ class WhatsAppController extends BaseController
         $createdLogs = [];
 
         $school = School::find($schoolId);
-        $schoolName = $school?->name ?? 'SMKN 1 EduSIS';
+        $schoolName = $school?->name ?? 'EduSIS';
 
         $statusLabels = [
             'A' => 'ALPA (Tanpa Keterangan)',
@@ -165,7 +144,6 @@ class WhatsAppController extends BaseController
                 continue;
             }
 
-            // Determine recipient phone & name from parent data
             $parent = $student->parent;
             $recipientPhone = $parent?->mother_phone
                 ?: $parent?->father_phone
@@ -183,13 +161,8 @@ class WhatsAppController extends BaseController
                 continue;
             }
 
-            // Normalize phone
-            $phone = preg_replace('/[^0-9]/', '', $recipientPhone);
-            if (str_starts_with($phone, '0')) {
-                $phone = '62' . substr($phone, 1);
-            }
+            $phone = $this->waService->normalizePhoneNumber($recipientPhone);
 
-            // Check if alert already sent today for this student & date
             $alreadySent = WhatsAppLog::where('school_id', $schoolId)
                 ->where('student_id', $student->id)
                 ->where('message_type', 'attendance_alert')
@@ -207,7 +180,7 @@ class WhatsAppController extends BaseController
 
             $message = "Yth. Bapak/Ibu Wali dari {$student->full_name} ({$studyGroupName}),\n\n"
                 . "Kami menginformasikan bahwa siswa tercatat {$statusLabel} pada absensi sekolah tanggal {$formattedDate}.\n\n"
-                . "Mohon konfirmasi atau hubungi wali kelas jika terdapat kekeliruan.\n\n"
+                . "Mohon konfirmasi atau hubungi pihak sekolah jika terdapat kekeliruan.\n\n"
                 . "Salam hangat,\n{$schoolName}";
 
             $log = WhatsAppLog::create([
@@ -236,7 +209,7 @@ class WhatsAppController extends BaseController
 
     public function resendLog(Request $request, int $id): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $log = WhatsAppLog::where('school_id', $schoolId)->findOrFail($id);
 
         $log->update([

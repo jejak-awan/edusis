@@ -6,28 +6,20 @@ namespace Modules\School\Http\Controllers\Api\Academic;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Modules\School\Http\Controllers\Api\Common\BaseController;
-use Modules\School\Models\Academic\AcademicYear;
+use Modules\School\Http\Requests\Academic\SaveBulkAttendanceRequest;
+use Modules\School\Http\Requests\HR\StaffCheckInRequest;
 use Modules\School\Models\Academic\Attendance;
 use Modules\School\Models\Academic\StudyGroup;
 use Modules\School\Models\HR\Staff;
 use Modules\School\Models\HR\StaffAttendance;
-use Modules\School\Models\HR\StaffShift;
-use Modules\School\Models\Institution\School;
+use Modules\School\Services\Attendance\AttendanceService;
 
 class AttendanceController extends BaseController
 {
-    private function resolveSchoolId(Request $request): int
-    {
-        $schoolId = $request->header('X-School-Id');
-        if ($schoolId && is_numeric($schoolId)) {
-            return (int) $schoolId;
-        }
-
-        $school = School::first();
-        return $school ? $school->id : 1;
-    }
+    public function __construct(
+        protected AttendanceService $attendanceService
+    ) {}
 
     // --- Student Attendance ---
 
@@ -53,7 +45,7 @@ class AttendanceController extends BaseController
                 'nisn' => $student->nisn,
                 'full_name' => $student->full_name,
                 'gender' => $student->gender,
-                'status' => $att ? $att->status : 'H', // Default to Hadir
+                'status' => $att ? $att->status : 'H',
                 'notes' => $att ? $att->notes : null,
                 'attachment_path' => $att ? $att->attachment_path : null,
             ];
@@ -66,55 +58,17 @@ class AttendanceController extends BaseController
         ], 'Student attendance list retrieved');
     }
 
-    public function saveBulkStudentAttendance(Request $request): JsonResponse
+    public function saveBulkStudentAttendance(SaveBulkAttendanceRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'study_group_id' => 'required|exists:sch_acad_study_groups,id',
-            'date' => 'required|date',
-            'records' => 'required|array|min:1',
-            'records.*.student_id' => 'required|exists:sch_std_students,id',
-            'records.*.status' => 'required|in:H,I,S,A',
-            'records.*.notes' => 'nullable|string',
-        ]);
+        $validated = $request->validated();
+        $recorderId = $request->user()?->id;
 
-        $group = StudyGroup::findOrFail($validated['study_group_id']);
-        $date = $validated['date'];
-        $user = $request->user();
-        $recorderId = $user ? $user->id : null;
-
-        $activeYear = AcademicYear::where('school_id', $group->school_id)
-            ->where('is_active', true)
-            ->with('activeSemester')
-            ->first();
-
-        $academicYearId = $activeYear ? $activeYear->id : $group->academic_year_id;
-        $semesterId = $activeYear && $activeYear->activeSemester ? $activeYear->activeSemester->id : null;
-
-        DB::transaction(function () use ($validated, $group, $date, $recorderId, $academicYearId, $semesterId) {
-            foreach ($validated['records'] as $record) {
-                $att = Attendance::where('student_id', $record['student_id'])
-                    ->whereDate('date', $date)
-                    ->first();
-
-                $payload = [
-                    'study_group_id' => $group->id,
-                    'academic_year_id' => $academicYearId,
-                    'semester_id' => $semesterId,
-                    'status' => $record['status'],
-                    'notes' => $record['notes'] ?? null,
-                    'recorded_by' => $recorderId,
-                ];
-
-                if ($att) {
-                    $att->update($payload);
-                } else {
-                    Attendance::create(array_merge($payload, [
-                        'student_id' => $record['student_id'],
-                        'date' => $date,
-                    ]));
-                }
-            }
-        });
+        $this->attendanceService->saveBulkStudentAttendance(
+            (int) $validated['study_group_id'],
+            $validated['date'],
+            $validated['records'],
+            $recorderId
+        );
 
         return $this->sendResponse(null, 'Student attendances saved successfully');
     }
@@ -123,7 +77,7 @@ class AttendanceController extends BaseController
 
     public function getStaffAttendance(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $date = $request->input('date', now()->toDateString());
 
         $staffList = Staff::where('school_id', $schoolId)
@@ -154,52 +108,16 @@ class AttendanceController extends BaseController
         ], 'Staff attendance list retrieved');
     }
 
-    public function recordStaffCheckIn(Request $request): JsonResponse
+    public function recordStaffCheckIn(StaffCheckInRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'staff_id' => 'required|exists:sch_hr_staff,id',
-            'latitude' => 'nullable|numeric',
-            'longitude' => 'nullable|numeric',
-            'device_info' => 'nullable|string',
-            'notes' => 'nullable|string',
-        ]);
+        $validated = $request->validated();
 
-        $date = now()->toDateString();
-        $nowTime = now()->format('H:i:s');
-
-        // Check active shift
-        $staff = Staff::findOrFail($validated['staff_id']);
-        $shift = StaffShift::where('school_id', $staff->school_id)->where('is_active', true)->first();
-
-        $status = 'hadir';
-        $lateMinutes = 0;
-
-        if ($shift) {
-            $shiftStartTime = strtotime($shift->start_time);
-            $checkInTime = strtotime($nowTime);
-            $graceEndTime = $shiftStartTime + ($shift->grace_period_minutes * 60);
-
-            if ($checkInTime > $graceEndTime) {
-                $status = 'terlambat';
-                $lateMinutes = (int) round(($checkInTime - $shiftStartTime) / 60);
-            }
-        }
-
-        $att = StaffAttendance::updateOrCreate(
-            [
-                'staff_id' => $staff->id,
-                'date' => $date,
-            ],
-            [
-                'shift_id' => $shift ? $shift->id : null,
-                'check_in' => $nowTime,
-                'status' => $status,
-                'late_minutes' => $lateMinutes,
-                'latitude' => $validated['latitude'] ?? null,
-                'longitude' => $validated['longitude'] ?? null,
-                'device_info' => $validated['device_info'] ?? null,
-                'notes' => $validated['notes'] ?? null,
-            ]
+        $att = $this->attendanceService->recordStaffCheckIn(
+            (int) $validated['staff_id'],
+            isset($validated['latitude']) ? (float) $validated['latitude'] : null,
+            isset($validated['longitude']) ? (float) $validated['longitude'] : null,
+            $validated['device_info'] ?? null,
+            $validated['notes'] ?? null
         );
 
         return $this->sendResponse($att, 'Check-in recorded successfully');

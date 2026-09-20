@@ -7,26 +7,19 @@ namespace Modules\School\Http\Controllers\Api\Academic;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\School\Http\Controllers\Api\Common\BaseController;
-use Modules\School\Models\Academic\AcademicYear;
+use Modules\School\Http\Requests\Academic\StoreTeachingJournalRequest;
 use Modules\School\Models\Academic\TeachingJournal;
-use Modules\School\Models\Institution\School;
+use Modules\School\Services\Academic\AcademicService;
 
 class TeachingJournalController extends BaseController
 {
-    private function resolveSchoolId(Request $request): int
-    {
-        $schoolId = $request->header('X-School-Id');
-        if ($schoolId && is_numeric($schoolId)) {
-            return (int) $schoolId;
-        }
-
-        $school = School::first();
-        return $school ? $school->id : 1;
-    }
+    public function __construct(
+        protected AcademicService $academicService
+    ) {}
 
     public function index(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $query = TeachingJournal::where('school_id', $schoolId)
             ->with(['studyGroup', 'subject', 'teacher']);
 
@@ -52,41 +45,10 @@ class TeachingJournalController extends BaseController
         return $this->sendResponse($journals, 'Teaching journals retrieved');
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreTeachingJournalRequest $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
-
-        $validated = $request->validate([
-            'study_group_id' => 'required|exists:sch_acad_study_groups,id',
-            'subject_id' => 'required|exists:sch_acad_subjects,id',
-            'teacher_id' => 'required|exists:sch_hr_staff,id',
-            'schedule_id' => 'nullable|exists:sch_acad_schedules,id',
-            'date' => 'required|date',
-            'teaching_hour' => 'required|string|max:30',
-            'topic' => 'required|string|max:200',
-            'competency_description' => 'nullable|string',
-            'learning_activity' => 'nullable|string',
-            'present_count' => 'integer|min:0',
-            'sick_count' => 'integer|min:0',
-            'permit_count' => 'integer|min:0',
-            'absent_count' => 'integer|min:0',
-            'notes_reflection' => 'nullable|string',
-            'evidence_photo_path' => 'nullable|string',
-        ]);
-
-        $activeYear = AcademicYear::where('school_id', $schoolId)
-            ->where('is_active', true)
-            ->with('activeSemester')
-            ->first();
-
-        $academicYearId = $activeYear ? $activeYear->id : 1;
-        $semesterId = $activeYear && $activeYear->activeSemester ? $activeYear->activeSemester->id : 1;
-
-        $journal = TeachingJournal::create(array_merge($validated, [
-            'school_id' => $schoolId,
-            'academic_year_id' => $academicYearId,
-            'semester_id' => $semesterId,
-        ]));
+        $schoolId = $this->getSchoolId();
+        $journal = $this->academicService->recordTeachingJournal($request->validated(), $schoolId);
 
         return $this->sendResponse(
             $journal->load(['studyGroup', 'subject', 'teacher']),

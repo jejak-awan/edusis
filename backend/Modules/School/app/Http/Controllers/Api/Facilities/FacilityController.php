@@ -7,28 +7,24 @@ namespace Modules\School\Http\Controllers\Api\Facilities;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\School\Http\Controllers\Api\Common\BaseController;
+use Modules\School\Http\Requests\Facilities\StoreAssetRequest;
+use Modules\School\Http\Requests\Facilities\StoreMaintenanceTicketRequest;
+use Modules\School\Http\Requests\Facilities\StoreRoomRequest;
 use Modules\School\Models\Facilities\Asset;
 use Modules\School\Models\Facilities\MaintenanceTicket;
 use Modules\School\Models\Facilities\Room;
-use Modules\School\Models\Institution\School;
+use Modules\School\Services\Facilities\FacilityService;
 
 class FacilityController extends BaseController
 {
-    private function resolveSchoolId(Request $request): int
-    {
-        $schoolId = $request->header('X-School-Id');
-        if ($schoolId && is_numeric($schoolId)) {
-            return (int) $schoolId;
-        }
-
-        $school = School::first();
-        return $school ? $school->id : 1;
-    }
+    public function __construct(
+        protected FacilityService $facilityService
+    ) {}
 
     // --- Rooms ---
     public function getRooms(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $query = Room::where('school_id', $schoolId)->withCount('assets');
 
         if ($request->filled('type')) {
@@ -44,25 +40,10 @@ class FacilityController extends BaseController
         return $this->sendResponse($rooms, 'Rooms retrieved successfully');
     }
 
-    public function storeRoom(Request $request): JsonResponse
+    public function storeRoom(StoreRoomRequest $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
-
-        $validated = $request->validate([
-            'code' => 'required|string|max:30',
-            'name' => 'required|string|max:100',
-            'type' => 'required|in:classroom,laboratory,workshop,library,hall,office,other',
-            'capacity' => 'nullable|integer|min:1',
-            'floor' => 'nullable|integer|min:1',
-            'condition' => 'required|in:baik,rusak_ringan,rusak_berat',
-            'description' => 'nullable|string',
-        ]);
-
-        $room = Room::create(array_merge($validated, [
-            'school_id' => $schoolId,
-            'capacity' => $validated['capacity'] ?? 36,
-            'floor' => $validated['floor'] ?? 1,
-        ]));
+        $schoolId = $this->getSchoolId();
+        $room = $this->facilityService->createRoom($request->validated(), $schoolId);
 
         return $this->sendResponse($room, 'Room created successfully', 201);
     }
@@ -103,7 +84,7 @@ class FacilityController extends BaseController
     // --- Assets ---
     public function getAssets(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $query = Asset::where('school_id', $schoolId)->with('room');
 
         if ($request->filled('category')) {
@@ -133,26 +114,10 @@ class FacilityController extends BaseController
         return $this->sendResponse($assets, 'Assets retrieved successfully');
     }
 
-    public function storeAsset(Request $request): JsonResponse
+    public function storeAsset(StoreAssetRequest $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
-
-        $validated = $request->validate([
-            'room_id' => 'nullable|exists:sch_fac_rooms,id',
-            'code' => 'required|string|max:50',
-            'name' => 'required|string|max:150',
-            'category' => 'required|in:elektronik,mebeler,alat_praktik,kendaraan,buku,lainnya',
-            'brand_model' => 'nullable|string|max:100',
-            'acquisition_year' => 'nullable|integer|min:1990|max:2099',
-            'quantity' => 'required|integer|min:1',
-            'condition' => 'required|in:baik,rusak_ringan,rusak_berat',
-            'source_of_fund' => 'nullable|string|max:50',
-            'notes' => 'nullable|string',
-        ]);
-
-        $asset = Asset::create(array_merge($validated, [
-            'school_id' => $schoolId,
-        ]));
+        $schoolId = $this->getSchoolId();
+        $asset = $this->facilityService->createAsset($request->validated(), $schoolId);
 
         return $this->sendResponse($asset, 'Asset registered successfully', 201);
     }
@@ -196,7 +161,7 @@ class FacilityController extends BaseController
     // --- Maintenance Tickets ---
     public function getTickets(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $query = MaintenanceTicket::where('school_id', $schoolId)
             ->with(['room', 'asset', 'reporter']);
 
@@ -214,29 +179,10 @@ class FacilityController extends BaseController
         return $this->sendResponse($tickets, 'Maintenance tickets retrieved successfully');
     }
 
-    public function storeTicket(Request $request): JsonResponse
+    public function storeTicket(StoreMaintenanceTicketRequest $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
-
-        $validated = $request->validate([
-            'room_id' => 'required|exists:sch_fac_rooms,id',
-            'asset_id' => 'nullable|exists:sch_fac_assets,id',
-            'reporter_staff_id' => 'required|exists:sch_hr_staff,id',
-            'issue_description' => 'required|string|max:2000',
-            'priority' => 'required|in:rendah,sedang,tinggi,darurat',
-            'cost' => 'nullable|numeric|min:0',
-        ]);
-
-        $year = (int) date('Y');
-        $count = MaintenanceTicket::where('school_id', $schoolId)->whereYear('created_at', $year)->count();
-        $ticketNumber = sprintf('TKT/%d/%04d', $year, $count + 1);
-
-        $ticket = MaintenanceTicket::create(array_merge($validated, [
-            'school_id' => $schoolId,
-            'ticket_number' => $ticketNumber,
-            'status' => 'open',
-            'cost' => $validated['cost'] ?? 0,
-        ]));
+        $schoolId = $this->getSchoolId();
+        $ticket = $this->facilityService->reportMaintenanceTicket($request->validated(), $schoolId);
 
         return $this->sendResponse($ticket, 'Maintenance ticket reported successfully', 201);
     }
@@ -257,23 +203,9 @@ class FacilityController extends BaseController
             'cost' => 'nullable|numeric|min:0',
         ]);
 
-        $status = $validated['status'] ?? 'resolved';
-        $updateData = [
-            'status' => $status,
-            'resolution_notes' => $validated['resolution_notes'],
-        ];
+        $resolved = $this->facilityService->resolveMaintenanceTicket($ticket, $validated);
 
-        if (isset($validated['cost'])) {
-            $updateData['cost'] = $validated['cost'];
-        }
-
-        if ($status === 'resolved') {
-            $updateData['resolved_at'] = now();
-        }
-
-        $ticket->update($updateData);
-
-        return $this->sendResponse($ticket, 'Maintenance ticket updated');
+        return $this->sendResponse($resolved, 'Maintenance ticket updated');
     }
 
     public function deleteTicket(int $id): JsonResponse

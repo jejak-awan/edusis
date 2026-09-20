@@ -10,24 +10,12 @@ use Modules\School\Http\Controllers\Api\Common\BaseController;
 use Modules\School\Models\Academic\AcademicYear;
 use Modules\School\Models\Academic\P5Assessment;
 use Modules\School\Models\Academic\P5Project;
-use Modules\School\Models\Institution\School;
 
 class P5ProjectController extends BaseController
 {
-    private function resolveSchoolId(Request $request): int
-    {
-        $schoolId = $request->header('X-School-Id');
-        if ($schoolId && is_numeric($schoolId)) {
-            return (int) $schoolId;
-        }
-
-        $school = School::first();
-        return $school ? $school->id : 1;
-    }
-
     public function index(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $query = P5Project::where('school_id', $schoolId)
             ->with(['coordinator', 'academicYear'])
             ->withCount('assessments');
@@ -47,7 +35,7 @@ class P5ProjectController extends BaseController
 
     public function store(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
 
         $validated = $request->validate([
             'coordinator_id' => 'nullable|exists:sch_hr_staff,id',

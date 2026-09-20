@@ -7,25 +7,13 @@ namespace Modules\School\Http\Controllers\Api\StudentAffairs;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\School\Http\Controllers\Api\Common\BaseController;
-use Modules\School\Models\Institution\School;
 use Modules\School\Models\StudentAffairs\Extracurricular;
 
 class ExtracurricularController extends BaseController
 {
-    private function resolveSchoolId(Request $request): int
-    {
-        $schoolId = $request->header('X-School-Id');
-        if ($schoolId && is_numeric($schoolId)) {
-            return (int) $schoolId;
-        }
-
-        $school = School::first();
-        return $school ? $school->id : 1;
-    }
-
     public function index(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $query = Extracurricular::where('school_id', $schoolId)->with('advisor');
 
         if ($request->filled('category')) {
@@ -43,7 +31,7 @@ class ExtracurricularController extends BaseController
 
     public function store(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
 
         $validated = $request->validate([
             'name' => 'required|string|max:100',

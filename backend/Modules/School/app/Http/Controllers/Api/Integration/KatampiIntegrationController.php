@@ -11,7 +11,6 @@ use Modules\School\Http\Controllers\Api\Common\BaseController;
 use Modules\School\Models\Academic\Assessment;
 use Modules\School\Models\Academic\Grade;
 use Modules\School\Models\Academic\StudyGroup;
-use Modules\School\Models\Facilities\Room;
 use Modules\School\Models\HR\Staff;
 use Modules\School\Models\Institution\School;
 use Modules\School\Models\Integration\KatampiConfig;
@@ -19,20 +18,9 @@ use Modules\School\Models\Student\Student;
 
 class KatampiIntegrationController extends BaseController
 {
-    private function resolveSchoolId(Request $request): int
-    {
-        $schoolId = $request->header('X-School-Id');
-        if ($schoolId && is_numeric($schoolId)) {
-            return (int) $schoolId;
-        }
-
-        $school = School::first();
-        return $school ? $school->id : 1;
-    }
-
     public function getConfig(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $config = KatampiConfig::firstOrCreate(
             ['school_id' => $schoolId],
             [
@@ -48,7 +36,7 @@ class KatampiIntegrationController extends BaseController
 
     public function updateConfig(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
 
         $validated = $request->validate([
             'cbt_url' => 'required|url|max:255',
@@ -70,7 +58,7 @@ class KatampiIntegrationController extends BaseController
 
     public function generateSsoToken(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $config = KatampiConfig::where('school_id', $schoolId)->first();
         $school = School::find($schoolId);
 
@@ -96,12 +84,12 @@ class KatampiIntegrationController extends BaseController
             'school_id' => $schoolId,
             'school_name' => $school?->name ?? 'EduSIS School',
             'iat' => time(),
-            'exp' => time() + 3600, // 1 hour token
+            'exp' => time() + 3600,
         ];
 
         $jsonPayload = json_encode($payload, JSON_UNESCAPED_SLASHES);
-        $signature = hash_hmac('sha256', $jsonPayload, $apiKey);
-        $token = base64_encode($jsonPayload) . '.' . $signature;
+        $signature = hash_hmac('sha256', (string) $jsonPayload, (string) $apiKey);
+        $token = base64_encode((string) $jsonPayload) . '.' . $signature;
 
         $cbtBaseUrl = rtrim($config?->cbt_url ?? 'http://ja-katampi:8787', '/');
         $redirectUrl = "{$cbtBaseUrl}/sso?token={$token}";
@@ -116,7 +104,7 @@ class KatampiIntegrationController extends BaseController
 
     public function getRoster(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
 
         $query = Student::where('school_id', $schoolId)
             ->where('status', 'aktif')
@@ -157,7 +145,7 @@ class KatampiIntegrationController extends BaseController
 
     public function syncGrades(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
 
         $validated = $request->validate([
             'assessment_id' => 'nullable|exists:sch_acad_assessments,id',
@@ -165,7 +153,7 @@ class KatampiIntegrationController extends BaseController
             'subject_id' => 'required_without:assessment_id|nullable|exists:sch_acad_subjects,id',
             'study_group_id' => 'required_without:assessment_id|nullable|exists:sch_acad_study_groups,id',
             'teacher_id' => 'nullable|exists:sch_hr_staff,id',
-            'academic_year_id' => 'nullable|exists:sch_acad_academic_years,id',
+            'academic_year_id' => 'nullable|exists:sch_acad_years,id',
             'semester_id' => 'nullable|exists:sch_acad_semesters,id',
             'type' => 'nullable|in:formative,summative_material,summative_final',
             'max_score' => 'nullable|integer|min:1',
@@ -213,7 +201,6 @@ class KatampiIntegrationController extends BaseController
             $syncedCount++;
         }
 
-        // Update config stats
         $config = KatampiConfig::firstOrCreate(['school_id' => $schoolId]);
         $stats = $config->sync_stats ?? ['total_exams' => 0, 'total_grades_synced' => 0];
         $stats['total_exams'] = ($stats['total_exams'] ?? 0) + 1;

@@ -7,26 +7,15 @@ namespace Modules\School\Http\Controllers\Api\HR;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\School\Http\Controllers\Api\Common\BaseController;
+use Modules\School\Http\Requests\HR\StoreStaffRequest;
 use Modules\School\Models\HR\Staff;
 use Modules\School\Models\HR\StaffShift;
-use Modules\School\Models\Institution\School;
 
 class StaffController extends BaseController
 {
-    private function resolveSchoolId(Request $request): int
-    {
-        $schoolId = $request->header('X-School-Id');
-        if ($schoolId && is_numeric($schoolId)) {
-            return (int) $schoolId;
-        }
-
-        $school = School::first();
-        return $school ? $school->id : 1;
-    }
-
     public function index(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $query = Staff::where('school_id', $schoolId);
 
         if ($request->filled('search')) {
@@ -52,34 +41,10 @@ class StaffController extends BaseController
         return $this->sendResponse($staff, 'Staff members retrieved');
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreStaffRequest $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
-
-        $validated = $request->validate([
-            'full_name' => 'required|string|max:150',
-            'gender' => 'required|in:L,P',
-            'nip' => 'nullable|string|max:30|unique:sch_hr_staff,nip',
-            'nuptk' => 'nullable|string|max:20|unique:sch_hr_staff,nuptk',
-            'nik' => 'nullable|string|size:16',
-            'title_prefix' => 'nullable|string|max:30',
-            'title_suffix' => 'nullable|string|max:30',
-            'place_of_birth' => 'nullable|string|max:100',
-            'date_of_birth' => 'nullable|date',
-            'religion' => 'nullable|string|max:30',
-            'employment_status' => 'required|in:PNS,PPPK,GTY,PTY,Honorer,GTT,PTT',
-            'role_title' => 'required|string|max:100',
-            'last_education' => 'nullable|string|max:50',
-            'major' => 'nullable|string|max:100',
-            'certification_status' => 'boolean',
-            'sk_number' => 'nullable|string|max:100',
-            'phone' => 'nullable|string|max:25',
-            'email' => 'nullable|email|max:100',
-            'address' => 'nullable|string',
-            'is_active' => 'boolean',
-        ]);
-
-        $staff = Staff::create(array_merge($validated, ['school_id' => $schoolId]));
+        $schoolId = $this->getSchoolId();
+        $staff = Staff::create(array_merge($request->validated(), ['school_id' => $schoolId]));
 
         return $this->sendResponse($staff, 'Staff member registered successfully', 201);
     }
@@ -134,14 +99,14 @@ class StaffController extends BaseController
         $staff = Staff::findOrFail($id);
         $staff->delete();
 
-        return $this->sendResponse(null, 'Staff member deleted');
+        return $this->sendResponse(null, 'Staff member removed');
     }
 
     // --- Shifts ---
 
     public function getShifts(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $shifts = StaffShift::where('school_id', $schoolId)->get();
 
         return $this->sendResponse($shifts, 'Staff shifts retrieved');
@@ -149,17 +114,18 @@ class StaffController extends BaseController
 
     public function storeShift(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
+
         $validated = $request->validate([
             'name' => 'required|string|max:50',
             'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i',
-            'grace_period_minutes' => 'integer|min:0|max:120',
+            'end_time' => 'required|date_format:H:i|after:start_time',
+            'grace_period_minutes' => 'integer|min:0|max:60',
             'is_active' => 'boolean',
         ]);
 
         $shift = StaffShift::create(array_merge($validated, ['school_id' => $schoolId]));
 
-        return $this->sendResponse($shift, 'Shift created', 201);
+        return $this->sendResponse($shift, 'Shift created successfully', 201);
     }
 }

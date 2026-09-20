@@ -7,25 +7,19 @@ namespace Modules\School\Http\Controllers\Api\Administration;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\School\Http\Controllers\Api\Common\BaseController;
+use Modules\School\Http\Requests\Administration\CheckInVisitorRequest;
 use Modules\School\Models\Administration\GuestBook;
-use Modules\School\Models\Institution\School;
+use Modules\School\Services\Operations\GuestBookService;
 
 class GuestBookController extends BaseController
 {
-    private function resolveSchoolId(Request $request): int
-    {
-        $schoolId = $request->header('X-School-Id');
-        if ($schoolId && is_numeric($schoolId)) {
-            return (int) $schoolId;
-        }
-
-        $school = School::first();
-        return $school ? $school->id : 1;
-    }
+    public function __construct(
+        protected GuestBookService $guestBookService
+    ) {}
 
     public function index(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $query = GuestBook::where('school_id', $schoolId);
 
         if ($request->filled('status')) {
@@ -48,34 +42,10 @@ class GuestBookController extends BaseController
         return $this->sendResponse($guests, 'Guest book records retrieved successfully');
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(CheckInVisitorRequest $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
-
-        $validated = $request->validate([
-            'visitor_name' => 'required|string|max:150',
-            'institution' => 'nullable|string|max:150',
-            'phone' => 'nullable|string|max:30',
-            'identity_type' => 'required|in:KTP,SIM,Passport,Lainnya',
-            'identity_number' => 'nullable|string|max:50',
-            'purpose' => 'required|string|max:255',
-            'target_person' => 'required|string|max:150',
-            'badge_number' => 'nullable|string|max:50',
-            'notes' => 'nullable|string',
-        ]);
-
-        if (empty($validated['badge_number'])) {
-            $countToday = GuestBook::where('school_id', $schoolId)
-                ->whereDate('check_in_at', now()->toDateString())
-                ->count();
-            $validated['badge_number'] = sprintf('TAMU-%02d', $countToday + 1);
-        }
-
-        $guest = GuestBook::create(array_merge($validated, [
-            'school_id' => $schoolId,
-            'check_in_at' => now(),
-            'status' => 'checked_in',
-        ]));
+        $schoolId = $this->getSchoolId();
+        $guest = $this->guestBookService->checkIn($request->validated(), $schoolId);
 
         return $this->sendResponse($guest, 'Visitor check-in recorded successfully', 201);
     }
@@ -110,14 +80,12 @@ class GuestBookController extends BaseController
     public function checkout(Request $request, int $id): JsonResponse
     {
         $guest = GuestBook::findOrFail($id);
+        if ($request->filled('notes')) {
+            $guest->notes = $request->input('notes');
+        }
+        $updated = $this->guestBookService->checkOut($guest);
 
-        $guest->update([
-            'status' => 'checked_out',
-            'check_out_at' => now(),
-            'notes' => $request->input('notes', $guest->notes),
-        ]);
-
-        return $this->sendResponse($guest, 'Visitor check-out recorded successfully');
+        return $this->sendResponse($updated, 'Visitor check-out recorded successfully');
     }
 
     public function destroy(int $id): JsonResponse

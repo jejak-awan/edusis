@@ -7,33 +7,30 @@ namespace Modules\School\Http\Controllers\Api\Academic;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\School\Http\Controllers\Api\Common\BaseController;
+use Modules\School\Http\Requests\Academic\StoreAcademicYearRequest;
+use Modules\School\Http\Requests\Academic\StoreDepartmentRequest;
+use Modules\School\Http\Requests\Academic\StoreStudyGroupRequest;
+use Modules\School\Http\Requests\Academic\StoreSubjectRequest;
 use Modules\School\Models\Academic\AcademicYear;
 use Modules\School\Models\Academic\Department;
 use Modules\School\Models\Academic\Semester;
 use Modules\School\Models\Academic\StudyGroup;
 use Modules\School\Models\Academic\StudyGroupMember;
 use Modules\School\Models\Academic\Subject;
-use Modules\School\Models\Institution\School;
 use Modules\School\Models\Institution\SchoolLevel;
+use Modules\School\Services\Academic\AcademicService;
 
 class AcademicController extends BaseController
 {
-    private function resolveSchoolId(Request $request): int
-    {
-        $schoolId = $request->header('X-School-Id');
-        if ($schoolId && is_numeric($schoolId)) {
-            return (int) $schoolId;
-        }
-
-        $school = School::first();
-        return $school ? $school->id : 1;
-    }
+    public function __construct(
+        protected AcademicService $academicService
+    ) {}
 
     // --- Academic Years ---
 
     public function getYears(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $years = AcademicYear::where('school_id', $schoolId)
             ->with(['semesters', 'activeSemester'])
             ->orderByDesc('id')
@@ -42,47 +39,18 @@ class AcademicController extends BaseController
         return $this->sendResponse($years, 'Academic years retrieved');
     }
 
-    public function storeYear(Request $request): JsonResponse
+    public function storeYear(StoreAcademicYearRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:30',
-            'start_date' => 'nullable|date',
-            'end_date' => 'nullable|date',
-            'is_active' => 'boolean',
-        ]);
+        $schoolId = $this->getSchoolId();
+        $year = $this->academicService->createAcademicYear($request->validated(), $schoolId);
 
-        $schoolId = $this->resolveSchoolId($request);
-
-        if (!empty($validated['is_active'])) {
-            AcademicYear::where('school_id', $schoolId)->update(['is_active' => false]);
-        }
-
-        $year = AcademicYear::create(array_merge($validated, ['school_id' => $schoolId]));
-
-        // Auto create Ganjil and Genap semesters
-        Semester::create([
-            'academic_year_id' => $year->id,
-            'name' => 'Semester Ganjil',
-            'semester_number' => 1,
-            'is_active' => $year->is_active,
-        ]);
-        Semester::create([
-            'academic_year_id' => $year->id,
-            'name' => 'Semester Genap',
-            'semester_number' => 2,
-            'is_active' => false,
-        ]);
-
-        return $this->sendResponse($year->load('semesters'), 'Academic year created', 201);
+        return $this->sendResponse($year, 'Academic year created', 201);
     }
 
     public function activateYear(int $id, Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
-        AcademicYear::where('school_id', $schoolId)->update(['is_active' => false]);
-
-        $year = AcademicYear::where('school_id', $schoolId)->findOrFail($id);
-        $year->update(['is_active' => true]);
+        $schoolId = $this->getSchoolId();
+        $year = $this->academicService->activateAcademicYear($id, $schoolId);
 
         return $this->sendResponse($year, 'Academic year activated');
     }
@@ -108,9 +76,7 @@ class AcademicController extends BaseController
 
     public function activateSemester(int $id): JsonResponse
     {
-        $semester = Semester::findOrFail($id);
-        Semester::where('academic_year_id', $semester->academic_year_id)->update(['is_active' => false]);
-        $semester->update(['is_active' => true]);
+        $semester = $this->academicService->activateSemester($id);
 
         return $this->sendResponse($semester, 'Semester activated');
     }
@@ -119,7 +85,7 @@ class AcademicController extends BaseController
 
     public function getDepartments(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $departments = Department::where('school_id', $schoolId)
             ->withCount('students')
             ->orderBy('code')
@@ -128,17 +94,10 @@ class AcademicController extends BaseController
         return $this->sendResponse($departments, 'Departments retrieved');
     }
 
-    public function storeDepartment(Request $request): JsonResponse
+    public function storeDepartment(StoreDepartmentRequest $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
-        $validated = $request->validate([
-            'code' => 'required|string|max:20',
-            'name' => 'required|string|max:100',
-            'description' => 'nullable|string',
-            'is_active' => 'boolean',
-        ]);
-
-        $dept = Department::create(array_merge($validated, ['school_id' => $schoolId]));
+        $schoolId = $this->getSchoolId();
+        $dept = Department::create(array_merge($request->validated(), ['school_id' => $schoolId]));
 
         return $this->sendResponse($dept, 'Department created', 201);
     }
@@ -170,7 +129,7 @@ class AcademicController extends BaseController
 
     public function getSubjects(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $subjects = Subject::where('school_id', $schoolId)
             ->orderBy('group')
             ->orderBy('name')
@@ -179,18 +138,10 @@ class AcademicController extends BaseController
         return $this->sendResponse($subjects, 'Subjects retrieved');
     }
 
-    public function storeSubject(Request $request): JsonResponse
+    public function storeSubject(StoreSubjectRequest $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
-        $validated = $request->validate([
-            'code' => 'nullable|string|max:30',
-            'name' => 'required|string|max:100',
-            'group' => 'required|string|max:30',
-            'kkm' => 'required|integer|min:0|max:100',
-            'is_active' => 'boolean',
-        ]);
-
-        $subject = Subject::create(array_merge($validated, ['school_id' => $schoolId]));
+        $schoolId = $this->getSchoolId();
+        $subject = Subject::create(array_merge($request->validated(), ['school_id' => $schoolId]));
 
         return $this->sendResponse($subject, 'Subject created', 201);
     }
@@ -223,7 +174,7 @@ class AcademicController extends BaseController
 
     public function getStudyGroups(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $query = StudyGroup::where('school_id', $schoolId)
             ->with(['level', 'department', 'academicYear'])
             ->withCount('students');
@@ -241,19 +192,10 @@ class AcademicController extends BaseController
         return $this->sendResponse($studyGroups, 'Study groups retrieved');
     }
 
-    public function storeStudyGroup(Request $request): JsonResponse
+    public function storeStudyGroup(StoreStudyGroupRequest $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
-        $validated = $request->validate([
-            'name' => 'required|string|max:50',
-            'school_level_id' => 'nullable|exists:sch_ins_levels,id',
-            'department_id' => 'nullable|exists:sch_acad_departments,id',
-            'academic_year_id' => 'required|exists:sch_acad_years,id',
-            'capacity' => 'integer|min:1|max:60',
-            'is_active' => 'boolean',
-        ]);
-
-        $group = StudyGroup::create(array_merge($validated, ['school_id' => $schoolId]));
+        $schoolId = $this->getSchoolId();
+        $group = StudyGroup::create(array_merge($request->validated(), ['school_id' => $schoolId]));
 
         return $this->sendResponse($group->load(['level', 'department', 'academicYear']), 'Study group created', 201);
     }
@@ -317,7 +259,7 @@ class AcademicController extends BaseController
 
     public function getLevels(Request $request): JsonResponse
     {
-        $schoolId = $this->resolveSchoolId($request);
+        $schoolId = $this->getSchoolId();
         $levels = SchoolLevel::where('school_id', $schoolId)->orderBy('grade_level')->get();
 
         return $this->sendResponse($levels, 'School levels retrieved');
