@@ -10,9 +10,7 @@ import library from '@/modules/Library/locales';
 import publishing from '@/modules/Publishing/locales';
 import layoutPack from '@/modules/Layout/locales';
 import formsPack from '@/modules/Forms/locales';
-import newsletterPack from '@/modules/Newsletter/locales';
 import searchPack from '@/modules/Search/locales';
-import cmsAiPack from '@/modules/CmsAi/locales';
 import memberPack from '@/modules/Member/locales';
 
 import sarangengeEn from '@/modules/Layout/views/themes/sarangenge/locales/en.json';
@@ -55,9 +53,7 @@ export const moduleLocaleBundles = {
         publishing: publishing.en,
         layout: layoutPack.en,
         forms: formsPack.en,
-        newsletter: newsletterPack.en,
         search: searchPack.en,
-        ai: cmsAiPack.en,
         member: memberPack.en,
         theme: { sarangenge: sarangengeEn, janari: janariEn, layung: layungEn, sareupna: sareupnaEn },
     },
@@ -72,9 +68,7 @@ export const moduleLocaleBundles = {
         publishing: publishing.id,
         layout: layoutPack.id,
         forms: formsPack.id,
-        newsletter: newsletterPack.id,
         search: searchPack.id,
-        ai: cmsAiPack.id,
         member: memberPack.id,
         theme: { sarangenge: sarangengeId, janari: janariId, layung: layungId, sareupna: sareupnaId },
     },
@@ -89,9 +83,7 @@ export const moduleLocaleBundles = {
         publishing: publishing.su,
         layout: layoutPack.su,
         forms: formsPack.su,
-        newsletter: newsletterPack.su,
         search: searchPack.su,
-        ai: cmsAiPack.su,
         member: memberPack.su,
         theme: { sarangenge: sarangengeSu, janari: janariSu, layung: layungSu, sareupna: sareupnaSu },
     },

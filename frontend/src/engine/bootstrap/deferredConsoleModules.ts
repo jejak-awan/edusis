@@ -44,10 +44,6 @@ const OPTIONAL_FIRST_PARTY: Array<{
         load: () => import('@/modules/Forms'),
     },
     {
-        slug: 'newsletter',
-        load: () => import('@/modules/Newsletter'),
-    },
-    {
         slug: 'analytics',
         load: () => import('@/modules/Analytics'),
     },
@@ -58,10 +54,6 @@ const OPTIONAL_FIRST_PARTY: Array<{
     {
         slug: 'member',
         load: () => import('@/modules/Member'),
-    },
-    {
-        slug: 'cms-ai',
-        load: () => import('@/modules/CmsAi'),
     },
 ];
 
