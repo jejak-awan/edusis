@@ -105,6 +105,103 @@ export interface StudentData {
     total_credit_score?: number;
 }
 
+export interface StaffData {
+    id: number;
+    school_id: number;
+    nip: string | null;
+    nuptk: string | null;
+    nik: string | null;
+    full_name: string;
+    title_prefix: string | null;
+    title_suffix: string | null;
+    gender: 'L' | 'P';
+    employment_status: string;
+    role_title: string;
+    staff_type?: string;
+    last_education: string | null;
+    major: string | null;
+    certification_status: boolean;
+    phone: string | null;
+    email: string | null;
+    is_active: boolean;
+    formal_name?: string;
+}
+
+export interface StaffShiftData {
+    id: number;
+    name: string;
+    start_time: string;
+    end_time: string;
+    grace_period_minutes: number;
+    is_active: boolean;
+}
+
+export interface StaffAttendanceData {
+    id: number;
+    school_id: number;
+    staff_id: number;
+    shift_id: number | null;
+    date: string;
+    time_in: string | null;
+    time_out: string | null;
+    status: 'present' | 'late' | 'absent' | 'sick' | 'permit' | string;
+    notes: string | null;
+    staff?: StaffData;
+}
+
+export interface ScheduleData {
+    id: number;
+    school_id: number;
+    academic_year_id: number;
+    semester_id: number;
+    study_group_id: number;
+    subject_id: number;
+    teacher_id: number;
+    day_of_week: number;
+    start_time: string;
+    end_time: string;
+    room_name: string | null;
+    day_name?: string;
+    study_group?: StudyGroupData;
+    subject?: SubjectData;
+    teacher?: StaffData;
+}
+
+export interface TeachingJournalData {
+    id: number;
+    school_id: number;
+    study_group_id: number;
+    subject_id: number;
+    teacher_id: number;
+    date: string;
+    teaching_hour: string;
+    topic: string;
+    competency_description: string | null;
+    learning_activity: string | null;
+    present_count: number;
+    sick_count: number;
+    permit_count: number;
+    absent_count: number;
+    notes_reflection: string | null;
+    study_group?: StudyGroupData;
+    subject?: SubjectData;
+    teacher?: StaffData;
+    status?: string;
+    lesson_hour_start?: number;
+    lesson_hour_end?: number;
+    activities?: string;
+    permission_count?: number;
+}
+
+export interface StudentAttendanceItem {
+    student_id: number;
+    nisn: string | null;
+    full_name: string;
+    gender: string;
+    status: 'H' | 'I' | 'S' | 'A';
+    notes: string | null;
+}
+
 export interface PointCategoryData {
     id: number;
     name: string;
@@ -251,5 +348,76 @@ export const SchoolService = {
     },
     getAchievements(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
         return api.get('/api/v1/school/discipline/achievements', { params });
+    },
+
+    // Staff & GTK
+    getStaff(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/staff', { params });
+    },
+    storeStaff(payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/staff', payload);
+    },
+    showStaff(id: number): Promise<AxiosResponse> {
+        return api.get(`/api/v1/school/staff/${id}`);
+    },
+    updateStaff(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.put(`/api/v1/school/staff/${id}`, payload);
+    },
+    deleteStaff(id: number): Promise<AxiosResponse> {
+        return api.delete(`/api/v1/school/staff/${id}`);
+    },
+    getStaffShifts(): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/staff/shifts/list');
+    },
+    storeStaffShift(payload: Partial<StaffShiftData>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/staff/shifts', payload);
+    },
+
+    // Attendances
+    getStudentAttendance(params: { study_group_id: number; date: string }): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/attendance/students', { params });
+    },
+    saveBulkStudentAttendance(payload: { study_group_id: number; date: string; records: Array<{ student_id: number; status: string; notes?: string }> }): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/attendance/students/bulk', payload);
+    },
+    getStaffAttendance(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/attendance/staff', { params });
+    },
+    recordStaffCheckIn(payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/attendance/staff/check-in', payload);
+    },
+    recordStaffCheckOut(payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/attendance/staff/check-out', payload);
+    },
+
+    // Schedules
+    getSchedules(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/schedules', { params });
+    },
+    storeSchedule(payload: Partial<ScheduleData>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/schedules', payload);
+    },
+    updateSchedule(id: number, payload: Partial<ScheduleData>): Promise<AxiosResponse> {
+        return api.put(`/api/v1/school/schedules/${id}`, payload);
+    },
+    deleteSchedule(id: number): Promise<AxiosResponse> {
+        return api.delete(`/api/v1/school/schedules/${id}`);
+    },
+
+    // Teaching Journals
+    getJournals(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/journals', { params });
+    },
+    storeJournal(payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/journals', payload);
+    },
+    showJournal(id: number): Promise<AxiosResponse> {
+        return api.get(`/api/v1/school/journals/${id}`);
+    },
+    updateJournal(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.put(`/api/v1/school/journals/${id}`, payload);
+    },
+    deleteJournal(id: number): Promise<AxiosResponse> {
+        return api.delete(`/api/v1/school/journals/${id}`);
     },
 };

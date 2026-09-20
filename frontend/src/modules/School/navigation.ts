@@ -36,6 +36,27 @@ export const schoolNavigation: NavItem[] = [
                 icon: 'shield-alert',
                 priority: 70,
             },
+            {
+                name: 'school.staff',
+                label: 'Pendidik & GTK',
+                labelKey: 'school.navigation.menu.staff',
+                icon: 'user-check',
+                priority: 65,
+            },
+            {
+                name: 'school.attendance',
+                label: 'Presensi Harian',
+                labelKey: 'school.navigation.menu.attendance',
+                icon: 'calendar-check',
+                priority: 60,
+            },
+            {
+                name: 'school.journals',
+                label: 'Jurnal Pembelajaran KBM',
+                labelKey: 'school.navigation.menu.journals',
+                icon: 'clipboard-list',
+                priority: 55,
+            },
         ],
     },
 ];

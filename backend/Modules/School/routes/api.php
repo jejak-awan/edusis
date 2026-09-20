@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
 use Modules\School\Http\Controllers\Api\Academic\AcademicController;
+use Modules\School\Http\Controllers\Api\Academic\AttendanceController;
+use Modules\School\Http\Controllers\Api\Academic\ScheduleController;
+use Modules\School\Http\Controllers\Api\Academic\TeachingJournalController;
+use Modules\School\Http\Controllers\Api\HR\StaffController;
 use Modules\School\Http\Controllers\Api\SchoolDashboardController;
 use Modules\School\Http\Controllers\Api\Student\DisciplineController;
 use Modules\School\Http\Controllers\Api\Student\StudentController;
@@ -73,5 +77,42 @@ Route::prefix('v1/school')->middleware(['auth:sanctum'])->group(function (): voi
         Route::get('/violations', [DisciplineController::class, 'getViolations']);
         Route::post('/violations/{id}/resolve', [DisciplineController::class, 'resolveViolation']);
         Route::get('/achievements', [DisciplineController::class, 'getAchievements']);
+    });
+
+    // --- Pendidik & Tenaga Kependidikan (HR / Staff) ---
+    Route::prefix('staff')->group(function (): void {
+        Route::get('/shifts/list', [StaffController::class, 'getShifts']);
+        Route::post('/shifts', [StaffController::class, 'storeShift']);
+        Route::get('/', [StaffController::class, 'index']);
+        Route::post('/', [StaffController::class, 'store']);
+        Route::get('/{id}', [StaffController::class, 'show']);
+        Route::put('/{id}', [StaffController::class, 'update']);
+        Route::delete('/{id}', [StaffController::class, 'destroy']);
+    });
+
+    // --- Presensi Harian Siswa & Staff ---
+    Route::prefix('attendance')->group(function (): void {
+        Route::get('/students', [AttendanceController::class, 'getStudentAttendance']);
+        Route::post('/students/bulk', [AttendanceController::class, 'saveBulkStudentAttendance']);
+        Route::get('/staff', [AttendanceController::class, 'getStaffAttendance']);
+        Route::post('/staff/check-in', [AttendanceController::class, 'recordStaffCheckIn']);
+        Route::post('/staff/check-out', [AttendanceController::class, 'recordStaffCheckOut']);
+    });
+
+    // --- Jadwal Pelajaran (Schedules) ---
+    Route::prefix('schedules')->group(function (): void {
+        Route::get('/', [ScheduleController::class, 'index']);
+        Route::post('/', [ScheduleController::class, 'store']);
+        Route::put('/{id}', [ScheduleController::class, 'update']);
+        Route::delete('/{id}', [ScheduleController::class, 'destroy']);
+    });
+
+    // --- Jurnal Harian Mengajar Guru (KBM) ---
+    Route::prefix('journals')->group(function (): void {
+        Route::get('/', [TeachingJournalController::class, 'index']);
+        Route::post('/', [TeachingJournalController::class, 'store']);
+        Route::get('/{id}', [TeachingJournalController::class, 'show']);
+        Route::put('/{id}', [TeachingJournalController::class, 'update']);
+        Route::delete('/{id}', [TeachingJournalController::class, 'destroy']);
     });
 });

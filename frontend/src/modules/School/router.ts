@@ -25,6 +25,24 @@ export const schoolRoutes: RouteRecordRaw[] = [
         component: () => import('@/modules/School/views/DisciplineManagement.vue'),
         meta: { title: 'school.discipline.title', breadcrumb: 'school.navigation.menu.discipline' },
     },
+    {
+        path: 'school/staff',
+        name: 'school.staff',
+        component: () => import('@/modules/School/views/StaffManagement.vue'),
+        meta: { title: 'school.staff.title', breadcrumb: 'school.navigation.menu.staff' },
+    },
+    {
+        path: 'school/attendance',
+        name: 'school.attendance',
+        component: () => import('@/modules/School/views/DailyAttendance.vue'),
+        meta: { title: 'school.attendance.title', breadcrumb: 'school.navigation.menu.attendance' },
+    },
+    {
+        path: 'school/journals',
+        name: 'school.journals',
+        component: () => import('@/modules/School/views/TeachingJournals.vue'),
+        meta: { title: 'school.journals.title', breadcrumb: 'school.navigation.menu.journals' },
+    },
 ];
 
 export default schoolRoutes;
