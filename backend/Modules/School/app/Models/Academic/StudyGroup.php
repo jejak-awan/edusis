@@ -66,4 +66,9 @@ class StudyGroup extends Model
             ->withPivot('status')
             ->withTimestamps();
     }
+
+    public function homeroomTeacher(): BelongsTo
+    {
+        return $this->belongsTo(\Modules\School\Models\HR\Staff::class, 'homeroom_teacher_id');
+    }
 }

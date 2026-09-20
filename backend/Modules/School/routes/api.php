@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
 use Modules\School\Http\Controllers\Api\Academic\AcademicController;
+use Modules\School\Http\Controllers\Api\Academic\AssessmentController;
 use Modules\School\Http\Controllers\Api\Academic\AttendanceController;
+use Modules\School\Http\Controllers\Api\Academic\P5ProjectController;
+use Modules\School\Http\Controllers\Api\Academic\ReportCardController;
 use Modules\School\Http\Controllers\Api\Academic\ScheduleController;
 use Modules\School\Http\Controllers\Api\Academic\TeachingJournalController;
+use Modules\School\Http\Controllers\Api\Counseling\CounselingController;
 use Modules\School\Http\Controllers\Api\HR\StaffController;
 use Modules\School\Http\Controllers\Api\SchoolDashboardController;
 use Modules\School\Http\Controllers\Api\Student\DisciplineController;
@@ -114,5 +118,41 @@ Route::prefix('v1/school')->middleware(['auth:sanctum'])->group(function (): voi
         Route::get('/{id}', [TeachingJournalController::class, 'show']);
         Route::put('/{id}', [TeachingJournalController::class, 'update']);
         Route::delete('/{id}', [TeachingJournalController::class, 'destroy']);
+    });
+
+    // --- Penilaian & Asesmen Kurikulum Merdeka ---
+    Route::prefix('assessments')->group(function (): void {
+        Route::get('/', [AssessmentController::class, 'index']);
+        Route::post('/', [AssessmentController::class, 'store']);
+        Route::get('/{id}', [AssessmentController::class, 'show']);
+        Route::delete('/{id}', [AssessmentController::class, 'destroy']);
+        Route::get('/{id}/grades', [AssessmentController::class, 'grades']);
+        Route::post('/{id}/grades/bulk', [AssessmentController::class, 'storeBulkGrades']);
+    });
+
+    // --- Leger Nilai & Raport Siswa ---
+    Route::prefix('reports')->group(function (): void {
+        Route::get('/ledger', [ReportCardController::class, 'ledger']);
+        Route::post('/calculate', [ReportCardController::class, 'calculate']);
+        Route::get('/student/{studentId}', [ReportCardController::class, 'studentReport']);
+    });
+
+    // --- Proyek Penguatan Profil Pelajar Pancasila (P5) ---
+    Route::prefix('p5')->group(function (): void {
+        Route::get('/projects', [P5ProjectController::class, 'index']);
+        Route::post('/projects', [P5ProjectController::class, 'store']);
+        Route::get('/projects/{id}', [P5ProjectController::class, 'show']);
+        Route::delete('/projects/{id}', [P5ProjectController::class, 'destroy']);
+        Route::post('/projects/{id}/assessments/bulk', [P5ProjectController::class, 'storeBulkAssessments']);
+    });
+
+    // --- Layanan Kasus Bimbingan Konseling (BK) ---
+    Route::prefix('counseling')->group(function (): void {
+        Route::get('/cases', [CounselingController::class, 'index']);
+        Route::post('/cases', [CounselingController::class, 'store']);
+        Route::get('/cases/{id}', [CounselingController::class, 'show']);
+        Route::put('/cases/{id}', [CounselingController::class, 'update']);
+        Route::post('/cases/{id}/resolve', [CounselingController::class, 'resolve']);
+        Route::delete('/cases/{id}', [CounselingController::class, 'destroy']);
     });
 });

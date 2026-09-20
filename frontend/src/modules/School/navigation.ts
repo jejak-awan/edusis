@@ -57,6 +57,27 @@ export const schoolNavigation: NavItem[] = [
                 icon: 'clipboard-list',
                 priority: 55,
             },
+            {
+                name: 'school.grades',
+                label: 'Nilai & Asesmen',
+                labelKey: 'school.navigation.menu.grades',
+                icon: 'file-spreadsheet',
+                priority: 50,
+            },
+            {
+                name: 'school.reports',
+                label: 'Leger & Raport Siswa',
+                labelKey: 'school.navigation.menu.reports',
+                icon: 'award',
+                priority: 45,
+            },
+            {
+                name: 'school.counseling',
+                label: 'Bimbingan Konseling (BK)',
+                labelKey: 'school.navigation.menu.counseling',
+                icon: 'heart-handshake',
+                priority: 40,
+            },
         ],
     },
 ];

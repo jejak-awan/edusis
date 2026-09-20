@@ -240,6 +240,90 @@ export interface AchievementData {
     student?: StudentData;
 }
 
+export interface AssessmentData {
+    id: number;
+    school_id: number;
+    academic_year_id: number;
+    semester_id: number;
+    study_group_id: number;
+    subject_id: number;
+    teacher_id: number;
+    learning_objective_id: number | null;
+    title: string;
+    type: 'formative' | 'summative_material' | 'summative_final';
+    weight: number;
+    max_score: number;
+    date: string;
+    description: string | null;
+    study_group?: StudyGroupData;
+    subject?: SubjectData;
+    teacher?: StaffData;
+    grades?: GradeData[];
+}
+
+export interface GradeData {
+    id?: number;
+    assessment_id?: number;
+    student_id: number;
+    nisn?: string | null;
+    nis?: string | null;
+    full_name?: string;
+    gender?: string;
+    score: number;
+    remedial_score: number | null;
+    notes: string | null;
+}
+
+export interface ReportCardData {
+    id: number;
+    school_id: number;
+    academic_year_id: number;
+    semester_id: number;
+    study_group_id: number;
+    student_id: number;
+    subject_id: number;
+    final_score: number;
+    letter_grade: 'A' | 'B' | 'C' | 'D' | string;
+    achieved_competency: string | null;
+    improved_competency: string | null;
+    subject?: SubjectData;
+}
+
+export interface P5ProjectData {
+    id: number;
+    school_id: number;
+    academic_year_id: number;
+    coordinator_id: number | null;
+    title: string;
+    theme: string;
+    phase: 'E' | 'F' | string;
+    description: string | null;
+    coordinator?: StaffData;
+    assessments_count?: number;
+}
+
+export interface CounselingCaseData {
+    id: number;
+    school_id: number;
+    student_id: number;
+    counselor_id: number;
+    academic_year_id: number;
+    semester_id: number;
+    violation_id: number | null;
+    case_number: string;
+    date: string;
+    category: 'pribadi' | 'sosial' | 'belajar' | 'karir';
+    confidentiality: 'biasa' | 'internal' | 'rahasia' | 'sangat_rahasia';
+    problem_description: string;
+    counseling_steps: string | null;
+    solution_plan: string | null;
+    follow_up_notes: string | null;
+    status: 'open' | 'in_progress' | 'resolved' | 'referred';
+    student?: StudentData;
+    counselor?: StaffData;
+    violation?: ViolationData;
+}
+
 export const SchoolService = {
     // Dashboard
     getDashboard(): Promise<AxiosResponse> {
@@ -419,5 +503,70 @@ export const SchoolService = {
     },
     deleteJournal(id: number): Promise<AxiosResponse> {
         return api.delete(`/api/v1/school/journals/${id}`);
+    },
+
+    // Assessments & Grades
+    getAssessments(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/assessments', { params });
+    },
+    storeAssessment(payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/assessments', payload);
+    },
+    showAssessment(id: number): Promise<AxiosResponse> {
+        return api.get(`/api/v1/school/assessments/${id}`);
+    },
+    deleteAssessment(id: number): Promise<AxiosResponse> {
+        return api.delete(`/api/v1/school/assessments/${id}`);
+    },
+    getAssessmentGrades(id: number): Promise<AxiosResponse> {
+        return api.get(`/api/v1/school/assessments/${id}/grades`);
+    },
+    storeBulkGrades(id: number, grades: Array<{ student_id: number; score: number; remedial_score?: number | null; notes?: string | null }>): Promise<AxiosResponse> {
+        return api.post(`/api/v1/school/assessments/${id}/grades/bulk`, { grades });
+    },
+
+    // Reports & Ledger
+    getLedger(studyGroupId: number): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/reports/ledger', { params: { study_group_id: studyGroupId } });
+    },
+    calculateReportCards(studyGroupId: number): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/reports/calculate', { study_group_id: studyGroupId });
+    },
+    getStudentReport(studentId: number): Promise<AxiosResponse> {
+        return api.get(`/api/v1/school/reports/student/${studentId}`);
+    },
+
+    // P5 Projects
+    getP5Projects(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/p5/projects', { params });
+    },
+    storeP5Project(payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/p5/projects', payload);
+    },
+    showP5Project(id: number): Promise<AxiosResponse> {
+        return api.get(`/api/v1/school/p5/projects/${id}`);
+    },
+    storeBulkP5Assessments(id: number, assessments: Array<{ student_id: number; dimension: string; predicate: string; notes?: string }>): Promise<AxiosResponse> {
+        return api.post(`/api/v1/school/p5/projects/${id}/assessments/bulk`, { assessments });
+    },
+
+    // Counseling (BK)
+    getCounselingCases(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/counseling/cases', { params });
+    },
+    storeCounselingCase(payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/counseling/cases', payload);
+    },
+    showCounselingCase(id: number): Promise<AxiosResponse> {
+        return api.get(`/api/v1/school/counseling/cases/${id}`);
+    },
+    updateCounselingCase(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.put(`/api/v1/school/counseling/cases/${id}`, payload);
+    },
+    resolveCounselingCase(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post(`/api/v1/school/counseling/cases/${id}/resolve`, payload);
+    },
+    deleteCounselingCase(id: number): Promise<AxiosResponse> {
+        return api.delete(`/api/v1/school/counseling/cases/${id}`);
     },
 };

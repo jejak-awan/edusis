@@ -19,13 +19,15 @@ Rencana kerja terstruktur untuk implementasi modul **JA-EduSIS** secara bertahap
 - [x] Jurnal Harian KBM Guru (`sch_acad_teaching_journals`, `TeachingJournalController`, view `TeachingJournals.vue`).
 - [x] Seeder Fase 2 (`SchoolPhase2Seeder`) & Automated Feature Tests (12 tests, 64 assertions passed).
 
-## Tahap 3: Penilaian, Raport, & Bimbingan Konseling (BK) (Fase Aktif Berikutnya)
-- [ ] Struktur Data Nilai: Formatif, Sumatif (UTS/UAS), Tugas/Portofolio, dan Proyek P5.
-- [ ] Perhitungan Bobot Nilai Akhir, Predikat, dan Deskripsi Capaian Pembelajaran (CP).
-- [ ] Cetak / Ekspor Leger Nilai & Raport Siswa (PDF / Excel).
-- [ ] Layanan Kasus Bimbingan Konseling (BK) terintegrasi dengan poin kredit SISKA & tingkat kerahasiaan.
+## Tahap 3: Penilaian, Raport, & Bimbingan Konseling (BK) (Selesai)
+- [x] Struktur Data Nilai & Asesmen Kurikulum Merdeka (`sch_acad_learning_objectives`, `sch_acad_assessments`, `sch_acad_grades`).
+- [x] Proyek Penguatan Profil Pelajar Pancasila (`sch_acad_p5_projects`, `sch_acad_p5_assessments` skala MB/SB/BSH/SAB).
+- [x] Kalkulasi Otomatis Nilai Akhir Terbobot, Predikat, & Deskripsi Capaian Kompetensi (`sch_acad_report_cards`).
+- [x] Matriks Leger Nilai Rombel & Lembar Raport Kurikulum Merdeka Siswa (`GradeManagement.vue`, `ReportCardGenerator.vue`).
+- [x] Layanan Kasus Bimbingan Konseling BK terintegrasi dengan poin disiplin SISKA & proteksi kerahasiaan (`sch_csl_cases`, `CounselingManagement.vue`).
+- [x] Seeder Fase 3 (`SchoolPhase3Seeder`) & Automated Feature Tests (18 tests, 124 assertions passed).
 
-## Tahap 4: Operasional Tata Usaha, PPDB, & Kesiswaan Khusus
+## Tahap 4: Operasional Tata Usaha, PPDB, & Kesiswaan Khusus (Fase Aktif Berikutnya)
 - [ ] Administrasi Persuratan TU: Surat Masuk, Surat Keluar berpenomoran otomatis, dan disposisi.
 - [ ] PPDB Online: Formulir pendaftaran siswa baru, upload berkas, dan verifikasi panitia.
 - [ ] OSIS & E-Voting: Pemilihan ketua OSIS online & pengelolaan kegiatan ekstrakurikuler.

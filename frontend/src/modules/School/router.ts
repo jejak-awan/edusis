@@ -43,6 +43,24 @@ export const schoolRoutes: RouteRecordRaw[] = [
         component: () => import('@/modules/School/views/TeachingJournals.vue'),
         meta: { title: 'school.journals.title', breadcrumb: 'school.navigation.menu.journals' },
     },
+    {
+        path: 'school/grades',
+        name: 'school.grades',
+        component: () => import('@/modules/School/views/GradeManagement.vue'),
+        meta: { title: 'school.grades.title', breadcrumb: 'school.navigation.menu.grades' },
+    },
+    {
+        path: 'school/reports',
+        name: 'school.reports',
+        component: () => import('@/modules/School/views/ReportCardGenerator.vue'),
+        meta: { title: 'school.reports.title', breadcrumb: 'school.navigation.menu.reports' },
+    },
+    {
+        path: 'school/counseling',
+        name: 'school.counseling',
+        component: () => import('@/modules/School/views/CounselingManagement.vue'),
+        meta: { title: 'school.counseling.title', breadcrumb: 'school.navigation.menu.counseling' },
+    },
 ];
 
 export default schoolRoutes;
