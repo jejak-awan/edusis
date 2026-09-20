@@ -7,12 +7,12 @@
 
 import api from '@/engine/api/client';
 import type { AxiosResponse } from 'axios';
-import type { ApiResponse } from './types';
+import type { ApiResponse, PaginatedData, WhatsAppLogData, WhatsAppStatsData } from './types';
 
 export class IntegrationService {
     // ─── KataMPI CBT Integration ──────────────────────────────────────────
 
-    /** Ambil konfigurasi KataMPI untuk sekolah aktif. */
+    /** Ambil konfigurasi integrasi KataMPI saat ini. */
     public static async getKatampiConfig(): Promise<AxiosResponse<ApiResponse<any>>> {
         return api.get('/school/integrations/katampi/config');
     }
@@ -30,12 +30,18 @@ export class IntegrationService {
     public static async generateKatampiSsoToken(data: {
         staff_id?: number;
         student_id?: number;
-    } = {}): Promise<AxiosResponse<ApiResponse<{ token: string; redirect_url: string }>>> {
+    } = {}): Promise<AxiosResponse<ApiResponse<{
+        token: string;
+        redirect_url: string;
+        cbt_url?: string;
+        expires_in?: number;
+        user?: { name: string; role: string; nisn?: string };
+    }>>> {
         return api.post('/school/integrations/katampi/sso-token', data);
     }
 
     /** Ambil roster peserta ujian dari KataMPI. */
-    public static async getKatampiRoster(params: Record<string, any> = {}): Promise<AxiosResponse<ApiResponse<any>>> {
+    public static async getKatampiRoster(params: Record<string, unknown> = {}): Promise<AxiosResponse<ApiResponse<Record<string, unknown>>>> {
         return api.get('/school/integrations/katampi/roster', { params });
     }
 
@@ -51,12 +57,12 @@ export class IntegrationService {
     // ─── WhatsApp Gateway ─────────────────────────────────────────────────
 
     /** Ambil log pengiriman pesan WhatsApp. */
-    public static async getWhatsAppLogs(params: Record<string, any> = {}): Promise<AxiosResponse<ApiResponse<any>>> {
+    public static async getWhatsAppLogs(params: Record<string, unknown> = {}): Promise<AxiosResponse<ApiResponse<PaginatedData<WhatsAppLogData>>>> {
         return api.get('/school/communications/whatsapp/logs', { params });
     }
 
     /** Ambil statistik pengiriman WhatsApp (total, sent, failed, dll.). */
-    public static async getWhatsAppStats(): Promise<AxiosResponse<ApiResponse<any>>> {
+    public static async getWhatsAppStats(): Promise<AxiosResponse<ApiResponse<WhatsAppStatsData>>> {
         return api.get('/school/communications/whatsapp/stats');
     }
 
@@ -66,7 +72,7 @@ export class IntegrationService {
         message: string;
         student_id?: number;
         message_type?: string;
-    }): Promise<AxiosResponse<ApiResponse<any>>> {
+    }): Promise<AxiosResponse<ApiResponse<Record<string, unknown>>>> {
         return api.post('/school/communications/whatsapp/send', data);
     }
 
@@ -74,7 +80,13 @@ export class IntegrationService {
     public static async sendWhatsAppAttendanceAlerts(data: {
         date?: string;
         statuses?: string[];
-    } = {}): Promise<AxiosResponse<ApiResponse<{ dispatched: number }>>> {
+    }): Promise<AxiosResponse<ApiResponse<{
+        date: string;
+        total_detected: number;
+        sent_count: number;
+        skipped_count: number;
+        dispatched?: number;
+    }>>> {
         return api.post('/school/communications/whatsapp/alerts/attendance', data);
     }
 

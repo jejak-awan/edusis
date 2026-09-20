@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Modules\School\Http\Requests\Administration;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Modules\School\Rules\ValidNIK;
-use Modules\School\Rules\ValidNISN;
 use Modules\School\Rules\ValidPhoneNumber;
 
 class StorePpdbRequest extends FormRequest
@@ -29,11 +27,11 @@ class StorePpdbRequest extends FormRequest
             'place_of_birth' => 'nullable|string|max:100',
             'date_of_birth' => 'nullable|date',
             'religion' => 'nullable|string|max:30',
-            'phone' => ['nullable', 'string', 'max:30', new ValidPhoneNumber()],
+            'phone' => ['nullable', 'string', 'max:30', new ValidPhoneNumber],
             'email' => 'nullable|email|max:100',
             'address' => 'nullable|string',
             'parent_name' => 'nullable|string|max:150',
-            'parent_phone' => ['nullable', 'string', 'max:30', new ValidPhoneNumber()],
+            'parent_phone' => ['nullable', 'string', 'max:30', new ValidPhoneNumber],
             'parent_job' => 'nullable|string|max:100',
             'parent_income' => 'nullable|string|max:50',
             'previous_school' => 'nullable|string|max:150',

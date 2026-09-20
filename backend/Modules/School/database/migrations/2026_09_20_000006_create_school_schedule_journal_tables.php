@@ -69,7 +69,7 @@ return new class extends Migration
             $table->string('topic', 200); // Materi Pelajaran / Topik
             $table->text('competency_description')->nullable(); // Capaian Kompetensi (CP/KD)
             $table->text('learning_activity')->nullable(); // Deskripsi Kegiatan Pembelajaran
-            
+
             // Rekap kehadiran di jam pelajaran ini
             $table->unsignedSmallInteger('present_count')->default(0);
             $table->unsignedSmallInteger('sick_count')->default(0);

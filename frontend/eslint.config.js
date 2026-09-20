@@ -52,6 +52,14 @@ export default tseslint.config(
             'vue/no-v-html': 'off',
             'vue/no-template-shadow': 'off',
             'vue/require-default-prop': 'off',
+            'vue/no-required-prop-with-default': 'off',
+        },
+    },
+    {
+        // School module ported from EduSIS pack; strict typing cleanup tracked separately.
+        files: ['src/modules/School/**/*.{ts,vue,js}'],
+        rules: {
+            '@typescript-eslint/no-explicit-any': 'off',
         },
     },
     {

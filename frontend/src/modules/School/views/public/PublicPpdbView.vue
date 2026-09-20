@@ -229,7 +229,7 @@ async function submitRegistration() {
       registrationNumber.value = res.data.data.registration_number;
       registrationSuccess.value = true;
     }
-  } catch (err) {
+  } catch (_err) {
     registrationNumber.value = `PPDB/${new Date().getFullYear()}/${Math.floor(100 + Math.random() * 900)}`;
     registrationSuccess.value = true;
   } finally {

@@ -55,7 +55,7 @@ export const useHrStore = defineStore('schoolHr', () => {
         try {
             const res = await HrService.getStaffShifts();
             const raw = res.data?.data ?? res.data;
-            shifts.value = Array.isArray(raw) ? raw : (raw?.data ?? []);
+            shifts.value = Array.isArray(raw) ? raw : ((raw as any)?.data ?? []);
         } catch {
             shifts.value = [];
         }

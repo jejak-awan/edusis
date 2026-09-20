@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Modules\School\Tests\Feature;
 
 use Modules\Core\System\Models\User;
+use Modules\School\Database\Seeders\SchoolPhase1Seeder;
+use Modules\School\Database\Seeders\SchoolPhase2Seeder;
+use Modules\School\Database\Seeders\SchoolPhase3Seeder;
 use Modules\School\Models\Academic\Assessment;
 use Modules\School\Models\Academic\P5Project;
 use Modules\School\Models\Academic\StudyGroup;
 use Modules\School\Models\Academic\Subject;
-use Modules\School\Models\Counseling\CounselingCase;
 use Modules\School\Models\HR\Staff;
 use Modules\School\Models\Student\Student;
 use Tests\TestCase;
@@ -22,9 +24,9 @@ class SchoolPhase3ApiTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed(\Modules\School\Database\Seeders\SchoolPhase1Seeder::class);
-        $this->seed(\Modules\School\Database\Seeders\SchoolPhase2Seeder::class);
-        $this->seed(\Modules\School\Database\Seeders\SchoolPhase3Seeder::class);
+        $this->seed(SchoolPhase1Seeder::class);
+        $this->seed(SchoolPhase2Seeder::class);
+        $this->seed(SchoolPhase3Seeder::class);
 
         $this->admin = User::firstOrCreate(
             ['email' => 'admin@edusis.local'],
@@ -121,7 +123,7 @@ class SchoolPhase3ApiTest extends TestCase
 
         // Ledger
         $ledgerRes = $this->actingAs($this->admin, 'sanctum')
-            ->getJson('/api/v1/school/reports/ledger?study_group_id=' . $group->id);
+            ->getJson('/api/v1/school/reports/ledger?study_group_id='.$group->id);
 
         $ledgerRes->assertStatus(200)
             ->assertJson(['success' => true])

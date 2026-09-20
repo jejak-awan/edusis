@@ -279,7 +279,7 @@ export const SchoolService = {
     generateVotingVoters: (eventId: number, payload: { source: string; study_group_id?: number }) =>
         VotingService.generateVoters(eventId, payload),
     getVotingVoters: (eventId: number, params = {}) => VotingService.getVoters(eventId, params),
-    castVoteEngine: (eventId: number, payload: { candidate_id: number; token?: string }) =>
+    castVoteEngine: (eventId: number, payload: { candidate_id: number; token?: string; mode?: string }) =>
         api.post(`/school/voting/events/${eventId}/vote`, payload),
     getVotingQuickCount: (eventId: number) => VotingService.getQuickCount(eventId),
 

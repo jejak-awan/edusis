@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 - Refactored all 21 controllers into Thin Controllers inheriting from `BaseController` with zero inline validation.
 - Centralized school tenant resolution via `SchoolContextMiddleware` and `ScopedBySchool` trait.
+- Applied Laravel Pint code formatting standards and aligned PHPStan Level 9 analysis baseline.
 
 ### Removed
 - Eliminated all legacy fallback hacks (`School::first() ?? 1`) across all controllers and services.

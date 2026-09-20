@@ -397,10 +397,3112 @@ parameters:
 			path: Modules/Member/app/Http/Controllers/Api/BookmarkController.php
 
 		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\Publishing\\Models\\Content\>\|Illuminate\\Pagination\\LengthAwarePaginator\<int, Modules\\Publishing\\Models\\Content\>\:\:items\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: Modules/Publishing/app/Http/Controllers/Api/ContentController.php
+
+		-
 			message: '#^Parameter \#1 \$meta of method Modules\\Publishing\\Support\\BuilderDocumentValidator\:\:validate\(\) expects array\<string, mixed\>, array\<mixed, mixed\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: Modules/Publishing/app/Http/Controllers/Api/ContentController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AssessmentController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$students\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AssessmentController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Grade\:\:\$notes\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AssessmentController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Grade\:\:\$remedial_score\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AssessmentController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Grade\:\:\$score\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AssessmentController.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AssessmentController.php
+
+		-
+			message: '#^Cannot access offset ''notes'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AssessmentController.php
+
+		-
+			message: '#^Cannot access offset ''remedial_score'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AssessmentController.php
+
+		-
+			message: '#^Cannot access offset ''score'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AssessmentController.php
+
+		-
+			message: '#^Cannot access offset ''student_id'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AssessmentController.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AssessmentController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Academic\\StudyGroup\>\|Modules\\School\\Models\\Academic\\StudyGroup\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Academic\\StudyGroup\>\|Modules\\School\\Models\\Academic\\StudyGroup\:\:\$students\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$check_in\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$check_out\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$full_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$gender\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$late_minutes\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$nisn\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$notes\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Attendance\:\:\$attachment_path\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Attendance\:\:\$notes\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Attendance\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\Staff\:\:\$nip\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\Staff\:\:\$role_title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Cannot cast mixed to float\.$#'
+			identifier: cast.double
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Modules\\School\\Models\\HR\\Staff\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Parameter \#2 \$date of method Modules\\School\\Services\\Attendance\\AttendanceService\:\:saveBulkStudentAttendance\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Parameter \#3 \$records of method Modules\\School\\Services\\Attendance\\AttendanceService\:\:saveBulkStudentAttendance\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Parameter \#4 \$deviceInfo of method Modules\\School\\Services\\Attendance\\AttendanceService\:\:recordStaffCheckIn\(\) expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Parameter \#5 \$notes of method Modules\\School\\Services\\Attendance\\AttendanceService\:\:recordStaffCheckIn\(\) expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,Modules\\School\\Models\\HR\\Staff\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
+
+		-
+			message: '#^Binary operation "\." between ''%%'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/P5ProjectController.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/Academic/ReportCardController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/ScheduleController.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Academic/TeachingJournalController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Administration\\GuestBook\:\:\$notes\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Administration/GuestBookController.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Administration/GuestBookController.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Administration/GuestBookController.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Administration/LetterController.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Administration/LetterController.php
+
+		-
+			message: '#^Parameter \#2 \$type of method Modules\\School\\Services\\Operations\\LetterService\:\:generateSuggestedNumber\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/Administration/LetterController.php
+
+		-
+			message: '#^Parameter \#3 \$category of method Modules\\School\\Services\\Operations\\LetterService\:\:generateSuggestedNumber\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/Administration/LetterController.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Administration/PpdbController.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Administration/PpdbController.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Controllers\\Api\\Common\\BaseController\:\:sendError\(\) has parameter \$errorMessages with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Common/BaseController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$full_name\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/Communication/WhatsAppController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/Communication/WhatsAppController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Communication/WhatsAppController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$parent\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Communication/WhatsAppController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Attendance\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/Communication/WhatsAppController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Institution\\School\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Communication/WhatsAppController.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/Communication/WhatsAppController.php
+
+		-
+			message: '#^Parameter \#1 \$perPage of method Illuminate\\Database\\Eloquent\\Builder\<Modules\\School\\Models\\Communication\\WhatsAppLog\>\:\:paginate\(\) expects int\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Communication/WhatsAppController.php
+
+		-
+			message: '#^Parameter \#1 \$time of static method Carbon\\Carbon\:\:parse\(\) expects Carbon\\Month\|Carbon\\WeekDay\|DateTimeInterface\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Communication/WhatsAppController.php
+
+		-
+			message: '#^Parameter \#2 \$operator of method Illuminate\\Database\\Eloquent\\Builder\<Modules\\School\\Models\\Communication\\WhatsAppLog\>\:\:whereDate\(\) expects DateTimeInterface\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Communication/WhatsAppController.php
+
+		-
+			message: '#^Part \$search \(mixed\) of encapsed string cannot be cast to string\.$#'
+			identifier: encapsedStringPart.nonString
+			count: 5
+			path: Modules/School/app/Http/Controllers/Api/Communication/WhatsAppController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/Communication/WhatsAppController.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Counseling/CounselingController.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/Facilities/FacilityController.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Facilities/FacilityController.php
+
+		-
+			message: '#^Binary operation "\." between ''%%'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/HR/StaffController.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/HR/StaffController.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/HR/StaffController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Academic\\Assessment\>\|Modules\\School\\Models\\Academic\\Assessment\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Academic\\Assessment\>\|Modules\\School\\Models\\Academic\\Assessment\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Student\\Student\>\|Modules\\School\\Models\\Student\\Student\:\:\$full_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Student\\Student\>\|Modules\\School\\Models\\Student\\Student\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Student\\Student\>\|Modules\\School\\Models\\Student\\Student\:\:\$nisn\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Student\\Student\>\|Modules\\School\\Models\\Student\\Student\:\:\$studyGroups\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$level\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\Core\\System\\Models\\User\|Modules\\Member\\Models\\Member\:\:\$username\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Institution\\School\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 3
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Integration\\KatampiConfig\:\:\$api_key\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Integration\\KatampiConfig\:\:\$cbt_url\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Integration\\KatampiConfig\:\:\$last_sync_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$full_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$gender\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$nis\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$nisn\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Modules\\School\\Models\\Student\\Student\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,Modules\\School\\Models\\Student\\Student\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>api_key" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>cbt_url" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 3
+			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/Student/DisciplineController.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Student/StudentController.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/Student/StudentController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$candidate_number\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$chairman\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$mission\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$photo_url\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$viceChairman\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$vision\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$vote_count\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\StudentAffairs\\OsisElection\:\:\$period\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\StudentAffairs\\OsisElection\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\StudentAffairs\\OsisElection\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\StudentAffairs\\OsisVote\:\:\$voted_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\StudentAffairs\\OsisCandidate\>\|Modules\\School\\Models\\StudentAffairs\\OsisCandidate\:\:increment\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
+
+		-
+			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 2
+			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/VotingEngineController.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/VotingEngineController.php
+
+		-
+			message: '#^Parameter \#2 \$source of method Modules\\School\\Services\\StudentAffairs\\VotingEngineService\:\:generateVotersDpt\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/VotingEngineController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/VotingEngineController.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Academic\\SaveBulkAttendanceRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Academic/SaveBulkAttendanceRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Academic\\StoreAcademicYearRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Academic/StoreAcademicYearRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Academic\\StoreAssessmentRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Academic/StoreAssessmentRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Academic\\StoreBulkGradesRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Academic/StoreBulkGradesRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Academic\\StoreDepartmentRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Academic/StoreDepartmentRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Academic\\StoreScheduleRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Academic/StoreScheduleRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Academic\\StoreStudyGroupRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Academic/StoreStudyGroupRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Academic\\StoreSubjectRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Academic/StoreSubjectRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Academic\\StoreTeachingJournalRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Academic/StoreTeachingJournalRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Administration\\CheckInVisitorRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Administration/CheckInVisitorRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Administration\\StoreLetterRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Administration/StoreLetterRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Administration\\StorePpdbRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Administration/StorePpdbRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Counseling\\StoreCounselingCaseRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Counseling/StoreCounselingCaseRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Counseling\\UpdateCounselingCaseRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Counseling/UpdateCounselingCaseRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Facilities\\StoreAssetRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Facilities/StoreAssetRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Facilities\\StoreMaintenanceTicketRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Facilities/StoreMaintenanceTicketRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Facilities\\StoreRoomRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Facilities/StoreRoomRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\HR\\StaffCheckInRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/HR/StaffCheckInRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\HR\\StoreStaffRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/HR/StoreStaffRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Student\\StorePointCategoryRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Student/StorePointCategoryRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Student\\StoreStudentRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Student/StoreStudentRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Student\\StoreViolationRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Student/StoreViolationRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\Student\\UpdateStudentRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/Student/UpdateStudentRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\StudentAffairs\\AddVotingCandidateRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/StudentAffairs/AddVotingCandidateRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\StudentAffairs\\CastVoteRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/StudentAffairs/CastVoteRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\StudentAffairs\\GenerateVotingVotersRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/StudentAffairs/GenerateVotingVotersRequest.php
+
+		-
+			message: '#^Method Modules\\School\\Http\\Requests\\StudentAffairs\\StoreVotingEventRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Http/Requests/StudentAffairs/StoreVotingEventRequest.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Academic\\AcademicYear uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/AcademicYear.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\AcademicYear\:\:activeSemester\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/AcademicYear.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\AcademicYear\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/AcademicYear.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\AcademicYear\:\:semesters\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/AcademicYear.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\AcademicYear\:\:studyGroups\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/AcademicYear.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Academic\\Assessment uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Assessment.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Assessment\:\:academicYear\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Assessment.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Assessment\:\:grades\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Assessment.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Assessment\:\:learningObjective\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Assessment.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Assessment\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Assessment.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Assessment\:\:semester\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Assessment.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Assessment\:\:studyGroup\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Assessment.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Assessment\:\:subject\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Assessment.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Assessment\:\:teacher\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Assessment.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Attendance\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Models/Academic/Attendance.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Academic\\Attendance uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Attendance.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Attendance\:\:academicYear\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Attendance.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Attendance\:\:recorder\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Attendance.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Attendance\:\:semester\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Attendance.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Attendance\:\:student\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Attendance.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Attendance\:\:studyGroup\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Attendance.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Academic\\Department uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Department.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Department\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Department.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Department\:\:students\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Department.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Department\:\:studyGroups\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Department.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Grade\:\:\$score\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Models/Academic/Grade.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Academic\\Grade uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Grade.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Grade\:\:assessment\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Grade.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Grade\:\:student\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Grade.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Academic\\LearningObjective uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/LearningObjective.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\LearningObjective\:\:assessments\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/LearningObjective.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\LearningObjective\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/LearningObjective.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\LearningObjective\:\:subject\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/LearningObjective.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Academic\\P5Assessment uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/P5Assessment.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\P5Assessment\:\:project\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/P5Assessment.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\P5Assessment\:\:student\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/P5Assessment.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Academic\\P5Project uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/P5Project.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\P5Project\:\:academicYear\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/P5Project.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\P5Project\:\:assessments\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/P5Project.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\P5Project\:\:coordinator\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/P5Project.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\P5Project\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/P5Project.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Academic\\ReportCard uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/ReportCard.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\ReportCard\:\:academicYear\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/ReportCard.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\ReportCard\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/ReportCard.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\ReportCard\:\:semester\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/ReportCard.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\ReportCard\:\:student\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/ReportCard.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\ReportCard\:\:studyGroup\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/ReportCard.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\ReportCard\:\:subject\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/ReportCard.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Schedule\:\:\$day_of_week\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Models/Academic/Schedule.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Academic\\Schedule uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Schedule.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Schedule\:\:academicYear\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Schedule.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Schedule\:\:journals\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Schedule.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Schedule\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Schedule.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Schedule\:\:semester\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Schedule.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Schedule\:\:studyGroup\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Schedule.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Schedule\:\:subject\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Schedule.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Schedule\:\:teacher\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Schedule.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Academic\\Semester uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Semester.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Semester\:\:academicYear\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Semester.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Academic\\StudyGroup uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/StudyGroup.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\StudyGroup\:\:academicYear\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/StudyGroup.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\StudyGroup\:\:department\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/StudyGroup.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\StudyGroup\:\:groupMembers\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/StudyGroup.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\StudyGroup\:\:homeroomTeacher\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/StudyGroup.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\StudyGroup\:\:level\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/StudyGroup.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\StudyGroup\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/StudyGroup.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\StudyGroup\:\:students\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany does not specify its types\: TRelatedModel, TDeclaringModel, TPivotModel, TAccessor \(2\-4 required\)$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/StudyGroup.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Academic\\StudyGroupMember uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/StudyGroupMember.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\StudyGroupMember\:\:student\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/StudyGroupMember.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\StudyGroupMember\:\:studyGroup\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/StudyGroupMember.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Academic\\Subject uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Subject.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\Subject\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/Subject.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Academic\\TeachingJournal uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/TeachingJournal.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\TeachingJournal\:\:academicYear\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/TeachingJournal.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\TeachingJournal\:\:schedule\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/TeachingJournal.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\TeachingJournal\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/TeachingJournal.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\TeachingJournal\:\:semester\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/TeachingJournal.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\TeachingJournal\:\:studyGroup\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/TeachingJournal.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\TeachingJournal\:\:subject\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/TeachingJournal.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Academic\\TeachingJournal\:\:teacher\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Academic/TeachingJournal.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Administration\\GuestBook uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Administration/GuestBook.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Administration\\GuestBook\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Administration/GuestBook.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Administration\\Letter uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Administration/Letter.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Administration\\Letter\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Administration/Letter.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Administration\\PpdbRegistration uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Administration/PpdbRegistration.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Administration\\PpdbRegistration\:\:academicYear\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Administration/PpdbRegistration.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Administration\\PpdbRegistration\:\:department\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Administration/PpdbRegistration.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Administration\\PpdbRegistration\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Administration/PpdbRegistration.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Administration\\PpdbRegistration\:\:secondChoiceDepartment\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Administration/PpdbRegistration.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Administration\\PpdbRegistration\:\:verifier\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Administration/PpdbRegistration.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Communication\\WhatsAppLog uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Communication/WhatsAppLog.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Communication\\WhatsAppLog\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Communication/WhatsAppLog.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Communication\\WhatsAppLog\:\:student\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Communication/WhatsAppLog.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Counseling\\CounselingCase uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Counseling/CounselingCase.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Counseling\\CounselingCase\:\:academicYear\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Counseling/CounselingCase.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Counseling\\CounselingCase\:\:counselor\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Counseling/CounselingCase.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Counseling\\CounselingCase\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Counseling/CounselingCase.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Counseling\\CounselingCase\:\:semester\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Counseling/CounselingCase.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Counseling\\CounselingCase\:\:student\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Counseling/CounselingCase.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Counseling\\CounselingCase\:\:violation\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Counseling/CounselingCase.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Facilities\\Asset uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Facilities/Asset.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Facilities\\Asset\:\:maintenanceTickets\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Facilities/Asset.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Facilities\\Asset\:\:room\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Facilities/Asset.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Facilities\\Asset\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Facilities/Asset.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Facilities\\MaintenanceTicket uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Facilities/MaintenanceTicket.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Facilities\\MaintenanceTicket\:\:asset\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Facilities/MaintenanceTicket.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Facilities\\MaintenanceTicket\:\:reporter\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Facilities/MaintenanceTicket.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Facilities\\MaintenanceTicket\:\:room\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Facilities/MaintenanceTicket.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Facilities\\MaintenanceTicket\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Facilities/MaintenanceTicket.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Facilities\\Room uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Facilities/Room.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Facilities\\Room\:\:assets\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Facilities/Room.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Facilities\\Room\:\:maintenanceTickets\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Facilities/Room.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Facilities\\Room\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Facilities/Room.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\Staff\:\:\$full_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Models/HR/Staff.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\Staff\:\:\$title_prefix\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Models/HR/Staff.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\Staff\:\:\$title_suffix\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Models/HR/Staff.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\HR\\Staff uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/HR/Staff.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\HR\\Staff\:\:attendances\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/HR/Staff.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\HR\\Staff\:\:schedules\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/HR/Staff.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\HR\\Staff\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/HR/Staff.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\HR\\Staff\:\:teachingJournals\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/HR/Staff.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\HR\\Staff\:\:user\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/HR/Staff.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\HR\\StaffAttendance uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/HR/StaffAttendance.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\HR\\StaffAttendance\:\:shift\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/HR/StaffAttendance.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\HR\\StaffAttendance\:\:staff\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/HR/StaffAttendance.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\HR\\StaffShift uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/HR/StaffShift.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\HR\\StaffShift\:\:attendances\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/HR/StaffShift.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\HR\\StaffShift\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/HR/StaffShift.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Institution\\School uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Institution/School.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Institution\\School\:\:academicYears\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Institution/School.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Institution\\School\:\:departments\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Institution/School.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Institution\\School\:\:levels\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Institution/School.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Institution\\School\:\:students\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Institution/School.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Institution\\School\:\:studyGroups\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Institution/School.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Institution\\School\:\:subjects\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Institution/School.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Institution\\SchoolLevel uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Institution/SchoolLevel.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Institution\\SchoolLevel\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Institution/SchoolLevel.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Institution\\SchoolLevel\:\:students\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Institution/SchoolLevel.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Institution\\SchoolLevel\:\:studyGroups\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Institution/SchoolLevel.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Integration\\KatampiConfig uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Integration/KatampiConfig.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Integration\\KatampiConfig\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Integration/KatampiConfig.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Student\\Achievement uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/Achievement.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\Achievement\:\:creditPoint\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/Achievement.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\Achievement\:\:student\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/Achievement.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Student\\CreditPoint uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/CreditPoint.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\CreditPoint\:\:academicYear\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/CreditPoint.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\CreditPoint\:\:achievement\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/CreditPoint.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\CreditPoint\:\:category\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/CreditPoint.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\CreditPoint\:\:reporter\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/CreditPoint.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\CreditPoint\:\:semester\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/CreditPoint.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\CreditPoint\:\:student\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/CreditPoint.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\CreditPoint\:\:violation\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/CreditPoint.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Student\\PointCategory uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/PointCategory.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\PointCategory\:\:creditPoints\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/PointCategory.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Student\\Student uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/Student.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\Student\:\:achievements\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/Student.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\Student\:\:creditPoints\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/Student.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\Student\:\:department\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/Student.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\Student\:\:level\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/Student.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\Student\:\:parent\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/Student.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\Student\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/Student.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\Student\:\:studyGroups\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany does not specify its types\: TRelatedModel, TDeclaringModel, TPivotModel, TAccessor \(2\-4 required\)$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/Student.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\Student\:\:user\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/Student.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\Student\:\:violations\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/Student.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Student\\StudentParent uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/StudentParent.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\StudentParent\:\:student\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/StudentParent.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Student\\Violation uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/Violation.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\Violation\:\:creditPoint\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/Violation.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Student\\Violation\:\:student\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Student/Violation.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\StudentAffairs\\Extracurricular uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/StudentAffairs/Extracurricular.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\StudentAffairs\\Extracurricular\:\:advisor\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/StudentAffairs/Extracurricular.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\StudentAffairs\\Extracurricular\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/StudentAffairs/Extracurricular.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\StudentAffairs\\OsisCandidate uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/StudentAffairs/OsisCandidate.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\StudentAffairs\\OsisCandidate\:\:chairman\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/StudentAffairs/OsisCandidate.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\StudentAffairs\\OsisCandidate\:\:election\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/StudentAffairs/OsisCandidate.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\StudentAffairs\\OsisCandidate\:\:viceChairman\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/StudentAffairs/OsisCandidate.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\StudentAffairs\\OsisElection uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/StudentAffairs/OsisElection.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\StudentAffairs\\OsisElection\:\:academicYear\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/StudentAffairs/OsisElection.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\StudentAffairs\\OsisElection\:\:candidates\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/StudentAffairs/OsisElection.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\StudentAffairs\\OsisElection\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/StudentAffairs/OsisElection.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\StudentAffairs\\OsisElection\:\:votes\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/StudentAffairs/OsisElection.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\StudentAffairs\\OsisVote uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/StudentAffairs/OsisVote.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\StudentAffairs\\OsisVote\:\:candidate\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/StudentAffairs/OsisVote.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\StudentAffairs\\OsisVote\:\:election\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/StudentAffairs/OsisVote.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\StudentAffairs\\OsisVote\:\:voter\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/StudentAffairs/OsisVote.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Voting\\VoteBallot uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Voting/VoteBallot.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Voting\\VoteBallot\:\:candidate\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Voting/VoteBallot.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Voting\\VoteBallot\:\:event\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Voting/VoteBallot.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Voting\\VoteCandidate uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Voting/VoteCandidate.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Voting\\VoteCandidate\:\:ballots\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Voting/VoteCandidate.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Voting\\VoteCandidate\:\:event\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Voting/VoteCandidate.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Voting\\VoteCandidate\:\:leader\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Voting/VoteCandidate.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Voting\\VoteCandidate\:\:staff\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Voting/VoteCandidate.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Voting\\VoteCandidate\:\:vice\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Voting/VoteCandidate.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Voting\\VoteEvent uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Voting/VoteEvent.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Voting\\VoteEvent\:\:academicYear\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Voting/VoteEvent.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Voting\\VoteEvent\:\:ballots\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Voting/VoteEvent.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Voting\\VoteEvent\:\:candidates\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Voting/VoteEvent.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Voting\\VoteEvent\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Voting/VoteEvent.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Voting\\VoteEvent\:\:voters\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Voting/VoteEvent.php
+
+		-
+			message: '#^Class Modules\\School\\Models\\Voting\\VoteVoter uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Voting/VoteVoter.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Voting\\VoteVoter\:\:event\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Voting/VoteVoter.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Voting\\VoteVoter\:\:staff\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Voting/VoteVoter.php
+
+		-
+			message: '#^Method Modules\\School\\Models\\Voting\\VoteVoter\:\:student\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/app/Models/Voting/VoteVoter.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Counseling\\CounselingCase\:\:\$confidentiality\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Policies/CounselingPolicy.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\Staff\:\:\$user_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Policies/StaffPolicy.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$user_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Policies/StudentPolicy.php
+
+		-
+			message: '#^Parameter \#3 \$fail \(Closure\(string\)\: void\) of method Modules\\School\\Rules\\ValidNIK\:\:validate\(\) should be compatible with parameter \$fail \(Closure\(string, string\|null\=\)\: Illuminate\\Translation\\PotentiallyTranslatedString\) of method Illuminate\\Contracts\\Validation\\ValidationRule\:\:validate\(\)$#'
+			identifier: method.childParameterType
+			count: 1
+			path: Modules/School/app/Rules/ValidNIK.php
+
+		-
+			message: '#^Method Modules\\School\\Rules\\ValidNISN\:\:isValidNISNChecksum\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: Modules/School/app/Rules/ValidNISN.php
+
+		-
+			message: '#^Parameter \#3 \$fail \(Closure\(string\)\: void\) of method Modules\\School\\Rules\\ValidNISN\:\:validate\(\) should be compatible with parameter \$fail \(Closure\(string, string\|null\=\)\: Illuminate\\Translation\\PotentiallyTranslatedString\) of method Illuminate\\Contracts\\Validation\\ValidationRule\:\:validate\(\)$#'
+			identifier: method.childParameterType
+			count: 1
+			path: Modules/School/app/Rules/ValidNISN.php
+
+		-
+			message: '#^Parameter \#3 \$fail \(Closure\(string\)\: void\) of method Modules\\School\\Rules\\ValidPhoneNumber\:\:validate\(\) should be compatible with parameter \$fail \(Closure\(string, string\|null\=\)\: Illuminate\\Translation\\PotentiallyTranslatedString\) of method Illuminate\\Contracts\\Validation\\ValidationRule\:\:validate\(\)$#'
+			identifier: method.childParameterType
+			count: 1
+			path: Modules/School/app/Rules/ValidPhoneNumber.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Academic/AcademicService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Semester\:\:\$academic_year_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Academic/AcademicService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Academic\\AcademicService\:\:createAcademicYear\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Academic/AcademicService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Academic\\AcademicService\:\:createSchedule\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Academic/AcademicService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Academic\\AcademicService\:\:recordTeachingJournal\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Academic/AcademicService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 3
+			path: Modules/School/app/Services/Academic/AcademicService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$full_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$gender\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 7
+			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$nis\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$nisn\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$score\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$student_id\.$#'
+			identifier: property.notFound
+			count: 10
+			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Assessment\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 4
+			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Assessment\:\:\$weight\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Academic\\AssessmentCalculationService\:\:getLedger\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Academic\\AssessmentCalculationService\:\:getStudentReport\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
+
+		-
+			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
+			count: 1
+			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 4
+			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Attendance/AttendanceService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\StudyGroup\:\:\$academic_year_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Attendance/AttendanceService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\StudyGroup\:\:\$school_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Attendance/AttendanceService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\Staff\:\:\$school_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Attendance/AttendanceService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\StaffShift\:\:\$start_time\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Attendance/AttendanceService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Attendance\\AttendanceService\:\:saveBulkStudentAttendance\(\) has parameter \$records with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Attendance/AttendanceService.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 7
+			path: Modules/School/app/Services/Data/ImportDataService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Facilities\\FacilityService\:\:createAsset\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Facilities/FacilityService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Facilities\\FacilityService\:\:createRoom\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Facilities/FacilityService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Facilities\\FacilityService\:\:reportMaintenanceTicket\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Facilities/FacilityService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Facilities\\FacilityService\:\:resolveMaintenanceTicket\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Facilities/FacilityService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$full_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$gender\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$nisn\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\StudyGroup\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Institution\\School\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Integration\\KatampiConfig\:\:\$cbt_url\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$full_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$nisn\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Cannot access property \$id on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Cannot access property \$name on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Cannot access property \$role on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Cannot access property \$username on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Integration\\KatampiSyncService\:\:generateSsoToken\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Integration\\KatampiSyncService\:\:getRoster\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Modules\\School\\Models\\Academic\\StudyGroup\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Parameter \#1 \$string of function base64_encode expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,Modules\\School\\Models\\Academic\\StudyGroup\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: Modules/School/app/Services/Integration/KatampiSyncService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$full_name\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Services/Integration/WhatsAppGatewayService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Services/Integration/WhatsAppGatewayService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Integration/WhatsAppGatewayService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$parent\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Integration/WhatsAppGatewayService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Attendance\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Services/Integration/WhatsAppGatewayService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Institution\\School\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Integration/WhatsAppGatewayService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Integration\\WhatsAppGatewayService\:\:sendAttendanceAlerts\(\) has parameter \$inputStatuses with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Integration/WhatsAppGatewayService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Integration\\WhatsAppGatewayService\:\:sendAttendanceAlerts\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Integration/WhatsAppGatewayService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: Modules/School/app/Services/Integration/WhatsAppGatewayService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Operations\\GuestBookService\:\:checkIn\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Operations/GuestBookService.php
+
+		-
+			message: '#^Cannot access offset string on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: Modules/School/app/Services/Operations/LetterService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Operations\\LetterService\:\:createLetter\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Operations/LetterService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Operations\\LetterService\:\:updateDisposition\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Operations/LetterService.php
+
+		-
+			message: '#^Parameter \#4 \.\.\.\$values of function sprintf expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: Modules/School/app/Services/Operations/LetterService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Administration\\PpdbRegistration\:\:\$address\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Operations/PpdbService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Administration\\PpdbRegistration\:\:\$date_of_birth\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Operations/PpdbService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Administration\\PpdbRegistration\:\:\$department_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Operations/PpdbService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Administration\\PpdbRegistration\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Operations/PpdbService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Administration\\PpdbRegistration\:\:\$full_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Operations/PpdbService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Administration\\PpdbRegistration\:\:\$gender\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Operations/PpdbService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Administration\\PpdbRegistration\:\:\$nik\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Operations/PpdbService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Administration\\PpdbRegistration\:\:\$nisn\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Operations/PpdbService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Administration\\PpdbRegistration\:\:\$notes\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Services/Operations/PpdbService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Administration\\PpdbRegistration\:\:\$phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Operations/PpdbService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Administration\\PpdbRegistration\:\:\$place_of_birth\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Operations/PpdbService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Administration\\PpdbRegistration\:\:\$religion\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Operations/PpdbService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Administration\\PpdbRegistration\:\:\$school_id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Services/Operations/PpdbService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Administration\\PpdbRegistration\:\:\$verified_by\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Operations/PpdbService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Operations\\PpdbService\:\:admitApplicant\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Operations/PpdbService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Operations\\PpdbService\:\:registerApplicant\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Operations/PpdbService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Operations\\PpdbService\:\:verifyApplicant\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Operations/PpdbService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Student/CounselingService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Student\\CounselingService\:\:createCase\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Student/CounselingService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Student\\CounselingService\:\:resolveCase\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Student/CounselingService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Student\\CounselingService\:\:updateCase\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Student/CounselingService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: Modules/School/app/Services/Student/CounselingService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Student\\PointCategory\>\|Modules\\School\\Models\\Student\\PointCategory\:\:\$default_points\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Student/DisciplineService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Student\\PointCategory\>\|Modules\\School\\Models\\Student\\PointCategory\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Student/DisciplineService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Student\\PointCategory\>\|Modules\\School\\Models\\Student\\PointCategory\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Student/DisciplineService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Student\\PointCategory\>\|Modules\\School\\Models\\Student\\PointCategory\:\:\$type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Student/DisciplineService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Student\\Student\>\|Modules\\School\\Models\\Student\\Student\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 4
+			path: Modules/School/app/Services/Student/DisciplineService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Student\\Student\>\|Modules\\School\\Models\\Student\\Student\:\:\$school_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Student/DisciplineService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/Student/DisciplineService.php
+
+		-
+			message: '#^Cannot access offset ''sp1'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: Modules/School/app/Services/Student/DisciplineService.php
+
+		-
+			message: '#^Cannot access offset ''sp2'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: Modules/School/app/Services/Student/DisciplineService.php
+
+		-
+			message: '#^Cannot access offset ''sp3'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: Modules/School/app/Services/Student/DisciplineService.php
+
+		-
+			message: '#^Cannot access property \$total_credit_score on Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Student\\Student\>\|Modules\\School\\Models\\Student\\Student\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: Modules/School/app/Services/Student/DisciplineService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Student\\DisciplineService\:\:getStudentDisciplineSummary\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Student/DisciplineService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Student\\DisciplineService\:\:recordPoint\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Student/DisciplineService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Student\\DisciplineService\:\:recordPoint\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Student/DisciplineService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: Modules/School/app/Services/Student/DisciplineService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Student\\StudentService\:\:getStudentProfile\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Student/StudentService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Student\\StudentService\:\:registerStudent\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Student/StudentService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\Student\\StudentService\:\:updateStudent\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/Student/StudentService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Voting\\VoteCandidate\>\|Modules\\School\\Models\\Voting\\VoteCandidate\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Voting\\VoteCandidate\>\|Modules\\School\\Models\\Voting\\VoteCandidate\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$candidate_number\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$mission\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$photo_url\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$vision\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$vote_count\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\Staff\:\:\$full_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$full_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$nis\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Voting\\VoteEvent\:\:\$end_date\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Voting\\VoteEvent\:\:\$start_date\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Voting\\VoteEvent\:\:\$status\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Voting\\VoteEvent\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Voting\\VoteEvent\:\:\$type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Voting\\VoteVoter\:\:\$has_voted\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Voting\\VoteVoter\:\:\$token\.$#'
+			identifier: property.notFound
+			count: 2
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Voting\\VoteVoter\:\:\$voter_identifier\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Voting\\VoteVoter\:\:\$voter_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Voting\\VoteCandidate\>\|Modules\\School\\Models\\Voting\\VoteCandidate\:\:increment\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\StudentAffairs\\VotingEngineService\:\:calculateQuickCount\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\StudentAffairs\\VotingEngineService\:\:castBallot\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\StudentAffairs\\VotingEngineService\:\:castBallot\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Method Modules\\School\\Services\\StudentAffairs\\VotingEngineService\:\:generateVotersDpt\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Parameter \#1 \$callback of static method Illuminate\\Database\\Connection\:\:transaction\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Return type of call to static method Illuminate\\Database\\Connection\:\:transaction\(\) contains unresolvable type\.$#'
+			identifier: staticMethod.unresolvableReturnType
+			count: 1
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>full_name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 3
+			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
+
+		-
+			message: '#^Class Modules\\School\\Database\\Factories\\AcademicYearFactory extends generic class Illuminate\\Database\\Eloquent\\Factories\\Factory but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/database/factories/AcademicYearFactory.php
+
+		-
+			message: '#^Cannot access offset ''code'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: Modules/School/database/factories/DepartmentFactory.php
+
+		-
+			message: '#^Cannot access offset ''name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: Modules/School/database/factories/DepartmentFactory.php
+
+		-
+			message: '#^Class Modules\\School\\Database\\Factories\\DepartmentFactory extends generic class Illuminate\\Database\\Eloquent\\Factories\\Factory but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/database/factories/DepartmentFactory.php
+
+		-
+			message: '#^Call to an undefined method Faker\\Generator\:\:state\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: Modules/School/database/factories/SchoolFactory.php
+
+		-
+			message: '#^Class Modules\\School\\Database\\Factories\\SchoolFactory extends generic class Illuminate\\Database\\Eloquent\\Factories\\Factory but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/database/factories/SchoolFactory.php
+
+		-
+			message: '#^Class Modules\\School\\Database\\Factories\\StaffFactory extends generic class Illuminate\\Database\\Eloquent\\Factories\\Factory but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/database/factories/StaffFactory.php
+
+		-
+			message: '#^Call to an undefined method Faker\\Generator\:\:state\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: Modules/School/database/factories/StudentFactory.php
+
+		-
+			message: '#^Class Modules\\School\\Database\\Factories\\StudentFactory extends generic class Illuminate\\Database\\Eloquent\\Factories\\Factory but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/database/factories/StudentFactory.php
+
+		-
+			message: '#^Class Modules\\School\\Database\\Factories\\StudyGroupFactory extends generic class Illuminate\\Database\\Eloquent\\Factories\\Factory but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/database/factories/StudyGroupFactory.php
+
+		-
+			message: '#^Part \$suffix \(mixed\) of encapsed string cannot be cast to string\.$#'
+			identifier: encapsedStringPart.nonString
+			count: 1
+			path: Modules/School/database/factories/StudyGroupFactory.php
+
+		-
+			message: '#^Binary operation "\." between ''Pemilihan '' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: Modules/School/database/factories/VoteEventFactory.php
+
+		-
+			message: '#^Class Modules\\School\\Database\\Factories\\VoteEventFactory extends generic class Illuminate\\Database\\Eloquent\\Factories\\Factory but does not specify its types\: TModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: Modules/School/database/factories/VoteEventFactory.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 3
+			path: Modules/School/database/seeders/SchoolPhase2Seeder.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 5
+			path: Modules/School/database/seeders/SchoolPhase3Seeder.php
+
+		-
+			message: '#^Cannot access property \$id on Modules\\School\\Models\\Student\\Student\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: Modules/School/database/seeders/SchoolPhase3Seeder.php
+
+		-
+			message: '#^Cannot access property \$id on Modules\\School\\Models\\HR\\Staff\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: Modules/School/database/seeders/SchoolPhase4Seeder.php
+
+		-
+			message: '#^Cannot access property \$id on Modules\\School\\Models\\Student\\Student\|null\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: Modules/School/database/seeders/SchoolPhase4Seeder.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$full_name\.$#'
+			identifier: property.notFound
+			count: 3
+			path: Modules/School/database/seeders/SchoolPhase5Seeder.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\Staff\:\:\$full_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/database/seeders/SchoolVotingEngineSeeder.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$full_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/database/seeders/SchoolVotingEngineSeeder.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$nisn\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/database/seeders/SchoolVotingEngineSeeder.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Voting\\VoteVoter\:\:\$has_voted\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/database/seeders/SchoolVotingEngineSeeder.php
+
+		-
+			message: '#^Access to an undefined property Modules\\School\\Models\\Voting\\VoteVoter\:\:\$token\.$#'
+			identifier: property.notFound
+			count: 1
+			path: Modules/School/database/seeders/SchoolVotingEngineSeeder.php
+
+		-
+			message: '#^Cannot access property \$id on Modules\\School\\Models\\Student\\Student\|null\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: Modules/School/database/seeders/SchoolVotingEngineSeeder.php
 
 		-
 			message: '#^Call to static method make\(\) on an unknown class Hash\.$#'

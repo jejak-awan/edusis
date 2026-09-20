@@ -468,7 +468,7 @@ async function loadAssessments() {
 
     const res = await SchoolService.getAssessments(params);
     if (res.data?.success) {
-      assessments.value = res.data.data.data || [];
+      assessments.value = Array.isArray(res.data.data) ? res.data.data : ((res.data.data as any)?.data ?? []);
     }
   } catch (err) {
     console.error('Failed to load assessments', err);

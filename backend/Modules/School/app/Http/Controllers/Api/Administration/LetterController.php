@@ -86,6 +86,7 @@ class LetterController extends BaseController
     public function show(int $id): JsonResponse
     {
         $letter = Letter::findOrFail($id);
+
         return $this->sendResponse($letter, 'Letter details retrieved');
     }
 

@@ -54,6 +54,7 @@ class ExtracurricularController extends BaseController
     public function show(int $id): JsonResponse
     {
         $ekskul = Extracurricular::with('advisor')->findOrFail($id);
+
         return $this->sendResponse($ekskul, 'Extracurricular details retrieved');
     }
 

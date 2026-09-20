@@ -82,9 +82,9 @@ class Staff extends Model
      */
     public function getFormalNameAttribute(): string
     {
-        $prefix = $this->title_prefix ? trim($this->title_prefix) . ' ' : '';
-        $suffix = $this->title_suffix ? ', ' . trim($this->title_suffix) : '';
+        $prefix = $this->title_prefix ? trim($this->title_prefix).' ' : '';
+        $suffix = $this->title_suffix ? ', '.trim($this->title_suffix) : '';
 
-        return $prefix . $this->full_name . $suffix;
+        return $prefix.$this->full_name.$suffix;
     }
 }

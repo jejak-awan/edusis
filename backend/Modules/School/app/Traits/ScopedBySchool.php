@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Context;
  * Trait untuk mengisolasi model Eloquent secara otomatis berdasarkan konteks tenant (school_id).
  *
  * @property int $school_id
- * @mixin \Illuminate\Database\Eloquent\Model
+ *
+ * @mixin Model
  */
 trait ScopedBySchool
 {
@@ -24,7 +25,7 @@ trait ScopedBySchool
         static::addGlobalScope('school', function (Builder $builder): void {
             $schoolId = Context::get('school_id');
             if ($schoolId) {
-                $builder->where($builder->getModel()->getTable() . '.school_id', (int) $schoolId);
+                $builder->where($builder->getModel()->getTable().'.school_id', (int) $schoolId);
             }
         });
 

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Modules\School\Services\Data;
 
 use Illuminate\Support\Facades\DB;
-use Modules\School\Models\Academic\StudyGroup;
 use Modules\School\Models\HR\Staff;
 use Modules\School\Models\Student\Student;
 use Modules\School\Models\Student\StudentParent;
@@ -29,18 +28,19 @@ class ImportDataService
 
                 if (empty($row['full_name']) && empty($row['nama_lengkap'])) {
                     $errors[] = "Baris #{$rowNum}: Nama lengkap siswa wajib diisi.";
+
                     continue;
                 }
 
                 $fullName = (string) ($row['full_name'] ?? $row['nama_lengkap']);
                 $gender = strtoupper(trim((string) ($row['gender'] ?? $row['jenis_kelamin'] ?? 'L')));
-                if (!in_array($gender, ['L', 'P'], true)) {
+                if (! in_array($gender, ['L', 'P'], true)) {
                     $gender = 'L';
                 }
 
-                $nisn = !empty($row['nisn']) ? substr(trim((string) $row['nisn']), 0, 10) : null;
-                $nis = !empty($row['nis']) ? substr(trim((string) $row['nis']), 0, 20) : null;
-                $nik = !empty($row['nik']) ? substr(trim((string) $row['nik']), 0, 16) : null;
+                $nisn = ! empty($row['nisn']) ? substr(trim((string) $row['nisn']), 0, 10) : null;
+                $nis = ! empty($row['nis']) ? substr(trim((string) $row['nis']), 0, 20) : null;
+                $nik = ! empty($row['nik']) ? substr(trim((string) $row['nik']), 0, 16) : null;
 
                 $student = Student::updateOrCreate(
                     [
@@ -63,7 +63,7 @@ class ImportDataService
                 );
 
                 // Parent data if present
-                if (!empty($row['father_name']) || !empty($row['nama_ayah']) || !empty($row['mother_name']) || !empty($row['nama_ibu'])) {
+                if (! empty($row['father_name']) || ! empty($row['nama_ayah']) || ! empty($row['mother_name']) || ! empty($row['nama_ibu'])) {
                     StudentParent::updateOrCreate(
                         ['student_id' => $student->id],
                         [
@@ -106,12 +106,13 @@ class ImportDataService
 
                 if (empty($row['full_name']) && empty($row['nama_lengkap'])) {
                     $errors[] = "Baris #{$rowNum}: Nama pegawai/guru wajib diisi.";
+
                     continue;
                 }
 
                 $fullName = (string) ($row['full_name'] ?? $row['nama_lengkap']);
                 $gender = strtoupper(trim((string) ($row['gender'] ?? $row['jenis_kelamin'] ?? 'L')));
-                if (!in_array($gender, ['L', 'P'], true)) {
+                if (! in_array($gender, ['L', 'P'], true)) {
                     $gender = 'L';
                 }
 

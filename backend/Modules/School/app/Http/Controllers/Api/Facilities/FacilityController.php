@@ -51,6 +51,7 @@ class FacilityController extends BaseController
     public function showRoom(int $id): JsonResponse
     {
         $room = Room::with(['assets', 'maintenanceTickets.reporter'])->findOrFail($id);
+
         return $this->sendResponse($room, 'Room details retrieved');
     }
 
@@ -125,6 +126,7 @@ class FacilityController extends BaseController
     public function showAsset(int $id): JsonResponse
     {
         $asset = Asset::with(['room', 'maintenanceTickets.reporter'])->findOrFail($id);
+
         return $this->sendResponse($asset, 'Asset details retrieved');
     }
 
@@ -190,6 +192,7 @@ class FacilityController extends BaseController
     public function showTicket(int $id): JsonResponse
     {
         $ticket = MaintenanceTicket::with(['room', 'asset', 'reporter'])->findOrFail($id);
+
         return $this->sendResponse($ticket, 'Ticket details retrieved');
     }
 

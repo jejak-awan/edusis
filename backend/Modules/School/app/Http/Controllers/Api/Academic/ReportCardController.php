@@ -18,7 +18,7 @@ class ReportCardController extends BaseController
     public function ledger(Request $request): JsonResponse
     {
         $studyGroupId = (int) $request->input('study_group_id');
-        if (!$studyGroupId) {
+        if (! $studyGroupId) {
             return $this->sendError('study_group_id is required', [], 422);
         }
 
@@ -31,7 +31,7 @@ class ReportCardController extends BaseController
     public function calculate(Request $request): JsonResponse
     {
         $studyGroupId = (int) $request->input('study_group_id');
-        if (!$studyGroupId) {
+        if (! $studyGroupId) {
             return $this->sendError('study_group_id is required', [], 422);
         }
 

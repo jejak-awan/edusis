@@ -40,6 +40,7 @@ class AttendanceController extends BaseController
 
         $result = $group->students->map(function ($student) use ($existingAttendances) {
             $att = $existingAttendances->get($student->id);
+
             return [
                 'student_id' => $student->id,
                 'nisn' => $student->nisn,
@@ -89,6 +90,7 @@ class AttendanceController extends BaseController
 
         $result = $staffList->map(function ($staff) {
             $att = $staff->attendances->first();
+
             return [
                 'staff_id' => $staff->id,
                 'full_name' => $staff->formal_name,

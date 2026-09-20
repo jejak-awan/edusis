@@ -13,7 +13,7 @@ class SchoolUnitTest extends TestCase
 {
     public function test_valid_nisn_rule(): void
     {
-        $rule = new ValidNISN();
+        $rule = new ValidNISN;
         $failCount = 0;
         $fail = function () use (&$failCount) {
             $failCount++;
@@ -28,7 +28,7 @@ class SchoolUnitTest extends TestCase
 
     public function test_valid_nik_rule(): void
     {
-        $rule = new ValidNIK();
+        $rule = new ValidNIK;
         $failCount = 0;
         $fail = function () use (&$failCount) {
             $failCount++;
@@ -43,7 +43,7 @@ class SchoolUnitTest extends TestCase
 
     public function test_valid_phone_rule(): void
     {
-        $rule = new ValidPhoneNumber();
+        $rule = new ValidPhoneNumber;
         $failCount = 0;
         $fail = function () use (&$failCount) {
             $failCount++;

@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace Modules\School\Tests\Feature;
 
 use Modules\Core\System\Models\User;
-use Modules\School\Models\Academic\AcademicYear;
-use Modules\School\Models\Academic\Department;
-use Modules\School\Models\Academic\StudyGroup;
-use Modules\School\Models\Institution\School;
+use Modules\School\Database\Seeders\SchoolPhase1Seeder;
 use Modules\School\Models\Student\PointCategory;
 use Modules\School\Models\Student\Student;
 use Tests\TestCase;
@@ -21,7 +18,7 @@ class SchoolPhase1ApiTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed(\Modules\School\Database\Seeders\SchoolPhase1Seeder::class);
+        $this->seed(SchoolPhase1Seeder::class);
 
         $this->admin = User::firstOrCreate(
             ['email' => 'admin@edusis.local'],

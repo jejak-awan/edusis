@@ -186,7 +186,7 @@ async function castBallot() {
       step.value = 'success';
       startAutoResetTimer();
     }
-  } catch (err: any) {
+  } catch (_err) {
     // If testing in offline or synthetic mock mode, fall back to success screen
     receipt.value = `VOTE-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
     step.value = 'success';

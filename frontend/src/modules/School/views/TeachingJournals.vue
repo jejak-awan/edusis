@@ -467,9 +467,9 @@ async function loadInitialData() {
       SchoolService.getStaff({ role_title: 'Guru' }),
     ]);
 
-    if (groupsRes.data?.success) studyGroups.value = groupsRes.data.data || [];
-    if (subjRes.data?.success) subjects.value = subjRes.data.data || [];
-    if (staffRes.data?.success) teachers.value = staffRes.data.data.data || [];
+    if (groupsRes.data?.success) studyGroups.value = Array.isArray(groupsRes.data.data) ? groupsRes.data.data : ((groupsRes.data.data as any)?.data ?? []);
+    if (subjRes.data?.success) subjects.value = Array.isArray(subjRes.data.data) ? subjRes.data.data : ((subjRes.data.data as any)?.data ?? []);
+    if (staffRes.data?.success) teachers.value = Array.isArray(staffRes.data.data) ? staffRes.data.data : ((staffRes.data.data as any)?.data ?? []);
 
     await loadJournals();
   } catch (err) {
@@ -487,7 +487,7 @@ async function loadJournals() {
 
     const res = await SchoolService.getJournals(params);
     if (res.data?.success) {
-      journals.value = res.data.data.data || [];
+      journals.value = Array.isArray(res.data.data) ? res.data.data : ((res.data.data as any)?.data ?? []);
     }
   } catch (err) {
     console.error('Failed to load journals', err);

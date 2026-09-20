@@ -6,10 +6,12 @@ namespace Modules\School\Tests\Feature;
 
 use Carbon\Carbon;
 use Modules\Core\System\Models\User;
+use Modules\School\Database\Seeders\SchoolPhase1Seeder;
+use Modules\School\Database\Seeders\SchoolPhase2Seeder;
+use Modules\School\Database\Seeders\SchoolPhase3Seeder;
+use Modules\School\Database\Seeders\SchoolPhase4Seeder;
+use Modules\School\Database\Seeders\SchoolVotingEngineSeeder;
 use Modules\School\Models\Institution\School;
-use Modules\School\Models\Student\Student;
-use Modules\School\Models\Voting\VoteBallot;
-use Modules\School\Models\Voting\VoteCandidate;
 use Modules\School\Models\Voting\VoteEvent;
 use Modules\School\Models\Voting\VoteVoter;
 use Tests\TestCase;
@@ -17,17 +19,18 @@ use Tests\TestCase;
 class SchoolVotingEngineApiTest extends TestCase
 {
     private User $admin;
+
     private School $school;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->seed(\Modules\School\Database\Seeders\SchoolPhase1Seeder::class);
-        $this->seed(\Modules\School\Database\Seeders\SchoolPhase2Seeder::class);
-        $this->seed(\Modules\School\Database\Seeders\SchoolPhase3Seeder::class);
-        $this->seed(\Modules\School\Database\Seeders\SchoolPhase4Seeder::class);
-        $this->seed(\Modules\School\Database\Seeders\SchoolVotingEngineSeeder::class);
+        $this->seed(SchoolPhase1Seeder::class);
+        $this->seed(SchoolPhase2Seeder::class);
+        $this->seed(SchoolPhase3Seeder::class);
+        $this->seed(SchoolPhase4Seeder::class);
+        $this->seed(SchoolVotingEngineSeeder::class);
 
         $this->admin = User::firstOrCreate(
             ['email' => 'admin@edusis.local'],

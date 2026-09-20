@@ -22,7 +22,7 @@ class SchoolPhase2Seeder extends Seeder
     public function run(): void
     {
         $school = School::first();
-        if (!$school) {
+        if (! $school) {
             return;
         }
 

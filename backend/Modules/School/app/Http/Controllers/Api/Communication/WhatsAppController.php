@@ -111,7 +111,7 @@ class WhatsAppController extends BaseController
         ];
 
         $statuses = array_values(array_unique(array_filter(array_map(
-            fn($s) => $statusMap[(string) $s] ?? (string) $s,
+            fn ($s) => $statusMap[(string) $s] ?? (string) $s,
             $inputStatuses
         ))));
 
@@ -140,7 +140,7 @@ class WhatsAppController extends BaseController
 
         foreach ($attendances as $att) {
             $student = $att->student;
-            if (!$student) {
+            if (! $student) {
                 continue;
             }
 
@@ -154,10 +154,11 @@ class WhatsAppController extends BaseController
             $recipientName = $parent?->mother_name
                 ?: $parent?->father_name
                 ?: $parent?->guardian_name
-                ?: ('Orang Tua ' . $student->full_name);
+                ?: ('Orang Tua '.$student->full_name);
 
-            if (!$recipientPhone) {
+            if (! $recipientPhone) {
                 $skippedCount++;
+
                 continue;
             }
 
@@ -171,6 +172,7 @@ class WhatsAppController extends BaseController
 
             if ($alreadySent) {
                 $skippedCount++;
+
                 continue;
             }
 
@@ -179,9 +181,9 @@ class WhatsAppController extends BaseController
             $formattedDate = Carbon::parse($date)->isoFormat('dddd, D MMMM Y');
 
             $message = "Yth. Bapak/Ibu Wali dari {$student->full_name} ({$studyGroupName}),\n\n"
-                . "Kami menginformasikan bahwa siswa tercatat {$statusLabel} pada absensi sekolah tanggal {$formattedDate}.\n\n"
-                . "Mohon konfirmasi atau hubungi pihak sekolah jika terdapat kekeliruan.\n\n"
-                . "Salam hangat,\n{$schoolName}";
+                ."Kami menginformasikan bahwa siswa tercatat {$statusLabel} pada absensi sekolah tanggal {$formattedDate}.\n\n"
+                ."Mohon konfirmasi atau hubungi pihak sekolah jika terdapat kekeliruan.\n\n"
+                ."Salam hangat,\n{$schoolName}";
 
             $log = WhatsAppLog::create([
                 'school_id' => $schoolId,

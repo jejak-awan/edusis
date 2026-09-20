@@ -19,7 +19,7 @@ class CheckInVisitorRequest extends FormRequest
         return [
             'visitor_name' => 'required|string|max:150',
             'institution' => 'nullable|string|max:150',
-            'phone' => ['nullable', 'string', 'max:30', new ValidPhoneNumber()],
+            'phone' => ['nullable', 'string', 'max:30', new ValidPhoneNumber],
             'identity_type' => 'required|in:KTP,SIM,Passport,Lainnya',
             'identity_number' => 'nullable|string|max:50',
             'purpose' => 'required|string|max:255',

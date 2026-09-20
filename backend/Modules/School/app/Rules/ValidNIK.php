@@ -16,9 +16,7 @@ class ValidNIK implements ValidationRule
     /**
      * Jalankan validasi NIK.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
-     * @param  \Closure(string): void  $fail
+     * @param  Closure(string): void  $fail
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
@@ -28,6 +26,7 @@ class ValidNIK implements ValidationRule
 
         if (! is_string($value) || ! preg_match('/^\d{16}$/', $value)) {
             $fail('Nomor Induk Kependudukan (NIK) harus berupa 16 digit angka.');
+
             return;
         }
 

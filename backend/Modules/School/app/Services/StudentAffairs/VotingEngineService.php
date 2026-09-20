@@ -38,7 +38,7 @@ class VotingEngineService
                     ->where('student_id', $student->id)
                     ->first();
 
-                if (!$existing) {
+                if (! $existing) {
                     $token = VoteVoter::generateUniqueToken($event->id);
                     $voter = VoteVoter::create([
                         'event_id' => $event->id,
@@ -63,14 +63,14 @@ class VotingEngineService
                     ->where('staff_id', $staff->id)
                     ->first();
 
-                if (!$existing) {
+                if (! $existing) {
                     $token = VoteVoter::generateUniqueToken($event->id);
                     $voter = VoteVoter::create([
                         'event_id' => $event->id,
                         'voter_type' => 'staff',
                         'staff_id' => $staff->id,
                         'voter_name' => $staff->full_name,
-                        'voter_identifier' => $staff->nip ?? $staff->nuptk ?? ('GTK-' . $staff->id),
+                        'voter_identifier' => $staff->nip ?? $staff->nuptk ?? ('GTK-'.$staff->id),
                         'token' => $token,
                         'has_voted' => false,
                         'token_generated_at' => Carbon::now(),
@@ -85,7 +85,7 @@ class VotingEngineService
             'event_id' => $event->id,
             'generated_count' => $generatedCount,
             'total_dpt' => $event->voters()->count(),
-            'sample_tokens' => array_slice(array_map(fn($v) => [
+            'sample_tokens' => array_slice(array_map(fn ($v) => [
                 'name' => $v->voter_name,
                 'token' => $v->token,
                 'identifier' => $v->voter_identifier,
@@ -111,26 +111,26 @@ class VotingEngineService
             ->findOrFail($data['candidate_id']);
 
         $voter = null;
-        if (!empty($data['token'])) {
+        if (! empty($data['token'])) {
             $tokenInput = strtoupper(trim($data['token']));
             $voter = VoteVoter::where('event_id', $event->id)
                 ->where('token', $tokenInput)
                 ->first();
 
-            if (!$voter) {
+            if (! $voter) {
                 throw new SchoolModuleException('Token bilik suara tidak valid atau tidak terdaftar.', 422);
             }
-        } elseif (!empty($data['student_id'])) {
+        } elseif (! empty($data['student_id'])) {
             $voter = VoteVoter::where('event_id', $event->id)
                 ->where('student_id', $data['student_id'])
                 ->first();
 
-            if (!$voter) {
+            if (! $voter) {
                 throw new SchoolModuleException('Siswa tidak terdaftar dalam DPT pemilihan ini.', 422);
             }
         }
 
-        if (!$voter) {
+        if (! $voter) {
             throw new SchoolModuleException('Identitas pemilih tidak ditemukan.', 422);
         }
 
@@ -145,7 +145,7 @@ class VotingEngineService
             ]);
 
             $tokenRaw = $voter->token;
-            $tokenHash = hash('sha256', $tokenRaw . $event->id . $now->timestamp);
+            $tokenHash = hash('sha256', $tokenRaw.$event->id.$now->timestamp);
 
             VoteBallot::create([
                 'event_id' => $event->id,
@@ -180,6 +180,7 @@ class VotingEngineService
 
         $results = $event->candidates->map(function ($c) use ($totalBallots) {
             $pct = $totalBallots > 0 ? round(($c->vote_count / $totalBallots) * 100, 2) : 0;
+
             return [
                 'id' => $c->id,
                 'candidate_number' => $c->candidate_number,

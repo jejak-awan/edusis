@@ -478,7 +478,7 @@ async function loadInitialData() {
     }
 
     if (staffRes.data?.success) {
-      allStaff.value = staffRes.data.data.data || [];
+      allStaff.value = Array.isArray(staffRes.data.data) ? staffRes.data.data : ((staffRes.data.data as any)?.data ?? []);
     }
 
     await loadStaffAttendance();
@@ -497,7 +497,7 @@ async function loadStudentAttendance() {
       date: selectedDate.value || new Date().toISOString().slice(0, 10),
     });
     if (res.data?.success) {
-      studentAttendance.value = res.data.data || [];
+      studentAttendance.value = Array.isArray(res.data.data) ? res.data.data : ((res.data.data as any)?.data ?? []);
     }
   } catch (err) {
     console.error('Failed to load student attendance', err);

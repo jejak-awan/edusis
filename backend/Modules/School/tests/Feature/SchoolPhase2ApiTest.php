@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Modules\School\Tests\Feature;
 
 use Modules\Core\System\Models\User;
+use Modules\School\Database\Seeders\SchoolPhase1Seeder;
+use Modules\School\Database\Seeders\SchoolPhase2Seeder;
 use Modules\School\Models\Academic\StudyGroup;
 use Modules\School\Models\Academic\Subject;
 use Modules\School\Models\HR\Staff;
@@ -19,8 +21,8 @@ class SchoolPhase2ApiTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed(\Modules\School\Database\Seeders\SchoolPhase1Seeder::class);
-        $this->seed(\Modules\School\Database\Seeders\SchoolPhase2Seeder::class);
+        $this->seed(SchoolPhase1Seeder::class);
+        $this->seed(SchoolPhase2Seeder::class);
 
         $this->admin = User::firstOrCreate(
             ['email' => 'admin@edusis.local'],
@@ -54,7 +56,7 @@ class SchoolPhase2ApiTest extends TestCase
         $this->assertNotNull($group);
 
         $response = $this->actingAs($this->admin, 'sanctum')
-            ->getJson('/api/v1/school/attendance/students?study_group_id=' . $group->id . '&date=' . now()->toDateString());
+            ->getJson('/api/v1/school/attendance/students?study_group_id='.$group->id.'&date='.now()->toDateString());
 
         $response->assertStatus(200)
             ->assertJson(['success' => true]);

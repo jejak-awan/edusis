@@ -38,7 +38,7 @@ class StudentFactory extends Factory
             'kabupaten_kota' => $this->faker->city(),
             'provinsi' => $this->faker->state(),
             'postal_code' => $this->faker->postcode(),
-            'phone' => '08' . $this->faker->numerify('##########'),
+            'phone' => '08'.$this->faker->numerify('##########'),
             'email' => $this->faker->unique()->safeEmail(),
             'entry_year' => 2026,
             'status' => 'active',
@@ -47,11 +47,11 @@ class StudentFactory extends Factory
 
     public function active(): static
     {
-        return $this->state(fn(): array => ['status' => 'active']);
+        return $this->state(fn (): array => ['status' => 'active']);
     }
 
     public function graduated(): static
     {
-        return $this->state(fn(): array => ['status' => 'graduated']);
+        return $this->state(fn (): array => ['status' => 'graduated']);
     }
 }

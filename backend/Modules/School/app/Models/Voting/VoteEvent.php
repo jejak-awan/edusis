@@ -80,6 +80,7 @@ class VoteEvent extends Model
         }
 
         $voted = $this->voters()->where('has_voted', true)->count();
+
         return round(($voted / $total) * 100, 2);
     }
 }

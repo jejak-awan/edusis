@@ -26,7 +26,7 @@ Kebijakan: [`DOCUMENTATION.md`](../DOCUMENTATION.md).
 ## CMS baseline (alignment lintas tema)
 
 Kontrak fitur yang **harus sama** vs yang **tetap khas** per tema:  
-[`docs/work/2026-09-18-theme-cms-baseline-alignment.md`](../work/2026-09-18-theme-cms-baseline-alignment.md)
+[`docs/work/archive/core-engine/2026-09-18-theme-cms-baseline-alignment.md`](../work/archive/core-engine/2026-09-18-theme-cms-baseline-alignment.md)
 
 ### Checklist kontrak (P0)
 

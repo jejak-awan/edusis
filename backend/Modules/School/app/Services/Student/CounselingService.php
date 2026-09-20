@@ -46,6 +46,7 @@ class CounselingService
     public function updateCase(CounselingCase $case, array $data): CounselingCase
     {
         $case->update($data);
+
         return $case;
     }
 

@@ -443,7 +443,8 @@ const loadApplicants = async () => {
       status: filterStatus.value || undefined,
       search: searchQuery.value || undefined,
     });
-    applicants.value = res.data.data.data || res.data.data || [];
+    const rawApp = res.data.data;
+    applicants.value = Array.isArray(rawApp) ? rawApp : ((rawApp as any)?.data ?? []);
   } catch (err) {
     console.error('Failed to load PPDB applicants:', err);
   } finally {
@@ -454,7 +455,8 @@ const loadApplicants = async () => {
 const loadDepartments = async () => {
   try {
     const res = await SchoolService.getDepartments();
-    departments.value = res.data.data || [];
+    const rawDept = res.data.data;
+    departments.value = Array.isArray(rawDept) ? rawDept : ((rawDept as any)?.data ?? []);
     const firstDept = departments.value[0];
     if (firstDept) {
       form.department_id = firstDept.id;

@@ -36,7 +36,7 @@ class StaffFactory extends Factory
             'last_education' => $this->faker->randomElement(['S1', 'S2']),
             'major' => 'Pendidikan',
             'certification_status' => true,
-            'phone' => '08' . $this->faker->numerify('##########'),
+            'phone' => '08'.$this->faker->numerify('##########'),
             'email' => $this->faker->unique()->safeEmail(),
             'address' => $this->faker->address(),
             'is_active' => true,

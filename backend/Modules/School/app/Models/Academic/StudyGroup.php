@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Modules\School\Models\HR\Staff;
 use Modules\School\Models\Institution\School;
 use Modules\School\Models\Institution\SchoolLevel;
 use Modules\School\Models\Student\Student;
@@ -69,6 +70,6 @@ class StudyGroup extends Model
 
     public function homeroomTeacher(): BelongsTo
     {
-        return $this->belongsTo(\Modules\School\Models\HR\Staff::class, 'homeroom_teacher_id');
+        return $this->belongsTo(Staff::class, 'homeroom_teacher_id');
     }
 }

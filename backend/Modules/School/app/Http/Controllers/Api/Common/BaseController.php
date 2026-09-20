@@ -29,11 +29,12 @@ class BaseController extends Controller
             return (int) $headerId;
         }
 
-        if (auth()->check() && !empty(auth()->user()->school_id)) {
+        if (auth()->check() && ! empty(auth()->user()->school_id)) {
             return (int) auth()->user()->school_id;
         }
 
         $defaultSchool = School::where('is_active', true)->first() ?? School::first();
+
         return $defaultSchool ? (int) $defaultSchool->id : 1;
     }
 
@@ -53,7 +54,7 @@ class BaseController extends Controller
             'message' => $error,
         ];
 
-        if (!empty($errorMessages)) {
+        if (! empty($errorMessages)) {
             $response['errors'] = $errorMessages;
         }
 

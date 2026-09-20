@@ -42,18 +42,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed } from 'vue';
 import { Users, UserCheck, Layers, CalendarCheck } from 'lucide-vue-next';
 
-defineProps<{
-  stats?: {
-    active_students: number;
-    staff_count: number;
-    study_groups: number;
-  };
+interface DashboardStats {
+  active_students: number;
+  staff_count: number;
+  study_groups: number;
+}
+
+const props = defineProps<{
+  stats?: DashboardStats;
 }>();
 
-const stats = ref({
+const stats = computed<DashboardStats>(() => props.stats ?? {
   active_students: 842,
   staff_count: 56,
   study_groups: 24,

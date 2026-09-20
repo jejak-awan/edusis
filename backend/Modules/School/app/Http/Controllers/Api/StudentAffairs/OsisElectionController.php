@@ -121,7 +121,7 @@ class OsisElectionController extends BaseController
             return $this->sendError('Siswa telah menggunakan hak suara pada pemilihan ini.', [], 422);
         }
 
-        $tokenHash = !empty($validated['token']) ? hash('sha256', (string) $validated['token']) : hash('sha256', (string) microtime());
+        $tokenHash = ! empty($validated['token']) ? hash('sha256', (string) $validated['token']) : hash('sha256', (string) microtime());
 
         $vote = OsisVote::create([
             'election_id' => $electionId,
@@ -151,6 +151,7 @@ class OsisElectionController extends BaseController
 
         $candidatesWithPercentages = $election->candidates->map(function ($candidate) use ($totalVotes) {
             $percentage = $totalVotes > 0 ? round(($candidate->vote_count / $totalVotes) * 100, 2) : 0;
+
             return [
                 'id' => $candidate->id,
                 'candidate_number' => $candidate->candidate_number,

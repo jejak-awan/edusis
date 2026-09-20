@@ -19,7 +19,7 @@ class SchoolPhase5Seeder extends Seeder
     public function run(): void
     {
         $school = School::first();
-        if (!$school) {
+        if (! $school) {
             return;
         }
 
@@ -246,7 +246,7 @@ class SchoolPhase5Seeder extends Seeder
             [
                 'student_id' => $std1?->id,
                 'recipient_name' => 'Bapak Joko Santoso (Wali Murid)',
-                'content' => "Yth. Bapak Joko Santoso, wali dari {$std1?->full_name} (X-PPLG-1),\n\nKami menginformasikan bahwa ananda tercatat TERLAMBAT pada absensi pagi tanggal " . now()->isoFormat('D MMMM Y') . ".\n\nMohon pendampingan agar ananda dapat hadir tepat waktu. Terima kasih.\nSMKN 1 EduSIS",
+                'content' => "Yth. Bapak Joko Santoso, wali dari {$std1?->full_name} (X-PPLG-1),\n\nKami menginformasikan bahwa ananda tercatat TERLAMBAT pada absensi pagi tanggal ".now()->isoFormat('D MMMM Y').".\n\nMohon pendampingan agar ananda dapat hadir tepat waktu. Terima kasih.\nSMKN 1 EduSIS",
                 'status' => 'sent',
                 'sent_at' => now()->subHours(4),
                 'error_message' => null,
@@ -258,7 +258,7 @@ class SchoolPhase5Seeder extends Seeder
             [
                 'student_id' => $std2?->id,
                 'recipient_name' => 'Ibu Siti Aminah (Wali Murid)',
-                'content' => "Yth. Ibu Siti Aminah, wali dari {$std2?->full_name} (X-PPLG-1),\n\nKami menginformasikan bahwa ananda tercatat ALPA (Tanpa Keterangan) pada hari " . now()->isoFormat('D MMMM Y') . ".\n\nMohon segera menghubungi wali kelas untuk konfirmasi. Terima kasih.\nSMKN 1 EduSIS",
+                'content' => "Yth. Ibu Siti Aminah, wali dari {$std2?->full_name} (X-PPLG-1),\n\nKami menginformasikan bahwa ananda tercatat ALPA (Tanpa Keterangan) pada hari ".now()->isoFormat('D MMMM Y').".\n\nMohon segera menghubungi wali kelas untuk konfirmasi. Terima kasih.\nSMKN 1 EduSIS",
                 'status' => 'sent',
                 'sent_at' => now()->subHours(3),
                 'error_message' => null,

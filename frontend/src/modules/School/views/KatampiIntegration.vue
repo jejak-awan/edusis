@@ -553,7 +553,7 @@ async function loadRoster() {
   loadingRoster.value = true;
   try {
     const res = await SchoolService.getKatampiRoster();
-    rosterList.value = res.data.data.students || [];
+    rosterList.value = (res.data.data as any)?.students ?? [];
     populateSampleGrades();
   } catch (err) {
     console.error(err);
@@ -568,8 +568,8 @@ async function loadMasterData() {
       SchoolService.getStudyGroups(),
       SchoolService.getSubjects(),
     ]);
-    studyGroups.value = grpRes.data.data;
-    subjects.value = subjRes.data.data;
+    studyGroups.value = Array.isArray(grpRes.data.data) ? grpRes.data.data : ((grpRes.data.data as any)?.data ?? []);
+    subjects.value = Array.isArray(subjRes.data.data) ? subjRes.data.data : ((subjRes.data.data as any)?.data ?? []);
 
     if (studyGroups.value.length > 0 && studyGroups.value[0]) {
       gradeSyncForm.study_group_id = studyGroups.value[0].id;
@@ -587,7 +587,7 @@ async function generateSso() {
   try {
     const payload = selectedStudentForSso.value ? { student_id: selectedStudentForSso.value } : {};
     const res = await SchoolService.generateKatampiSsoToken(payload);
-    generatedSsoData.value = res.data.data;
+    generatedSsoData.value = res.data.data as any;
   } catch (err) {
     console.error(err);
   } finally {
@@ -640,7 +640,8 @@ async function submitSyncGrades() {
   syncingGrades.value = true;
   try {
     const res = await SchoolService.syncKatampiGrades(gradeSyncForm);
-    alert(`Berhasil mensinkronkan ${res.data.data.grades_synced} nilai ujian dari KataMPI CBT ke EduSIS!`);
+    const count = res.data.data.synced ?? (res.data.data as any)?.grades_synced ?? 0;
+    alert(`Berhasil mensinkronkan ${count} nilai ujian dari KataMPI CBT ke EduSIS!`);
     await loadConfig();
   } catch (err) {
     console.error(err);

@@ -909,7 +909,8 @@ const getVotingModeLabel = (mode: string) => {
 const loadVotingEvents = async () => {
   try {
     const res = await SchoolService.getVotingEvents();
-    votingEvents.value = res.data.data || [];
+    const rawEvents = res.data.data;
+    votingEvents.value = (Array.isArray(rawEvents) ? rawEvents : ((rawEvents as any)?.data ?? [])) as any;
     if (votingEvents.value.length > 0 && !selectedEventId.value) {
       const first = votingEvents.value[0];
       if (first) {
@@ -925,7 +926,7 @@ const loadVotingEvents = async () => {
 const selectEvent = async (eventId: number) => {
   try {
     const res = await SchoolService.showVotingEvent(eventId);
-    selectedEvent.value = res.data.data;
+    selectedEvent.value = res.data.data as any;
     candidates.value = selectedEvent.value?.candidates || [];
     newCandidateForm.candidate_number = (candidates.value.length + 1);
     await Promise.all([

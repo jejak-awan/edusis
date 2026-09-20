@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use Modules\School\Http\Controllers\Api\Common\BaseController;
 use Modules\School\Models\Academic\Assessment;
 use Modules\School\Models\Academic\Grade;
-use Modules\School\Models\Academic\StudyGroup;
 use Modules\School\Models\HR\Staff;
 use Modules\School\Models\Institution\School;
 use Modules\School\Models\Integration\KatampiConfig;
@@ -89,7 +88,7 @@ class KatampiIntegrationController extends BaseController
 
         $jsonPayload = json_encode($payload, JSON_UNESCAPED_SLASHES);
         $signature = hash_hmac('sha256', (string) $jsonPayload, (string) $apiKey);
-        $token = base64_encode((string) $jsonPayload) . '.' . $signature;
+        $token = base64_encode((string) $jsonPayload).'.'.$signature;
 
         $cbtBaseUrl = rtrim($config?->cbt_url ?? 'http://ja-katampi:8787', '/');
         $redirectUrl = "{$cbtBaseUrl}/sso?token={$token}";
@@ -122,6 +121,7 @@ class KatampiIntegrationController extends BaseController
 
         $roster = $students->map(function ($student) use ($school) {
             $group = $student->studyGroups->first();
+
             return [
                 'id' => $student->id,
                 'nisn' => $student->nisn,
@@ -164,7 +164,7 @@ class KatampiIntegrationController extends BaseController
         ]);
 
         $assessment = null;
-        if (!empty($validated['assessment_id'])) {
+        if (! empty($validated['assessment_id'])) {
             $assessment = Assessment::findOrFail($validated['assessment_id']);
         } else {
             $teacher = Staff::where('school_id', $schoolId)->first();

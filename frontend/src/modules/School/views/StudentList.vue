@@ -317,11 +317,8 @@ async function loadFilterData() {
       SchoolService.getDisciplineCategories(),
     ]);
 
-    const rawDept = deptRes.data?.data ?? deptRes.data;
-    departments.value = Array.isArray(rawDept) ? rawDept : (rawDept?.data ?? []);
-
-    const rawCat = catRes.data?.data ?? catRes.data;
-    pointCategories.value = Array.isArray(rawCat) ? rawCat : (rawCat?.data ?? []);
+    departments.value = Array.isArray(deptRes.data?.data) ? deptRes.data.data : ((deptRes.data as any)?.data ?? []);
+    pointCategories.value = Array.isArray(catRes.data?.data) ? catRes.data.data : ((catRes.data as any)?.data ?? []);
   } catch (err) {
     console.error('Failed to load filter data', err);
   }

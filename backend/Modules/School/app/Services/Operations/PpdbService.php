@@ -80,7 +80,7 @@ class PpdbService
 
             $registration->update([
                 'status' => 'accepted',
-                'notes' => ($registration->notes ? $registration->notes . ' | ' : '') . 'Diterima menjadi siswa aktif (NIS: ' . $nis . ')',
+                'notes' => ($registration->notes ? $registration->notes.' | ' : '').'Diterima menjadi siswa aktif (NIS: '.$nis.')',
             ]);
 
             return [

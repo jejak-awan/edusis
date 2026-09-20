@@ -1063,8 +1063,8 @@ async function loadRooms() {
   loadingRooms.value = true;
   try {
     const res = await SchoolService.getRooms();
-    const raw = res.data?.data ?? res.data;
-    rooms.value = Array.isArray(raw) ? raw : (raw?.data ?? []);
+    const raw = res.data?.data;
+    rooms.value = Array.isArray(raw) ? raw : ((raw as any)?.data ?? []);
   } catch (err) {
     console.error(err);
   } finally {
@@ -1076,8 +1076,8 @@ async function loadAssets() {
   loadingAssets.value = true;
   try {
     const res = await SchoolService.getAssets();
-    const raw = res.data?.data ?? res.data;
-    assets.value = Array.isArray(raw) ? raw : (raw?.data ?? []);
+    const raw = res.data?.data;
+    assets.value = Array.isArray(raw) ? raw : ((raw as any)?.data ?? []);
   } catch (err) {
     console.error(err);
   } finally {
@@ -1089,8 +1089,8 @@ async function loadTickets() {
   loadingTickets.value = true;
   try {
     const res = await SchoolService.getTickets({ per_page: 100 });
-    const raw = res.data?.data ?? res.data;
-    tickets.value = Array.isArray(raw) ? raw : (raw?.data ?? []);
+    const raw = res.data?.data;
+    tickets.value = Array.isArray(raw) ? raw : ((raw as any)?.data ?? []);
   } catch (err) {
     console.error(err);
   } finally {
@@ -1101,8 +1101,8 @@ async function loadTickets() {
 async function loadStaff() {
   try {
     const res = await SchoolService.getStaff({ per_page: 100 });
-    const raw = res.data?.data ?? res.data;
-    staffList.value = Array.isArray(raw) ? raw : (raw?.data ?? []);
+    const raw = res.data?.data;
+    staffList.value = Array.isArray(raw) ? raw : ((raw as any)?.data ?? []);
   } catch (err) {
     console.error(err);
   }

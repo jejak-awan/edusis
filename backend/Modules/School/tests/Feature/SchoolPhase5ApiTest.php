@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace Modules\School\Tests\Feature;
 
 use Modules\Core\System\Models\User;
-use Modules\School\Models\Academic\Assessment;
+use Modules\School\Database\Seeders\SchoolPhase1Seeder;
+use Modules\School\Database\Seeders\SchoolPhase2Seeder;
+use Modules\School\Database\Seeders\SchoolPhase3Seeder;
+use Modules\School\Database\Seeders\SchoolPhase4Seeder;
+use Modules\School\Database\Seeders\SchoolPhase5Seeder;
 use Modules\School\Models\Academic\Attendance;
 use Modules\School\Models\Academic\StudyGroup;
 use Modules\School\Models\Academic\Subject;
-use Modules\School\Models\Communication\WhatsAppLog;
 use Modules\School\Models\Facilities\Asset;
-use Modules\School\Models\Facilities\MaintenanceTicket;
 use Modules\School\Models\Facilities\Room;
 use Modules\School\Models\HR\Staff;
-use Modules\School\Models\Institution\School;
-use Modules\School\Models\Integration\KatampiConfig;
 use Modules\School\Models\Student\Student;
 use Tests\TestCase;
 
@@ -27,11 +27,11 @@ class SchoolPhase5ApiTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed(\Modules\School\Database\Seeders\SchoolPhase1Seeder::class);
-        $this->seed(\Modules\School\Database\Seeders\SchoolPhase2Seeder::class);
-        $this->seed(\Modules\School\Database\Seeders\SchoolPhase3Seeder::class);
-        $this->seed(\Modules\School\Database\Seeders\SchoolPhase4Seeder::class);
-        $this->seed(\Modules\School\Database\Seeders\SchoolPhase5Seeder::class);
+        $this->seed(SchoolPhase1Seeder::class);
+        $this->seed(SchoolPhase2Seeder::class);
+        $this->seed(SchoolPhase3Seeder::class);
+        $this->seed(SchoolPhase4Seeder::class);
+        $this->seed(SchoolPhase5Seeder::class);
 
         $this->admin = User::firstOrCreate(
             ['email' => 'admin@edusis.local'],

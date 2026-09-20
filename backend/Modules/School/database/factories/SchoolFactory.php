@@ -17,7 +17,7 @@ class SchoolFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->company() . ' School',
+            'name' => $this->faker->company().' School',
             'type' => $this->faker->randomElement(['SMK', 'SMA', 'SMP', 'SD']),
             'npsn' => $this->faker->unique()->numerify('########'),
             'accreditation' => $this->faker->randomElement(['A', 'B', 'C']),

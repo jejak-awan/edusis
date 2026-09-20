@@ -19,11 +19,11 @@ class WhatsAppGatewayService
         $phone = preg_replace('/[^0-9]/', '', $phoneNumber) ?? '';
 
         if (str_starts_with($phone, '0')) {
-            return '62' . substr($phone, 1);
+            return '62'.substr($phone, 1);
         }
 
-        if (!str_starts_with($phone, '62') && strlen($phone) >= 9) {
-            return '62' . $phone;
+        if (! str_starts_with($phone, '62') && strlen($phone) >= 9) {
+            return '62'.$phone;
         }
 
         return $phone;
@@ -41,7 +41,7 @@ class WhatsAppGatewayService
         ];
 
         $statuses = array_values(array_unique(array_filter(array_map(
-            fn($s) => $statusMap[(string) $s] ?? (string) $s,
+            fn ($s) => $statusMap[(string) $s] ?? (string) $s,
             $inputStatuses
         ))));
 
@@ -70,7 +70,7 @@ class WhatsAppGatewayService
 
         foreach ($attendances as $att) {
             $student = $att->student;
-            if (!$student) {
+            if (! $student) {
                 continue;
             }
 
@@ -84,10 +84,11 @@ class WhatsAppGatewayService
             $recipientName = $parent?->mother_name
                 ?: $parent?->father_name
                 ?: $parent?->guardian_name
-                ?: ('Orang Tua ' . $student->full_name);
+                ?: ('Orang Tua '.$student->full_name);
 
-            if (!$recipientPhone) {
+            if (! $recipientPhone) {
                 $skippedCount++;
+
                 continue;
             }
 
@@ -101,6 +102,7 @@ class WhatsAppGatewayService
 
             if ($alreadySent) {
                 $skippedCount++;
+
                 continue;
             }
 
@@ -129,7 +131,7 @@ class WhatsAppGatewayService
                 'gateway_response' => [
                     'provider' => 'internal_mock',
                     'status' => 'success',
-                    'message_id' => 'WA-' . uniqid(),
+                    'message_id' => 'WA-'.uniqid(),
                     'timestamp' => now()->toIso8601String(),
                 ],
             ]);

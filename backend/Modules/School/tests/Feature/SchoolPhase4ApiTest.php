@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace Modules\School\Tests\Feature;
 
 use Modules\Core\System\Models\User;
+use Modules\School\Database\Seeders\SchoolPhase1Seeder;
+use Modules\School\Database\Seeders\SchoolPhase2Seeder;
+use Modules\School\Database\Seeders\SchoolPhase3Seeder;
+use Modules\School\Database\Seeders\SchoolPhase4Seeder;
 use Modules\School\Models\Academic\Department;
-use Modules\School\Models\Administration\GuestBook;
-use Modules\School\Models\Administration\Letter;
 use Modules\School\Models\Administration\PpdbRegistration;
-use Modules\School\Models\HR\Staff;
 use Modules\School\Models\Institution\School;
 use Modules\School\Models\Student\Student;
-use Modules\School\Models\StudentAffairs\Extracurricular;
 use Modules\School\Models\StudentAffairs\OsisCandidate;
 use Modules\School\Models\StudentAffairs\OsisElection;
+use Modules\School\Models\StudentAffairs\OsisVote;
 use Tests\TestCase;
 
 class SchoolPhase4ApiTest extends TestCase
@@ -25,10 +26,10 @@ class SchoolPhase4ApiTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed(\Modules\School\Database\Seeders\SchoolPhase1Seeder::class);
-        $this->seed(\Modules\School\Database\Seeders\SchoolPhase2Seeder::class);
-        $this->seed(\Modules\School\Database\Seeders\SchoolPhase3Seeder::class);
-        $this->seed(\Modules\School\Database\Seeders\SchoolPhase4Seeder::class);
+        $this->seed(SchoolPhase1Seeder::class);
+        $this->seed(SchoolPhase2Seeder::class);
+        $this->seed(SchoolPhase3Seeder::class);
+        $this->seed(SchoolPhase4Seeder::class);
 
         $this->admin = User::firstOrCreate(
             ['email' => 'admin@edusis.local'],
@@ -75,7 +76,7 @@ class SchoolPhase4ApiTest extends TestCase
     {
         $payload = [
             'type' => 'incoming',
-            'letter_number' => 'TEST-IN/' . uniqid(),
+            'letter_number' => 'TEST-IN/'.uniqid(),
             'category' => 'general',
             'sender' => 'Kantor Kemenag Wilayah',
             'recipient' => 'Kepala Sekolah',
@@ -163,13 +164,13 @@ class SchoolPhase4ApiTest extends TestCase
     public function test_admit_ppdb_applicant_as_student(): void
     {
         $applicant = PpdbRegistration::where('status', '!=', 'accepted')->first();
-        if (!$applicant) {
+        if (! $applicant) {
             $dept = Department::first();
             $applicant = PpdbRegistration::create([
                 'school_id' => School::first()->id,
                 'academic_year_id' => 1,
                 'department_id' => $dept->id,
-                'registration_number' => 'PPDB/TEST/' . uniqid(),
+                'registration_number' => 'PPDB/TEST/'.uniqid(),
                 'track' => 'zonasi',
                 'full_name' => 'Budi Santoso',
                 'gender' => 'L',
@@ -263,7 +264,7 @@ class SchoolPhase4ApiTest extends TestCase
         $this->assertNotNull($student, 'Student should exist for voting');
 
         // First vote (clear previous test vote if any)
-        \Modules\School\Models\StudentAffairs\OsisVote::where('election_id', $election->id)
+        OsisVote::where('election_id', $election->id)
             ->where('voter_student_id', $student->id)
             ->delete();
 

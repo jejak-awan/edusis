@@ -19,7 +19,7 @@ class StaffController extends BaseController
         $query = Staff::where('school_id', $schoolId);
 
         if ($request->filled('search')) {
-            $search = '%' . trim((string) $request->input('search')) . '%';
+            $search = '%'.trim((string) $request->input('search')).'%';
             $query->where(function ($q) use ($search) {
                 $q->where('full_name', 'ilike', $search)
                     ->orWhere('nip', 'ilike', $search)
@@ -32,7 +32,7 @@ class StaffController extends BaseController
         }
 
         if ($request->filled('role_title')) {
-            $query->where('role_title', 'ilike', '%' . $request->input('role_title') . '%');
+            $query->where('role_title', 'ilike', '%'.$request->input('role_title').'%');
         }
 
         $perPage = min((int) ($request->input('per_page', 20)), 100);
@@ -69,8 +69,8 @@ class StaffController extends BaseController
         $validated = $request->validate([
             'full_name' => 'required|string|max:150',
             'gender' => 'required|in:L,P',
-            'nip' => 'nullable|string|max:30|unique:sch_hr_staff,nip,' . $id,
-            'nuptk' => 'nullable|string|max:20|unique:sch_hr_staff,nuptk,' . $id,
+            'nip' => 'nullable|string|max:30|unique:sch_hr_staff,nip,'.$id,
+            'nuptk' => 'nullable|string|max:20|unique:sch_hr_staff,nuptk,'.$id,
             'nik' => 'nullable|string|size:16',
             'title_prefix' => 'nullable|string|max:30',
             'title_suffix' => 'nullable|string|max:30',

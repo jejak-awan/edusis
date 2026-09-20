@@ -18,7 +18,7 @@ class AcademicService
     public function createAcademicYear(array $data, int $schoolId): AcademicYear
     {
         return DB::transaction(function () use ($data, $schoolId) {
-            if (!empty($data['is_active'])) {
+            if (! empty($data['is_active'])) {
                 AcademicYear::where('school_id', $schoolId)->update(['is_active' => false]);
             }
 

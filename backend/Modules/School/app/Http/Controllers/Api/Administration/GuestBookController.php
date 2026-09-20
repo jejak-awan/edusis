@@ -53,6 +53,7 @@ class GuestBookController extends BaseController
     public function show(int $id): JsonResponse
     {
         $guest = GuestBook::findOrFail($id);
+
         return $this->sendResponse($guest, 'Visitor details retrieved');
     }
 

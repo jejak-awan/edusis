@@ -19,7 +19,9 @@ class SchoolVotingEngineSeeder extends Seeder
     public function run(): void
     {
         $school = School::first();
-        if (!$school) return;
+        if (! $school) {
+            return;
+        }
 
         $academicYear = AcademicYear::where('school_id', $school->id)->where('is_active', true)->first();
         $students = Student::where('school_id', $school->id)->get();
@@ -90,7 +92,7 @@ class SchoolVotingEngineSeeder extends Seeder
                 [
                     'voter_type' => 'student',
                     'voter_name' => $student->full_name,
-                    'voter_identifier' => $student->nisn ?: ('STD-' . $student->id),
+                    'voter_identifier' => $student->nisn ?: ('STD-'.$student->id),
                     'token' => VoteVoter::generateUniqueToken($osisEvent->id),
                     'token_generated_at' => now(),
                     'has_voted' => false,
@@ -98,7 +100,7 @@ class SchoolVotingEngineSeeder extends Seeder
             );
 
             // Simulate the first few voters having already voted
-            if ($index < 8 && !$voter->has_voted) {
+            if ($index < 8 && ! $voter->has_voted) {
                 $chosenCandidate = ($index % 3 === 0) ? $cand2 : $cand1;
                 $votedAt = now()->subMinutes(rand(10, 240));
 
@@ -112,7 +114,7 @@ class SchoolVotingEngineSeeder extends Seeder
                     'candidate_id' => $chosenCandidate->id,
                     'vote_mode' => 'kiosk',
                     'token_hash' => hash('sha256', $voter->token),
-                    'ip_address' => '10.20.0.' . rand(10, 99),
+                    'ip_address' => '10.20.0.'.rand(10, 99),
                     'device_info' => 'Bilik Suara Kiosk Lab Komputer TPS-1',
                     'voted_at' => $votedAt,
                 ]);

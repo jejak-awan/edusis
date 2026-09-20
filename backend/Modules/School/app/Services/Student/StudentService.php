@@ -26,7 +26,7 @@ class StudentService
         return DB::transaction(function () use ($studentData, $parentData, $studyGroupId) {
             $student = Student::create($studentData);
 
-            if (!empty($parentData)) {
+            if (! empty($parentData)) {
                 $parentData['student_id'] = $student->id;
                 StudentParent::create($parentData);
             }

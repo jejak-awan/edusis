@@ -68,6 +68,7 @@ class LetterService
     public function updateDisposition(Letter $letter, array $data): Letter
     {
         $letter->update($data);
+
         return $letter;
     }
 }

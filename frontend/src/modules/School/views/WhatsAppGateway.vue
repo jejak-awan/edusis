@@ -424,7 +424,8 @@ async function loadLogs() {
       status: selectedStatus.value || undefined,
     };
     const res = await SchoolService.getWhatsAppLogs(params);
-    logs.value = res.data.data.data || res.data.data;
+    const rawLogs = res.data.data;
+    logs.value = Array.isArray(rawLogs) ? rawLogs : ((rawLogs as any)?.data ?? []);
   } catch (err) {
     console.error(err);
   } finally {
@@ -435,7 +436,7 @@ async function loadLogs() {
 async function loadStudents() {
   try {
     const res = await SchoolService.getStudents({ per_page: 100 });
-    students.value = res.data.data.data || res.data.data;
+    students.value = Array.isArray(res.data.data) ? res.data.data : ((res.data.data as any)?.data ?? []);
   } catch (err) {
     console.error(err);
   }
@@ -448,7 +449,7 @@ async function triggerAttendanceAlerts() {
       date: alertDate.value,
       statuses: ['A', 'alpa', 'S', 'sakit', 'I', 'izin'],
     });
-    alert(`Otomasi Presensi Selesai: Berhasil mengirim ${res.data.data.sent_count} notifikasi WhatsApp ke orang tua/wali siswa!`);
+    alert(`Otomasi Presensi Selesai: Berhasil mengirim ${res.data.data.sent_count ?? 0} notifikasi WhatsApp ke orang tua/wali siswa!`);
     await loadStats();
     await loadLogs();
   } catch (err) {

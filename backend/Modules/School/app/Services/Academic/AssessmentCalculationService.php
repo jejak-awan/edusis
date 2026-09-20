@@ -49,7 +49,7 @@ class AssessmentCalculationService
                     $weight = $asm->weight ?: 1;
                     foreach ($asm->grades as $grade) {
                         $effectiveScore = (float) ($grade->remedial_score ?? $grade->score);
-                        if (!isset($studentGrades[$grade->student_id])) {
+                        if (! isset($studentGrades[$grade->student_id])) {
                             $studentGrades[$grade->student_id] = [
                                 'weighted_sum' => 0,
                                 'total_weight' => 0,

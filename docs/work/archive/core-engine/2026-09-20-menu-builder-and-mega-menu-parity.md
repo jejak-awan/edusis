@@ -2,7 +2,7 @@
 
 **Tanggal:** 2026-09-20  
 **Status:** In Progress / Planning & Documented  
-**Terkait:** [ADR-028](../adr/ADR-028-menu-builder-properties-mega-menu-and-multi-theme-parity.md), [ADR-024](../adr/ADR-024-header-menu-alignment-customizer-controls-and-layout-parity.md)
+**Terkait:** [ADR-028](../../../adr/ADR-028-menu-builder-properties-mega-menu-and-multi-theme-parity.md), [ADR-024](../../../adr/ADR-024-header-menu-alignment-customizer-controls-and-layout-parity.md)
 
 ---
 
@@ -32,9 +32,9 @@ Saat mengonfigurasi properti menu di konsol admin (**Menu Builder**), pengguna m
 ## 3. Rencana Tindakan & Milestone
 
 ### Fase 1: Dokumentasi, Standarisasi & Changelog (Done)
-- [x] Membuat [ADR-028](../adr/ADR-028-menu-builder-properties-mega-menu-and-multi-theme-parity.md).
-- [x] Mendaftarkan ADR-028 di [docs/adr/README.md](../adr/README.md).
-- [x] Menulis work note [docs/work/2026-09-20-menu-builder-and-mega-menu-parity.md](2026-09-20-menu-builder-and-mega-menu-parity.md).
+- [x] Membuat [ADR-028](../../../adr/ADR-028-menu-builder-properties-mega-menu-and-multi-theme-parity.md).
+- [x] Mendaftarkan ADR-028 di [docs/adr/README.md](../../../adr/README.md).
+- [x] Menulis work note [docs/work/archive/core-engine/2026-09-20-menu-builder-and-mega-menu-parity.md](2026-09-20-menu-builder-and-mega-menu-parity.md).
 - [x] Memperbarui root `CHANGELOG.md` dan modul `CHANGELOG.md` (Layout & Sarangenge).
 - [x] Memperbarui ops docs di `/home/jejakawan/dev/docs/` dan menjalankan rsync multi-host (`ja-srv`, `ja-aksara`).
 

@@ -84,6 +84,7 @@ class AssessmentController extends BaseController
 
         $result = $students->map(function ($student) use ($existingGrades) {
             $grade = $existingGrades->get($student->id);
+
             return [
                 'student_id' => $student->id,
                 'nisn' => $student->nisn,

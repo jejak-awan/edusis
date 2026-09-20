@@ -16,9 +16,7 @@ class ValidNISN implements ValidationRule
     /**
      * Jalankan validasi NISN.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
-     * @param  \Closure(string): void  $fail
+     * @param  Closure(string): void  $fail
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {

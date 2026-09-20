@@ -25,7 +25,7 @@ class StudentController extends BaseController
             ->with(['level', 'department', 'studyGroups', 'parent']);
 
         if ($request->filled('search')) {
-            $search = '%' . trim((string) $request->input('search')) . '%';
+            $search = '%'.trim((string) $request->input('search')).'%';
             $query->where(function ($q) use ($search) {
                 $q->where('full_name', 'ilike', $search)
                     ->orWhere('nisn', 'ilike', $search)

@@ -16,9 +16,7 @@ class ValidPhoneNumber implements ValidationRule
     /**
      * Jalankan validasi nomor telepon.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
-     * @param  \Closure(string): void  $fail
+     * @param  Closure(string): void  $fail
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
@@ -28,6 +26,7 @@ class ValidPhoneNumber implements ValidationRule
 
         if (! is_string($value)) {
             $fail('Nomor telepon harus berupa teks angka yang valid.');
+
             return;
         }
 

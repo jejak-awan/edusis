@@ -284,7 +284,7 @@ async function loadInitialData() {
   try {
     const res = await SchoolService.getStudyGroups();
     if (res.data?.success) {
-      studyGroups.value = res.data.data || [];
+      studyGroups.value = Array.isArray(res.data.data) ? res.data.data : ((res.data.data as any)?.data ?? []);
       if (studyGroups.value[0]) {
         selectedGroupId.value = studyGroups.value[0].id;
         await loadLedger();

@@ -80,7 +80,7 @@ class DisciplineService
                     'sanction' => $data['sanction'] ?? null,
                     'sp_level' => $spLevel,
                     'sp_letter_number' => $data['sp_letter_number'] ?? null,
-                    'sp_issued_at' => !empty($data['sp_letter_number']) ? now() : null,
+                    'sp_issued_at' => ! empty($data['sp_letter_number']) ? now() : null,
                     'follow_up_notes' => $data['admin_notes'] ?? null,
                     'is_resolved' => false,
                 ]);

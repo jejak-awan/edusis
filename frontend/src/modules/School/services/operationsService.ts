@@ -4,12 +4,13 @@ import type { ApiResponse, GuestEntry, Letter, PaginatedData, PpdbApplicant } fr
 
 export class OperationsService {
     // Surat / Letters
-    public static async getLetters(params: Record<string, any> = {}): Promise<AxiosResponse<ApiResponse<PaginatedData<Letter>>>> {
+    public static async getLetters(params: Record<string, unknown> = {}): Promise<AxiosResponse<ApiResponse<PaginatedData<Letter>>>> {
         return api.get('/school/letters', { params });
     }
 
-    public static async generateLetterNumber(type: string): Promise<AxiosResponse<ApiResponse<{ letter_number: string }>>> {
-        return api.get('/school/letters/generate-number', { params: { type } });
+    public static async generateLetterNumber(params: string | { type: string; category?: string }): Promise<AxiosResponse<ApiResponse<{ suggested_number: string; letter_number?: string }>>> {
+        const queryParams = typeof params === 'string' ? { type: params } : params;
+        return api.get('/school/letters/generate-number', { params: queryParams });
     }
 
     public static async createLetter(data: Partial<Letter> | FormData): Promise<AxiosResponse<ApiResponse<Letter>>> {
@@ -18,7 +19,7 @@ export class OperationsService {
     }
 
     // PPDB
-    public static async getPpdbApplicants(params: Record<string, any> = {}): Promise<AxiosResponse<ApiResponse<PaginatedData<PpdbApplicant>>>> {
+    public static async getPpdbApplicants(params: Record<string, unknown> = {}): Promise<AxiosResponse<ApiResponse<PaginatedData<PpdbApplicant>>>> {
         return api.get('/school/ppdb/applicants', { params });
     }
 
@@ -30,12 +31,12 @@ export class OperationsService {
         return api.post(`/school/ppdb/applicants/${id}/verify`, data);
     }
 
-    public static async admitPpdbApplicant(id: number | string, data: { study_group_id?: number }): Promise<AxiosResponse<ApiResponse<any>>> {
+    public static async admitPpdbApplicant(id: number | string, data: { study_group_id?: number }): Promise<AxiosResponse<ApiResponse<Record<string, unknown>>>> {
         return api.post(`/school/ppdb/applicants/${id}/admit`, data);
     }
 
     // Buku Tamu / Guest Book
-    public static async getGuestBookEntries(params: Record<string, any> = {}): Promise<AxiosResponse<ApiResponse<PaginatedData<GuestEntry>>>> {
+    public static async getGuestBookEntries(params: Record<string, unknown> = {}): Promise<AxiosResponse<ApiResponse<PaginatedData<GuestEntry>>>> {
         return api.get('/school/guests', { params });
     }
 

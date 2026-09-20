@@ -23,7 +23,9 @@ class SchoolPhase4Seeder extends Seeder
     public function run(): void
     {
         $school = School::first();
-        if (!$school) return;
+        if (! $school) {
+            return;
+        }
 
         $academicYear = AcademicYear::where('school_id', $school->id)->where('is_active', true)->first();
         $departments = Department::where('school_id', $school->id)->get();
@@ -266,7 +268,7 @@ class SchoolPhase4Seeder extends Seeder
                 'nisn' => sprintf('00876543%02d', $idx),
                 'nis' => sprintf('262710%02d', $idx),
                 'nik' => sprintf('32101215080800%02d', $idx),
-                'full_name' => 'Kandidat Siswa ' . $idx,
+                'full_name' => 'Kandidat Siswa '.$idx,
                 'gender' => ($idx % 2 === 0) ? 'P' : 'L',
                 'place_of_birth' => 'Bandung',
                 'date_of_birth' => '2008-01-10',
@@ -309,7 +311,7 @@ class SchoolPhase4Seeder extends Seeder
                         ->where('voter_student_id', $voter->id)
                         ->exists();
 
-                    if (!$hasVoted) {
+                    if (! $hasVoted) {
                         OsisVote::create([
                             'election_id' => $election->id,
                             'candidate_id' => $pickedCandidate->id,

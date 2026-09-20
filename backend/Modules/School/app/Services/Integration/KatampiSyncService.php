@@ -57,7 +57,7 @@ class KatampiSyncService
         ];
 
         $token = base64_encode(json_encode($payload));
-        $cbtUrl = rtrim($config->cbt_url, '/') . '/auth/sso?token=' . urlencode($token);
+        $cbtUrl = rtrim($config->cbt_url, '/').'/auth/sso?token='.urlencode($token);
 
         return [
             'token' => $token,
@@ -89,7 +89,7 @@ class KatampiSyncService
                 'name' => $group->name,
                 'department' => $group->department?->name,
                 'total_students' => $group->students->count(),
-                'students' => $group->students->map(fn($s) => [
+                'students' => $group->students->map(fn ($s) => [
                     'id' => $s->id,
                     'nisn' => $s->nisn,
                     'name' => $s->full_name,

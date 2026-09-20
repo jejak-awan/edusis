@@ -62,6 +62,10 @@ export interface StudyGroupData {
     academic_year?: AcademicYearData;
     students_count?: number;
     students?: StudentData[];
+    grade_level?: number;
+    homeroom_teacher?: StaffData;
+    homeroom_teacher_id?: number;
+    current_students_count?: number;
 }
 
 export interface ScheduleData {
@@ -80,6 +84,7 @@ export interface ScheduleData {
     study_group?: StudyGroupData;
     subject?: SubjectData;
     teacher?: StaffData;
+    room?: RoomData;
 }
 
 export interface TeachingJournalData {
@@ -106,6 +111,16 @@ export interface TeachingJournalData {
     lesson_hour_end?: number;
     activities?: string;
     permission_count?: number;
+    schedule_id?: number;
+    period_start?: number;
+    period_end?: number;
+    subtopic?: string;
+    activity_description?: string;
+    attendance_present?: number;
+    attendance_sick?: number;
+    attendance_permission?: number;
+    attendance_absent?: number;
+    notes?: string | null;
 }
 
 export interface StudentAttendanceItem {
@@ -220,7 +235,7 @@ export interface StudentData {
     address: string | null;
     phone: string | null;
     email: string | null;
-    entry_year: string | null;
+    entry_year: string | number | null;
     status: 'active' | 'graduated' | 'transferred' | 'dropped_out';
     notes: string | null;
     level?: { id: number; name: string };
@@ -228,6 +243,26 @@ export interface StudentData {
     study_groups?: StudyGroupData[];
     parent?: StudentParentData;
     total_credit_score?: number;
+    father_name?: string | null;
+    father_nik?: string | null;
+    father_occupation?: string | null;
+    father_phone?: string | null;
+    mother_name?: string | null;
+    mother_nik?: string | null;
+    mother_occupation?: string | null;
+    mother_phone?: string | null;
+    guardian_name?: string | null;
+    guardian_phone?: string | null;
+    study_group_id?: number | null;
+    previous_school?: string | null;
+    is_kip_recipient?: boolean | null;
+    kip_number?: string | null;
+    rt?: string | null;
+    rw?: string | null;
+    dusun?: string | null;
+    desa_kelurahan?: string | null;
+    kecamatan?: string | null;
+    postal_code?: string | null;
 }
 
 export interface PointCategoryData {
@@ -450,14 +485,16 @@ export interface VoteCandidateData {
     id: number;
     event_id: number;
     candidate_number: number;
-    title: string;
+    title?: string;
+    name?: string;
     leader_student_id?: number | null;
     vice_student_id?: number | null;
     staff_id?: number | null;
     vision?: string | null;
     mission?: string | null;
     photo_url?: string | null;
-    vote_count: number;
+    vote_count?: number;
+    votes_count?: number;
     percentage?: number;
     leader_name?: string;
     vice_name?: string;

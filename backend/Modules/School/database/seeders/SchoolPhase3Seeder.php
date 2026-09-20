@@ -24,7 +24,9 @@ class SchoolPhase3Seeder extends Seeder
     public function run(): void
     {
         $school = School::first();
-        if (!$school) return;
+        if (! $school) {
+            return;
+        }
 
         $academicYear = AcademicYear::where('school_id', $school->id)->where('is_active', true)->first();
         $semester = $academicYear ? $academicYear->activeSemester : null;
@@ -33,7 +35,7 @@ class SchoolPhase3Seeder extends Seeder
         $teacher = Staff::where('school_id', $school->id)->first();
         $students = Student::where('school_id', $school->id)->get();
 
-        if (!$academicYear || !$semester || !$studyGroup || !$subject || !$teacher || $students->isEmpty()) {
+        if (! $academicYear || ! $semester || ! $studyGroup || ! $subject || ! $teacher || $students->isEmpty()) {
             return;
         }
 
@@ -159,8 +161,8 @@ class SchoolPhase3Seeder extends Seeder
                 [
                     'final_score' => $finalScore,
                     'letter_grade' => $gradeLetter,
-                    'achieved_competency' => "Menunjukkan penguasaan istimewa dalam mengimplementasikan REST API terstandar.",
-                    'improved_competency' => "Perlu mempertahankan ketelitian dalam dokumentasi kode program.",
+                    'achieved_competency' => 'Menunjukkan penguasaan istimewa dalam mengimplementasikan REST API terstandar.',
+                    'improved_competency' => 'Perlu mempertahankan ketelitian dalam dokumentasi kode program.',
                 ]
             );
         }

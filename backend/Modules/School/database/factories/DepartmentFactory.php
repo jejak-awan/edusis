@@ -22,17 +22,17 @@ class DepartmentFactory extends Factory
             ['code' => 'TKJ', 'name' => 'Teknik Komputer & Jaringan'],
             ['code' => 'MM',  'name' => 'Multimedia'],
             ['code' => 'AKL', 'name' => 'Akuntansi & Keuangan Lembaga'],
-            ['code' => 'OTKP','name' => 'Otomatisasi & Tata Kelola Perkantoran'],
+            ['code' => 'OTKP', 'name' => 'Otomatisasi & Tata Kelola Perkantoran'],
             ['code' => 'BDP', 'name' => 'Bisnis Daring & Pemasaran'],
         ];
         $dept = $this->faker->randomElement($departments);
 
         return [
-            'school_id'   => School::factory(),
-            'code'        => $dept['code'],
-            'name'        => $dept['name'],
+            'school_id' => School::factory(),
+            'code' => $dept['code'],
+            'name' => $dept['name'],
             'description' => $this->faker->optional()->sentence(),
-            'is_active'   => true,
+            'is_active' => true,
         ];
     }
 }

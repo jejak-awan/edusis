@@ -439,7 +439,7 @@ async function loadStaff() {
 
     const res = await SchoolService.getStaff(params);
     if (res.data?.success) {
-      staffList.value = res.data.data.data || [];
+      staffList.value = Array.isArray(res.data.data) ? res.data.data : ((res.data.data as any)?.data ?? []);
     }
   } catch (err) {
     console.error('Failed to load staff list', err);
