@@ -4,14 +4,14 @@ Rencana kerja terstruktur untuk implementasi modul **JA-EduSIS** secara bertahap
 
 ---
 
-## Tahap 1: Pondasi Master Data Akademik & Data Siswa (Fase Aktif Saat Ini)
-- [ ] Scaffold `Modules/School` di backend dan `src/modules/School` di frontend.
-- [ ] Master Data Akademik: Tahun Ajaran, Semester, Jurusan, Rombel/Kelas, Mapel.
-- [ ] Data Induk Siswa (Dapodik-compliant) + Manajemen Orang Tua.
-- [ ] Integrasi Sistem Kredit Poin Perilaku (Pelanggaran & Prestasi) dari `ja-siska`.
-- [ ] Seeder awal (Tahun Ajaran aktif, Rombel contoh, dan referensi kategori pelanggaran).
+## Tahap 1: Pondasi Master Data Akademik & Data Siswa (Selesai)
+- [x] Scaffold `Modules/School` di backend dan `src/modules/School` di frontend.
+- [x] Master Data Akademik: Tahun Ajaran, Semester, Jurusan, Rombel/Kelas, Mapel.
+- [x] Data Induk Siswa (Dapodik-compliant) + Manajemen Orang Tua.
+- [x] Integrasi Sistem Kredit Poin Perilaku (Pelanggaran & Prestasi) dari `ja-siska`.
+- [x] Seeder awal (Tahun Ajaran aktif, Rombel contoh, dan referensi kategori pelanggaran).
 
-## Tahap 2: Manajemen Pendidik (HR) & Sistem Presensi
+## Tahap 2: Manajemen Pendidik (HR) & Sistem Presensi (Fase Aktif Berikutnya)
 - [ ] Data Induk Guru & Tenaga Kependidikan (Staff).
 - [ ] Presensi Harian Siswa & Staff (H/I/S/A) dengan generator QR Code & validasi lampiran surat sakit.
 - [ ] Jurnal KBM Guru (`TeachingJournal`) untuk pencatatan harian materi dan kehadiran siswa di kelas.
