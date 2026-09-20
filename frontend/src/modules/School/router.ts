@@ -61,6 +61,30 @@ export const schoolRoutes: RouteRecordRaw[] = [
         component: () => import('@/modules/School/views/CounselingManagement.vue'),
         meta: { title: 'school.counseling.title', breadcrumb: 'school.navigation.menu.counseling' },
     },
+    {
+        path: 'school/letters',
+        name: 'school.letters',
+        component: () => import('@/modules/School/views/LetterManagement.vue'),
+        meta: { title: 'school.letters.title', breadcrumb: 'school.navigation.menu.letters' },
+    },
+    {
+        path: 'school/ppdb',
+        name: 'school.ppdb',
+        component: () => import('@/modules/School/views/PpdbManagement.vue'),
+        meta: { title: 'school.ppdb.title', breadcrumb: 'school.navigation.menu.ppdb' },
+    },
+    {
+        path: 'school/osis',
+        name: 'school.osis',
+        component: () => import('@/modules/School/views/OsisVoting.vue'),
+        meta: { title: 'school.osis.title', breadcrumb: 'school.navigation.menu.osis' },
+    },
+    {
+        path: 'school/guests',
+        name: 'school.guests',
+        component: () => import('@/modules/School/views/GuestBook.vue'),
+        meta: { title: 'school.guests.title', breadcrumb: 'school.navigation.menu.guests' },
+    },
 ];
 
 export default schoolRoutes;

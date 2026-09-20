@@ -324,6 +324,121 @@ export interface CounselingCaseData {
     violation?: ViolationData;
 }
 
+export interface LetterData {
+    id: number;
+    school_id: number;
+    type: 'incoming' | 'outgoing';
+    letter_number: string;
+    reference_number: string | null;
+    category: 'invitation' | 'assignment' | 'decree' | 'certificate' | 'circular' | 'general';
+    sender: string;
+    recipient: string;
+    subject: string;
+    letter_date: string;
+    received_or_sent_date: string;
+    status: 'draft' | 'registered' | 'dispatched' | 'archived';
+    disposition_to: string | null;
+    disposition_instruction: string | null;
+    disposition_status: 'pending' | 'processed' | 'completed';
+    attachment_path: string | null;
+    notes: string | null;
+}
+
+export interface PpdbData {
+    id: number;
+    school_id: number;
+    academic_year_id: number;
+    department_id: number;
+    second_choice_department_id: number | null;
+    registration_number: string;
+    track: 'zonasi' | 'afirmasi' | 'prestasi_akademik' | 'prestasi_non_akademik' | 'perpindahan_ortu';
+    full_name: string;
+    nisn: string | null;
+    nik: string | null;
+    gender: 'L' | 'P';
+    place_of_birth: string | null;
+    date_of_birth: string | null;
+    religion: string | null;
+    phone: string | null;
+    email: string | null;
+    address: string | null;
+    parent_name: string | null;
+    parent_phone: string | null;
+    parent_job: string | null;
+    parent_income: string | null;
+    previous_school: string | null;
+    average_report_score: number;
+    status: 'submitted' | 'verified' | 'accepted' | 'rejected';
+    document_paths: Record<string, string> | null;
+    verified_by: number | null;
+    verified_at: string | null;
+    notes: string | null;
+    department?: DepartmentData;
+    second_choice_department?: DepartmentData;
+    academic_year?: AcademicYearData;
+    verifier?: StaffData;
+}
+
+export interface GuestBookData {
+    id: number;
+    school_id: number;
+    visitor_name: string;
+    institution: string | null;
+    phone: string | null;
+    identity_type: 'KTP' | 'SIM' | 'Passport' | 'Lainnya';
+    identity_number: string | null;
+    purpose: string;
+    target_person: string;
+    check_in_at: string;
+    check_out_at: string | null;
+    badge_number: string | null;
+    status: 'checked_in' | 'checked_out';
+    notes: string | null;
+}
+
+export interface OsisCandidateData {
+    id: number;
+    election_id: number;
+    candidate_number: number;
+    chairman_student_id: number;
+    vice_chairman_student_id: number;
+    vision: string;
+    mission: string;
+    photo_url: string | null;
+    vote_count: number;
+    chairman_name?: string;
+    vice_chairman_name?: string;
+    chairman?: StudentData;
+    vice_chairman?: StudentData;
+    percentage?: number;
+}
+
+export interface OsisElectionData {
+    id: number;
+    school_id: number;
+    academic_year_id: number;
+    title: string;
+    period: string;
+    start_date: string;
+    end_date: string;
+    status: 'draft' | 'active' | 'closed';
+    candidates?: OsisCandidateData[];
+    total_votes?: number;
+}
+
+export interface ExtracurricularData {
+    id: number;
+    school_id: number;
+    name: string;
+    category: 'wajib' | 'pilihan';
+    advisor_staff_id: number | null;
+    schedule_day: string | null;
+    location: string | null;
+    description: string | null;
+    is_active: boolean;
+    advisor?: StaffData;
+}
+
 export const SchoolService = {
     // Dashboard
     getDashboard(): Promise<AxiosResponse> {
@@ -569,4 +684,114 @@ export const SchoolService = {
     deleteCounselingCase(id: number): Promise<AxiosResponse> {
         return api.delete(`/api/v1/school/counseling/cases/${id}`);
     },
+
+    // Letters & Correspondence
+    getLetters(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/letters', { params });
+    },
+    generateLetterNumber(params: { type: string; category: string }): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/letters/generate-number', { params });
+    },
+    storeLetter(payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/letters', payload);
+    },
+    showLetter(id: number): Promise<AxiosResponse> {
+        return api.get(`/api/v1/school/letters/${id}`);
+    },
+    updateLetter(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.put(`/api/v1/school/letters/${id}`, payload);
+    },
+    updateLetterDisposition(id: number, payload: { disposition_to: string; disposition_instruction: string; disposition_status: string }): Promise<AxiosResponse> {
+        return api.post(`/api/v1/school/letters/${id}/disposition`, payload);
+    },
+    deleteLetter(id: number): Promise<AxiosResponse> {
+        return api.delete(`/api/v1/school/letters/${id}`);
+    },
+
+    // PPDB Online
+    getPpdbList(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/ppdb', { params });
+    },
+    storePpdb(payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/ppdb', payload);
+    },
+    showPpdb(id: number): Promise<AxiosResponse> {
+        return api.get(`/api/v1/school/ppdb/${id}`);
+    },
+    updatePpdb(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.put(`/api/v1/school/ppdb/${id}`, payload);
+    },
+    verifyPpdb(id: number, payload: { status: string; notes?: string; verified_by?: number }): Promise<AxiosResponse> {
+        return api.post(`/api/v1/school/ppdb/${id}/verify`, payload);
+    },
+    admitPpdb(id: number): Promise<AxiosResponse> {
+        return api.post(`/api/v1/school/ppdb/${id}/admit`);
+    },
+    deletePpdb(id: number): Promise<AxiosResponse> {
+        return api.delete(`/api/v1/school/ppdb/${id}`);
+    },
+
+    // Guest Book
+    getGuestBook(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/guest-book', { params });
+    },
+    storeGuest(payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/guest-book', payload);
+    },
+    showGuest(id: number): Promise<AxiosResponse> {
+        return api.get(`/api/v1/school/guest-book/${id}`);
+    },
+    updateGuest(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.put(`/api/v1/school/guest-book/${id}`, payload);
+    },
+    checkoutGuest(id: number, notes?: string): Promise<AxiosResponse> {
+        return api.post(`/api/v1/school/guest-book/${id}/checkout`, { notes });
+    },
+    deleteGuest(id: number): Promise<AxiosResponse> {
+        return api.delete(`/api/v1/school/guest-book/${id}`);
+    },
+
+    // OSIS & E-Voting
+    getOsisElections(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/osis/elections', { params });
+    },
+    storeOsisElection(payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/osis/elections', payload);
+    },
+    showOsisElection(id: number): Promise<AxiosResponse> {
+        return api.get(`/api/v1/school/osis/elections/${id}`);
+    },
+    updateOsisElection(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.put(`/api/v1/school/osis/elections/${id}`, payload);
+    },
+    deleteOsisElection(id: number): Promise<AxiosResponse> {
+        return api.delete(`/api/v1/school/osis/elections/${id}`);
+    },
+    addOsisCandidate(electionId: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post(`/api/v1/school/osis/elections/${electionId}/candidates`, payload);
+    },
+    voteOsis(electionId: number, payload: { candidate_id: number; voter_student_id: number; token?: string }): Promise<AxiosResponse> {
+        return api.post(`/api/v1/school/osis/elections/${electionId}/vote`, payload);
+    },
+    getOsisQuickCount(electionId: number): Promise<AxiosResponse> {
+        return api.get(`/api/v1/school/osis/elections/${electionId}/quick-count`);
+    },
+
+    // Extracurriculars
+    getExtracurriculars(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/extracurriculars', { params });
+    },
+    storeExtracurricular(payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/extracurriculars', payload);
+    },
+    showExtracurricular(id: number): Promise<AxiosResponse> {
+        return api.get(`/api/v1/school/extracurriculars/${id}`);
+    },
+    updateExtracurricular(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.put(`/api/v1/school/extracurriculars/${id}`, payload);
+    },
+    deleteExtracurricular(id: number): Promise<AxiosResponse> {
+        return api.delete(`/api/v1/school/extracurriculars/${id}`);
+    },
 };
+

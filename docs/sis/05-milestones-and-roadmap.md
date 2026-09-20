@@ -27,13 +27,14 @@ Rencana kerja terstruktur untuk implementasi modul **JA-EduSIS** secara bertahap
 - [x] Layanan Kasus Bimbingan Konseling BK terintegrasi dengan poin disiplin SISKA & proteksi kerahasiaan (`sch_csl_cases`, `CounselingManagement.vue`).
 - [x] Seeder Fase 3 (`SchoolPhase3Seeder`) & Automated Feature Tests (18 tests, 124 assertions passed).
 
-## Tahap 4: Operasional Tata Usaha, PPDB, & Kesiswaan Khusus (Fase Aktif Berikutnya)
-- [ ] Administrasi Persuratan TU: Surat Masuk, Surat Keluar berpenomoran otomatis, dan disposisi.
-- [ ] PPDB Online: Formulir pendaftaran siswa baru, upload berkas, dan verifikasi panitia.
-- [ ] OSIS & E-Voting: Pemilihan ketua OSIS online & pengelolaan kegiatan ekstrakurikuler.
-- [ ] Buku Tamu Resepsionis / Pos Keamanan.
+## Tahap 4: Operasional Tata Usaha, PPDB, & Kesiswaan Khusus (Selesai)
+- [x] Administrasi Persuratan TU: Surat Masuk, Surat Keluar berpenomoran otomatis klasifikasi dinas, dan lembar arahan disposisi (`sch_adm_letters`, `LetterController`, `LetterManagement.vue`).
+- [x] PPDB Online: Multi-jalur seleksi (zonasi, afirmasi, prestasi, perpindahan), verifikasi berkas, dan konversi ke data induk siswa aktif Dapodik (`sch_adm_ppdb_registrations`, `PpdbController`, `PpdbManagement.vue`).
+- [x] OSIS & E-Voting: Bilik suara digital pemilihan ketua OSIS dengan validasi anti-double voting (1 siswa = 1 suara), quick count realtime visual, serta kegiatan ekstrakurikuler (`sch_std_osis_elections`, `sch_std_osis_candidates`, `sch_std_osis_votes`, `sch_std_extracurriculars`, `OsisVoting.vue`).
+- [x] Buku Tamu Resepsionis / Pos Keamanan: Check-in realtime, badge ID card tamu, dan pencatatan check-out 1-klik (`sch_adm_guest_books`, `GuestBookController`, `GuestBook.vue`).
+- [x] Seeder Fase 4 (`SchoolPhase4Seeder`) & Automated Feature Tests (28 tests, 251 assertions passed).
 
-## Tahap 5: Manajemen Fasilitas (Sarpras) & Integrasi KataMPI
+## Tahap 5: Manajemen Fasilitas (Sarpras) & Integrasi KataMPI (Fase Aktif Berikutnya)
 - [ ] Inventaris Ruangan & Pelaporan Tiket Kerusakan Fasilitas.
 - [ ] API Integrasi & SSO dengan engine CBT `ja-katampi`.
 - [ ] Notifikasi otomatis WhatsApp Gateway untuk orang tua murid.

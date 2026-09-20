@@ -10,11 +10,16 @@ use Modules\School\Http\Controllers\Api\Academic\P5ProjectController;
 use Modules\School\Http\Controllers\Api\Academic\ReportCardController;
 use Modules\School\Http\Controllers\Api\Academic\ScheduleController;
 use Modules\School\Http\Controllers\Api\Academic\TeachingJournalController;
+use Modules\School\Http\Controllers\Api\Administration\GuestBookController;
+use Modules\School\Http\Controllers\Api\Administration\LetterController;
+use Modules\School\Http\Controllers\Api\Administration\PpdbController;
 use Modules\School\Http\Controllers\Api\Counseling\CounselingController;
 use Modules\School\Http\Controllers\Api\HR\StaffController;
 use Modules\School\Http\Controllers\Api\SchoolDashboardController;
 use Modules\School\Http\Controllers\Api\Student\DisciplineController;
 use Modules\School\Http\Controllers\Api\Student\StudentController;
+use Modules\School\Http\Controllers\Api\StudentAffairs\ExtracurricularController;
+use Modules\School\Http\Controllers\Api\StudentAffairs\OsisElectionController;
 
 Route::prefix('v1/school')->middleware(['auth:sanctum'])->group(function (): void {
     // Health / Ping
@@ -155,4 +160,58 @@ Route::prefix('v1/school')->middleware(['auth:sanctum'])->group(function (): voi
         Route::post('/cases/{id}/resolve', [CounselingController::class, 'resolve']);
         Route::delete('/cases/{id}', [CounselingController::class, 'destroy']);
     });
+
+    // --- Administrasi Persuratan & Disposisi TU ---
+    Route::prefix('letters')->group(function (): void {
+        Route::get('/generate-number', [LetterController::class, 'generateNumber']);
+        Route::get('/', [LetterController::class, 'index']);
+        Route::post('/', [LetterController::class, 'store']);
+        Route::get('/{id}', [LetterController::class, 'show']);
+        Route::put('/{id}', [LetterController::class, 'update']);
+        Route::post('/{id}/disposition', [LetterController::class, 'updateDisposition']);
+        Route::delete('/{id}', [LetterController::class, 'destroy']);
+    });
+
+    // --- PPDB Online ---
+    Route::prefix('ppdb')->group(function (): void {
+        Route::get('/', [PpdbController::class, 'index']);
+        Route::post('/', [PpdbController::class, 'store']);
+        Route::get('/{id}', [PpdbController::class, 'show']);
+        Route::put('/{id}', [PpdbController::class, 'update']);
+        Route::post('/{id}/verify', [PpdbController::class, 'verify']);
+        Route::post('/{id}/admit', [PpdbController::class, 'admit']);
+        Route::delete('/{id}', [PpdbController::class, 'destroy']);
+    });
+
+    // --- Buku Tamu Resepsionis / Keamanan ---
+    Route::prefix('guest-book')->group(function (): void {
+        Route::get('/', [GuestBookController::class, 'index']);
+        Route::post('/', [GuestBookController::class, 'store']);
+        Route::get('/{id}', [GuestBookController::class, 'show']);
+        Route::put('/{id}', [GuestBookController::class, 'update']);
+        Route::post('/{id}/checkout', [GuestBookController::class, 'checkout']);
+        Route::delete('/{id}', [GuestBookController::class, 'destroy']);
+    });
+
+    // --- OSIS & E-Voting ---
+    Route::prefix('osis')->group(function (): void {
+        Route::get('/elections', [OsisElectionController::class, 'index']);
+        Route::post('/elections', [OsisElectionController::class, 'store']);
+        Route::get('/elections/{id}', [OsisElectionController::class, 'show']);
+        Route::put('/elections/{id}', [OsisElectionController::class, 'update']);
+        Route::delete('/elections/{id}', [OsisElectionController::class, 'destroy']);
+        Route::post('/elections/{id}/candidates', [OsisElectionController::class, 'addCandidate']);
+        Route::post('/elections/{id}/vote', [OsisElectionController::class, 'vote']);
+        Route::get('/elections/{id}/quick-count', [OsisElectionController::class, 'quickCount']);
+    });
+
+    // --- Ekstrakurikuler ---
+    Route::prefix('extracurriculars')->group(function (): void {
+        Route::get('/', [ExtracurricularController::class, 'index']);
+        Route::post('/', [ExtracurricularController::class, 'store']);
+        Route::get('/{id}', [ExtracurricularController::class, 'show']);
+        Route::put('/{id}', [ExtracurricularController::class, 'update']);
+        Route::delete('/{id}', [ExtracurricularController::class, 'destroy']);
+    });
 });
+
