@@ -215,12 +215,23 @@ export const useNavigationStore = defineStore('navigation', () => {
     };
 
     const navigationItems = computed<NavItem[]>(() => {
-        if (dbMenuRegistry.value && dbMenuRegistry.value.length > 0) {
-            return dbMenuRegistry.value;
-        }
+        const list: NavItem[] = dbMenuRegistry.value && dbMenuRegistry.value.length > 0
+            ? [...dbMenuRegistry.value]
+            : [];
 
-        const list: NavItem[] = [];
+        // Track existing groups and child routes in list to avoid duplicates
+        const existingGroups = new Set<string>();
+        const existingRoutes = new Set<string>();
 
+        list.forEach((parent) => {
+            if (parent.group) existingGroups.add(parent.group);
+            if (parent.name) existingRoutes.add(parent.name);
+            parent.children?.forEach((child) => {
+                if (child.name) existingRoutes.add(child.name);
+            });
+        });
+
+        // Merge module-registered navigation (e.g. School, plugins) that may not be in DB yet
         Object.entries(registry.value).forEach(([_moduleId, items]) => {
             if (!items) return;
             items.forEach((item) => {
@@ -230,10 +241,16 @@ export const useNavigationStore = defineStore('navigation', () => {
                     return;
                 }
 
-                list.push({
-                    ...item,
-                    children: item.children ? [...item.children] : undefined,
-                });
+                // Append if whole group or standalone item is missing
+                const hasGroup = item.group && existingGroups.has(item.group);
+                const hasRoute = item.name && existingRoutes.has(item.name);
+                if (!hasGroup && !hasRoute) {
+                    list.push({
+                        ...item,
+                        children: item.children ? [...item.children] : undefined,
+                    });
+                    if (item.group) existingGroups.add(item.group);
+                }
             });
         });
 
