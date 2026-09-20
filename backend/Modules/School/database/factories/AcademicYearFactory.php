@@ -10,6 +10,8 @@ use Modules\School\Models\Institution\School;
 
 /**
  * Factory untuk entitas Tahun Ajaran Akademik.
+ *
+ * @extends Factory<AcademicYear>
  */
 class AcademicYearFactory extends Factory
 {

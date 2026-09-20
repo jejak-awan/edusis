@@ -56,8 +56,8 @@ class SchoolVotingEngineSeeder extends Seeder
             ],
             [
                 'title' => 'PASLON 01: Aditya Pratama & Salsabila Putri',
-                'leader_student_id' => $students->isNotEmpty() ? $students->first()->id : null,
-                'vice_student_id' => $students->count() > 1 ? $students->get(1)->id : null,
+                'leader_student_id' => $students->first()?->id,
+                'vice_student_id' => $students->get(1)?->id,
                 'vision' => 'Mewujudkan OSIS yang Progresif, Inklusif, Kreatif, dan Menjadi Wadah Kolaborasi Talenta Digital Vokasi.',
                 'mission' => "1. Menumbuhkan budaya prestasi akademik dan non-akademik di era AI.\n2. Optimalisasi platform digital dan sarana aspirasi siswa 24/7.\n3. Mempererat jejaring industri dan komunitas ekstrakurikuler terpadu.",
                 'photo_url' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80',
@@ -73,8 +73,8 @@ class SchoolVotingEngineSeeder extends Seeder
             ],
             [
                 'title' => 'PASLON 02: Fathan Al-Ghifari & Nabila Maharani',
-                'leader_student_id' => $students->count() > 2 ? $students->get(2)->id : null,
-                'vice_student_id' => $students->count() > 3 ? $students->get(3)->id : null,
+                'leader_student_id' => $students->get(2)?->id,
+                'vice_student_id' => $students->get(3)?->id,
                 'vision' => 'Transformasi OSIS sebagai Katalisator Karakter Pelajar Pancasila, Mandiri, dan Berjiwa Wirausaha Berkelanjutan.',
                 'mission' => "1. Meningkatkan kepedulian lingkungan hidup dan eco-school.\n2. Mengembangkan inkubasi unit produksi kewirausahaan siswa (SPW).\n3. Penguatan solidaritas kebhinekaan antarkelas.",
                 'photo_url' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80',

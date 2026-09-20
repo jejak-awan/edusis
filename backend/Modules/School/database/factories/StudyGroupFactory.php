@@ -11,6 +11,8 @@ use Modules\School\Models\Institution\School;
 
 /**
  * Factory untuk entitas Rombel / Kelas (Study Group).
+ *
+ * @extends Factory<StudyGroup>
  */
 class StudyGroupFactory extends Factory
 {

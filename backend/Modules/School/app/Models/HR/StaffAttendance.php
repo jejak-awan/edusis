@@ -8,6 +8,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int $id
+ * @property int $staff_id
+ * @property int|null $shift_id
+ * @property \Illuminate\Support\Carbon|null $date
+ * @property string|null $check_in
+ * @property string|null $check_out
+ * @property string $status
+ * @property int $late_minutes
+ * @property float|null $latitude
+ * @property float|null $longitude
+ * @property string|null $device_info
+ * @property string|null $notes
+ * @property string|null $attachment_path
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Staff|null $staff
+ */
 class StaffAttendance extends Model
 {
     use HasFactory;

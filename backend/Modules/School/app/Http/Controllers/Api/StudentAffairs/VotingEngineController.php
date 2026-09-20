@@ -48,10 +48,11 @@ class VotingEngineController extends BaseController
         $validated = $request->validated();
 
         $activeYear = AcademicYear::where('school_id', $schoolId)->where('is_active', true)->first();
+        $academicYearId = $activeYear ? $activeYear->id : 1;
 
         $event = VoteEvent::create(array_merge($validated, [
             'school_id' => $schoolId,
-            'academic_year_id' => $activeYear?->id ?? 1,
+            'academic_year_id' => $academicYearId,
             'status' => $validated['status'] ?? 'active',
             'voting_mode' => $validated['voting_mode'] ?? 'hybrid',
             'target_audience' => $validated['target_audience'] ?? 'all_students',
@@ -154,16 +155,21 @@ class VotingEngineController extends BaseController
         $validated = $request->validated();
         $schoolId = $this->getSchoolId();
 
+        $source = isset($validated['source']) && is_string($validated['source']) ? $validated['source'] : 'all_students';
+        $studyGroupId = isset($validated['study_group_id']) && is_numeric($validated['study_group_id']) ? (int) $validated['study_group_id'] : null;
+
         $result = $this->votingService->generateVotersDpt(
             $event,
-            $validated['source'],
-            isset($validated['study_group_id']) ? (int) $validated['study_group_id'] : null,
+            $source,
+            $studyGroupId,
             $schoolId
         );
 
+        $count = is_scalar($result['generated_count'] ?? null) ? (string) $result['generated_count'] : '0';
+
         return $this->sendResponse(
             $result,
-            "Berhasil men-generate {$result['generated_count']} pemilih DPT dengan token unik 8-karakter"
+            "Berhasil men-generate {$count} pemilih DPT dengan token unik 8-karakter"
         );
     }
 
@@ -177,7 +183,7 @@ class VotingEngineController extends BaseController
         }
 
         if ($request->filled('search')) {
-            $search = (string) $request->input('search');
+            $search = $request->string('search')->value();
             $query->where(function ($q) use ($search) {
                 $q->where('voter_name', 'like', "%{$search}%")
                     ->orWhere('voter_identifier', 'like', "%{$search}%")
@@ -185,7 +191,7 @@ class VotingEngineController extends BaseController
             });
         }
 
-        $perPage = min((int) ($request->input('per_page', 25)), 200);
+        $perPage = min($request->integer('per_page', 25), 200);
         $voters = $query->latest('id')->paginate($perPage);
 
         return $this->sendResponse($voters, 'Voters list retrieved');

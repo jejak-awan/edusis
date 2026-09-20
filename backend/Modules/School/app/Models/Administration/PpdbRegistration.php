@@ -12,10 +12,42 @@ use Modules\School\Models\Academic\Department;
 use Modules\School\Models\HR\Staff;
 use Modules\School\Models\Institution\School;
 
+/**
+ * @property int $id
+ * @property int $school_id
+ * @property int $academic_year_id
+ * @property int $department_id
+ * @property int|null $second_choice_department_id
+ * @property string $registration_number
+ * @property string $track
+ * @property string $full_name
+ * @property string $nisn
+ * @property string|null $nik
+ * @property string $gender
+ * @property string|null $place_of_birth
+ * @property \Illuminate\Support\Carbon|null $date_of_birth
+ * @property string|null $religion
+ * @property string|null $phone
+ * @property string|null $email
+ * @property string|null $address
+ * @property string|null $parent_name
+ * @property string|null $parent_phone
+ * @property string|null $parent_job
+ * @property string|null $parent_income
+ * @property string|null $previous_school
+ * @property float|null $average_report_score
+ * @property string $status
+ * @property array<string, mixed>|null $document_paths
+ * @property int|null $verified_by
+ * @property \Illuminate\Support\Carbon|null $verified_at
+ * @property string|null $notes
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Department|null $department
+ * @property-read Department|null $secondChoiceDepartment
+ */
 class PpdbRegistration extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_adm_ppdb_registrations';
 
     protected $fillable = [
@@ -55,26 +87,41 @@ class PpdbRegistration extends Model
         'average_report_score' => 'decimal:2',
     ];
 
+    /**
+     * @return BelongsTo<School, $this>
+     */
     public function school(): BelongsTo
     {
         return $this->belongsTo(School::class, 'school_id');
     }
 
+    /**
+     * @return BelongsTo<AcademicYear, $this>
+     */
     public function academicYear(): BelongsTo
     {
         return $this->belongsTo(AcademicYear::class, 'academic_year_id');
     }
 
+    /**
+     * @return BelongsTo<Department, $this>
+     */
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'department_id');
     }
 
+    /**
+     * @return BelongsTo<Department, $this>
+     */
     public function secondChoiceDepartment(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'second_choice_department_id');
     }
 
+    /**
+     * @return BelongsTo<Staff, $this>
+     */
     public function verifier(): BelongsTo
     {
         return $this->belongsTo(Staff::class, 'verified_by');

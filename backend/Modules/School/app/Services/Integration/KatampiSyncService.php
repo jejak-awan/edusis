@@ -29,6 +29,8 @@ class KatampiSyncService
 
     /**
      * Hasilkan token SSO terenkripsi untuk transfer sesi ke KataMPI CBT Engine.
+     *
+     * @return array<string, mixed>
      */
     public function generateSsoToken(int $schoolId, ?int $studentId = null, mixed $user = null): array
     {
@@ -38,25 +40,51 @@ class KatampiSyncService
         $student = null;
         if ($studentId) {
             $student = Student::where('school_id', $schoolId)->with('studyGroups')->find($studentId);
+            assert($student instanceof Student || $student === null);
         }
 
-        $studentGroup = $student?->studyGroups?->first();
+        $studentGroup = $student?->studyGroups->first();
+        assert($studentGroup instanceof StudyGroup || $studentGroup === null);
+
+        $userId = 1;
+        $userName = 'EduSIS User';
+        $userRole = 'teacher';
+        $username = 'edusis_user';
+
+        if ($user instanceof \Modules\Core\System\Models\User) {
+            $userId = $user->id;
+            $userName = $user->name;
+            $username = $user->username ?? $user->email;
+            $userRole = 'teacher';
+        } elseif (is_object($user) && isset($user->id)) {
+            $userId = $user->id;
+            $userName = isset($user->name) && is_string($user->name) ? $user->name : 'EduSIS User';
+            $username = isset($user->email) && is_string($user->email) ? $user->email : 'edusis_user';
+        }
+
+        if ($student) {
+            $userId = $student->id;
+            $userName = $student->full_name;
+            $username = $student->nisn;
+            $userRole = 'student';
+        }
 
         $payload = [
-            'sub' => $user ? $user->id : ($student ? $student->id : 1),
-            'name' => $student ? $student->full_name : ($user ? $user->name : 'EduSIS User'),
-            'username' => $student ? $student->nisn : ($user ? $user->username : 'edusis_user'),
-            'role' => $student ? 'student' : ($user && isset($user->role) ? $user->role : 'teacher'),
+            'sub' => $userId,
+            'name' => $userName,
+            'username' => $username,
+            'role' => $userRole,
             'student_id' => $student?->id,
             'nisn' => $student?->nisn,
             'study_group' => $studentGroup?->name,
             'school_id' => $schoolId,
-            'school_name' => $school?->name ?? 'EduSIS School',
+            'school_name' => $school instanceof School ? $school->name : 'EduSIS School',
             'iat' => time(),
             'exp' => time() + 3600,
         ];
 
-        $token = base64_encode(json_encode($payload));
+        $jsonPayload = (string) json_encode($payload);
+        $token = base64_encode($jsonPayload);
         $cbtUrl = rtrim($config->cbt_url, '/').'/auth/sso?token='.urlencode($token);
 
         return [
@@ -72,6 +100,8 @@ class KatampiSyncService
 
     /**
      * Dapatkan data roster rombel dan siswa untuk sinkronisasi ke KataMPI CBT.
+     *
+     * @return array<string, mixed>
      */
     public function getRoster(int $schoolId, ?int $studyGroupId = null): array
     {
@@ -81,20 +111,23 @@ class KatampiSyncService
             $query->where('id', $studyGroupId);
         }
 
+        /** @var \Illuminate\Database\Eloquent\Collection<int, StudyGroup> $groups */
         $groups = $query->get();
 
-        $roster = $groups->map(function ($group) {
+        $roster = $groups->map(function (StudyGroup $group): array {
             return [
                 'study_group_id' => $group->id,
                 'name' => $group->name,
                 'department' => $group->department?->name,
                 'total_students' => $group->students->count(),
-                'students' => $group->students->map(fn ($s) => [
-                    'id' => $s->id,
-                    'nisn' => $s->nisn,
-                    'name' => $s->full_name,
-                    'gender' => $s->gender,
-                ]),
+                'students' => $group->students->map(function (Student $s): array {
+                    return [
+                        'id' => $s->id,
+                        'nisn' => $s->nisn,
+                        'name' => $s->full_name,
+                        'gender' => $s->gender,
+                    ];
+                }),
             ];
         });
 

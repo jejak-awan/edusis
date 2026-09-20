@@ -27,9 +27,15 @@ use Modules\School\Models\Student\Student;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Student> $students
+ * @property-read Department|null $department
+ * @property-read SchoolLevel|null $level
+ * @property-read School|null $school
+ * @property-read AcademicYear|null $academicYear
+ * @property-read Staff|null $homeroomTeacher
  */
 class StudyGroup extends Model
 {
+    /** @use HasFactory<\Modules\School\Database\Factories\StudyGroupFactory> */
     use HasFactory;
 
     protected $table = 'sch_acad_study_groups';
@@ -50,26 +56,41 @@ class StudyGroup extends Model
         'is_active' => 'boolean',
     ];
 
+    /**
+     * @return BelongsTo<School, $this>
+     */
     public function school(): BelongsTo
     {
         return $this->belongsTo(School::class, 'school_id');
     }
 
+    /**
+     * @return BelongsTo<SchoolLevel, $this>
+     */
     public function level(): BelongsTo
     {
         return $this->belongsTo(SchoolLevel::class, 'school_level_id');
     }
 
+    /**
+     * @return BelongsTo<Department, $this>
+     */
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'department_id');
     }
 
+    /**
+     * @return BelongsTo<AcademicYear, $this>
+     */
     public function academicYear(): BelongsTo
     {
         return $this->belongsTo(AcademicYear::class, 'academic_year_id');
     }
 
+    /**
+     * @return HasMany<StudyGroupMember, $this>
+     */
     public function groupMembers(): HasMany
     {
         return $this->hasMany(StudyGroupMember::class, 'study_group_id');
@@ -85,6 +106,9 @@ class StudyGroup extends Model
             ->withTimestamps();
     }
 
+    /**
+     * @return BelongsTo<Staff, $this>
+     */
     public function homeroomTeacher(): BelongsTo
     {
         return $this->belongsTo(Staff::class, 'homeroom_teacher_id');

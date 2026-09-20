@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Modules\School\Http\Controllers\Api\Common\BaseController;
 use Modules\School\Models\Academic\Assessment;
 use Modules\School\Models\Academic\Grade;
+use Modules\School\Models\Academic\StudyGroup;
 use Modules\School\Models\HR\Staff;
 use Modules\School\Models\Institution\School;
 use Modules\School\Models\Integration\KatampiConfig;
@@ -61,36 +62,48 @@ class KatampiIntegrationController extends BaseController
         $config = KatampiConfig::where('school_id', $schoolId)->first();
         $school = School::find($schoolId);
 
-        $apiKey = $config?->api_key ?? config('app.key');
+        $appKey = config('app.key');
+        $apiKey = $config instanceof KatampiConfig ? $config->api_key : (is_string($appKey) ? $appKey : '');
         $user = $request->user();
 
         $studentId = $request->input('student_id');
         $student = null;
-        if ($studentId) {
-            $student = Student::where('school_id', $schoolId)->with('studyGroups')->find($studentId);
+        if (is_numeric($studentId)) {
+            $student = Student::where('school_id', $schoolId)->with('studyGroups')->find((int) $studentId);
+            assert($student instanceof Student || $student === null);
         }
 
-        $studentGroup = $student?->studyGroups?->first();
+        $studentGroup = $student?->studyGroups->first();
+        assert($studentGroup instanceof StudyGroup || $studentGroup === null);
+
+        $username = 'edusis_user';
+        if ($student) {
+            $username = $student->nisn;
+        } elseif ($user instanceof \Modules\Core\System\Models\User) {
+            $username = $user->username ?? $user->email;
+        } elseif ($user) {
+            $username = $user->email ?? 'edusis_user';
+        }
 
         $payload = [
             'sub' => $user ? $user->id : ($student ? $student->id : 1),
             'name' => $student ? $student->full_name : ($user ? $user->name : 'EduSIS User'),
-            'username' => $student ? $student->nisn : ($user ? $user->username : 'edusis_user'),
+            'username' => $username,
             'role' => $student ? 'student' : ($user && isset($user->role) ? $user->role : 'teacher'),
             'student_id' => $student?->id,
             'nisn' => $student?->nisn,
             'study_group' => $studentGroup?->name,
             'school_id' => $schoolId,
-            'school_name' => $school?->name ?? 'EduSIS School',
+            'school_name' => $school instanceof School ? $school->name : 'EduSIS School',
             'iat' => time(),
             'exp' => time() + 3600,
         ];
 
-        $jsonPayload = json_encode($payload, JSON_UNESCAPED_SLASHES);
-        $signature = hash_hmac('sha256', (string) $jsonPayload, (string) $apiKey);
-        $token = base64_encode((string) $jsonPayload).'.'.$signature;
+        $jsonPayload = (string) json_encode($payload, JSON_UNESCAPED_SLASHES);
+        $signature = hash_hmac('sha256', $jsonPayload, $apiKey);
+        $token = base64_encode($jsonPayload).'.'.$signature;
 
-        $cbtBaseUrl = rtrim($config?->cbt_url ?? 'http://ja-katampi:8787', '/');
+        $cbtBaseUrl = rtrim($config instanceof KatampiConfig ? $config->cbt_url : 'http://ja-katampi:8787', '/');
         $redirectUrl = "{$cbtBaseUrl}/sso?token={$token}";
 
         return $this->sendResponse([
@@ -107,7 +120,7 @@ class KatampiIntegrationController extends BaseController
 
         $query = Student::where('school_id', $schoolId)
             ->where('status', 'aktif')
-            ->with(['studyGroups:id,name,level,major']);
+            ->with(['studyGroups:id,name,school_level_id,department_id']);
 
         if ($request->filled('study_group_id')) {
             $groupId = $request->input('study_group_id');
@@ -116,11 +129,13 @@ class KatampiIntegrationController extends BaseController
             });
         }
 
+        /** @var \Illuminate\Database\Eloquent\Collection<int, Student> $students */
         $students = $query->orderBy('full_name')->get();
         $school = School::find($schoolId);
 
-        $roster = $students->map(function ($student) use ($school) {
+        $roster = $students->map(function (Student $student) use ($school): array {
             $group = $student->studyGroups->first();
+            assert($group instanceof StudyGroup || $group === null);
 
             return [
                 'id' => $student->id,
@@ -129,16 +144,16 @@ class KatampiIntegrationController extends BaseController
                 'name' => $student->full_name,
                 'gender' => $student->gender,
                 'study_group_id' => $group?->id,
-                'study_group_name' => $group?->name ?? 'Unassigned',
-                'level' => $group?->level,
+                'study_group_name' => $group instanceof StudyGroup ? $group->name : 'Unassigned',
+                'level' => $group?->level?->name,
                 'school_id' => $school?->id,
-                'school_name' => $school?->name ?? 'EduSIS School',
+                'school_name' => $school instanceof School ? $school->name : 'EduSIS School',
             ];
         });
 
         return $this->sendResponse([
             'total_students' => $roster->count(),
-            'school' => $school?->name,
+            'school' => $school instanceof School ? $school->name : null,
             'students' => $roster,
         ], 'KataMPI Roster export generated successfully');
     }
@@ -165,7 +180,7 @@ class KatampiIntegrationController extends BaseController
 
         $assessment = null;
         if (! empty($validated['assessment_id'])) {
-            $assessment = Assessment::findOrFail($validated['assessment_id']);
+            $assessment = Assessment::findOrFail((int) $validated['assessment_id']);
         } else {
             $teacher = Staff::where('school_id', $schoolId)->first();
             $teacherId = $validated['teacher_id'] ?? ($teacher?->id ?? 1);
@@ -185,6 +200,7 @@ class KatampiIntegrationController extends BaseController
                 'description' => 'Nilai CBT diimpor otomatis dari ja-katampi',
             ]);
         }
+        assert($assessment instanceof Assessment);
 
         $syncedCount = 0;
         foreach ($validated['grades'] as $g) {
@@ -202,9 +218,11 @@ class KatampiIntegrationController extends BaseController
         }
 
         $config = KatampiConfig::firstOrCreate(['school_id' => $schoolId]);
-        $stats = $config->sync_stats ?? ['total_exams' => 0, 'total_grades_synced' => 0];
-        $stats['total_exams'] = ($stats['total_exams'] ?? 0) + 1;
-        $stats['total_grades_synced'] = ($stats['total_grades_synced'] ?? 0) + $syncedCount;
+        $stats = is_array($config->sync_stats) ? $config->sync_stats : ['total_exams' => 0, 'total_grades_synced' => 0];
+        $totalExams = isset($stats['total_exams']) && is_numeric($stats['total_exams']) ? (int) $stats['total_exams'] : 0;
+        $totalGrades = isset($stats['total_grades_synced']) && is_numeric($stats['total_grades_synced']) ? (int) $stats['total_grades_synced'] : 0;
+        $stats['total_exams'] = $totalExams + 1;
+        $stats['total_grades_synced'] = $totalGrades + $syncedCount;
 
         $config->update([
             'last_sync_at' => Carbon::now(),

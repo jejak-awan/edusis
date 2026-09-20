@@ -13,6 +13,7 @@ use Modules\School\Models\Academic\Attendance;
 use Modules\School\Models\Academic\StudyGroup;
 use Modules\School\Models\HR\Staff;
 use Modules\School\Models\HR\StaffAttendance;
+use Modules\School\Models\Student\Student;
 use Modules\School\Services\Attendance\AttendanceService;
 
 class AttendanceController extends BaseController
@@ -30,15 +31,17 @@ class AttendanceController extends BaseController
             'date' => 'required|date',
         ]);
 
-        $group = StudyGroup::with('students')->findOrFail($validated['study_group_id']);
-        $date = $validated['date'];
+        $group = StudyGroup::with('students')->findOrFail((int) $validated['study_group_id']);
+        assert($group instanceof StudyGroup);
+        $date = (string) $validated['date'];
 
         $existingAttendances = Attendance::where('study_group_id', $group->id)
             ->where('date', $date)
             ->get()
             ->keyBy('student_id');
 
-        $result = $group->students->map(function ($student) use ($existingAttendances) {
+        $result = $group->students->map(function (Student $student) use ($existingAttendances): array {
+            /** @var Attendance|null $att */
             $att = $existingAttendances->get($student->id);
 
             return [
@@ -64,10 +67,15 @@ class AttendanceController extends BaseController
         $validated = $request->validated();
         $recorderId = $request->user()?->id;
 
+        $studyGroupId = isset($validated['study_group_id']) && is_numeric($validated['study_group_id']) ? (int) $validated['study_group_id'] : 0;
+        $date = isset($validated['date']) && is_string($validated['date']) ? $validated['date'] : now()->toDateString();
+        /** @var array<int, array<string, mixed>> $records */
+        $records = isset($validated['records']) && is_array($validated['records']) ? $validated['records'] : [];
+
         $this->attendanceService->saveBulkStudentAttendance(
-            (int) $validated['study_group_id'],
-            $validated['date'],
-            $validated['records'],
+            $studyGroupId,
+            $date,
+            $records,
             $recorderId
         );
 
@@ -79,7 +87,7 @@ class AttendanceController extends BaseController
     public function getStaffAttendance(Request $request): JsonResponse
     {
         $schoolId = $this->getSchoolId();
-        $date = $request->input('date', now()->toDateString());
+        $date = $request->string('date', now()->toDateString())->value();
 
         $staffList = Staff::where('school_id', $schoolId)
             ->where('is_active', true)
@@ -88,7 +96,8 @@ class AttendanceController extends BaseController
             }])
             ->get();
 
-        $result = $staffList->map(function ($staff) {
+        $result = $staffList->map(function (Staff $staff): array {
+            /** @var StaffAttendance|null $att */
             $att = $staff->attendances->first();
 
             return [
@@ -114,12 +123,18 @@ class AttendanceController extends BaseController
     {
         $validated = $request->validated();
 
+        $staffId = isset($validated['staff_id']) && is_numeric($validated['staff_id']) ? (int) $validated['staff_id'] : 0;
+        $lat = isset($validated['latitude']) && is_numeric($validated['latitude']) ? (float) $validated['latitude'] : null;
+        $lng = isset($validated['longitude']) && is_numeric($validated['longitude']) ? (float) $validated['longitude'] : null;
+        $deviceInfo = isset($validated['device_info']) && is_string($validated['device_info']) ? $validated['device_info'] : null;
+        $notes = isset($validated['notes']) && is_string($validated['notes']) ? $validated['notes'] : null;
+
         $att = $this->attendanceService->recordStaffCheckIn(
-            (int) $validated['staff_id'],
-            isset($validated['latitude']) ? (float) $validated['latitude'] : null,
-            isset($validated['longitude']) ? (float) $validated['longitude'] : null,
-            $validated['device_info'] ?? null,
-            $validated['notes'] ?? null
+            $staffId,
+            $lat,
+            $lng,
+            $deviceInfo,
+            $notes
         );
 
         return $this->sendResponse($att, 'Check-in recorded successfully');
@@ -127,16 +142,18 @@ class AttendanceController extends BaseController
 
     public function recordStaffCheckOut(Request $request): JsonResponse
     {
-        $validated = $request->validate([
+        $request->validate([
             'staff_id' => 'required|exists:sch_hr_staff,id',
         ]);
 
+        $staffId = $request->integer('staff_id');
         $date = now()->toDateString();
         $nowTime = now()->format('H:i:s');
 
-        $att = StaffAttendance::where('staff_id', $validated['staff_id'])
+        $att = StaffAttendance::where('staff_id', $staffId)
             ->where('date', $date)
             ->firstOrFail();
+        assert($att instanceof StaffAttendance);
 
         $att->update(['check_out' => $nowTime]);
 

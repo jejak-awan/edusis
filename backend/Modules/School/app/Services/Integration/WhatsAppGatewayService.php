@@ -31,6 +31,9 @@ class WhatsAppGatewayService
 
     /**
      * Kirim notifikasi alert presensi ke orang tua / wali siswa secara otomatis.
+     *
+     * @param array<int, string> $inputStatuses
+     * @return array<string, mixed>
      */
     public function sendAttendanceAlerts(int $schoolId, string $date, array $inputStatuses = ['A']): array
     {
@@ -60,7 +63,7 @@ class WhatsAppGatewayService
 
         $school = School::find($schoolId);
         $fallbackName = config('app.name', 'EduSIS');
-        $schoolName = $school?->name ?? (is_string($fallbackName) ? $fallbackName : 'EduSIS');
+        $schoolName = $school instanceof School ? $school->name : (is_string($fallbackName) ? $fallbackName : 'EduSIS');
 
         $statusLabels = [
             'A' => 'ALPA (Tanpa Keterangan)',

@@ -110,10 +110,12 @@ class ExtensionHealthService
 
             $expected = $expectedBySlug[$slug] ?? [];
             if ($expected !== []) {
+                /** @var list<string> $present */
                 $present = $menus
                     ->where('extension_slug', $slug)
                     ->pluck('route_name')
                     ->filter()
+                    ->map(fn ($r): string => is_string($r) ? $r : (is_scalar($r) ? (string) $r : ''))
                     ->all();
                 $missing = array_values(array_diff($expected, $present));
                 if ($missing !== []) {
@@ -162,21 +164,31 @@ class ExtensionHealthService
     }
 
     /**
+     * @param  Collection<int, ConsoleMenu>  $menus
      * @return list<string>
      */
     public function routeConflictsFor(string $slug, Collection $menus): array
     {
-        $ours = $menus->where('extension_slug', $slug)->pluck('route_name')->filter()->unique()->all();
+        /** @var list<string> $ours */
+        $ours = $menus->where('extension_slug', $slug)
+            ->pluck('route_name')
+            ->filter()
+            ->map(fn ($r): string => is_string($r) ? $r : (is_scalar($r) ? (string) $r : ''))
+            ->unique()
+            ->values()
+            ->all();
         if ($ours === []) {
             return [];
         }
 
         $messages = [];
         foreach ($ours as $route) {
+            /** @var list<string> $claimants */
             $claimants = $menus
                 ->where('route_name', $route)
                 ->pluck('extension_slug')
                 ->filter()
+                ->map(fn ($s): string => is_string($s) ? $s : (is_scalar($s) ? (string) $s : ''))
                 ->unique()
                 ->reject(fn ($other) => $other === $slug)
                 ->values()
@@ -190,22 +202,26 @@ class ExtensionHealthService
     }
 
     /**
+     * @param  Collection<int, ConsoleMenu>  $menus
      * @return list<string>
      */
     public function menuSlugConflictsFor(string $slug, Collection $menus): array
     {
+        /** @var Collection<int, ConsoleMenu> $ours */
         $ours = $menus->where('extension_slug', $slug);
         $messages = [];
         foreach ($ours as $item) {
-            $dupes = $menus->filter(function (ConsoleMenu $other) use ($item, $slug): bool {
-                return $other->extension_slug !== $slug
+            /** @var ConsoleMenu $item */
+            $dupes = $menus->filter(function ($other) use ($item, $slug): bool {
+                return $other instanceof ConsoleMenu
+                    && $other->extension_slug !== $slug
                     && $other->group_slug === $item->group_slug
                     && $other->name === $item->name
                     && is_string($other->extension_slug)
                     && $other->extension_slug !== '';
             });
             if ($dupes->isNotEmpty()) {
-                $others = $dupes->pluck('extension_slug')->unique()->implode(', ');
+                $others = $dupes->pluck('extension_slug')->filter()->map(fn ($s): string => is_string($s) ? $s : (is_scalar($s) ? (string) $s : ''))->unique()->implode(', ');
                 $messages[] = "Menu '{$item->name}' di grup {$item->group_slug} bentrok dengan {$others}.";
             }
         }

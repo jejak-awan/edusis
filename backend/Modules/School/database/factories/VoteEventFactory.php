@@ -11,6 +11,8 @@ use Modules\School\Models\Voting\VoteEvent;
 
 /**
  * Factory untuk entitas E-Voting Event (Pemilihan Digital).
+ *
+ * @extends Factory<VoteEvent>
  */
 class VoteEventFactory extends Factory
 {

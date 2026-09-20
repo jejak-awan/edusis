@@ -14,10 +14,12 @@ class AcademicService
 {
     /**
      * Buat tahun ajaran baru dan otomatis inisialisasi Semester Ganjil & Genap.
+     *
+     * @param array<string, mixed> $data
      */
     public function createAcademicYear(array $data, int $schoolId): AcademicYear
     {
-        return DB::transaction(function () use ($data, $schoolId) {
+        return DB::transaction(function () use ($data, $schoolId): AcademicYear {
             if (! empty($data['is_active'])) {
                 AcademicYear::where('school_id', $schoolId)->update(['is_active' => false]);
             }
@@ -25,6 +27,7 @@ class AcademicService
             $year = AcademicYear::create(array_merge($data, [
                 'school_id' => $schoolId,
             ]));
+            assert($year instanceof AcademicYear);
 
             Semester::create([
                 'academic_year_id' => $year->id,
@@ -40,7 +43,10 @@ class AcademicService
                 'is_active' => false,
             ]);
 
-            return $year->load('semesters');
+            $loaded = $year->load('semesters');
+            assert($loaded instanceof AcademicYear);
+
+            return $loaded;
         });
     }
 
@@ -49,10 +55,11 @@ class AcademicService
      */
     public function activateAcademicYear(int $yearId, int $schoolId): AcademicYear
     {
-        return DB::transaction(function () use ($yearId, $schoolId) {
+        return DB::transaction(function () use ($yearId, $schoolId): AcademicYear {
             AcademicYear::where('school_id', $schoolId)->update(['is_active' => false]);
 
             $year = AcademicYear::where('school_id', $schoolId)->findOrFail($yearId);
+            assert($year instanceof AcademicYear);
             $year->update(['is_active' => true]);
 
             return $year;
@@ -75,8 +82,9 @@ class AcademicService
      */
     public function activateSemester(int $semesterId): Semester
     {
-        return DB::transaction(function () use ($semesterId) {
+        return DB::transaction(function () use ($semesterId): Semester {
             $semester = Semester::findOrFail($semesterId);
+            assert($semester instanceof Semester);
             Semester::where('academic_year_id', $semester->academic_year_id)->update(['is_active' => false]);
             $semester->update(['is_active' => true]);
 
@@ -86,31 +94,41 @@ class AcademicService
 
     /**
      * Simpan jadwal KBM baru.
+     *
+     * @param array<string, mixed> $data
      */
     public function createSchedule(array $data, int $schoolId): Schedule
     {
         $activeYear = $this->getActiveAcademicYear($schoolId);
-        $academicYearId = $activeYear?->id ?? 1;
+        $academicYearId = $activeYear ? $activeYear->id : 1;
 
-        return Schedule::create(array_merge($data, [
+        $schedule = Schedule::create(array_merge($data, [
             'school_id' => $schoolId,
             'academic_year_id' => $academicYearId,
         ]));
+        assert($schedule instanceof Schedule);
+
+        return $schedule;
     }
 
     /**
      * Simpan catatan jurnal mengajar guru.
+     *
+     * @param array<string, mixed> $data
      */
     public function recordTeachingJournal(array $data, int $schoolId): TeachingJournal
     {
         $activeYear = $this->getActiveAcademicYear($schoolId);
-        $academicYearId = $activeYear?->id ?? 1;
-        $semesterId = $activeYear?->activeSemester?->id ?? 1;
+        $academicYearId = $activeYear ? $activeYear->id : 1;
+        $semesterId = ($activeYear && $activeYear->activeSemester) ? $activeYear->activeSemester->id : 1;
 
-        return TeachingJournal::create(array_merge($data, [
+        $journal = TeachingJournal::create(array_merge($data, [
             'school_id' => $schoolId,
             'academic_year_id' => $academicYearId,
             'semester_id' => $semesterId,
         ]));
+        assert($journal instanceof TeachingJournal);
+
+        return $journal;
     }
 }

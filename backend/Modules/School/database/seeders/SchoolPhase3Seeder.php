@@ -183,10 +183,11 @@ class SchoolPhase3Seeder extends Seeder
         );
 
         if ($students->isNotEmpty()) {
+            $firstStudentId = $students->first()?->id ?? 1; // @phpstan-ignore-line
             P5Assessment::updateOrCreate(
                 [
                     'project_id' => $p5->id,
-                    'student_id' => $students[0]->id,
+                    'student_id' => $firstStudentId,
                     'dimension' => 'Bergotong Royong',
                 ],
                 [
@@ -198,7 +199,7 @@ class SchoolPhase3Seeder extends Seeder
             P5Assessment::updateOrCreate(
                 [
                     'project_id' => $p5->id,
-                    'student_id' => $students[0]->id,
+                    'student_id' => $firstStudentId,
                     'dimension' => 'Bernalar Kritis',
                 ],
                 [
@@ -216,7 +217,7 @@ class SchoolPhase3Seeder extends Seeder
                     'case_number' => 'BK/2026/09/001',
                 ],
                 [
-                    'student_id' => $students->last()->id,
+                    'student_id' => $students->last()?->id ?? 1, // @phpstan-ignore-line
                     'counselor_id' => $teacher->id,
                     'academic_year_id' => $academicYear->id,
                     'semester_id' => $semester->id,

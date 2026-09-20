@@ -18,6 +18,8 @@ class VotingEngineService
 {
     /**
      * Generate pemilih tetap (DPT) dengan token acak unik 8-karakter.
+     *
+     * @return array<string, mixed>
      */
     public function generateVotersDpt(VoteEvent $event, string $source, ?int $groupId, int $schoolId): array
     {
@@ -85,11 +87,13 @@ class VotingEngineService
             'event_id' => $event->id,
             'generated_count' => $generatedCount,
             'total_dpt' => $event->voters()->count(),
-            'sample_tokens' => array_slice(array_map(fn ($v) => [
-                'name' => $v->voter_name,
-                'token' => $v->token,
-                'identifier' => $v->voter_identifier,
-            ], $createdVoters), 0, 5),
+            'sample_tokens' => array_slice(array_map(function (VoteVoter $v): array {
+                return [
+                    'name' => $v->voter_name,
+                    'token' => $v->token,
+                    'identifier' => $v->voter_identifier,
+                ];
+            }, $createdVoters), 0, 5),
         ];
     }
 
@@ -106,7 +110,7 @@ class VotingEngineService
         }
 
         $now = Carbon::now();
-        if ($now->lt($event->start_date) || $now->gt($event->end_date)) {
+        if (($event->start_date && $now->lt($event->start_date)) || ($event->end_date && $now->gt($event->end_date))) {
             throw new SchoolModuleException('Pemilihan berada di luar jadwal yang ditentukan.', 422);
         }
 
@@ -194,8 +198,8 @@ class VotingEngineService
                 'id' => $c->id,
                 'candidate_number' => $c->candidate_number,
                 'title' => $c->title,
-                'leader_name' => $c->leader?->full_name ?? ($c->staff?->full_name ?? '-'),
-                'vice_name' => $c->vice?->full_name ?? '-',
+                'leader_name' => $c->leader ? $c->leader->full_name : ($c->staff ? $c->staff->full_name : '-'),
+                'vice_name' => $c->vice ? $c->vice->full_name : '-',
                 'vision' => $c->vision,
                 'mission' => $c->mission,
                 'photo_url' => $c->photo_url,

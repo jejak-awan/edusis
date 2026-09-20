@@ -39,7 +39,7 @@ class LetterController extends BaseController
         }
 
         if ($request->filled('search')) {
-            $search = (string) $request->input('search');
+            $search = $request->string('search')->value();
             $query->where(function ($q) use ($search): void {
                 $q->where('letter_number', 'like', "%{$search}%")
                     ->orWhere('subject', 'like', "%{$search}%")
@@ -48,7 +48,7 @@ class LetterController extends BaseController
             });
         }
 
-        $perPage = min((int) ($request->input('per_page', 20)), 100);
+        $perPage = min($request->integer('per_page', 20), 100);
         $letters = $query->latest('letter_date')->paginate($perPage);
 
         return $this->sendResponse($letters, 'Letters retrieved successfully');
@@ -57,8 +57,8 @@ class LetterController extends BaseController
     public function generateNumber(Request $request): JsonResponse
     {
         $schoolId = $this->getSchoolId();
-        $type = $request->input('type', 'outgoing');
-        $category = $request->input('category', 'general');
+        $type = $request->string('type', 'outgoing')->value();
+        $category = $request->string('category', 'general')->value();
 
         $number = $this->letterService->generateSuggestedNumber($schoolId, $type, $category);
 
@@ -70,11 +70,14 @@ class LetterController extends BaseController
         $schoolId = $this->getSchoolId();
         $validated = $request->validated();
 
+        $type = isset($validated['type']) && is_string($validated['type']) ? $validated['type'] : 'outgoing';
+        $category = isset($validated['category']) && is_string($validated['category']) ? $validated['category'] : 'general';
+
         if (empty($validated['letter_number'])) {
             $validated['letter_number'] = $this->letterService->generateSuggestedNumber(
                 $schoolId,
-                $validated['type'] ?? 'outgoing',
-                $validated['category'] ?? 'general'
+                $type,
+                $category
             );
         }
 

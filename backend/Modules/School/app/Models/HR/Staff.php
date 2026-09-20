@@ -28,9 +28,12 @@ use Modules\School\Models\Institution\School;
  * @property string|null $role_title
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read string $formal_name
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, StaffAttendance> $attendances
  */
 class Staff extends Model
 {
+    /** @use HasFactory<\Modules\School\Database\Factories\StaffFactory> */
     use HasFactory, SoftDeletes;
 
     protected $table = 'sch_hr_staff';
@@ -51,9 +54,7 @@ class Staff extends Model
         'employment_status',
         'role_title',
         'last_education',
-        'major',
-        'certification_status',
-        'sk_number',
+        'join_date',
         'phone',
         'email',
         'address',
@@ -67,26 +68,41 @@ class Staff extends Model
         'is_active' => 'boolean',
     ];
 
+    /**
+     * @return BelongsTo<School, $this>
+     */
     public function school(): BelongsTo
     {
         return $this->belongsTo(School::class, 'school_id');
     }
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * @return HasMany<StaffAttendance, $this>
+     */
     public function attendances(): HasMany
     {
         return $this->hasMany(StaffAttendance::class, 'staff_id');
     }
 
+    /**
+     * @return HasMany<Schedule, $this>
+     */
     public function schedules(): HasMany
     {
         return $this->hasMany(Schedule::class, 'teacher_id');
     }
 
+    /**
+     * @return HasMany<TeachingJournal, $this>
+     */
     public function teachingJournals(): HasMany
     {
         return $this->hasMany(TeachingJournal::class, 'teacher_id');

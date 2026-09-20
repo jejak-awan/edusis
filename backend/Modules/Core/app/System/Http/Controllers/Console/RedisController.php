@@ -24,7 +24,8 @@ class RedisController extends BaseApiController
     {
         // Keep cache_enabled in sys_redis_settings synchronized with global performance settings
         try {
-            $currentDriver = strtolower((string) Setting::get('cache_driver', 'file'));
+            $driverRaw = Setting::get('cache_driver', 'file');
+            $currentDriver = strtolower(is_string($driverRaw) ? $driverRaw : 'file');
             $currentEnabled = filter_var(Setting::get('enable_cache', true), FILTER_VALIDATE_BOOLEAN);
             $isRedisActive = $currentEnabled && in_array($currentDriver, ['redis', 'failover', 'redis_failover']);
             RedisSetting::setValue('cache_enabled', $isRedisActive ? 'true' : 'false');
@@ -77,37 +78,36 @@ class RedisController extends BaseApiController
             return $this->validationError($validator->errors()->toArray());
         }
 
-        $settings = $request->input('settings');
-        if (is_array($settings)) {
-            foreach ($settings as $settingData) {
-                if (is_array($settingData) && isset($settingData['key'])) {
-                    $key = is_string($settingData['key']) ? $settingData['key'] : '';
-                    if ($key !== '' && $key !== '0') {
-                        $val = $settingData['value'] ?? null;
-                        RedisSetting::setValue($key, $val);
+        /** @var array<int, array<string, mixed>> $settings */
+        $settings = (array) $request->input('settings');
+        foreach ($settings as $settingData) {
+            if (isset($settingData['key']) && is_string($settingData['key']) && $settingData['key'] !== '') {
+                $key = $settingData['key'];
+                $val = $settingData['value'] ?? null;
+                RedisSetting::setValue($key, $val);
 
-                        // Synchronize cache_enabled with Global Performance Settings
-                        if ($key === 'cache_enabled') {
-                            $isCacheEnabled = filter_var($val, FILTER_VALIDATE_BOOLEAN);
-                            if ($isCacheEnabled) {
-                                Setting::set('enable_cache', '1', 'boolean', 'performance');
-                                $currentDriver = strtolower((string) Setting::get('cache_driver', 'file'));
-                                if (! in_array($currentDriver, ['redis', 'failover', 'redis_failover'])) {
-                                    Setting::set('cache_driver', 'failover', 'string', 'performance');
-                                }
-                            } else {
-                                $currentDriver = strtolower((string) Setting::get('cache_driver', 'file'));
-                                if (in_array($currentDriver, ['redis', 'failover', 'redis_failover'])) {
-                                    Setting::set('cache_driver', 'file', 'string', 'performance');
-                                }
-                            }
+                // Synchronize cache_enabled with Global Performance Settings
+                if ($key === 'cache_enabled') {
+                    $isCacheEnabled = filter_var($val, FILTER_VALIDATE_BOOLEAN);
+                    if ($isCacheEnabled) {
+                        Setting::set('enable_cache', '1', 'boolean', 'performance');
+                        $driverRaw = Setting::get('cache_driver', 'file');
+                        $currentDriver = strtolower(is_string($driverRaw) ? $driverRaw : 'file');
+                        if (! in_array($currentDriver, ['redis', 'failover', 'redis_failover'])) {
+                            Setting::set('cache_driver', 'failover', 'string', 'performance');
                         }
-
-                        // Synchronize cache_prefix with Global Performance Settings
-                        if ($key === 'cache_prefix' && is_string($val)) {
-                            Setting::set('cache_prefix', $val, 'string', 'performance');
+                    } else {
+                        $driverRaw = Setting::get('cache_driver', 'file');
+                        $currentDriver = strtolower(is_string($driverRaw) ? $driverRaw : 'file');
+                        if (in_array($currentDriver, ['redis', 'failover', 'redis_failover'])) {
+                            Setting::set('cache_driver', 'file', 'string', 'performance');
                         }
                     }
+                }
+
+                // Synchronize cache_prefix with Global Performance Settings
+                if ($key === 'cache_prefix' && is_string($val)) {
+                    Setting::set('cache_prefix', $val, 'string', 'performance');
                 }
             }
         }
@@ -405,9 +405,9 @@ class RedisController extends BaseApiController
     public function searchKeys(Request $request): JsonResponse
     {
         try {
-            $connName = $request->input('connection', 'cache');
-            $pattern = (string) $request->input('pattern', '*');
-            $limit = min((int) $request->input('limit', 80), 150);
+            $connName = $request->string('connection', 'cache')->value();
+            $pattern = $request->string('pattern', '*')->value();
+            $limit = min($request->integer('limit', 80), 150);
 
             if (empty($pattern)) {
                 $pattern = '*';
@@ -467,10 +467,8 @@ class RedisController extends BaseApiController
         }
 
         try {
-            $connRaw = $request->input('connection', 'cache');
-            $connName = is_string($connRaw) ? $connRaw : 'cache';
-            $keyRaw = $request->input('key');
-            $rawInputKey = is_string($keyRaw) ? $keyRaw : '';
+            $connName = $request->string('connection', 'cache')->value();
+            $rawInputKey = $request->string('key')->value();
             $redis = Redis::connection($connName);
             $prefix = $this->getConnectionPrefix($redis);
 
@@ -514,8 +512,7 @@ class RedisController extends BaseApiController
         }
 
         try {
-            $connRaw = $request->input('connection', 'cache');
-            $connName = is_string($connRaw) ? $connRaw : 'cache';
+            $connName = $request->string('connection', 'cache')->value();
             $redis = Redis::connection($connName);
             $prefix = $this->getConnectionPrefix($redis);
 
@@ -618,7 +615,7 @@ class RedisController extends BaseApiController
             $client = $redis->client();
             if ($client instanceof \Redis) {
                 $type = $client->rawCommand('TYPE', $rawKey);
-                if ($type !== 0 && $type !== 'none' && $type !== false && $type !== null) {
+                if (! empty($type) && $type !== 'none') {
                     return $type;
                 }
             }
@@ -627,7 +624,7 @@ class RedisController extends BaseApiController
 
         try {
             $type = $redis->type($cleanKey);
-            if ($type !== 0 && $type !== 'none' && $type !== false && $type !== null) {
+            if (! empty($type)) {
                 return $type;
             }
         } catch (\Throwable) {
@@ -803,41 +800,41 @@ class RedisController extends BaseApiController
      */
     private function scanKeys(Connection $redis, string $pattern = '*', int $maxLimit = 500): array
     {
-        $cursor = null;
+        $cursor = '0';
         $keys = [];
         $iterations = 0;
         $maxIterations = 50;
 
         do {
             $iterations++;
-            $result = $redis->scan($cursor, ['match' => $pattern, 'count' => 100]);
+            /** @var mixed $result */
+            $result = $redis->command('scan', [$cursor, 'match', $pattern, 'count', 100]);
 
-            if ($result === false) {
+            if ($result === false || ! is_array($result)) {
                 break;
             }
 
-            if (is_array($result)) {
-                if (isset($result[0]) && is_array($result[1])) {
-                    $cursor = $result[0];
-                    foreach ($result[1] as $k) {
-                        if (is_string($k)) {
-                            $keys[] = $k;
-                        }
-                    }
-                } else {
-                    foreach ($result as $k) {
-                        if (is_string($k)) {
-                            $keys[] = $k;
-                        }
+            if (isset($result[0]) && is_array($result[1])) {
+                $cursor = is_scalar($result[0]) ? (string) $result[0] : '0';
+                foreach ($result[1] as $k) {
+                    if (is_string($k)) {
+                        $keys[] = $k;
                     }
                 }
+            } else {
+                foreach ($result as $k) {
+                    if (is_string($k)) {
+                        $keys[] = $k;
+                    }
+                }
+                break;
             }
 
             $keys = array_unique($keys);
             if (count($keys) >= $maxLimit || $iterations >= $maxIterations) {
                 break;
             }
-        } while ($cursor && $cursor !== '0');
+        } while ($cursor !== '0' && $cursor !== '');
 
         return array_values($keys);
     }

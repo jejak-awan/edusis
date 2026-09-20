@@ -14,15 +14,36 @@ use Modules\School\Models\Student\Violation;
 
 class DisciplineService
 {
+    private function asInt(mixed $val, int $default = 0): int
+    {
+        return is_numeric($val) ? (int) $val : $default;
+    }
+
+    private function asString(mixed $val, string $default = ''): string
+    {
+        return is_scalar($val) ? (string) $val : $default;
+    }
+
+    private function asNullableString(mixed $val): ?string
+    {
+        return is_scalar($val) ? (string) $val : null;
+    }
+
     /**
      * Catat mutasi poin kredit (pelanggaran atau prestasi) siswa.
+     *
+     * @param array<string, mixed> $data
+     * @return array<string, mixed>
      */
     public function recordPoint(array $data, string|int|null $reporterId = null): array
     {
-        $category = PointCategory::findOrFail($data['category_id']);
-        $student = Student::findOrFail($data['student_id']);
+        $category = PointCategory::findOrFail($this->asInt($data['category_id'] ?? null));
+        assert($category instanceof PointCategory);
 
-        $points = $data['points'] ?? $category->default_points;
+        $student = Student::findOrFail($this->asInt($data['student_id'] ?? null));
+        assert($student instanceof Student);
+
+        $points = isset($data['points']) ? $this->asInt($data['points']) : $category->default_points;
 
         $activeYear = AcademicYear::where('school_id', $student->school_id)
             ->where('is_active', true)
@@ -47,28 +68,30 @@ class DisciplineService
                 'academic_year_id' => $academicYearId,
                 'semester_id' => $semesterId,
                 'points' => $points,
-                'description' => $data['description'],
-                'date' => $data['date'],
+                'description' => $this->asString($data['description'] ?? ''),
+                'date' => $data['date'] ?? now()->toDateString(),
                 'reporter_id' => $reporterId,
                 'status' => 'approved',
-                'admin_notes' => $data['admin_notes'] ?? null,
+                'admin_notes' => isset($data['admin_notes']) ? $this->asNullableString($data['admin_notes']) : null,
             ]);
+            assert($creditPoint instanceof CreditPoint);
 
             $violation = null;
             $achievement = null;
 
             if ($category->type === 'pelanggaran') {
-                $spLevel = $data['sp_level'] ?? 'none';
+                $spLevel = isset($data['sp_level']) ? $this->asString($data['sp_level'], 'none') : 'none';
 
                 // Evaluasi ambang SP dari config jika belum ditetapkan manual
                 if ($spLevel === 'none') {
                     $accumulated = $this->calculateAccumulatedViolationPoints($student->id);
+                    /** @var array<string, int> $thresholds */
                     $thresholds = config('school.discipline.sp_thresholds', ['sp1' => 30, 'sp2' => 50, 'sp3' => 100]);
-                    if ($accumulated >= $thresholds['sp3']) {
+                    if ($accumulated >= ($thresholds['sp3'] ?? 100)) {
                         $spLevel = 'sp3';
-                    } elseif ($accumulated >= $thresholds['sp2']) {
+                    } elseif ($accumulated >= ($thresholds['sp2'] ?? 50)) {
                         $spLevel = 'sp2';
-                    } elseif ($accumulated >= $thresholds['sp1']) {
+                    } elseif ($accumulated >= ($thresholds['sp1'] ?? 30)) {
                         $spLevel = 'sp1';
                     }
                 }
@@ -76,32 +99,35 @@ class DisciplineService
                 $violation = Violation::create([
                     'student_id' => $student->id,
                     'credit_point_id' => $creditPoint->id,
-                    'violation_date' => $data['date'],
-                    'sanction' => $data['sanction'] ?? null,
+                    'violation_date' => $data['date'] ?? now()->toDateString(),
+                    'sanction' => isset($data['sanction']) ? $this->asNullableString($data['sanction']) : null,
                     'sp_level' => $spLevel,
-                    'sp_letter_number' => $data['sp_letter_number'] ?? null,
+                    'sp_letter_number' => isset($data['sp_letter_number']) ? $this->asNullableString($data['sp_letter_number']) : null,
                     'sp_issued_at' => ! empty($data['sp_letter_number']) ? now() : null,
-                    'follow_up_notes' => $data['admin_notes'] ?? null,
+                    'follow_up_notes' => isset($data['admin_notes']) ? $this->asNullableString($data['admin_notes']) : null,
                     'is_resolved' => false,
                 ]);
             } else {
                 $achievement = Achievement::create([
                     'student_id' => $student->id,
                     'credit_point_id' => $creditPoint->id,
-                    'title' => $data['achievement_title'] ?? $category->name,
-                    'level' => $data['achievement_level'] ?? 'sekolah',
-                    'rank' => $data['achievement_rank'] ?? null,
-                    'type' => $data['achievement_type'] ?? 'akademik',
-                    'event_name' => $data['event_name'] ?? null,
+                    'title' => isset($data['achievement_title']) ? $this->asString($data['achievement_title'], $category->name) : $category->name,
+                    'level' => isset($data['achievement_level']) ? $this->asString($data['achievement_level'], 'sekolah') : 'sekolah',
+                    'rank' => isset($data['achievement_rank']) ? $this->asNullableString($data['achievement_rank']) : null,
+                    'type' => isset($data['achievement_type']) ? $this->asString($data['achievement_type'], 'akademik') : 'akademik',
+                    'event_name' => isset($data['event_name']) ? $this->asNullableString($data['event_name']) : null,
                 ]);
             }
+
+            $freshStudent = $student->fresh();
+            $currentScore = $freshStudent instanceof Student ? $freshStudent->total_credit_score : $student->total_credit_score;
 
             return [
                 'credit_point' => $creditPoint->load('category'),
                 'violation' => $violation,
                 'achievement' => $achievement,
-                'current_total_score' => $student->fresh()->total_credit_score,
-                'new_total_score' => $student->fresh()->total_credit_score,
+                'current_total_score' => $currentScore,
+                'new_total_score' => $currentScore,
             ];
         });
     }
@@ -118,10 +144,13 @@ class DisciplineService
 
     /**
      * Dapatkan rekapitulasi poin dan riwayat disiplin siswa.
+     *
+     * @return array<string, mixed>
      */
     public function getStudentDisciplineSummary(int $studentId): array
     {
         $student = Student::findOrFail($studentId);
+        assert($student instanceof Student);
 
         $points = CreditPoint::where('student_id', $studentId)
             ->with(['category', 'reporter'])

@@ -282,8 +282,8 @@ class SchoolPhase4Seeder extends Seeder
             $paslon1 = OsisCandidate::firstOrCreate(
                 ['election_id' => $election->id, 'candidate_number' => 1],
                 [
-                    'chairman_student_id' => $students[0]->id,
-                    'vice_chairman_student_id' => $students[1]->id,
+                    'chairman_student_id' => $students->get(0)?->id ?? 1,
+                    'vice_chairman_student_id' => $students->get(1)?->id ?? 1,
                     'vision' => 'Mewujudkan OSIS yang Proaktif, Inovatif, Berkarakter Pancasila, dan Unggul dalam Kolaborasi Digital.',
                     'mission' => "1. Meningkatkan literasi teknologi dan kreativitas siswa melalui workshop industri.\n2. Mengoptimalkan wadah aspirasi siswa berbasis platform digital terbuka.\n3. Menyelenggarakan kegiatan keagamaan, sosial, dan perlombaan seni-olahraga berkala.",
                     'photo_url' => '/images/osis/paslon-1.jpg',
@@ -294,8 +294,8 @@ class SchoolPhase4Seeder extends Seeder
             $paslon2 = OsisCandidate::firstOrCreate(
                 ['election_id' => $election->id, 'candidate_number' => 2],
                 [
-                    'chairman_student_id' => $students[2]->id,
-                    'vice_chairman_student_id' => $students[3]->id,
+                    'chairman_student_id' => $students->get(2)?->id ?? 1,
+                    'vice_chairman_student_id' => $students->get(3)?->id ?? 1,
                     'vision' => 'Membangun Ekosistem Kesiswaan yang Inklusif, Disiplin, Peduli Lingkungan, dan Berdaya Saing Global.',
                     'mission' => "1. Menumbuhkan budaya green-campus dan pengelolaan sampah mandiri di lingkungan sekolah.\n2. Mengembangkan program mentoring sebaya untuk prestasi akademik dan non-akademik.\n3. Mempererat persaudaraan antarkelas melalui festival kreasi siswa dan pekan olahraga sekolah.",
                     'photo_url' => '/images/osis/paslon-2.jpg',
@@ -331,7 +331,7 @@ class SchoolPhase4Seeder extends Seeder
             [
                 'name' => 'Gerakan Pramuka Gudep 06.01-06.02',
                 'category' => 'wajib',
-                'advisor_staff_id' => $teachers->first() ? $teachers->first()->id : null,
+                'advisor_staff_id' => $teachers->first()?->id,
                 'schedule_day' => 'Jumat, 15:30 - 17:00',
                 'location' => 'Lapangan Utama Sekolah',
                 'description' => 'Pendidikan kepanduan, pembentukan karakter kemandirian, kepemimpinan, dan kecintaan tanah air.',
@@ -339,7 +339,7 @@ class SchoolPhase4Seeder extends Seeder
             [
                 'name' => 'Paskibra Satuan Rajawali',
                 'category' => 'pilihan',
-                'advisor_staff_id' => $teachers->count() > 1 ? $teachers->get(1)->id : null,
+                'advisor_staff_id' => $teachers->get(1)?->id,
                 'schedule_day' => 'Sabtu, 08:00 - 11:00',
                 'location' => 'Lapangan Upacara Bendera',
                 'description' => 'Pelatihan baris-berbaris formal, formasi pengibaran bendera, ketahanan fisik, dan disiplin tinggi.',
@@ -347,7 +347,7 @@ class SchoolPhase4Seeder extends Seeder
             [
                 'name' => 'Palang Merah Remaja (PMR Wira)',
                 'category' => 'pilihan',
-                'advisor_staff_id' => $teachers->first() ? $teachers->first()->id : null,
+                'advisor_staff_id' => $teachers->first()?->id,
                 'schedule_day' => 'Rabu, 15:30 - 17:00',
                 'location' => 'Ruang UKS & Aula',
                 'description' => 'Pelatihan pertolongan pertama pada kecelakaan (P3K), kesiapsiagaan bencana, dan donor darah.',
@@ -355,7 +355,7 @@ class SchoolPhase4Seeder extends Seeder
             [
                 'name' => 'IT & Cyber Robotics Club',
                 'category' => 'pilihan',
-                'advisor_staff_id' => $teachers->count() > 1 ? $teachers->get(1)->id : null,
+                'advisor_staff_id' => $teachers->get(1)?->id,
                 'schedule_day' => 'Kamis, 15:30 - 17:30',
                 'location' => 'Laboratorium Komputer Rekayasa Perangkat Lunak',
                 'description' => 'Eksplorasi pemrograman web & mobile, competitive programming, IoT, dan perakitan robotika.',
@@ -363,7 +363,7 @@ class SchoolPhase4Seeder extends Seeder
             [
                 'name' => 'Klub Futsal & Sepakbola',
                 'category' => 'pilihan',
-                'advisor_staff_id' => $teachers->first() ? $teachers->first()->id : null,
+                'advisor_staff_id' => $teachers->first()?->id,
                 'schedule_day' => 'Selasa, 16:00 - 17:30',
                 'location' => 'Lapangan Olahraga Tertutup (Indoor)',
                 'description' => 'Pengembangan bakat olahraga futsal, taktik permainan, pembinaan fisik, dan kompetisi antarpelajar.',

@@ -8,6 +8,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int $id
+ * @property int $student_id
+ * @property int $credit_point_id
+ * @property \Illuminate\Support\Carbon $violation_date
+ * @property string|null $sanction
+ * @property string $sp_level
+ * @property string|null $sp_letter_number
+ * @property \Illuminate\Support\Carbon|null $sp_issued_at
+ * @property string|null $follow_up_notes
+ * @property bool $is_resolved
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Student|null $student
+ * @property-read CreditPoint|null $creditPoint
+ */
 class Violation extends Model
 {
     use HasFactory;
@@ -32,11 +48,17 @@ class Violation extends Model
         'is_resolved' => 'boolean',
     ];
 
+    /**
+     * @return BelongsTo<Student, $this>
+     */
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class, 'student_id');
     }
 
+    /**
+     * @return BelongsTo<CreditPoint, $this>
+     */
     public function creditPoint(): BelongsTo
     {
         return $this->belongsTo(CreditPoint::class, 'credit_point_id');

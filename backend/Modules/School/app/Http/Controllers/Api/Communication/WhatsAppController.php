@@ -34,7 +34,7 @@ class WhatsAppController extends BaseController
         }
 
         if ($request->filled('search')) {
-            $search = $request->input('search');
+            $search = $request->string('search')->value();
             $query->where(function ($q) use ($search) {
                 $q->where('recipient_phone', 'like', "%{$search}%")
                     ->orWhere('recipient_name', 'like', "%{$search}%")
@@ -46,7 +46,8 @@ class WhatsAppController extends BaseController
             });
         }
 
-        $logs = $query->orderBy('created_at', 'desc')->paginate($request->input('per_page', 20));
+        $perPage = $request->integer('per_page', 20);
+        $logs = $query->orderBy('created_at', 'desc')->paginate($perPage);
 
         return $this->sendResponse($logs, 'WhatsApp logs retrieved successfully');
     }
@@ -101,7 +102,7 @@ class WhatsAppController extends BaseController
     public function sendAttendanceAlerts(Request $request): JsonResponse
     {
         $schoolId = $this->getSchoolId();
-        $date = $request->input('date', Carbon::today()->toDateString());
+        $date = $request->string('date', Carbon::today()->toDateString())->value();
         $inputStatuses = (array) $request->input('statuses', ['A', 'alpa']);
 
         $statusMap = [
@@ -111,7 +112,10 @@ class WhatsAppController extends BaseController
         ];
 
         $statuses = array_values(array_unique(array_filter(array_map(
-            fn ($s) => $statusMap[(string) $s] ?? (string) $s,
+            function ($s) use ($statusMap): string {
+                $str = is_scalar($s) ? (string) $s : '';
+                return $statusMap[$str] ?? $str;
+            },
             $inputStatuses
         ))));
 
@@ -129,7 +133,7 @@ class WhatsAppController extends BaseController
         $createdLogs = [];
 
         $school = School::find($schoolId);
-        $schoolName = $school?->name ?? 'EduSIS';
+        $schoolName = $school instanceof School ? $school->name : 'EduSIS';
 
         $statusLabels = [
             'A' => 'ALPA (Tanpa Keterangan)',
@@ -176,7 +180,7 @@ class WhatsAppController extends BaseController
                 continue;
             }
 
-            $studyGroupName = $att->studyGroup?->name ?? 'Kelas Siswa';
+            $studyGroupName = $att->studyGroup instanceof \Modules\School\Models\Academic\StudyGroup ? $att->studyGroup->name : 'Kelas Siswa';
             $statusLabel = $statusLabels[$att->status] ?? strtoupper((string) $att->status);
             $formattedDate = Carbon::parse($date)->isoFormat('dddd, D MMMM Y');
 

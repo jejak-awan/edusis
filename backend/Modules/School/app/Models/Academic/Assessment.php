@@ -30,11 +30,15 @@ use Modules\School\Models\Institution\School;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Grade> $grades
  * @property-read Subject|null $subject
+ * @property-read StudyGroup|null $studyGroup
+ * @property-read School|null $school
+ * @property-read AcademicYear|null $academicYear
+ * @property-read Semester|null $semester
+ * @property-read Staff|null $teacher
+ * @property-read LearningObjective|null $learningObjective
  */
 class Assessment extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_acad_assessments';
 
     protected $fillable = [
@@ -59,36 +63,57 @@ class Assessment extends Model
         'date' => 'date',
     ];
 
+    /**
+     * @return BelongsTo<School, $this>
+     */
     public function school(): BelongsTo
     {
         return $this->belongsTo(School::class, 'school_id');
     }
 
+    /**
+     * @return BelongsTo<AcademicYear, $this>
+     */
     public function academicYear(): BelongsTo
     {
         return $this->belongsTo(AcademicYear::class, 'academic_year_id');
     }
 
+    /**
+     * @return BelongsTo<Semester, $this>
+     */
     public function semester(): BelongsTo
     {
         return $this->belongsTo(Semester::class, 'semester_id');
     }
 
+    /**
+     * @return BelongsTo<StudyGroup, $this>
+     */
     public function studyGroup(): BelongsTo
     {
         return $this->belongsTo(StudyGroup::class, 'study_group_id');
     }
 
+    /**
+     * @return BelongsTo<Subject, $this>
+     */
     public function subject(): BelongsTo
     {
         return $this->belongsTo(Subject::class, 'subject_id');
     }
 
+    /**
+     * @return BelongsTo<Staff, $this>
+     */
     public function teacher(): BelongsTo
     {
         return $this->belongsTo(Staff::class, 'teacher_id');
     }
 
+    /**
+     * @return BelongsTo<LearningObjective, $this>
+     */
     public function learningObjective(): BelongsTo
     {
         return $this->belongsTo(LearningObjective::class, 'learning_objective_id');

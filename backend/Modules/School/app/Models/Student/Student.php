@@ -35,6 +35,16 @@ use Modules\School\Models\Institution\SchoolLevel;
  * @property string $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read int $total_credit_score
+ * @property-read School|null $school
+ * @property-read SchoolLevel|null $level
+ * @property-read Department|null $department
+ * @property-read User|null $user
+ * @property-read StudentParent|null $parent
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, StudyGroup> $studyGroups
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, CreditPoint> $creditPoints
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Violation> $violations
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Achievement> $achievements
  */
 class Student extends Model
 {
@@ -75,31 +85,49 @@ class Student extends Model
         'date_of_birth' => 'date',
     ];
 
+    /**
+     * @return BelongsTo<School, $this>
+     */
     public function school(): BelongsTo
     {
         return $this->belongsTo(School::class, 'school_id');
     }
 
+    /**
+     * @return BelongsTo<SchoolLevel, $this>
+     */
     public function level(): BelongsTo
     {
         return $this->belongsTo(SchoolLevel::class, 'school_level_id');
     }
 
+    /**
+     * @return BelongsTo<Department, $this>
+     */
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'department_id');
     }
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * @return HasOne<StudentParent, $this>
+     */
     public function parent(): HasOne
     {
         return $this->hasOne(StudentParent::class, 'student_id');
     }
 
+    /**
+     * @return BelongsToMany<StudyGroup, $this>
+     */
     public function studyGroups(): BelongsToMany
     {
         return $this->belongsToMany(StudyGroup::class, 'sch_acad_study_group_members', 'student_id', 'study_group_id')
@@ -107,16 +135,25 @@ class Student extends Model
             ->withTimestamps();
     }
 
+    /**
+     * @return HasMany<CreditPoint, $this>
+     */
     public function creditPoints(): HasMany
     {
         return $this->hasMany(CreditPoint::class, 'student_id');
     }
 
+    /**
+     * @return HasMany<Violation, $this>
+     */
     public function violations(): HasMany
     {
         return $this->hasMany(Violation::class, 'student_id');
     }
 
+    /**
+     * @return HasMany<Achievement, $this>
+     */
     public function achievements(): HasMany
     {
         return $this->hasMany(Achievement::class, 'student_id');

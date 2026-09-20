@@ -11,6 +11,19 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\School\Models\Institution\School;
 use Modules\School\Models\Student\Student;
 
+/**
+ * @property int $id
+ * @property int $school_id
+ * @property string $code
+ * @property string $name
+ * @property string|null $description
+ * @property bool $is_active
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read School $school
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, StudyGroup> $studyGroups
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Student> $students
+ */
 class Department extends Model
 {
     use HasFactory;

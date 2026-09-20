@@ -33,7 +33,7 @@ class AssessmentController extends BaseController
             $query->where('type', $request->input('type'));
         }
 
-        $perPage = min((int) ($request->input('per_page', 20)), 100);
+        $perPage = min($request->integer('per_page', 20), 100);
         $assessments = $query->latest('date')->paginate($perPage);
 
         return $this->sendResponse($assessments, 'Assessments retrieved successfully');
@@ -76,13 +76,17 @@ class AssessmentController extends BaseController
     public function grades(int $id): JsonResponse
     {
         $assessment = Assessment::with('studyGroup.students')->findOrFail($id);
-        $students = $assessment->studyGroup ? $assessment->studyGroup->students : collect();
+        assert($assessment instanceof Assessment);
+        $studyGroup = $assessment->studyGroup;
+        /** @var \Illuminate\Database\Eloquent\Collection<int, \Modules\School\Models\Student\Student> $students */
+        $students = $studyGroup instanceof \Modules\School\Models\Academic\StudyGroup ? $studyGroup->students : collect();
 
         $existingGrades = Grade::where('assessment_id', $id)
             ->get()
             ->keyBy('student_id');
 
-        $result = $students->map(function ($student) use ($existingGrades) {
+        $result = $students->map(function (\Modules\School\Models\Student\Student $student) use ($existingGrades): array {
+            /** @var Grade|null $grade */
             $grade = $existingGrades->get($student->id);
 
             return [
@@ -103,17 +107,27 @@ class AssessmentController extends BaseController
     public function storeBulkGrades(StoreBulkGradesRequest $request, int $id): JsonResponse
     {
         $assessment = Assessment::findOrFail($id);
+        assert($assessment instanceof Assessment);
 
-        foreach ($request->validated()['grades'] as $item) {
+        $validated = $request->validated();
+        /** @var array<int, array<string, mixed>> $grades */
+        $grades = isset($validated['grades']) && is_array($validated['grades']) ? $validated['grades'] : [];
+
+        foreach ($grades as $item) {
+            $studentId = isset($item['student_id']) && is_numeric($item['student_id']) ? (int) $item['student_id'] : 0;
+            $score = isset($item['score']) && is_numeric($item['score']) ? (float) $item['score'] : 0.0;
+            $remedialScore = isset($item['remedial_score']) && is_numeric($item['remedial_score']) ? (float) $item['remedial_score'] : null;
+            $notes = isset($item['notes']) && is_string($item['notes']) ? $item['notes'] : null;
+
             Grade::updateOrCreate(
                 [
                     'assessment_id' => $assessment->id,
-                    'student_id' => $item['student_id'],
+                    'student_id' => $studentId,
                 ],
                 [
-                    'score' => $item['score'],
-                    'remedial_score' => $item['remedial_score'] ?? null,
-                    'notes' => $item['notes'] ?? null,
+                    'score' => $score,
+                    'remedial_score' => $remedialScore,
+                    'notes' => $notes,
                 ]
             );
         }
