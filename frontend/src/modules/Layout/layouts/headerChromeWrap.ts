@@ -6,7 +6,7 @@
  */
 export function headerChromeWrapClass(opts: {
   sticky: boolean;
-  janariFixed: boolean;
+  janariFixed?: boolean;
 }): string {
   if (opts.janariFixed) return 'relative z-50 overflow-visible';
   if (opts.sticky) return 'sticky top-0 z-[100] overflow-visible';

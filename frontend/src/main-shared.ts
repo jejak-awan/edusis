@@ -113,4 +113,6 @@ export type ShellBootstrapContext = {
 };
 
 // @ts-expect-error audit global
-window.JANARI_VERSION = '2026.05.21.hub-spa';
+window.EDUSIS_VERSION = '2026.09.21.edusis-spa';
+// @ts-expect-error legacy compatibility
+window.JANARI_VERSION = window.EDUSIS_VERSION;

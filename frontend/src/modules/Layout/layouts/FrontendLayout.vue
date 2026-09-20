@@ -146,7 +146,7 @@ import {
   ArrowUp,
 } from 'lucide-vue-next'
 
-import { JANARI_PRESETS } from '@/modules/Layout/config/janariPresets'
+import { THEME_COLOR_PRESETS } from '@/modules/Layout/config/colorPresets'
 import { themeUsesJanariCanvas } from '@/modules/Layout/utils/themeManifest'
 import { headerChromeWrapClass, isHeaderStickySetting } from '@/modules/Layout/layouts/headerChromeWrap'
 import { buildThemeViewResolveCandidates, findThemeViewKey } from '@/modules/Layout/utils/themeViewResolver'
@@ -243,15 +243,8 @@ const usesJanariCanvas = computed(() => themeUsesJanariCanvas(activeTheme.value)
 
 
 const activeThemeClass = computed(() => {
-  const slug = activeThemeSlug.value
-  if (!slug) return []
-  const classes = [`theme-${slug}`]
-  if (usesJanariCanvas.value) {
-    classes.push('theme-janari')
-  }
-  // School theme tokens (Header/Footer sit outside page roots that also use this class).
-  classes.push('sarangenge-theme')
-  return classes
+  const slug = activeThemeSlug.value || 'sarangenge'
+  return [`theme-${slug}`, 'sarangenge-theme']
 })
 
 /** Janari canvas: neutral preset/intensity/texture from customizer (see themes/janari/assets/styles/janari.css) */
@@ -385,7 +378,7 @@ const janariRootStyleVars = computed((): Record<string, string> => {
   }
 
   // Hydrate from shared config
-  Object.entries(JANARI_PRESETS).forEach(([key, val]) => {
+  Object.entries(THEME_COLOR_PRESETS).forEach(([key, val]) => {
     resolvedPresets[key] = { light: val.hslLight, dark: val.hslDark }
   })
 

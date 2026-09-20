@@ -8,6 +8,9 @@ Index: [`../CHANGELOG.md`](../CHANGELOG.md)
 
 ## [Unreleased]
 
+### Changed
+- Purged legacy theme remnants in extension management components and locked theme-sarangenge as baseline.
+
 ### Added
 - **Non-Destructive Setting Helper (`Setting::setIfMissing`)**: Preserves existing settings in database during theme seeding / updates to prevent downstream data drift.
 - **User Creation Verification Privilege Control**: Optional `is_verified` on `UserController::store` ([ADR-019](../../../../docs/adr/ADR-019-user-email-verification-and-privilege-lifecycle.md)).

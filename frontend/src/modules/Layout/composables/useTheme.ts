@@ -3,7 +3,7 @@ import { ref, computed, inject, hasInjectionContext, type InjectionKey, type Ref
 import i18n from '@/engine/i18n';
 import api from '@/engine/api/client';
 import { useSystemStore } from '@/modules/Core/System/stores/system';
-import { JANARI_PRESETS, type JanariPresetKey } from '@/modules/Layout/config/janariPresets';
+import { THEME_COLOR_PRESETS, type ThemeColorPresetKey } from '@/modules/Layout/config/colorPresets';
 import { themeUsesJanariCanvas } from '@/modules/Layout/utils/themeManifest';
 import { hexToHslString } from '@/shared/utils/color';
 import { applyFrontendThemeDefault, isConsoleOrMemberRoute } from '@/shared/composables/useDarkMode';
@@ -663,8 +663,8 @@ export function useTheme() {
         let lAcc: string;
         let dAcc: string;
 
-        if (preset !== 'custom' && JANARI_PRESETS[preset as JanariPresetKey]) {
-            const p = JANARI_PRESETS[preset as JanariPresetKey];
+        if (preset !== 'custom' && THEME_COLOR_PRESETS[preset as ThemeColorPresetKey]) {
+            const p = THEME_COLOR_PRESETS[preset as ThemeColorPresetKey];
             lAcc = p.hslLight;
             dAcc = p.hslDark;
         } else {

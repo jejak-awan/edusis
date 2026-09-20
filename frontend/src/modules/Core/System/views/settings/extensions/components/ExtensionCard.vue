@@ -198,7 +198,7 @@
       <div class="flex items-center gap-2">
         <!-- Uninstall Inactive Non-Core -->
         <Button
-          v-if="ext.status === 'inactive' && !ext.is_core && ext.can_uninstall !== false && ext.slug !== 'theme-janari'"
+          v-if="ext.status === 'inactive' && !ext.is_core && ext.can_uninstall !== false && ext.slug !== 'theme-sarangenge'"
           variant="destructive"
           size="sm"
           class="px-2 hover:bg-destructive/90"
@@ -210,7 +210,7 @@
 
         <!-- Activate / Deactivate Toggle -->
         <Button
-          v-if="!ext.is_core && ext.slug !== 'theme-janari'"
+          v-if="!ext.is_core && ext.slug !== 'theme-sarangenge'"
           :variant="ext.status === 'active' ? 'destructive' : 'secondary'"
           size="sm"
           class="flex items-center gap-1.5 font-semibold text-xs border-0"
@@ -222,7 +222,7 @@
         <span
           v-else
           class="text-xs text-muted-foreground/80 font-semibold uppercase tracking-wider"
-          :title="ext.slug === 'theme-janari' ? t('system.appStore.baselineThemeLocked') : undefined"
+          :title="ext.slug === 'theme-sarangenge' ? t('system.appStore.baselineThemeLocked') : undefined"
         >
           {{ t('system.appStore.locked') }}
         </span>
@@ -326,7 +326,7 @@ const getExtensionLicenseTier = (ext: ExtensionItem): 'free' | 'pro' | 'pro_plus
     core: 'free',
     system: 'free',
     search: 'free',
-    'theme-janari': 'free',
+    'theme-sarangenge': 'free',
     mail: 'pro',
     media: 'pro',
     publishing: 'pro',
@@ -334,9 +334,6 @@ const getExtensionLicenseTier = (ext: ExtensionItem): 'free' | 'pro' | 'pro_plus
     forms: 'pro',
     newsletter: 'pro',
     library: 'pro',
-    'theme-layung': 'pro',
-    'theme-sarangenge': 'pro',
-    'theme-sareupna': 'pro',
     security: 'pro_plus',
     infra: 'pro_plus',
     ai: 'pro_plus',

@@ -126,7 +126,7 @@
             {{ geoErrorMessage }}
           </p>
           <p class="text-[11px] text-muted-foreground leading-relaxed">
-            {{ $t('system.settings.contact_geo_hint', 'Format: latitude, longitude (contoh: -7.7151, 108.4731). Digunakan otomatis oleh semua tema (Sarangenge, Layung, Sareupna, Janari) agar pin peta terkunci tepat di atas gedung/gerbang dan tidak meleset ke laut.') }}
+            {{ $t('system.settings.contact_geo_hint', 'Format: latitude, longitude (contoh: -7.7151, 108.4731). Digunakan otomatis oleh portal publik (tema Sarangenge) agar pin peta terkunci tepat di atas gedung/gerbang sekolah dan tidak meleset ke laut.') }}
           </p>
         </div>
       </template>

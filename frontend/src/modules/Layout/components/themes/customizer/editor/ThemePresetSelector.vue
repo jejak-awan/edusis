@@ -11,7 +11,7 @@
         variant="outline"
         class="text-[10px] font-semibold px-2 py-0.5"
       >
-        {{ t('publishing.theme_customizer.presets.count', { count: Object.keys(JANARI_PRESETS).length }, `${Object.keys(JANARI_PRESETS).length} Presets`) }}
+        {{ t('publishing.theme_customizer.presets.count', { count: Object.keys(THEME_COLOR_PRESETS).length }, `${Object.keys(THEME_COLOR_PRESETS).length} Presets`) }}
       </Badge>
     </div>
 
@@ -22,7 +22,7 @@
     <!-- Preset Swatches Grid -->
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5 pt-1">
       <button
-        v-for="(preset, key) in JANARI_PRESETS"
+        v-for="(preset, key) in THEME_COLOR_PRESETS"
         :key="key"
         type="button"
         class="group relative flex flex-col p-2.5 rounded-xl border text-left transition-all duration-200 hover:shadow-md hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-primary/40"
@@ -69,7 +69,7 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Sparkles, Check } from 'lucide-vue-next';
 import { Badge } from '@/shared/components/ui';
-import { JANARI_PRESETS, type JanariPresetKey } from '@/modules/Layout/config/janariPresets';
+import { THEME_COLOR_PRESETS, type ThemeColorPresetKey } from '@/modules/Layout/config/colorPresets';
 
 const props = defineProps<{
   currentPreset?: string;
@@ -89,7 +89,7 @@ const activePresetKey = computed(() => {
   // Try matching primary color with presets
   if (props.currentColorPrimary) {
     const hex = props.currentColorPrimary.toLowerCase();
-    for (const [key, preset] of Object.entries(JANARI_PRESETS)) {
+    for (const [key, preset] of Object.entries(THEME_COLOR_PRESETS)) {
       if (preset.light.toLowerCase() === hex || preset.dark.toLowerCase() === hex) {
         return key;
       }
@@ -102,7 +102,7 @@ function formatPresetName(key: string): string {
   return key.replace(/_/g, ' ');
 }
 
-function applyPreset(key: string, preset: (typeof JANARI_PRESETS)[JanariPresetKey]) {
+function applyPreset(key: string, preset: (typeof THEME_COLOR_PRESETS)[ThemeColorPresetKey]) {
   emit('selectPreset', key, {
     color_preset: key,
     color_primary: preset.light,

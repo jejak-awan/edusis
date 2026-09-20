@@ -388,7 +388,7 @@
                       {{ t('system.appStore.openCustomizer') }}
                     </Button>
                     <Button
-                      v-if="!ext.is_core && ext.slug !== 'theme-janari'"
+                      v-if="!ext.is_core && ext.slug !== 'theme-sarangenge'"
                       variant="ghost"
                       size="sm"
                       @click="toggleExtensionStatus(ext)"
@@ -396,7 +396,7 @@
                       {{ ext.status === 'active' ? trans.deactivate : trans.activate }}
                     </Button>
                     <span
-                      v-else-if="ext.slug === 'theme-janari'"
+                      v-else-if="ext.slug === 'theme-sarangenge'"
                       class="text-xs text-muted-foreground/70 font-semibold uppercase tracking-wider px-2"
                       :title="t('system.appStore.baselineThemeLocked')"
                     >
@@ -671,7 +671,7 @@ const themePacks = computed(() => extensions.value.filter((ext) => resolveFamily
 const themePacksActiveCount = computed(() => themePacks.value.filter((ext) => ext.status === 'active').length);
 const themePacksTotalCount = computed(() => themePacks.value.length);
 const currentlyServedTheme = computed(() => themePacks.value.find((ext) => ext.is_served) ?? null);
-const currentlyServedThemeName = computed(() => currentlyServedTheme.value?.name ?? 'Janari');
+const currentlyServedThemeName = computed(() => currentlyServedTheme.value?.name ?? 'Sarangenge');
 
 const themeQuotaMeta = ref<{
     tier: string;
