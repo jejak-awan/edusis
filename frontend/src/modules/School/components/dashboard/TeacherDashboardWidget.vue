@@ -5,7 +5,7 @@
         <GraduationCap class="size-4 text-primary" />
         Ruang Kerja Pendidik
       </h3>
-      <router-link to="/school/teacher/dashboard" class="text-xs text-primary hover:underline">
+      <router-link :to="{ name: 'school.teacher.dashboard' }" class="text-xs text-primary hover:underline">
         Buka Portal &rarr;
       </router-link>
     </div>
@@ -16,14 +16,14 @@
 
     <div class="grid grid-cols-2 gap-2 pt-1">
       <router-link
-        to="/school/teacher/schedule"
+        :to="{ name: 'school.teacher.schedule' }"
         class="inline-flex items-center justify-center gap-1 rounded-lg border border-border bg-background py-2 text-xs font-medium text-foreground hover:bg-muted transition"
       >
         <Calendar class="size-3.5 text-primary" />
         Jadwal Mengajar
       </router-link>
       <router-link
-        to="/school/teacher/journals"
+        :to="{ name: 'school.teacher.journals' }"
         class="inline-flex items-center justify-center gap-1 rounded-lg bg-primary/10 py-2 text-xs font-semibold text-primary hover:bg-primary/20 transition"
       >
         <BookOpen class="size-3.5" />

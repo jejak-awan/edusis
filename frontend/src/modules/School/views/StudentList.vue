@@ -137,7 +137,7 @@
                   <ShieldAlert class="size-4" />
                 </button>
                 <router-link
-                  :to="`/school/students/${student.id}/edit`"
+                  :to="{ name: 'school.students.edit', params: { id: student.id } }"
                   class="rounded p-1.5 text-muted-foreground hover:bg-primary/10 hover:text-primary transition"
                   title="Ubah Data Siswa"
                 >
@@ -359,11 +359,11 @@ async function submitPointForm() {
 }
 
 function openStudentDetail(id: number) {
-  router.push(`/school/students/${id}/edit`);
+  router.push({ name: 'school.students.edit', params: { id } });
 }
 
 function openRegisterModal() {
-  router.push('/school/students/create');
+  router.push({ name: 'school.students.create' });
 }
 
 onMounted(async () => {

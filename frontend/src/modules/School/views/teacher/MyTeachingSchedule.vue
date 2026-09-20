@@ -4,7 +4,7 @@
     <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <div class="flex items-center gap-2 text-xs text-muted-foreground mb-1">
-          <router-link to="/school/teacher/dashboard" class="hover:text-foreground">Portal Guru</router-link>
+          <router-link :to="{ name: 'school.teacher.dashboard' }" class="hover:text-foreground">Portal Guru</router-link>
           <span>/</span>
           <span class="text-foreground font-medium">Jadwal Mengajar</span>
         </div>
@@ -63,7 +63,7 @@
 
         <div class="pt-2">
           <router-link
-            :to="`/school/teacher/journals?schedule_id=${schedule.id}`"
+            :to="{ name: 'school.teacher.journals', query: { schedule_id: schedule.id } }"
             class="w-full inline-flex items-center justify-center gap-1.5 rounded-lg border border-border bg-background py-1.5 text-xs font-medium text-foreground hover:bg-muted transition"
           >
             <BookOpen class="size-3.5 text-primary" />

@@ -9,7 +9,7 @@
 
       <div class="flex items-center gap-2">
         <router-link
-          to="/school/teacher/journals"
+          :to="{ name: 'school.teacher.journals' }"
           class="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3.5 py-2 text-xs font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 transition"
         >
           <BookOpen class="size-4" />
@@ -100,7 +100,7 @@
 
               <div class="flex items-center gap-2">
                 <router-link
-                  :to="`/school/teacher/journals?schedule_id=${item.id}`"
+                  :to="{ name: 'school.teacher.journals', query: { schedule_id: item.id } }"
                   class="rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground hover:bg-muted transition"
                 >
                   Buka Jurnal
@@ -121,7 +121,7 @@
 
           <div class="grid grid-cols-1 gap-2">
             <router-link
-              to="/school/teacher/schedule"
+              :to="{ name: 'school.teacher.schedule' }"
               class="flex items-center justify-between p-3 rounded-lg border border-border/60 hover:bg-muted/30 transition text-xs font-medium text-foreground"
             >
               <span class="flex items-center gap-2">
@@ -132,7 +132,7 @@
             </router-link>
 
             <router-link
-              to="/school/teacher/journals"
+              :to="{ name: 'school.teacher.journals' }"
               class="flex items-center justify-between p-3 rounded-lg border border-border/60 hover:bg-muted/30 transition text-xs font-medium text-foreground"
             >
               <span class="flex items-center gap-2">
@@ -143,7 +143,7 @@
             </router-link>
 
             <router-link
-              to="/school/attendance"
+              :to="{ name: 'school.attendance' }"
               class="flex items-center justify-between p-3 rounded-lg border border-border/60 hover:bg-muted/30 transition text-xs font-medium text-foreground"
             >
               <span class="flex items-center gap-2">
@@ -154,7 +154,7 @@
             </router-link>
 
             <router-link
-              to="/school/grades"
+              :to="{ name: 'school.grades' }"
               class="flex items-center justify-between p-3 rounded-lg border border-border/60 hover:bg-muted/30 transition text-xs font-medium text-foreground"
             >
               <span class="flex items-center gap-2">

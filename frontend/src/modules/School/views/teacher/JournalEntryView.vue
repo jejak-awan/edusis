@@ -4,7 +4,7 @@
     <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <div class="flex items-center gap-2 text-xs text-muted-foreground mb-1">
-          <router-link to="/school/teacher/dashboard" class="hover:text-foreground">Portal Guru</router-link>
+          <router-link :to="{ name: 'school.teacher.dashboard' }" class="hover:text-foreground">Portal Guru</router-link>
           <span>/</span>
           <span class="text-foreground font-medium">Jurnal Mengajar</span>
         </div>
@@ -13,7 +13,7 @@
       </div>
 
       <router-link
-        to="/school/teacher/dashboard"
+        :to="{ name: 'school.teacher.dashboard' }"
         class="inline-flex items-center gap-1.5 rounded-lg border border-border px-3.5 py-2 text-xs font-semibold text-muted-foreground hover:bg-muted transition"
       >
         <ArrowLeft class="size-4" />
@@ -162,7 +162,7 @@
       <div class="flex justify-end gap-3 pt-4 border-t border-border/60">
         <button
           type="button"
-          @click="$router.push('/school/teacher/dashboard')"
+          @click="$router.push({ name: 'school.teacher.dashboard' })"
           class="rounded-lg border border-border px-4 py-2 text-xs font-medium text-muted-foreground hover:bg-muted"
         >
           Batal
@@ -244,7 +244,7 @@ async function submitJournal() {
     if (res.data?.success) {
       successMessage.value = 'Jurnal mengajar berhasil disimpan ke buku kerja pendidik.';
       setTimeout(() => {
-        router.push('/school/teacher/dashboard');
+        router.push({ name: 'school.teacher.dashboard' });
       }, 1500);
     }
   } catch (err: any) {

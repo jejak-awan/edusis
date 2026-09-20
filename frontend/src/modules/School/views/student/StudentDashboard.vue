@@ -13,7 +13,7 @@
 
         <div class="flex items-center gap-3">
           <router-link
-            to="/school/student/reports"
+            :to="{ name: 'school.student.reports' }"
             class="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 transition"
           >
             <FileText class="size-4" />
@@ -78,7 +78,7 @@
           Akses lembar penilaian capaian pembelajaran dan unduh dokumen raport resmi berformat PDF.
         </p>
         <router-link
-          to="/school/student/reports"
+          :to="{ name: 'school.student.reports' }"
           class="inline-block text-xs font-semibold text-primary hover:underline"
         >
           Buka Raport Digital &rarr;
@@ -99,7 +99,7 @@
           Pantau riwayat absensi harian dan status keterangan sakit, izin, atau alpa secara transparan.
         </p>
         <router-link
-          to="/school/student/attendance"
+          :to="{ name: 'school.student.attendance' }"
           class="inline-block text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
         >
           Lihat Kalender Presensi &rarr;
@@ -120,7 +120,7 @@
           Gunakan token pemilihan unik Anda untuk memberikan suara secara langsung di bilik suara digital.
         </p>
         <router-link
-          to="/school/kiosk/voting"
+          :to="{ name: 'school.kiosk.voting' }"
           class="inline-block text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
         >
           Masuk Kiosk E-Voting &rarr;

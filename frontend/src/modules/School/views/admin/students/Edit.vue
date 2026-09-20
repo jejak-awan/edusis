@@ -4,7 +4,7 @@
     <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <div class="flex items-center gap-2 text-xs text-muted-foreground mb-1">
-          <router-link to="/school/students" class="hover:text-foreground">Kesiswaan</router-link>
+          <router-link :to="{ name: 'school.students' }" class="hover:text-foreground">Kesiswaan</router-link>
           <span>/</span>
           <span class="text-foreground font-medium">Ubah Data Siswa</span>
         </div>
@@ -15,7 +15,7 @@
       </div>
 
       <router-link
-        to="/school/students"
+        :to="{ name: 'school.students' }"
         class="inline-flex items-center gap-1.5 rounded-lg border border-border px-3.5 py-2 text-xs font-semibold text-muted-foreground hover:bg-muted transition"
       >
         <ArrowLeft class="size-4" />
@@ -42,7 +42,7 @@
       :is-edit="true"
       :loading="isSubmitting"
       @submit="handleUpdateStudent"
-      @cancel="$router.push('/school/students')"
+      @cancel="$router.push({ name: 'school.students' })"
     />
   </div>
 </template>
@@ -103,7 +103,7 @@ async function handleUpdateStudent(payload: Partial<Student>) {
   try {
     const res = await StudentService.updateStudent(student.value.id, payload);
     if (res.data?.success) {
-      router.push('/school/students');
+      router.push({ name: 'school.students' });
     }
   } catch (err: any) {
     errorMessage.value = err.response?.data?.message || 'Gagal memperbarui data siswa.';
