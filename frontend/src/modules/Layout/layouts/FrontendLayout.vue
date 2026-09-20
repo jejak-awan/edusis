@@ -1,9 +1,8 @@
 <template>
   <div 
-    ref="layoutRoot"
     class="frontend-layout min-h-screen flex flex-col bg-background text-foreground"
     :class="[rootClasses, activeThemeClass]"
-    :style="[rootStyles, janariRootStyleVars]"
+    :style="rootStyles"
     v-bind="themeRootDataAttrs"
   >
     <!-- CASE 1: FULL WIDTH (Default) & HYBRID -->
@@ -17,10 +16,7 @@
       
       <!-- Main Content -->
       <!-- Hybrid: Main is boxed | Full: Main is full -->
-      <main
-        class="main-content flex-1 w-full relative z-0 flex flex-col min-h-0"
-        :class="mainChromePaddingClass"
-      >
+      <main class="main-content flex-1 w-full relative z-0 flex flex-col min-h-0">
         <div
           class="flex-1 flex flex-col min-h-0 w-full"
           :class="{
@@ -59,10 +55,7 @@
       </div>
       <PluginSlot name="after_header" />
       
-      <main
-        class="main-content flex-1 w-full relative z-0 flex flex-col min-h-0"
-        :class="mainChromePaddingClass"
-      >
+      <main class="main-content flex-1 w-full relative z-0 flex flex-col min-h-0">
         <router-view v-slot="{ Component }">
           <div
             :key="route.path"
@@ -119,7 +112,7 @@
     <button
       v-if="showBackToTop"
       type="button"
-      class="janari-back-to-top fixed bottom-8 right-8 z-[9999] w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-105 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background bg-foreground text-background border border-border shadow-lg hover:bg-primary hover:text-primary-foreground hover:border-primary"
+      class="layout-back-to-top fixed bottom-8 right-8 z-[9999] w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-105 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background bg-foreground text-background border border-border shadow-lg hover:bg-primary hover:text-primary-foreground hover:border-primary"
       style="position: fixed !important; bottom: 2rem !important; right: 2rem !important; left: auto !important; top: auto !important; z-index: 999999 !important;"
       :aria-label="backToTopLabel"
       :title="backToTopLabel"
@@ -146,8 +139,6 @@ import {
   ArrowUp,
 } from 'lucide-vue-next'
 
-import { THEME_COLOR_PRESETS } from '@/modules/Layout/config/colorPresets'
-import { themeUsesJanariCanvas } from '@/modules/Layout/utils/themeManifest'
 import { headerChromeWrapClass, isHeaderStickySetting } from '@/modules/Layout/layouts/headerChromeWrap'
 import { buildThemeViewResolveCandidates, findThemeViewKey } from '@/modules/Layout/utils/themeViewResolver'
 import { useRoute } from 'vue-router'
@@ -238,102 +229,9 @@ useHead(computed(() => {
   }
 }))
 
-const usesJanariCanvas = computed(() => themeUsesJanariCanvas(activeTheme.value))
-
-
-
 const activeThemeClass = computed(() => {
   const slug = activeThemeSlug.value || 'sarangenge'
   return [`theme-${slug}`, 'sarangenge-theme']
-})
-
-/** Janari canvas: neutral preset/intensity/texture from customizer (see themes/janari/assets/styles/janari.css) */
-const janariRootDataAttrs = computed((): Record<string, string> => {
-  if (!usesJanariCanvas.value) return {}
-  const validPresets = new Set([
-    'custom',
-    'monochrome_clean',
-    'oceanic_clean',
-    'emerald_fresh',
-    'royal_violet',
-    'sunset_coral',
-    'midnight_cyan',
-    'forest_earth',
-    'ruby_night',
-    'aurora_mint',
-    'slate_indigo',
-    'arctic_blue',
-    'sand_stone',
-  ])
-  const validMono = new Set(['clean', 'soft', 'matte', 'high_contrast'])
-  const validIntensity = new Set(['soft', 'balanced', 'vibrant'])
-  const validTexture = new Set(['clean', 'dots', 'grain'])
-
-  const presetRaw = String(getSetting('color_preset', 'custom') ?? 'custom')
-  const monoRaw = String(getSetting('monochrome_variant', 'clean') ?? 'clean')
-  const intensityRaw = String(getSetting('color_intensity', 'balanced') ?? 'balanced')
-  const textureRaw = String(getSetting('monochrome_texture', 'clean') ?? 'clean')
-  const textureStrengthRaw = Number(getSetting('monochrome_texture_strength', 8) ?? 8)
-
-  const normalizePreset = (value: string): string => {
-    const normalized = value.trim().toLowerCase().replace(/[\s-]+/g, '_')
-    const aliases: Record<string, string> = {
-      monochrome: 'monochrome_clean',
-      mono: 'monochrome_clean',
-      oceanic: 'oceanic_clean',
-      emerald: 'emerald_fresh',
-      violet: 'royal_violet',
-      coral: 'sunset_coral',
-      cyan: 'midnight_cyan',
-      forest: 'forest_earth',
-      ruby: 'ruby_night',
-      mint: 'aurora_mint',
-      indigo: 'slate_indigo',
-      arctic: 'arctic_blue',
-      sand: 'sand_stone',
-    }
-    return aliases[normalized] ?? normalized
-  }
-
-  const styleRaw = String(getSetting('theme_style', 'clean') ?? 'clean')
-  const navRaw = String(getSetting('nav_style', 'glass') ?? 'glass')
-  const btnRadiusRaw = String(getSetting('button_radius', '8px') ?? '8px')
-  const btnShadowRaw = String(getSetting('button_shadow', 'subtle') ?? 'subtle')
-
-  // Background color settings
-  const bgLightColor = String(getSetting('bg_light_color', 'white') ?? 'white')
-  const bgLightVariant = String(getSetting('bg_light_variant', 'clean') ?? 'clean')
-  const bgDarkColor = String(getSetting('bg_dark_color', 'black') ?? 'black')
-  const bgDarkVariant = String(getSetting('bg_dark_variant', 'clean') ?? 'clean')
-
-  const presetCandidate = normalizePreset(presetRaw)
-  const preset = validPresets.has(presetCandidate) ? presetCandidate : 'custom'
-  const mono = validMono.has(monoRaw) ? monoRaw : 'clean'
-  const intensity = validIntensity.has(intensityRaw) ? intensityRaw : 'balanced'
-  const texture = validTexture.has(textureRaw) ? textureRaw : 'clean'
-  const textureStrength = String(Math.min(35, Math.max(0, Number.isFinite(textureStrengthRaw) ? textureStrengthRaw : 8)))
-  const isMonochromePreset = preset === 'monochrome_clean'
-
-  const attrs: Record<string, string> = {
-    'data-janari-preset': preset,
-    'data-janari-intensity': intensity,
-    'data-janari-style': styleRaw,
-    'data-janari-nav': navRaw,
-    'data-janari-button-radius': btnRadiusRaw,
-    'data-janari-button-shadow': btnShadowRaw,
-    'data-janari-texture': texture,
-    'data-janari-texture-strength': textureStrength,
-    'data-janari-bg-light': bgLightColor,
-    'data-janari-bg-light-v': bgLightVariant,
-    'data-janari-bg-dark': bgDarkColor,
-    'data-janari-bg-dark-v': bgDarkVariant,
-  }
-
-  if (isMonochromePreset) {
-    attrs['data-janari-mono'] = mono
-  }
-
-  return attrs
 })
 
 const themeRootDataAttrs = computed((): Record<string, string> => {
@@ -345,7 +243,7 @@ const themeRootDataAttrs = computed((): Record<string, string> => {
   const headerStickyVal = isHeaderStickySetting(getSetting('header_sticky', true))
   const layoutStyleVal = String(getSetting('layout_style', 'full') ?? 'full')
 
-  const baseAttrs: Record<string, string> = {
+  return {
     'data-theme-style': styleRaw,
     'data-theme-nav': navRaw,
     'data-button-radius': btnRadiusRaw,
@@ -353,39 +251,6 @@ const themeRootDataAttrs = computed((): Record<string, string> => {
     'data-breadcrumb-sticky': String(breadcrumbSticky),
     'data-header-sticky': String(headerStickyVal),
     'data-layout-style': layoutStyleVal,
-  }
-
-  if (usesJanariCanvas.value) {
-    return {
-      ...baseAttrs,
-      ...janariRootDataAttrs.value,
-    }
-  }
-
-  return baseAttrs
-})
-
-const janariRootStyleVars = computed((): Record<string, string> => {
-  if (!usesJanariCanvas.value) return {}
-
-  const preset = String(janariRootDataAttrs.value['data-janari-preset'] || 'custom')
-
-  const resolvedPresets: Record<string, { light: string; dark: string }> = {
-    custom: {
-      light: 'var(--theme-color-primary-hsl, var(--theme-primary-color-hsl, 0 0% 0%))',
-      dark: 'var(--theme-color-primary-hsl, var(--theme-primary-color-hsl, 0 0% 100%))',
-    }
-  }
-
-  // Hydrate from shared config
-  Object.entries(THEME_COLOR_PRESETS).forEach(([key, val]) => {
-    resolvedPresets[key] = { light: val.hslLight, dark: val.hslDark }
-  })
-
-  const resolved = resolvedPresets[preset] ?? resolvedPresets.custom ?? { light: '0 0% 0%', dark: '0 0% 100%' }
-  return {
-    '--janari-accent-hsl-inline': resolved.light,
-    '--janari-accent-hsl-inline-dark': resolved.dark,
   }
 })
 
@@ -456,22 +321,9 @@ const headerSticky = computed(() => isHeaderStickySetting(getSetting('header_sti
 const headerChromeClass = computed(() =>
   headerChromeWrapClass({
     sticky: headerSticky.value && !useMemberShell.value,
-    janariFixed: usesJanariCanvas.value,
   }),
 )
-
-/** Public Janari fixed header needs offset; quiet member shell is sticky (~3.5rem) and needs none. */
-const mainChromePaddingClass = computed(() => {
-  if (useMemberShell.value || !usesJanariCanvas.value) {
-    return 'pt-0'
-  }
-  if (headerSticky.value) {
-    return 'pt-16 md:pt-[6.75rem]'
-  }
-  return 'pt-0'
-})
 const showBackToTop = ref(false)
-const layoutRoot = ref<HTMLElement | null>(null)
 const showThemeServiceNotice = computed(() => !activeTheme.value && !loading.value && !!error.value)
 
 const handleScroll = () => {
@@ -545,14 +397,6 @@ watch(enableBackToTop, (enabled) => {
     else handleScroll();
 });
 
-// Imperative CSS var injection — bypasses Vue :style race condition
-watch(janariRootStyleVars, (vars) => {
-  const el = layoutRoot.value
-  if (!el || !Object.keys(vars).length) return
-  Object.entries(vars).forEach(([key, val]) => {
-    el.style.setProperty(key, val)
-  })
-}, { immediate: true, flush: 'post' })
 
 const handleCustomizerSync = (event: MessageEvent) => {
   const allowed = resolveAllowedCustomizerOrigins(window.location.search, window.location.origin)
@@ -591,14 +435,7 @@ onMounted(async () => {
   await retryThemeLoadIfNeeded({ force: !inCustomizerPreview })
   schedulePublicPrefetch()
 
-  // Apply janari vars immediately on mount
-  const el = layoutRoot.value
-  const vars = janariRootStyleVars.value
-  if (el && Object.keys(vars).length) {
-    Object.entries(vars).forEach(([key, val]) => {
-      el.style.setProperty(key, val)
-    })
-  }
+
 
   try {
     const { bootstrapPluginThemeBlocks } = await import('@/engine/plugins/pluginBootstrap')

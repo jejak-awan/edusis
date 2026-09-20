@@ -2,19 +2,13 @@ import { describe, expect, it } from 'vitest';
 import { headerChromeWrapClass, isHeaderStickySetting } from '@/modules/Layout/layouts/headerChromeWrap';
 
 describe('headerChromeWrapClass', () => {
-    it('puts sticky on the layout wrapper so Layung/Sarangenge can stick', () => {
-        expect(headerChromeWrapClass({ sticky: true, janariFixed: false })).toContain('sticky');
-        expect(headerChromeWrapClass({ sticky: true, janariFixed: false })).toContain('top-0');
-    });
-
-    it('keeps a relative wrap for Janari (header is position:fixed)', () => {
-        expect(headerChromeWrapClass({ sticky: true, janariFixed: true })).toBe(
-            'relative z-50 overflow-visible',
-        );
+    it('puts sticky on the layout wrapper so Sarangenge / platform chrome can stick', () => {
+        expect(headerChromeWrapClass({ sticky: true })).toBe('sticky top-0 z-[100] overflow-visible');
     });
 
     it('drops sticky when the setting is off', () => {
-        expect(headerChromeWrapClass({ sticky: false, janariFixed: false })).not.toContain('sticky');
+        expect(headerChromeWrapClass({ sticky: false })).toBe('relative z-50 overflow-visible');
+        expect(headerChromeWrapClass({})).toBe('relative z-50 overflow-visible');
     });
 });
 

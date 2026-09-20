@@ -14,8 +14,3 @@ export const THEME_COLOR_PRESETS = {
 } as const;
 
 export type ThemeColorPresetKey = keyof typeof THEME_COLOR_PRESETS;
-
-/** @deprecated Use THEME_COLOR_PRESETS instead */
-export const JANARI_PRESETS = THEME_COLOR_PRESETS;
-/** @deprecated Use ThemeColorPresetKey instead */
-export type JanariPresetKey = ThemeColorPresetKey;

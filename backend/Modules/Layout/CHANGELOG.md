@@ -17,6 +17,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Changed
+- Version 1.1.14: Purged obsolete janariPresets, streamlined headerChromeWrapClass for Sarangenge baseline theme, and removed legacy fixed header padding from FrontendLayout.
 - Version 1.1.13: Removed Data Models accordion, fetchModels, and models state from menu builder SourcePanel.
 - Version 1.1.12: Decommissioned visual builder subsystem, removed BuilderController, BuilderPresetController, builder routes, and cleaned editorial nav.
 - Version 1.1.11: Extracted unified colorPresets config, cleaned legacy theme classes from FrontendLayout, and updated customizer preset selector.

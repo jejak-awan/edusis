@@ -4,6 +4,12 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+- Module version → `1.1.14`
+- **Cleanup Janari Presets & Sticky Header Alignment**:
+  - Removed deprecated `frontend/src/modules/Layout/config/janariPresets.ts` and pruned obsolete Janari alias exports from `colorPresets.ts`.
+  - Streamlined `headerChromeWrapClass` in `headerChromeWrap.ts`: removed `janariFixed` option and aligned wrapper documentation and behavior with Sarangenge baseline theme.
+  - Cleaned legacy Janari canvas data attributes, CSS variable injection watcher, fixed header main padding class (`mainChromePaddingClass`), and template styles in `FrontendLayout.vue`.
+  - Updated unit tests in `headerChromeWrap.spec.ts` to test Sarangenge/platform sticky wrapper behavior.
 - Module version → `1.1.8`
 - **ADR-028 Menu Builder Properties & Mega Menu Parity**: Architectural decision record, unified mega menu schema (`grid-2`, `grid-3`, `grid-4`, `full`), `column_group` structural hierarchy, and public theme parity specification ([ADR-028](../../../../docs/adr/ADR-028-menu-builder-properties-mega-menu-and-multi-theme-parity.md)).
 - **Menu Builder Core Engine Implementation**:
