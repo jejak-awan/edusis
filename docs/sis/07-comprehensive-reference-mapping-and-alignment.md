@@ -192,14 +192,143 @@ Berikut adalah pemetaan berkas sumber dari `repo_referensi` ke target berkas di 
 | `cijulang/.../views/admin/academic/Index.vue` & `Timetable.vue` | `views/admin/academic/Index.vue` & `Timetable.vue` | Mengisi folder `views/admin/academic/` |
 | `cijulang/.../views/teacher/Dashboard.vue` & `GradesInput.vue` | `views/teacher/Dashboard.vue` & `GradesInput.vue` | Mengisi folder `views/teacher/` |
 | `cijulang/.../views/student/Dashboard.vue` & `Grades.vue` | `views/student/Dashboard.vue` & `Grades.vue` | Mengisi folder `views/student/` |
-| Dekomposisi dari `OsisVoting.vue` | `components/voting/KioskTokenModal.vue`, `DptTable.vue`, `CandidateCard.vue` | Membentuk folder `components/` |
+### E. Database Factories & Model Policies
+| Berkas Sumber di `repo_referensi` | Berkas Target di `ja-edusis` | Peran |
+|---|---|---|
+| `cijulang/.../factories/StudentFactory.php` | `database/factories/StudentFactory.php` | Mocking data Dapodik untuk unit/feature test |
+| `cijulang/.../factories/StaffFactory.php` | `database/factories/StaffFactory.php` | Mocking data GTK & guru |
+| `cijulang/.../factories/AcademicYearFactory.php` | `database/factories/AcademicYearFactory.php` | Mocking tahun ajaran |
+| `cijulang/.../Policies/StudentPolicy.php` | `app/Policies/StudentPolicy.php` | Otorisasi modifikasi profil & mutasi siswa |
+| `cijulang/.../Policies/AcademicPolicy.php` | `app/Policies/AcademicPolicy.php` | Otorisasi penguncian nilai raport & KBM |
+| `cijulang/.../Policies/StaffPolicy.php` | `app/Policies/StaffPolicy.php` | Otorisasi presensi & tugas guru |
+| `cijulang/.../Policies/SarprasResourcePolicy.php` | `app/Policies/SarprasResourcePolicy.php` | Otorisasi peminjaman & mutasi aset |
 
 ---
 
-## 6. Jaminan Mutu & Rencana Verifikasi
+## 7. Tata Kelola Multi-Tenancy (`SchoolContextMiddleware` & `ScopedBySchool`)
+
+### A. Pola Isolasi Data Multi-Tenant
+Setiap sekolah di JA-EduSIS beroperasi di atas skema basis data PostgreSQL bersama (`edusis`) dengan pemisahan logis berbasis kolom `school_id`. Untuk mencegah *data leakage*, diimplementasikan dua pilar:
+1. **`SchoolContextMiddleware` (`app/Http/Middleware/SchoolContextMiddleware.php`)**:
+   - Mengekstrak identitas sekolah dari header HTTP `X-School-ID` atau dari relasi user terautentikasi (`$request->user()?->school_id`).
+   - Menyimpan `school_id` ke dalam memori eksekusi request via Laravel 11 Context: `Context::add('school_id', (int) $schoolId)`.
+2. **`ScopedBySchool` Trait (`app/Traits/ScopedBySchool.php`)**:
+   - Diadaptasi dari `cijulang/backend/Modules/School/app/Traits/ScopedBySchool.php`.
+   - Menginjeksikan Global Scope ke setiap kueri Eloquent: `builder->where($table . '.school_id', Context::get('school_id'))`.
+   - Menginjeksi otomatis `school_id` saat `Model::creating()`, sehingga developer tidak perlu mengeset `school_id` secara manual saat `Model::create()`.
+
+---
+
+## 8. Model Policies & Matriks Otorisasi RBAC Spatie
+
+### A. Matriks Hak Akses Peran Baku (Seeded by `SchoolRoleSeeder.php`)
+
+| Hak Akses / Permission | Kepala Sekolah | Admin Kurikulum | Admin Kesiswaan | Admin Sarpras | Admin BK | Guru / Wali Kelas | Siswa | Orang Tua |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| `view academic` / `manage academic` | ✅ | ✅ | ❌ | ❌ | ❌ | View | ❌ | ❌ |
+| `view students` / `manage students` | ✅ | View | ✅ | ❌ | View | View | ❌ | View |
+| `view discipline` / `manage discipline` | ✅ | ❌ | ✅ | ❌ | ✅ | View | ❌ | ❌ |
+| `view counseling` / `manage counseling` | ✅ | ❌ | ❌ | ❌ | ✅ (Privat) | ❌ | ❌ | ❌ |
+| `view attendance` / `manage attendance` | ✅ | ❌ | ✅ | ❌ | View | ✅ (Kelas) | View (Sendiri) | View (Anak) |
+| `view grades` / `manage grades` | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ (Mapel) | View (Sendiri) | View (Anak) |
+| `view letters` / `manage letters` | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| `view sarpras` / `manage sarpras` | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ |
+| `view voting` / `manage voting` | ✅ | ❌ | ✅ | ❌ | ❌ | View | ✅ (Bilik) | ❌ |
+
+> [!CAUTION]
+> **Kerahasiaan Catatan Konseling BK (`is_confidential`)**:
+> Kasus konseling berkategori privat HANYA diizinkan diakses oleh pembuat catatan (Guru BK) dan Kepala Sekolah via `CounselingPolicy@view`. Guru umum, wali kelas, siswa, dan orang tua DILARANG KERAS melihat detail konseling privat demi mematuhi etika profesi konselor dan UU PDP.
+
+---
+
+## 9. Strategi Storage & Isolasi Media (Public vs Private Disk)
+
+Mengadopsi pola dari `cijulang/backend/docs/storage_strategy.md`:
+
+```
+storage/
+├── app/
+│   ├── public/                 <-- DISK PUBLIK (Diakses via symlink /storage/...)
+│   │   └── school_{id}/
+│   │       ├── students/avatars/
+│   │       ├── staff/avatars/
+│   │       ├── voting/candidates/
+│   │       └── facilities/photos/
+│   │
+│   └── private/                <-- DISK PRIVAT (Hanya via route proxy terlindung)
+│       └── school_{id}/
+│           ├── counseling/evidence/     (Surat panggilan, bukti kasus)
+│           ├── letters/scans/           (Pindaian disposisi & surat dinas)
+│           ├── ppdb/documents/          (Akta kelahiran, KK, KIP/PIP)
+│           └── journals/evidence/       (Bukti KBM guru)
+```
+
+**Rute Akses File Terlindung**:
+`GET /api/v1/school/files/private/{path}` wajib melewati `auth:sanctum` dan policy cek kepemilikan sekolah serta hak akses berkas sebelum berkas dialirkan via `Storage::disk('local')->response($path)`.
+
+---
+
+## 10. Engine Impor Data Siswa Dapodik (`ImportDataService`)
+
+Diadaptasi dari `ja-siska/backend/app/Services/ImportDataService.php`:
+1. **Fitur Unggulan**:
+   - Download template Excel standar (`.xlsx`) untuk data Siswa, Guru/GTK, dan Rombel.
+   - Validasi ketat format Dapodik: NISN wajib 10 digit numerik unik, NIK 16 digit, gender `L/P`, format tanggal ISO `YYYY-MM-DD`.
+   - Batch insert dengan transaksi basis data (`DB::beginTransaction() / rollBack()`) untuk menjamin tidak terjadi inkonsistensi data jika ada baris Excel yang korup.
+   - Menghasilkan rekap baris sukses vs baris gagal lengkap dengan nomor baris dan deskripsi galat validasi.
+
+---
+
+## 11. Master Seeder Orchestrator & Lifecycle Activation (`manifest.json`)
+
+Kontrak modul pada `backend/Modules/School/manifest.json`:
+```json
+"lifecycle": {
+  "preserve_data_on_deactivate": true,
+  "seeders_on_activate": [
+    "Modules\\School\\Database\\Seeders\\SchoolDatabaseSeeder"
+  ]
+}
+```
+
+**Struktur Eksekusi `SchoolDatabaseSeeder.php`**:
+```php
+public function run(): void
+{
+    $this->call([
+        SchoolRoleSeeder::class,           // 1. Spatie Roles & Permissions
+        SchoolPhase1Seeder::class,         // 2. Tahun Ajaran, Rombel, Master Siswa
+        SchoolPhase2Seeder::class,         // 3. GTK, Jadwal KBM, Presensi
+        SchoolPhase3Seeder::class,         // 4. Asesmen, Rapor, P5, Konseling BK
+        SchoolPhase4Seeder::class,         // 5. Surat TU, PPDB, Buku Tamu, OSIS
+        SchoolPhase5Seeder::class,         // 6. Sarpras, Katampi Sync, WA Gateway
+        SchoolVotingEngineSeeder::class,   // 7. Engine Voting OSIS & Token Kiosk
+    ]);
+}
+```
+
+---
+
+## 12. Peta Rute Multi-Portal Frontend (`router.ts`)
+
+Mengadopsi pola routing terpisah dari `cijulang/frontend/src/modules/School/router/index.ts`:
+
+| Portal | Prefix URL | Peruntukan & Route Guard |
+|---|---|---|
+| **Portal Tata Usaha & Admin** | `/manage/school/*` | Akses staf TU, Waka, dan Kepala Sekolah (Guard: `manage school`) |
+| **Portal Pendidik (Guru)** | `/manage/school/teacher/*` | Dashboard guru, input nilai raport, absensi kelas, agenda mengajar (Guard: `guru` / `wali-kelas`) |
+| **Portal Peserta Didik (Siswa)** | `/manage/school/student/*` | Jadwal kelas, histori absensi, nilai e-raport, kartu pemilih (Guard: `siswa`) |
+| **Portal Bilik Suara Kiosk** | `/manage/school/voting/kiosk` | Mode layar penuh bilik suara OSIS (Guard: Token DPT 8-karakter, no auth) |
+| **Portal PPDB Publik** | `/admission/*` | Pendaftaran mandiri calon siswa baru & pengunggahan berkas (Guard: Publik) |
+| **Portal Verifikasi Dokumen** | `/public/verify/:hash` | Verifikasi keaslian ijazah/raport/surat dinas via QR Code publik (Guard: Publik) |
+
+---
+
+## 13. Jaminan Mutu & Rencana Verifikasi
 Setiap tahapan porting dan penyelarasan wajib melalui pintu uji otomatis:
 1. **Backend Tests**: `php artisan test Modules/School` (47/47 tests wajib passed, zero regressions).
 2. **TypeScript Checker**: `npx vue-tsc -b` (0 errors).
-3. **i18n Symmetry**: `npm run i18n:check` (100% parity across `id`, `en`, `su`).
+3. **i18n Symmetry**: `npm run i18n:check` (100% parity across `id`, `en`, `su` - 10.136 keys).
 4. **Vite Production Build**: `npm run build` (sukses bundle tanpa chunk error).
 5. **Zero Empty Folders Validation**: `find frontend/src/modules/School/views/ -type d -empty` harus mengembalikan 0 baris.
+

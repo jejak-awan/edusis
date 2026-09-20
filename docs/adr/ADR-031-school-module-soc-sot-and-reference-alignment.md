@@ -69,6 +69,24 @@ Sesuai kontrak [`docs/DOCUMENTATION.md`](../DOCUMENTATION.md) Bab 2:
 1. Menerbitkan kontrak modul backend: `backend/Modules/School/README.md` dan `backend/Modules/School/CHANGELOG.md`.
 2. Menerbitkan kontrak modul frontend: `frontend/src/modules/School/README.md` dan `frontend/src/modules/School/CHANGELOG.md`.
 
+### D. Penegakan Tata Kelola, Otorisasi, dan Pondasi Pengujian
+1. **Penyempurnaan `manifest.json` & Spatie Permissions**:
+   - Mendaftarkan seluruh sub-domain kapabilitas yang belum terdaftar: `letters` (Surat TU & Disposisi), `ppdb`, `guest_book`, `voting` / `osis`, `facilities`, `katampi`, dan `whatsapp` agar dapat dikelola via RBAC Core Engine.
+2. **Master Seeder Orchestrator (`SchoolDatabaseSeeder.php`)**:
+   - Memenuhi kontrak `"seeders_on_activate"` pada manifest dengan membuat kelas master seeder yang menjalankan seluruh seeder fase 1–5 secara berurutan.
+3. **School Context Middleware (`SchoolContextMiddleware`)**:
+   - Menggantikan kode resolusi header `$this->resolveSchoolId()` yang berulang di controller dengan middleware yang memanfaatkan fitur native Laravel 11 `Context::add('school_id', ...)`.
+4. **Model Policies (`app/Policies/`)**:
+   - Mengadopsi policy dari `cijulang` (`StudentPolicy`, `AcademicPolicy`, `StaffPolicy`, `SarprasResourcePolicy`, dll.) guna melindungi data sensitif seperti catatan konseling BK privat (`is_confidential`) dan modifikasi nilai rapor.
+5. **Database Model Factories (`database/factories/`)**:
+   - Mengadopsi model factories dari `cijulang` (`StudentFactory`, `StaffFactory`, `AcademicYearFactory`, dll.) untuk mendukung pengujian unit dan load testing otomatis.
+6. **Peta Rute Multi-Portal Frontend (`router.ts`)**:
+   - Mendaftarkan rute eksplisit untuk portal Guru (`/manage/school/teacher/*`), portal Siswa (`/manage/school/student/*`), dan portal Publik (`/admission/*`) dengan route guards berbasis role.
+7. **Strategi Storage & Isolasi Data Privat**:
+   - Memisahkan disk publik (`public` untuk foto siswa/guru, aset sekolah) dan disk privat terlindungi (`local` untuk catatan konseling BK, pindaian surat dinas, berkas pendaftar PPDB) yang hanya dialirkan via proxy controller terotorisasi.
+8. **Engine Impor/Ekspor Data Dapodik (`ImportDataService.php`)**:
+   - Mengadopsi parser Excel berbasis `PhpSpreadsheet` dari `ja-siska` dengan validasi otomatis format baku Kemendikbudristek (NISN 10 digit, NIK 16 digit, gender L/P).
+
 ---
 
 ## 3. Konsekuensi & Batasan
