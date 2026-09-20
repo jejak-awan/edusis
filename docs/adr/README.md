@@ -31,6 +31,7 @@ Kebijakan: [`DOCUMENTATION.md`](../DOCUMENTATION.md) — nomor ADR **abadi**, ja
 | **[ADR-026](./ADR-026-three-tier-license-simplification-and-capability-matrix.md)** | Standarisasi Lisensi 3-Tier (Community, Pro, Enterprise) dan Penegakan Matriks Kapabilitas | Accepted | core |
 | **[ADR-027](./ADR-027-theme-customizer-properties-order-and-contact-map-parity.md)** | Theme Customizer Properties Ordering Hierarchy and Contact Map Parity | Accepted | layout |
 | **[ADR-028](./ADR-028-menu-builder-properties-mega-menu-and-multi-theme-parity.md)** | Menu Builder Properties, Mega Menu Architecture, and Multi-Theme Parity | Accepted | layout |
+| **[ADR-029](./ADR-029-edusis-domain-and-multi-repo-synthesis.md)** | Arsitektur Domain JA-EduSIS dan Sintesis Multi-Repositori | Accepted | edusis:core |
 
 ## Theme-scoped / downstream (stub di folder ini)
 

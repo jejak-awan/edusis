@@ -1,6 +1,6 @@
 # Work log — `docs/work/`
 
-Riwayat pekerjaan terstruktur (rencana → proses → hasil → status).  
+Riwayat pekerjaan terstruktur untuk **JA-EduSIS** (rencana → proses → hasil → status).  
 Alur wajib: [`WORKFLOW.md`](../WORKFLOW.md) · Mulai task: [`guides/start-a-task.md`](../guides/start-a-task.md) · Template: [`templates/task-brief.md`](../templates/task-brief.md).
 
 ## Aturan
@@ -14,24 +14,15 @@ Alur wajib: [`WORKFLOW.md`](../WORKFLOW.md) · Mulai task: [`guides/start-a-task
 
 | ID | Judul | Status | Skala |
 | :--- | :--- | :--- | :--- |
-| *(Belum ada task aktif)* | | | |
+| *(Belum ada task aktif — siap memulai Scaffolding Modules/School)* | | | |
 
 ## Selesai hari ini (belum diarsip)
 
 | ID | Judul | Status | Skala |
 | :--- | :--- | :--- | :--- |
-| [2026-09-19-theme-registry-jacp-phase2](2026-09-19-theme-registry-jacp-phase2.md) | Integrasi payload lisensi themes.* JA-CP pada LicenseService & heartbeat (Fase 2) | `done` | M |
-| [2026-09-19-theme-registry-3level-e2e](2026-09-19-theme-registry-3level-e2e.md) | Playwright E2E test alur 3-Tingkat Themes di App Store & Themes Manager | `done` | S |
-| [2026-09-19-theme-registry-console-ux-3level](2026-09-19-theme-registry-console-ux-3level.md) | Console UI/UX Themes shelf + 3 tingkat visual & kuota lisensi | `done` | M |
-| [2026-09-18-theme-registry-packs-phase1](2026-09-18-theme-registry-packs-phase1.md) | Theme packs registry + kuota lisensi (fase 1) | `done` | L |
-| [2026-09-18-theme-cms-baseline-alignment](2026-09-18-theme-cms-baseline-alignment.md) | Align fitur CMS lintas tema | `done` | L |
-| [2026-09-18-tim-to-team-rename](2026-09-18-tim-to-team-rename.md) | Tim → Team (English + alias `/tim`) | `done` | M |
-| [2026-09-18-scramble-openapi-warnings](2026-09-18-scramble-openapi-warnings.md) | Scramble OpenAPI GEN001 / VR002 | `done` | M |
-| [2026-09-18-scramble-docs-access-hardening](2026-09-18-scramble-docs-access-hardening.md) | Harden akses `/docs/api` | `done` | S |
-| [2026-09-18-release-and-versioning](2026-09-18-release-and-versioning.md) | Product SemVer SoT | `done` | M |
-| [2026-09-18-modular-versioning-discipline](2026-09-18-modular-versioning-discipline.md) | Pack/theme SemVer CI | `done` | M |
-| [2026-09-18-qa-testing-docs](2026-09-18-qa-testing-docs.md) | Testing / QA suite map | `done` | S |
+| [2026-09-20-edusis-foundation-and-documentation-refactor](2026-09-20-edusis-foundation-and-documentation-refactor.md) | Inisialisasi Fondasi JA-EduSIS & Refactoring Dokumentasi Domain | `done` | M |
 
 ## Archive
 
-Lihat [`archive/`](archive/) — contoh: [2026-09-18-docs-system-restructure](archive/2026-09-18-docs-system-restructure.md).
+- **EduSIS Archive**: [`archive/`](archive/)
+- **Core Engine Heritage Archive**: [`archive/core-engine/`](archive/core-engine/) (13 tasklog terdahulu dari platform `ja-core_engine`).

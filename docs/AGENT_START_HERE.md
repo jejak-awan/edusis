@@ -1,58 +1,56 @@
-# Agent Start Here — Jejakawan Core Engine
+# Agent Start Here — JA-EduSIS
 
-## Cerita produk
+## 1. Cerita Produk
 
-**`ja-core_engine`** adalah fork/evolusi dari **`ja-cms`**. Tujuan fork:
+**`ja-edusis`** (*Jejakawan Educational School Information System*) adalah produk vertikal sistem manajemen sekolah terpadu berstandar enterprise yang dibangun di atas fondasi **`ja-core_engine`**.
 
-- Menjadi **master kernel** untuk membangun berbagai aplikasi Jejakawan (CMS, portal, SaaS tenant, dsb.).
-- Memisahkan **fondasi operasional** (IAM, infra, security, data studio) dari **produk vertical** (Content, billing member, dsb.).
+- **Identitas Produk**: JA-EduSIS (bukan CMS, bukan generic portal).
+- **Domain Inti**: Sistem Informasi Sekolah mencakup Akademik, Kesiswaan, Kepegawaian (HR), Tata Usaha, PPDB, Sarpras, dan OSIS.
+- **Pemisahan CBT/LMS**: EduSIS **TIDAK** menjalankan mesin ujian CBT atau LMS interaktif di codebase ini; fungsi evaluasi CBT didelegasikan ke **`ja-katampi`** (kluster Aksara).
+- **Hubungan dengan Upstream (`ja-core_engine`)**: Hard-isolated repository. **Dilarang melakukan `git merge upstream/main`**. Patch perbaikan keamanan atau bugfix kernel Core Engine hanya diambil secara selektif via `git cherry-pick`.
 
-Repo ini **bukan** `ja-control-plane`. Control plane (`ja-control-plane`) tetap hub lisensi, billing, dan provisioning multi-tenant. Core engine **bisa** phone-home ke JA-CP untuk aktivasi lisensi, tapi identitas produk di sini adalah **Core Engine**.
+---
 
-## Branch canonical
+## 2. Repositori Referensi Domain
 
-| Branch | Peran |
-| :--- | :--- |
-| **`main`** | Trunk — kernel + CMS packs (PR #14). Default basis semua kerja. |
-| **`integrate/<domain>`** | Sementara — gelombang besar saja; merge ke `main` lalu hapus. (`integrate/cms` sudah merged.) |
-| **`feat/…` / `fix/…`** | Pendek — PR ke `main` (atau ke integrate aktif); hapus setelah merge. |
+Selalu rujuk ke [`/home/jejakawan/dev/repo_referensi/`](file:///home/jejakawan/dev/repo_referensi/):
+- **`cijulang/`**: Skeleton modular `Modules/School`, kepatuhan format Dapodik, dan model Akademik/HR/Sarpras.
+- **`ja-siska/`**: Sistem kredit poin disiplin akumulatif (SP1-SP3), alur Bimbingan Konseling (BK), dan presensi QR.
+- **`ja-sis/`**: Sistem persuratan TU (Surat Masuk/Keluar/Disposisi), E-Voting OSIS, dan ekstrakurikuler.
 
-Kebijakan penuh: [branching.md](branching.md).  
-Branch **`develop`** dihapus Aug 2026. Snapshot status: [architectural-status.md](architectural-status.md).
+---
 
-## Struktur wajib dibaca
+## 3. Struktur Wajib Dibaca
 
-1. [docs/WORKFLOW.md](WORKFLOW.md) — alur kerja agen (audit → … → catat)
-2. [docs/DOCUMENTATION.md](DOCUMENTATION.md) — SoT layers, Diátaxis, SoC, aturan ADR
-3. [docs/architectural-status.md](architectural-status.md) — apa yang live vs legacy
-4. [docs/architecture/01-overview-and-tier-design.md](architecture/01-overview-and-tier-design.md) · [04 Theme system](architecture/04-theme-system.md) · [Data Studio vs CCK](architecture/data-studio-vs-cck.md) · [ja-CE audit 2026-08-27](audit/ja-ce-comprehensive-audit-2026-08-27.md)
-5. [docs/product/downstream-apps-and-licensing.md](product/downstream-apps-and-licensing.md)
-6. [docs/extensions/module-contract.md](extensions/module-contract.md) — kontrak modul optional (Mail = golden sample)
-7. [docs/extensions/lifecycle.md](extensions/lifecycle.md) — dual boot, deactivate vs uninstall
-8. [docs/extensions/member-area.md](extensions/member-area.md) — RFC portal pembaca adaptif
-9. [docs/extensions/rbac-and-lifecycle-seeders.md](extensions/rbac-and-lifecycle-seeders.md) — RBAC enable/disable + audit seeder
-10. [docs/extensions/external-module-packaging.md](extensions/external-module-packaging.md) — packaging pack eksternal / CMS extract
-11. [AGENTS.md](../AGENTS.md)
+1. [docs/sis/01-overview-and-domain-map.md](sis/01-overview-and-domain-map.md) — Peta sub-domain EduSIS
+2. [docs/sis/02-multi-repo-synthesis.md](sis/02-multi-repo-synthesis.md) — Sintesis 3 repo referensi
+3. [docs/sis/03-integration-katampi-cbt.md](sis/03-integration-katampi-cbt.md) — Batasan arsitektur SIS vs KataMPI CBT
+4. [docs/sis/04-dapodik-and-data-standards.md](sis/04-dapodik-and-data-standards.md) — Skema tabel `sch_*` & standar Dapodik
+5. [docs/sis/05-milestones-and-roadmap.md](sis/05-milestones-and-roadmap.md) — Roadmap tahapan pengembangan
+6. [docs/adr/ADR-029-edusis-domain-and-multi-repo-synthesis.md](adr/ADR-029-edusis-domain-and-multi-repo-synthesis.md) — ADR arsitektur EduSIS
+7. [docs/WORKFLOW.md](WORKFLOW.md) — Alur kerja agen (audit → diskusi → rencana → implement → verify → catat)
+8. [docs/DOCUMENTATION.md](DOCUMENTATION.md) — SoT layers, Diátaxis, aturan ADR
+9. [docs/architecture/01-overview-and-tier-design.md](architecture/01-overview-and-tier-design.md) · [02 Backend standards](architecture/02-backend-standards.md) · [03 Frontend standards](architecture/03-frontend-standards.md) · [06 Security](architecture/06-security-and-governance.md)
+10. [AGENTS.md](../AGENTS.md) — Aturan workspace Jejakawan Dev (multi-host sync docs & commit `feat(...)`)
 
-Mulai task M+: [guides/start-a-task.md](guides/start-a-task.md) · [work/](work/README.md).
+---
 
-## Quality gate sebelum selesai
+## 4. Quality Gate Sebelum Selesai
 
 ```bash
-npm run agent:verify
+# Backend verification
+cd backend && php artisan test
+
+# Frontend verification
+cd frontend && npm run i18n:check && npx vue-tsc -b
 ```
 
-Prosedur lengkap: [guides/run-quality-gates.md](guides/run-quality-gates.md) · peta suite: [reference/testing.md](reference/testing.md) · E2E: [guides/run-e2e-playwright.md](guides/run-e2e-playwright.md) · perintah lain: [reference/cli-commands.md](reference/cli-commands.md).
+---
 
-## Dokumentasi modul
+## 5. Aturan Penting
 
-Setiap modul di `backend/Modules/*` dan `frontend/src/modules/*` wajib punya **`README.md`** + **`CHANGELOG.md`**. Tema: `views/themes/<slug>/CHANGELOG.md`.  
-Rule: `.cursor/rules/module-documentation.mdc` · How-to: [guides/update-changelog.md](guides/update-changelog.md).  
-Katalog: [reference/modules.md](reference/modules.md) · Contributing: [CONTRIBUTING.md](../CONTRIBUTING.md).
-
-## Aturan singkat
-
-- Jangan sebut produk ini `ja-cms` / `JA-CMS` di string user-facing baru.
-- JA-CP = licensing hub eksternal (OK). Jangan sebut engine ini "control plane".
-- Perubahan minimal; jangan refactor di luar scope task.
-- Jangan commit secret / `.env`.
+- Sebut produk ini sebagai **JA-EduSIS** (bukan `ja-core_engine`, bukan `ja-cms`).
+- Jangan mencampurkan kode mesin CBT/LMS ke dalam modul `School` (arah integrasi ke KataMPI).
+- Prefix tabel modul sekolah wajib menggunakan `sch_*` di dalam skema PostgreSQL `edusis`.
+- Gunakan konvensi commit `feat(...)` sesuai mandat workspace Jejakawan Dev.
+- Jangan pernah commit kredensial atau file `.env`.

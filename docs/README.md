@@ -1,96 +1,60 @@
-# Dokumentasi Resmi Jejakawan Core Engine (`ja-core_engine`)
+# Dokumentasi Resmi JA-EduSIS (`ja-edusis`)
 
-Pusat navigasi arsitektur, standar pemrograman, dan panduan teknis.
+Pusat navigasi arsitektur, standar domain sekolah, panduan teknis, dan referensi sistem **JA-EduSIS** (*Jejakawan Educational School Information System*).
 
-> **Kebijakan SoT / SoC / Diátaxis:** [`DOCUMENTATION.md`](DOCUMENTATION.md) — baca sebelum menambah dokumen.  
-> **Catatan fork:** Repo ini master kernel untuk aplikasi downstream. Mulai dari [AGENT_START_HERE.md](AGENT_START_HERE.md).
+> **Identitas Proyek:** JA-EduSIS adalah sistem informasi manajemen sekolah terpadu berstandar enterprise yang dibangun di atas fondasi **Jejakawan Core Engine** (`ja-core_engine`).  
+> **Kebijakan Sinkronisasi Upstream:** Hard-isolation dengan *Selective Upstream Patching* (cherry-pick perbaikan keamanan saja; tanpa global merge). Baca [ADR-029](adr/ADR-029-edusis-domain-and-multi-repo-synthesis.md).
 
 ---
 
-## Mulai di sini
+## 🎓 1. Domain Sekolah (JA-EduSIS Core)
+
+Seluruh spesifikasi domain operasional sekolah didokumentasikan pada folder [`docs/sis/`](sis/):
 
 | Dokumen | Deskripsi |
 | :--- | :--- |
-| [**DOCUMENTATION**](DOCUMENTATION.md) | Lapisan SoT, Diátaxis, aturan ADR, SoC core vs tema vs tenant |
-| [**COMPLETENESS**](COMPLETENESS.md) | Checklist fondasi docs (apa yang sudah/ belum) |
-| [**WORKFLOW**](WORKFLOW.md) | Alur kerja agen: audit → diskusi → rencana → implement → verify → catat |
-| [**Work log**](work/README.md) | Brief tugas aktif + status |
-| [**AGENT_START_HERE**](AGENT_START_HERE.md) | Cerita fork, branch strategy, aturan agent |
-| [**Guides (how-to)**](guides/README.md) | Prosedur: verify, RBAC, theme seed, modul, customizer |
-| [**Reference**](reference/README.md) | Katalog modul, CLI, indeks kontrak L0 |
-| [**Branching**](branching.md) | `main` + `integrate/*` + `feat`/`fix` |
-| [**Architectural status**](architectural-status.md) | Kernel + CMS packs / `/site` on `main` |
-| [**Downstream apps & licensing**](product/downstream-apps-and-licensing.md) | Hub JA-CP, OAuth IdP, pola extend kernel |
-| [**Bootstrap downstream app**](product/bootstrap-downstream-app.md) | Scaffold modul produk dari kernel |
+| [**01. Overview & Peta Domain**](sis/01-overview-and-domain-map.md) | Ruang lingkup 7 sub-domain: Akademik, Siswa, HR, Persuratan TU, PPDB, Sarpras, & OSIS |
+| [**02. Sintesis Multi-Repositori**](sis/02-multi-repo-synthesis.md) | Landasan sintesis fitur dari `cijulang` (skeleton & Dapodik), `ja-siska` (kredit poin & BK), dan `ja-sis` (persuratan & evoting) |
+| [**03. Pemisahan CBT/LMS (KataMPI)**](sis/03-integration-katampi-cbt.md) | Batas arsitektur: mesin CBT dan LMS dialokasikan ke `ja-katampi` (Aksara) terpisah dari SIS |
+| [**04. Standar Data & Dapodik**](sis/04-dapodik-and-data-standards.md) | Konvensi tabel `sch_*`, skema PostgreSQL `edusis`, dan kepatuhan atribut Dapodik Kemendikbud |
+| [**05. Roadmap & Milestones**](sis/05-milestones-and-roadmap.md) | Rencana tahapan pengerjaan (Fase 1 s/d Fase 5) |
+| [**ADR-029: EduSIS Domain & Synthesis**](adr/ADR-029-edusis-domain-and-multi-repo-synthesis.md) | Keputusan arsitektur resmi lahirnya JA-EduSIS |
 
 ---
 
-## Aspek pemrograman (pintu masuk)
+## 🧭 2. Panduan Alur Kerja Pengembang & Agen
 
-| Aspek | Explanation | How-to / Reference |
+| Dokumen | Deskripsi |
+| :--- | :--- |
+| [**AGENT_START_HERE**](AGENT_START_HERE.md) | Konteks proyek, aturan agent, dan batasan upstream |
+| [**WORKFLOW**](WORKFLOW.md) | Alur kerja terstruktur: audit → diskusi → rencana → implement → verify → catat |
+| [**Work Log Aktif**](work/README.md) | Daftar tugas aktif dan riwayat task selesai |
+| [**Branching**](branching.md) | Konvensi branch `main` + `integrate/*` + `feat`/`fix` |
+| [**Guides (How-To)**](guides/README.md) | Prosedur teknis: verify gates, RBAC sync, add module, i18n |
+| [**Reference**](reference/README.md) | Katalog modul terpasang, CLI commands, HTTP OpenAPI contract |
+
+---
+
+## 🛡️ 3. Fondasi Teknis Platform (Jejakawan Core Engine)
+
+JA-EduSIS mewarisi standar arsitektur dan sistem keamanan enterprise dari Core Engine:
+
+| Aspek | Penjelasan Arsitektur | Panduan Teknis / Reference |
 | :--- | :--- | :--- |
-| Domain & modul | [01 Overview](architecture/01-overview-and-tier-design.md) | [modules catalog](reference/modules.md) |
-| Backend | [02 Backend standards](architecture/02-backend-standards.md) | `backend/Modules/*/README.md` |
-| Frontend | [03 Frontend standards](architecture/03-frontend-standards.md) | `frontend/src/modules/*/README.md` |
-| Theme & customizer | [04 Theme system](architecture/04-theme-system.md) | [add setting](guides/add-theme-customizer-setting.md) · [naming](../frontend/src/modules/Layout/customizer/naming-conventions.md) · [themes](themes/README.md) |
-| i18n | [05 i18n](architecture/05-i18n-guidelines.md) | [add i18n keys](guides/add-i18n-keys.md) |
-| Security | [06 Security](architecture/06-security-and-governance.md) | [security checks](guides/security-checks.md) |
-| Extensions & packs | [Module contract](extensions/module-contract.md) · [Lifecycle](extensions/lifecycle.md) | [add module](guides/add-optional-module.md) · [schema](extensions/module-manifest.schema.json) |
-| RBAC / capabilities | [RBAC seeders](extensions/rbac-and-lifecycle-seeders.md) · ADR-020/021 | [sync RBAC](guides/sync-rbac-and-capabilities.md) |
-| Identity (3-tier) | ADR-014…016 | — |
-| Install profile | [install-profiles](extensions/install-profiles.md) | [apply profile](guides/apply-install-profile.md) |
-| Upstream / seeders | [ADR-022](adr/ADR-022-upstream-core-curation-and-generic-theme-seeder-architecture.md) | [theme:seed](guides/seed-theme-demo-data.md) |
-| Quality gates | `AGENTS.md` | [run gates](guides/run-quality-gates.md) · [CLI ref](reference/cli-commands.md) |
+| **Keamanan & Governance** | [06. Security & Governance](architecture/06-security-and-governance.md) | ABAC, RBAC, KYC, SIEM audit log, Bot Shield, [Security Checks](guides/security-checks.md) |
+| **Standar Backend** | [02. Backend Standards](architecture/02-backend-standards.md) | Laravel 13, FormRequest validation, Service layer, tests |
+| **Standar Frontend** | [03. Frontend Standards](architecture/03-frontend-standards.md) | Vue 3 SPA, Pinia state stores, TypeScript, TanStack Table |
+| **Internasionalisasi** | [05. i18n Guidelines](architecture/05-i18n-guidelines.md) | Paritas multibahasa: Indonesia (`id`), Sunda (`su`), Inggris (`en`) |
+| **Modul & Ekstensi** | [Module Contract](extensions/module-contract.md) · [Lifecycle](extensions/lifecycle.md) | Nwidart modularity, `module.json`, capability registry |
+| **Penyimpanan Berkas** | [Media Library](reference/modules.md) | Unggah foto siswa/guru, dokumen PPDB, kompresi aset |
+| **Layanan Surel** | [JA-Mail](extensions/ja-mail.md) | Transaksional email, reset kata sandi, notifikasi |
+| **ADRs Platform** | [Indeks ADR Core (ADR-001 s/d ADR-028)](adr/README.md) | Riwayat keputusan teknis platform dasar |
 
 ---
 
-## Arsitektur & keputusan
+## 🗄️ 4. Repositori Referensi Lokal
 
-| Dokumen | Deskripsi |
-| :--- | :--- |
-| [**01. Overview & Architecture**](architecture/01-overview-and-tier-design.md) | Modular monolith, tier System / Infra / Security |
-| [**02. Backend Standards**](architecture/02-backend-standards.md) | Laravel patterns, FormRequest, services, tests |
-| [**03. Frontend Standards**](architecture/03-frontend-standards.md) | Vue 3 SPA, Pinia, engine layout |
-| [**04. Theme System**](architecture/04-theme-system.md) | Host vs theme package, SoC/SoT customizer |
-| [**05. i18n Guidelines**](architecture/05-i18n-guidelines.md) | Paritas `id` / `en` / `su` |
-| [**06. Security & Governance**](architecture/06-security-and-governance.md) | CSP, ABAC, passkeys, SIEM |
-| [**Data Studio vs CCK**](architecture/data-studio-vs-cck.md) | Batas Data Studio vs editorial CMS |
-| [**ADRs**](adr/README.md) | Keputusan arsitektur (core + pointer tema/downstream) |
-| [**Themes index**](themes/README.md) | Indeks tema + ADR Layung |
-| [**HTTP / OpenAPI**](reference/http-api.md) | Scramble + dynamic OpenAPI |
-| [**Guides**](guides/README.md) | How-to prosedur |
-| [**Reference**](reference/README.md) | Katalog modul, CLI, kontrak |
-| [**ja-CE audit (2026-08-27)**](audit/ja-ce-comprehensive-audit-2026-08-27.md) | Honesty map W1–W5 |
-| [**Upstream sync audit (2026-09-07)**](audit/AUDIT-2026-09-07-codebase-curation-and-upstream-sync.md) | Kurasi multi-repo |
-
----
-
-## Extensions
-
-| Dokumen | Deskripsi |
-| :--- | :--- |
-| [**Module contract**](extensions/module-contract.md) | Kontrak first-party optional (Mail golden sample) + JSON Schema |
-| [**Extension lifecycle**](extensions/lifecycle.md) | Dual boot, deactivate vs uninstall, public identity |
-| [**Install profiles**](extensions/install-profiles.md) | `core` / `cms` / `cms_site` |
-| [**Member Area RFC**](extensions/member-area.md) | Portal pembaca adaptif terhadap pack aktif |
-| [**RBAC & seeders RFC**](extensions/rbac-and-lifecycle-seeders.md) | Enable/disable, audit seeder, CMS roles gap |
-| [**External module packaging**](extensions/external-module-packaging.md) | Path/VCS/in-tree packs; CMS extract order |
-| [**ja-mail**](extensions/ja-mail.md) | Modul Mail |
-
----
-
-## Arsip / tenant docs
-
-Dokumen usang atau tenant-specific **tidak disimpan di core**. Lihat:
-
-- K2NET: `k2net-portal/docs/adr/ADR-009-...`, `k2net-portal/docs/audit/`
-- Sarangenge / school history: `smkn6-portal/docs/feat_sarangenge/` (dan `smkn1cijulang-portal`) — bukan SoT `ja-cms` / `k2net-portal`
-
----
-
-## Lainnya
-
-- [**CONTRIBUTING**](../CONTRIBUTING.md) — cara berkontribusi + DoD
-- [**Root README**](../README.md) — instalasi dev & quality gates
-- [**CHANGELOG**](../CHANGELOG.md) — riwayat rilis (root; detail di modul/tema)
-- [**AGENTS.md**](../AGENTS.md) — pedoman singkat agent AI
+Bahan komparasi dan blueprint domain tersimpan di [`/home/jejakawan/dev/repo_referensi/`](file:///home/jejakawan/dev/repo_referensi/):
+- **`cijulang/`**: Basis arsitektur `Modules/School` & entitas Dapodik.
+- **`ja-siska/`**: Spesialisasi poin kredit kesiswaan, alur BK, & notifikasi WhatsApp.
+- **`ja-sis/`**: Spesialisasi persuratan tata usaha, e-voting OSIS, & ekstrakurikuler.
