@@ -60,17 +60,29 @@ export const withBundledThemeFallbacks = (slugs: string[]): string[] => {
   return out
 }
 
+const isLegacyPrunedTheme = (slug?: string | null): boolean => {
+  if (!slug) return false
+  return ['janari', 'layung', 'sareupna'].includes(slug.trim().toLowerCase())
+}
+
 export const buildThemeViewResolveCandidates = (theme: Theme | null | undefined): string[] => {
   if (!theme) return withBundledThemeFallbacks([])
 
-  const slug =
+  let slug =
     typeof theme.slug === 'string' && theme.slug.trim() !== ''
       ? theme.slug.trim()
       : ''
-  const parentSlug =
+  let parentSlug =
     typeof theme.parent_theme === 'string' && theme.parent_theme.trim() !== ''
       ? theme.parent_theme.trim()
       : ''
+
+  if (isLegacyPrunedTheme(slug)) {
+    slug = 'sarangenge'
+  }
+  if (isLegacyPrunedTheme(parentSlug)) {
+    parentSlug = ''
+  }
 
   if (!slug) return withBundledThemeFallbacks([])
 
@@ -86,8 +98,8 @@ export const findThemeViewKey = (
   themeSlugs: string[],
   pageName: string,
 ): string | undefined => {
-  // Defensive: if no candidates provided, fallback to sarangenge (universal baseline).
-  const slugs = themeSlugs.length > 0 ? themeSlugs : ['sarangenge']
+  // Defensive: ensure sarangenge is always in candidate list as universal baseline
+  const slugs = withBundledThemeFallbacks(themeSlugs)
   const pageBase = themePageBaseName(pageName)
 
   for (const slug of slugs) {

@@ -48,5 +48,20 @@ describe('themeViewResolver', () => {
         const key = findThemeViewKey(modules, candidates, 'pages/SpecialPage');
         expect(key).toBeUndefined();
     });
+
+    it('auto-heals legacy pruned themes (janari, layung, sareupna) to sarangenge baseline', () => {
+        expect(buildThemeViewResolveCandidates({ name: 'Janari', slug: 'janari', type: 'frontend' })).toEqual([
+            'sarangenge',
+        ]);
+        expect(buildThemeViewResolveCandidates({ name: 'Layung', slug: 'layung', type: 'frontend' })).toEqual([
+            'sarangenge',
+        ]);
+        expect(buildThemeViewResolveCandidates({ name: 'Sareupna', slug: 'sareupna', type: 'frontend' })).toEqual([
+            'sarangenge',
+        ]);
+
+        const key = findThemeViewKey(modules, ['janari'], 'pages/Home');
+        expect(key).toContain('sarangenge/pages/Home.vue');
+    });
 });
 

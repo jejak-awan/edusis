@@ -1,5 +1,5 @@
 import { logger } from '@/shared/utils/logger';
-import { ref, computed, inject, type InjectionKey, type Ref, type ComputedRef } from 'vue';
+import { ref, computed, inject, hasInjectionContext, type InjectionKey, type Ref, type ComputedRef } from 'vue';
 import i18n from '@/engine/i18n';
 import api from '@/engine/api/client';
 import { useSystemStore } from '@/modules/Core/System/stores/system';
@@ -138,6 +138,12 @@ let themeUpdateListener: ((event: MessageEvent) => void) | null = null;
 let lastLoadedAt = 0;
 const THEME_CACHE_TTL_MS = 60_000;
 const THEME_SNAPSHOT_KEY = FRONTEND_THEME_SNAPSHOT_KEY;
+
+export const isLegacyPrunedTheme = (slug?: string | null): boolean => {
+    if (!slug) return false;
+    return ['janari', 'layung', 'sareupna'].includes(slug.trim().toLowerCase());
+};
+
 let themeActivationListenerInstalled = false;
 let sharedForceReloadActiveTheme: ((type?: string) => Promise<void>) | null = null;
 const readThemeSnapshot = (): {
@@ -204,11 +210,18 @@ if (typeof window !== 'undefined') {
         lastLoadedAt = 0;
     } else if (
         initialThemeSnapshot
-        && initialActivationRev?.slug
-        && !snapshotMatchesActivationRev(initialThemeSnapshot.activeTheme?.slug)
+        && (
+            isLegacyPrunedTheme(initialThemeSnapshot.activeTheme?.slug)
+            || (initialActivationRev?.slug && !snapshotMatchesActivationRev(initialThemeSnapshot.activeTheme?.slug))
+        )
     ) {
         clearFrontendThemeSnapshot();
         lastLoadedAt = 0;
+        activeTheme.value = {
+            name: 'Sarangenge',
+            slug: 'sarangenge',
+            type: 'frontend',
+        };
     } else if (previewSlug && snapSlug && snapSlug !== previewSlug) {
         // Customizer iframe: never first-paint the wrong package (kills click-highlight targets).
         activeTheme.value = {
@@ -230,7 +243,7 @@ if (typeof window !== 'undefined') {
             type: 'frontend',
         };
     }
-} else if (initialThemeSnapshot) {
+} else if (initialThemeSnapshot && !isLegacyPrunedTheme(initialThemeSnapshot.activeTheme?.slug)) {
     activeTheme.value = initialThemeSnapshot.activeTheme;
     themeSettings.value = initialThemeSnapshot.themeSettings;
     themeAssets.value = initialThemeSnapshot.themeAssets;
@@ -243,7 +256,7 @@ if (typeof window !== 'undefined') {
  */
 export function useTheme() {
     /** Builder canvas: read builder themeData/settings; never mutate public :root / activate. */
-    const builderOverride = inject(BUILDER_THEME_OVERRIDE_KEY, null);
+    const builderOverride = hasInjectionContext() ? inject(BUILDER_THEME_OVERRIDE_KEY, null) : null;
 
     /**
      * Load active theme
@@ -367,14 +380,13 @@ export function useTheme() {
                  };
                  return;
             }
-            if (typeof (data as Theme).slug !== 'string' || (data as Theme).slug.trim() === '') {
+            if (typeof (data as Theme).slug !== 'string' || (data as Theme).slug.trim() === '' || isLegacyPrunedTheme((data as Theme).slug)) {
                 (data as Theme).slug = 'sarangenge';
-                if (!(data as Theme).name) {
-                    (data as Theme).name = 'Sarangenge';
-                }
+                (data as Theme).name = 'Sarangenge';
                 if (!(data as Theme).type) {
                     (data as Theme).type = 'frontend';
                 }
+                clearFrontendThemeSnapshot();
             }
             // Compare fields that affect UI; avoid stringifying entire payload (manifest is large).
             const prev = activeTheme.value

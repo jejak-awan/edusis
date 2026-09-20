@@ -2,6 +2,12 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.1.10] - 2026-09-20
+
+### Fixed
+- Fixed `inject()` warning outside Vue setup context in `useTheme.ts` via `hasInjectionContext()` guard.
+- Auto-healed legacy theme requests (`janari`, `layung`, `sareupna`) and stale browser session snapshots to `sarangenge` universal baseline in `themeViewResolver.ts` and `useTheme.ts`.
+
 ## [1.1.9] - 2026-09-20
 
 ### Changed
