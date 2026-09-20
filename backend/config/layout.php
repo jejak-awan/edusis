@@ -63,7 +63,6 @@ return [
         'before-footer-promo' => ['before_footer'],
         'instagram-feed' => ['after_hero'],
         'floating-social-dock' => ['floating_overlay'],
-        'cinematic-nav' => ['floating_overlay'],
     ],
 
     /*
