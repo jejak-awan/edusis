@@ -324,7 +324,71 @@ Mengadopsi pola routing terpisah dari `cijulang/frontend/src/modules/School/rout
 
 ---
 
-## 13. Jaminan Mutu & Rencana Verifikasi
+## 13. Aturan Validasi Domain Baku Indonesia (`app/Rules/`)
+
+Diadaptasi dari `ja-siska/backend/app/Rules/` untuk menjamin kepatuhan data terhadap standar Kemendikbudristek & Dukcapil:
+
+| Kelas Rule | Sumber Asal | Algoritma & Validasi |
+|---|---|---|
+| **`ValidNIK`** | `ja-siska/app/Rules/ValidNIK.php` | Validasi 16-digit nomor induk kependudukan: pengecekan 2-digit kode provinsi (01-94), kode kabupaten, kode kecamatan, dan penyesuaian tanggal lahir perempuan (offset +40). |
+| **`ValidNISN`** | `ja-siska/app/Rules/ValidNISN.php` | Validasi 10-digit NISN Dapodik dengan verifikasi checksum modulus 10. |
+| **`ValidPhoneNumber`** | `ja-siska/app/Rules/ValidPhoneNumber.php` | Pembersihan karakter non-digit & normalisasi nomor seluler Indonesia (`08`, `628`, `+628`) agar siap dikirim via WhatsApp Gateway API. |
+
+---
+
+## 14. Standardisasi Penanganan Error Domain (`app/Exceptions/`)
+
+Diadaptasi dari `cijulang/backend/Modules/School/app/Exceptions/SchoolModuleException.php`:
+
+Untuk mencegah controller mengembalikan respons error ad-hoc atau status code yang tidak seragam:
+```php
+namespace Modules\School\Exceptions;
+
+class SchoolModuleException extends \Exception
+{
+    public static function notFound(string $entity, int|string $id): self { ... 404 }
+    public static function unauthorized(string $action = ''): self { ... 403 }
+    public static function validation(string $message): self { ... 422 }
+    public static function businessRule(string $message): self { ... 409 } // misal: siswa sudah memilih di voting
+    public static function dataIntegrity(string $message): self { ... 500 }
+}
+```
+
+---
+
+## 15. Mesin Cetak Berkas Resmi & Dokumen PDF (`resources/views/reports/`)
+
+Mengadopsi template Blade cetak dari `cijulang`, `ja-sis`, dan `ja-evoting`:
+
+| Berkas Template | Sumber Asal | Format & Penggunaan |
+|---|---|---|
+| `reports/student_profile.blade.php` | `cijulang` | Cetak Biodata Lengkap Siswa Buku Induk (format A4 Dapodik). |
+| `reports/id_card.blade.php` | `cijulang` | Cetak Kartu Pelajar (KTA Siswa) berbarcode/QR code verifikasi. |
+| `reports/graduation_skl.blade.php` | `cijulang` | Cetak Surat Keterangan Lulus (SKL) Resmi bertanda tangan digital. |
+| `reports/raport_merdeka.blade.php` | `ja-sis` (`raport/pdf.blade.php`) | Cetak Buku Rapor Kurikulum Merdeka (Capaian Pembelajaran, Leger Nilai, Catatan Wali Kelas). |
+| `reports/voter_card.blade.php` | `ja-evoting` (`voter-card.blade.php`) | Cetak Kartu Akses Bilik Suara DPT OSIS (format A6 dengan QR Token). |
+
+---
+
+## 16. Dekomposisi Dashboard Adaptif Berbasis Peran (*Role-Tailored Dashboards*)
+
+Diadaptasi dari `cijulang/frontend/src/modules/School/components/dashboard/`:
+
+Struktur folder `frontend/src/modules/School/views/admin/dashboard/` dan `components/dashboard/` bertugas merender ringkasan metrik secara personal sesuai peran user yang login:
+
+| Komponen Dashboard | Peran Pengguna | Metrik Utama yang Ditampilkan |
+|---|---|---|
+| **`SchoolAdminDashboard.vue`** | Kepala Sekolah / Admin | Ringkasan KPI sekolah: total rombel, rasio guru-siswa, kehadiran hari ini, status perbaikan sarpras. |
+| **`CurriculumDashboard.vue`** | Waka Kurikulum | Progress pengisian jurnal KBM guru, kelengkapan nilai raport per rombel, jadwal bentrok. |
+| **`StudentAffairsDashboard.vue`**| Waka Kesiswaan & BK | Statistik kredit poin disiplin, kasus eskalasi SP1-SP3, sesi bimbingan konseling berjalan. |
+| **`TeacherDashboard.vue`** | Guru Pengajar | Jadwal mengajar hari ini, form jurnal KBM cepat, absensi jam pelajaran berjalan. |
+| **`StudentDashboard.vue`** | Siswa | Jadwal pelajaran kelas, riwayat absensi mandiri, status pemilihan OSIS, nilai e-rapor. |
+| **`ParentDashboard.vue`** | Orang Tua Siswa | Notifikasi kehadiran harian anak, rekap poin perilaku, pengumuman sekolah. |
+| **`OsisDashboard.vue`** | Panitia / Pengurus OSIS | Monitoring partisipasi DPT, hitung cepat perolehan suara (quick count) bilik suara. |
+
+---
+
+## 17. Jaminan Mutu & Rencana Verifikasi
 Setiap tahapan porting dan penyelarasan wajib melalui pintu uji otomatis:
 1. **Backend Tests**: `php artisan test Modules/School` (47/47 tests wajib passed, zero regressions).
 2. **TypeScript Checker**: `npx vue-tsc -b` (0 errors).

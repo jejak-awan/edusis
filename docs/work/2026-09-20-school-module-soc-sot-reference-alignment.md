@@ -114,13 +114,19 @@ Mengeliminasi seluruh folder kosong pasca-scaffold, meniadakan kode redundan/dup
    - Mengunci akses catatan konseling BK sensitif (`is_confidential`) hanya untuk konselor BK dan kepala sekolah.
 5. **Porting Database Model Factories dari `cijulang`**:
    - Buat di `backend/Modules/School/database/factories/`: `StudentFactory.php`, `StaffFactory.php`, `AcademicYearFactory.php`, `SchoolFactory.php`.
-6. **Strategi Storage & Isolasi Media**:
+6. **Porting Domain Validation Rules (`app/Rules/`)**:
+   - Adopsi dari `ja-siska/backend/app/Rules/`: `ValidNIK.php` (algoritma NIK 16 digit + offset wanita), `ValidNISN.php` (algoritma NISN 10 digit + checksum), `ValidPhoneNumber.php` (normalisasi nomor HP Indonesia untuk WhatsApp gateway).
+7. **Standardisasi Domain Exception (`app/Exceptions/`)**:
+   - Adopsi dari `cijulang`: `SchoolModuleException.php` untuk standardisasi exception code (404, 403, 409, 422, 500).
+8. **Penyediaan Mesin Cetak Berkas Resmi & Dokumen PDF (`resources/views/reports/`)**:
+   - Porting template cetak Blade dari `cijulang`, `ja-sis`, dan `ja-evoting`: `student_profile.blade.php` (biodata Dapodik), `id_card.blade.php` (KTA siswa ber-QR), `graduation_skl.blade.php` (SKL), `raport_merdeka.blade.php` (buku rapor), dan `voter_card.blade.php` (kartu pemilih DPT).
+9. **Strategi Storage & Isolasi Media**:
    - Konfigurasi disk privat (`storage/app/private/school_{id}/`) untuk lampiran BK, arsip surat, dan dokumen PPDB.
    - Konfigurasi disk publik (`storage/app/public/school_{id}/`) untuk foto siswa, foto paslon, dan dokumentasi sarpras.
-7. **Refactor Controllers menjadi Thin Controllers**:
+10. **Refactor Controllers menjadi Thin Controllers**:
    - Seluruh method controller mendelegasikan validasi ke FormRequest dan operasi data ke Service.
    - Hapus seluruh validasi inline `$request->validate()`.
-8. **Verifikasi Backend**: Jalankan `php artisan test Modules/School` (Wajib 47 tests passed, 0 regression).
+11. **Verifikasi Backend**: Jalankan `php artisan test Modules/School` (Wajib 47 tests passed, 0 regression).
 
 ### Fase 3: Frontend SoC (Modular Types, Services, Stores, Views & Sub-Components)
 1. **Pecah Monolithic Service**:
@@ -135,6 +141,8 @@ Mengeliminasi seluruh folder kosong pasca-scaffold, meniadakan kode redundan/dup
      - `views/admin/academic/` (`Index.vue`, `Timetable.vue`).
      - `views/teacher/` (`Dashboard.vue`, `GradesInput.vue`, `Schedule.vue`).
      - `views/student/` (`Dashboard.vue`, `Grades.vue`, `Schedule.vue`).
+   - Dekomposisi Dashboard Adaptif Berbasis Peran (`components/dashboard/`):
+     - `SchoolAdminDashboard.vue`, `CurriculumDashboard.vue`, `StudentAffairsDashboard.vue`, `TeacherDashboard.vue`, `StudentDashboard.vue`, `ParentDashboard.vue`, `OsisDashboard.vue`.
    - Dekomposisi modal dari `OsisVoting.vue` ke `components/voting/` (`KioskTokenModal.vue`, `VoteReceiptModal.vue`, `DptVoterTable.vue`, `CandidateCard.vue`).
 4. **Pendaftaran Rute Multi-Portal (`router.ts`)**:
    - Daftarkan rute eksplisit portal Guru (`/manage/school/teacher/*`), portal Siswa (`/manage/school/student/*`), dan portal PPDB Publik (`/admission/*`) dengan meta permission RBAC.
