@@ -19,6 +19,10 @@ Dokumen ini mencatat keputusan komparasi teknis dan sumber inspirasi dari 3 repo
    - Sistem informasi sekolah berbasis Laravel 12.
    - Paling kuat pada: Administrasi persuratan TU (Surat Masuk, Surat Keluar berpenomoran otomatis, alur disposisi pimpinan), modul E-Voting Pemilihan Ketua OSIS, dan pengelolaan pendaftaran anggota ekstrakurikuler.
 
+4. **`ja-evoting` (`jejak-awan/ja-evoting`) — Spesialisasi Sistem Pemilihan Digital (E-Voting Engine)**:
+   - Sistem e-voting mandiri multi-tenant yang sangat komprehensif.
+   - Paling kuat pada: Mekanisme token akses pemilih (voter token generation), audit log aktivitas pemungutan suara (`activity_logs`), mode voting fleksibel, dan manajemen event pemilihan organisasi sekolah.
+
 ---
 
 ## 2. Matriks Keputusan Komponen yang Diadopsi
