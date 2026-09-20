@@ -34,7 +34,9 @@ Rencana kerja terstruktur untuk implementasi modul **JA-EduSIS** secara bertahap
 - [x] Buku Tamu Resepsionis / Pos Keamanan: Check-in realtime, badge ID card tamu, dan pencatatan check-out 1-klik (`sch_adm_guest_books`, `GuestBookController`, `GuestBook.vue`).
 - [x] Seeder Fase 4 (`SchoolPhase4Seeder`) & Automated Feature Tests (28 tests, 251 assertions passed).
 
-## Tahap 5: Manajemen Fasilitas (Sarpras) & Integrasi KataMPI (Fase Aktif Berikutnya)
-- [ ] Inventaris Ruangan & Pelaporan Tiket Kerusakan Fasilitas.
-- [ ] API Integrasi & SSO dengan engine CBT `ja-katampi`.
-- [ ] Notifikasi otomatis WhatsApp Gateway untuk orang tua murid.
+## Tahap 5: Manajemen Fasilitas (Sarpras), Integrasi KataMPI & WhatsApp Gateway (Selesai)
+- [x] Inventaris Ruangan & Pelaporan Tiket Kerusakan Fasilitas (`sch_fac_rooms`, `sch_fac_assets`, `sch_fac_maintenance_tickets`, `FacilityController`, `FacilityManagement.vue`).
+- [x] API Integrasi, Roster Sync & SSO dengan engine CBT `ja-katampi` (`sch_int_katampi_configs`, `KatampiIntegrationController`, `KatampiIntegration.vue`).
+- [x] Notifikasi otomatis WhatsApp Gateway untuk presensi & orang tua murid (`sch_comm_wa_logs`, `WhatsAppController`, `WhatsAppGateway.vue`).
+- [x] Seeder Fase 5 (`SchoolPhase5Seeder`) & Automated Feature Tests (39 tests, 391 assertions passed).
+
