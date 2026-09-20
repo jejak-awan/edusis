@@ -315,29 +315,6 @@ class ConsoleMenu extends Model
                 ],
             ],
 
-            // Group: Data Studio
-            [
-                'group_slug' => 'studio',
-                'name' => 'Data Model Studio',
-                'label_key' => 'infra.models.title',
-                'icon' => 'layers',
-                'extension_slug' => 'data-studio',
-                'order' => 5,
-                'children' => [
-                    [
-                        'name' => 'Data Models',
-                        'label_key' => 'infra.models.title',
-                        'route_name' => 'model-index',
-                        'icon' => 'layers',
-                        'permission' => 'manage settings',
-                        'extension_slug' => 'data-studio',
-                        'badge_text' => 'PRO',
-                        'badge_variant' => 'primary',
-                        'order' => 1,
-                    ],
-                ],
-            ],
-
             // Group: Editorial (Publishing pack — visible when extension active)
             [
                 'group_slug' => 'editorial',
@@ -883,15 +860,9 @@ class ConsoleMenu extends Model
         // Clean up legacy builder.site menu if still present
         self::query()->where('route_name', 'builder.site')->delete();
 
-        // Sync extension_slug for Data Model Studio
-        self::query()->where('route_name', 'model-index')->update([
-            'extension_slug' => 'data-studio',
-            'badge_text' => 'PRO',
-            'badge_variant' => 'primary',
-        ]);
-        self::query()->where('group_slug', 'studio')->whereNull('parent_id')->update([
-            'extension_slug' => 'data-studio',
-        ]);
+        // Clean up legacy Data Model Studio menu if still present
+        self::query()->where('route_name', 'model-index')->delete();
+        self::query()->where('group_slug', 'studio')->delete();
 
         $existingRoutes = self::query()
             ->whereNotNull('route_name')

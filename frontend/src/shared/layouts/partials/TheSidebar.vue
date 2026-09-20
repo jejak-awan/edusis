@@ -399,9 +399,6 @@ const isChildActive = (item: Pick<NavItem, 'name' | 'to'>) => {
     const currentName = String($route.name);
     if (item.name === currentName) return true;
     if (item.to && typeof item.to === 'object' && 'name' in item.to && item.to.name === currentName) return true;
-    if (item.name === 'model-index' && (currentName.startsWith('model-') || currentName.startsWith('dynamic-records-'))) {
-        return true;
-    }
     return false;
 };
 

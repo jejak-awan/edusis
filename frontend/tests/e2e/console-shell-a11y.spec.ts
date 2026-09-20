@@ -329,15 +329,6 @@ const shellA11yPages: A11yPageCase[] = [
         },
     },
     {
-        path: '/dash/models',
-        ready: async (page) => {
-            await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-                /Data Model Studio|Studio Model Data|Model Data/i,
-                { timeout: 15000 },
-            );
-        },
-    },
-    {
         path: '/dash/file-manager',
         ready: async (page) => {
             await expect(page.getByRole('heading', { level: 1 })).toHaveText(
@@ -512,12 +503,6 @@ const shellA11yPages: A11yPageCase[] = [
         },
     },
     {
-        path: '/dash/models/new',
-        ready: async (page) => {
-            await expect(page.locator(CONSOLE_MAIN)).toBeVisible({ timeout: 15000 });
-        },
-    },
-    {
         path: '/dash/system/notifications',
         ready: async (page) => {
             await expect(page.getByText(/Notification|Notifikasi/i).first()).toBeVisible({ timeout: 15000 });
@@ -561,14 +546,6 @@ const shellA11yPages: A11yPageCase[] = [
             const id = await firstApiId(page, '/manage/system/users');
             if (!id) return false;
             await page.goto(`/dash/users/${id}/edit`);
-                    },
-    },
-    {
-        path: '__nav__/dash/models/:id',
-        ready: async (page) => {
-            const id = await firstApiId(page, '/manage/infra/models/types');
-            if (!id) return false;
-            await page.goto(`/dash/models/${id}`);
                     },
     },
     {

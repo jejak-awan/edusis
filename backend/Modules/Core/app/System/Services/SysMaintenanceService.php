@@ -101,18 +101,6 @@ class SysMaintenanceService
         $purgedOrphans = 0;
         $optimizedTablesCount = 0;
 
-        // 1. Purge orphan dynamic data model records (records whose ContentType no longer exists)
-        if (Schema::hasTable('sys_content_types') && Schema::hasTable('sys_dynamic_records')) {
-            $activeTypeIds = DB::table('sys_content_types')->pluck('id')->toArray();
-            if (! empty($activeTypeIds)) {
-                $purgedOrphans = DB::table('sys_dynamic_records')
-                    ->whereNotIn('content_type_id', $activeTypeIds)
-                    ->delete();
-            } else {
-                $purgedOrphans = DB::table('sys_dynamic_records')->delete();
-            }
-        }
-
         // 2. Optimize DB tables (Vacuum for SQLite, Optimize for MySQL, Vacuum Analyze for PostgreSQL)
         try {
             $driver = DB::connection()->getDriverName();
@@ -128,8 +116,6 @@ class SysMaintenanceService
                     'srv_media_usages',
                     'srv_auth_users',
                     'sys_settings',
-                    'sys_content_types',
-                    'sys_dynamic_records',
                     'srv_analytics_visits',
                     'srv_analytics_events',
                     'srch_indexes',

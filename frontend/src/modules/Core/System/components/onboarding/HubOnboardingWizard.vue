@@ -86,12 +86,12 @@ const stepItems = computed(() => {
             to: consoleNamedRoute('settings'),
         },
         {
-            key: 'data_model',
-            done: steps.data_model,
-            title: t('system.onboarding.steps.dataModel.title', 'Data Model Studio'),
-            description: t('system.onboarding.steps.dataModel.description', 'Define entities, custom fields, and OpenAPI schemas.'),
-            action: t('system.onboarding.steps.dataModel.action', 'Design Models'),
-            to: consoleNamedRoute('model-index'),
+            key: 'school_profile',
+            done: steps.school_profile,
+            title: t('system.onboarding.steps.schoolProfile.title', 'School Profile'),
+            description: t('system.onboarding.steps.schoolProfile.description', 'Configure school details, academic structure, and departments.'),
+            action: t('system.onboarding.steps.schoolProfile.action', 'Setup School'),
+            to: consoleNamedRoute('school.dashboard'),
         },
         {
             key: 'security',

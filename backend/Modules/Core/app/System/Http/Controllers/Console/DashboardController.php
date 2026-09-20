@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Modules\Core\System\Http\Controllers\BaseApiController;
 use Modules\Core\System\Models\ActivityLog;
-use Modules\Core\System\Models\ContentType;
 use Modules\Core\System\Models\ScheduledTask;
 use Modules\Core\System\Models\User;
 use Modules\Core\System\Services\DashboardRegistry;
+use Modules\School\Models\Student\Student;
 
 /**
  * @OA\Tag(name="Dashboard")
@@ -40,8 +40,8 @@ class DashboardController extends BaseApiController
         $data = Cache::remember($cacheKey, 60, fn () => [
             'stats' => array_merge([
                 'users' => $this->getUserStats(),
-                'models' => [
-                    'total' => ContentType::count(),
+                'students' => [
+                    'total' => $this->getStudentTotal(),
                 ],
                 'tasks' => [
                     'total' => ScheduledTask::count(),
@@ -189,5 +189,17 @@ class DashboardController extends BaseApiController
             ->groupBy(DB::raw($dateExpr))
             ->orderBy('date')
             ->get();
+    }
+
+    protected function getStudentTotal(): int
+    {
+        try {
+            if (class_exists(Student::class)) {
+                return Student::query()->where('status', 'active')->count();
+            }
+        } catch (\Throwable) {
+        }
+
+        return 0;
     }
 }

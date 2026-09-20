@@ -12,5 +12,9 @@ Index: [`../CHANGELOG.md`](../CHANGELOG.md)
 - Data Model Studio / infra console wiring tracked with BE ADR-012 when FE surfaces change.
 
 ### Changed
+- Refactored `infraNavigation` and router to only mount active File Manager surfaces.
+
+### Removed
+- Removed Data Model Studio and Dynamic Record frontend views, components, services, routes, and console search/sidebar integrations.
 
 ### Fixed

@@ -6,7 +6,6 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Schema;
 use Modules\Core\System\Models\Role;
 use Modules\Core\System\Models\User;
 use Tests\TestCase;
@@ -81,30 +80,26 @@ class SysMaintenanceTest extends TestCase
     }
 
     /**
-     * Test database optimizer clears orphan dynamic records.
+     * Test database optimizer clears orphan dynamic records or runs table vacuum/optimize.
      */
-    public function test_database_optimizer_clears_orphans(): void
+    public function test_database_optimizer(): void
     {
-        if (Schema::hasTable('sys_content_types') && Schema::hasTable('sys_dynamic_records')) {
-            $response = $this->actingAs($this->superAdmin, 'sanctum')
-                ->postJson('/api/v1/manage/system/maintenance/optimize-db');
+        $response = $this->actingAs($this->superAdmin, 'sanctum')
+            ->postJson('/api/v1/manage/system/maintenance/optimize-db');
 
-            $response->assertStatus(200)
-                ->assertJsonPath('success', true)
-                ->assertJsonStructure([
-                    'success',
-                    'message',
-                    'data' => [
-                        'optimized_tables',
-                        'purged_orphans',
-                    ],
-                ]);
+        $response->assertStatus(200)
+            ->assertJsonPath('success', true)
+            ->assertJsonStructure([
+                'success',
+                'message',
+                'data' => [
+                    'optimized_tables',
+                    'purged_orphans',
+                ],
+            ]);
 
-            $this->assertIsInt($response->json('data.purged_orphans'));
-            $this->assertIsInt($response->json('data.optimized_tables'));
-        } else {
-            $this->markTestSkipped('Dynamic content types and dynamic records tables do not exist.');
-        }
+        $this->assertIsInt($response->json('data.purged_orphans'));
+        $this->assertIsInt($response->json('data.optimized_tables'));
     }
 
     /**

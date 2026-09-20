@@ -12,7 +12,6 @@ use Laravel\Passport\Passport;
 use Laravel\Sanctum\Console\Commands\PruneExpired;
 use Modules\Core\System\Console\Commands\ApplyInstallProfileCommand;
 use Modules\Core\System\Console\Commands\CleanupOldLogs;
-use Modules\Core\System\Console\Commands\DynamicOpenApiExport;
 use Modules\Core\System\Console\Commands\ExtensionDiscoverCommand;
 use Modules\Core\System\Console\Commands\LicenseCheckCommand;
 use Modules\Core\System\Console\Commands\RbacSyncCommand;
@@ -109,7 +108,6 @@ class SystemServiceProvider extends ServiceProvider
         // via HTTP (e.g. from ScheduledTaskController API).
         $this->commands([
             CleanupOldLogs::class,
-            DynamicOpenApiExport::class,
             SystemAudit::class,
             PruneExpired::class,
             SystemClearCache::class,

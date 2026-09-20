@@ -30,11 +30,11 @@
 
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
       <ConsoleStatCard
-        :label="$t('infra.models.title', 'Data Models')"
-        :value="String(stats.models?.total || 0)"
-        :hint="$t('infra.models.studio', 'Studio Schemas')"
-        :hint-icon="Layers"
-        :icon="Database"
+        :label="$t('school.dashboard.total_students', 'Total Siswa')"
+        :value="String(stats.students?.total || 0)"
+        :hint="$t('school.dashboard.active_students', 'Siswa Aktif')"
+        :hint-icon="GraduationCap"
+        :icon="GraduationCap"
         tone="primary"
       />
       <ConsoleStatCard
@@ -191,8 +191,7 @@ import {
   BarChart3,
   BookOpen,
   Clock3,
-  Database,
-  Layers,
+  GraduationCap,
   Loader2,
   RefreshCw,
   UserCheck,

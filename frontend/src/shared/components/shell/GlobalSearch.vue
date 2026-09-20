@@ -225,7 +225,6 @@ import {
   Folder,
   Globe,
   Home,
-  Layers,
   Monitor,
   Search,
   Settings,
@@ -347,8 +346,6 @@ const staticActions = computed<SearchItem[]>(() => {
         { title: t('common.labels.myProfile'), icon: UserCircle, route: { name: 'profile' }, type: 'action', keywords: 'account me user profile' },
         { title: t('system.navigation.menu.settings'), icon: Settings, route: { name: 'settings' }, type: 'action', keywords: 'system settings general config preferences options', permission: 'manage settings' },
         
-        // Data & Infrastructure Models
-        { title: t('infra.models.title'), icon: Layers, route: { name: 'model-index' }, type: 'action', keywords: 'data models schema content types dynamic records studio', permission: 'manage settings' },
         
         // Users & Access
         { title: t('system.navigation.menu.users'), icon: User, route: { name: 'users.index' }, type: 'action', keywords: 'members accounts people users team', permission: 'view users' },
@@ -404,16 +401,6 @@ const filterActions = computed<SearchItem[]>(() => {
         });
     }
 
-    if (router.hasRoute('model-index')) {
-        filters.push({
-            id: 'filter-models',
-            type: 'action',
-            title: t('common.actions.searchIn') + ' ' + t('infra.models.title'),
-            icon: Layers,
-            route: { name: 'model-index', query: { q: searchQuery.value } },
-            group: 'filters'
-        });
-    }
 
     return filters;
 });

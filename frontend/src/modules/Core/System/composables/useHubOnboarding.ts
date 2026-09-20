@@ -5,14 +5,13 @@ import { logger } from '@/shared/utils/logger';
 
 export interface OnboardingSteps {
     identity: boolean;
-    data_model: boolean;
+    school_profile: boolean;
     security: boolean;
 }
 
 export interface OnboardingStatusPayload {
     dismissed: boolean;
     steps: OnboardingSteps;
-    models_count?: number;
     site_name: string;
     complete: boolean;
     progress_percent: number;
@@ -20,7 +19,7 @@ export interface OnboardingStatusPayload {
 
 const defaultStatus = (): OnboardingStatusPayload => ({
     dismissed: false,
-    steps: { identity: false, data_model: false, security: false },
+    steps: { identity: false, school_profile: false, security: false },
     site_name: '',
     complete: false,
     progress_percent: 0,
@@ -50,7 +49,7 @@ export function useHubOnboarding() {
 
     const completedCount = computed(() => {
         const s = status.value.steps;
-        return Number(s.identity) + Number(s.data_model) + Number(s.security);
+        return Number(s.identity) + Number(s.school_profile) + Number(s.security);
     });
 
     const totalSteps = 3;
@@ -89,8 +88,8 @@ export function useHubOnboarding() {
             loading.value = false;
             status.value = {
                 dismissed: false,
-                steps: { identity: true, data_model: true, security: false },
-                site_name: 'Jejakawan Core',
+                steps: { identity: true, school_profile: true, security: false },
+                site_name: 'Jejakawan EduSIS',
                 complete: false,
                 progress_percent: 66,
             };

@@ -7,9 +7,9 @@ namespace Modules\Core\System\Http\Controllers\Console;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Core\System\Http\Controllers\BaseApiController;
-use Modules\Core\System\Models\ContentType;
 use Modules\Core\System\Models\Setting;
 use Modules\Core\System\Models\User;
+use Modules\School\Models\Institution\School;
 
 class OnboardingStatusController extends BaseApiController
 {
@@ -32,15 +32,17 @@ class OnboardingStatusController extends BaseApiController
             }
         }
 
-        $modelsCount = 0;
+        $schoolConfigured = false;
         try {
-            $modelsCount = ContentType::count();
+            if (class_exists(School::class)) {
+                $schoolConfigured = School::query()->exists();
+            }
         } catch (\Throwable) {
         }
 
         $steps = [
             'identity' => $siteName !== '',
-            'data_model' => $modelsCount > 0,
+            'school_profile' => $schoolConfigured,
             'security' => (bool) Setting::get('enable_2fa', false),
         ];
 
@@ -50,7 +52,7 @@ class OnboardingStatusController extends BaseApiController
         return $this->success([
             'dismissed' => $dismissed,
             'steps' => $steps,
-            'models_count' => $modelsCount,
+            'school_configured' => $schoolConfigured,
             'site_name' => $siteName,
             'complete' => $completed === count($steps),
             'progress_percent' => (int) round(($completed / max(1, count($steps))) * 100),

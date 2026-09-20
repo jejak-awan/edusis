@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Modules\Core\System\Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Modules\Core\System\Models\ContentType;
 use Modules\Core\System\Models\Setting;
+use Modules\School\Models\Institution\School;
 use Tests\TestCase;
 
 class OnboardingStatusApiTest extends TestCase
@@ -30,7 +30,7 @@ class OnboardingStatusApiTest extends TestCase
             ->assertJsonStructure([
                 'data' => [
                     'dismissed',
-                    'steps' => ['identity', 'data_model', 'security'],
+                    'steps' => ['identity', 'school_profile', 'security'],
                     'progress_percent',
                     'complete',
                 ],
@@ -50,25 +50,27 @@ class OnboardingStatusApiTest extends TestCase
         $this->assertTrue((bool) $admin->getPreference('onboarding.dismissed', false));
     }
 
-    public function test_onboarding_complete_when_model_and_2fa_exist(): void
+    public function test_onboarding_complete_when_school_and_2fa_exist(): void
     {
         $admin = $this->createAdminUser();
-        Setting::set('app_name', 'Jejakawan Core', 'string', 'system');
+        Setting::set('app_name', 'Jejakawan EduSIS', 'string', 'system');
         Setting::set('enable_2fa', true, 'boolean', 'security');
 
-        ContentType::create([
-            'name' => 'Project',
-            'slug' => 'projects',
-            'fields' => [],
-            'is_active' => true,
-        ]);
+        if (class_exists(School::class)) {
+            School::create([
+                'name' => 'SMKN 1 Konoha',
+                'type' => 'smk',
+                'npsn' => '12345678',
+                'is_active' => true,
+            ]);
+        }
 
         $response = $this->actingAs($admin, 'sanctum')
             ->getJson('/api/v1/manage/system/onboarding-status');
 
         $response->assertOk()
             ->assertJsonPath('data.steps.identity', true)
-            ->assertJsonPath('data.steps.data_model', true)
+            ->assertJsonPath('data.steps.school_profile', true)
             ->assertJsonPath('data.steps.security', true)
             ->assertJsonPath('data.complete', true);
     }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
 use Modules\Core\System\Http\Controllers\Api\ConfigServerController;
-use Modules\Core\System\Http\Controllers\Api\DataModelApiController;
 use Modules\Core\System\Http\Controllers\Api\MaintenanceApiController;
 use Modules\Core\System\Http\Controllers\Api\ScaffolderApiController;
 use Modules\Core\System\Http\Controllers\Api\ScimUserController;
@@ -349,28 +348,8 @@ Route::prefix('v1')->group(function (): void {
         Route::post('instagram/test-connection', [ExtensionController::class, 'testInstagramConnection']);
     });
 
-    // Data Model Studio (Schema & Data Modeling Engine)
-    Route::prefix('manage/infra/models')->middleware(['auth:sanctum', 'extension.active:data-studio'])->group(function (): void {
-        Route::get('types', [DataModelApiController::class, 'listTypes']);
-        Route::post('types', [DataModelApiController::class, 'storeType']);
-        Route::get('types/openapi-index', [DataModelApiController::class, 'openApiIndex']);
-        Route::get('types/by-slug/{slug}/openapi', [DataModelApiController::class, 'openApiBySlug']);
-        Route::get('types/by-slug/{slug}', [DataModelApiController::class, 'showTypeBySlug']);
-        Route::get('types/{id}/validation-rules', [DataModelApiController::class, 'typeValidationRules']);
-        Route::get('types/{id}', [DataModelApiController::class, 'showType']);
-        Route::put('types/{id}', [DataModelApiController::class, 'updateType']);
-        Route::delete('types/{id}', [DataModelApiController::class, 'destroyType']);
-        Route::post('scaffold', [ScaffolderApiController::class, 'scaffold']);
-    });
-
-    // Instant API Generation EAV Endpoints
-    Route::prefix('dynamic/{slug}')->middleware(['extension.active:data-studio'])->group(function (): void {
-        Route::get('', [DataModelApiController::class, 'index']);
-        Route::post('', [DataModelApiController::class, 'store']);
-        Route::get('{id}', [DataModelApiController::class, 'show']);
-        Route::put('{id}', [DataModelApiController::class, 'update']);
-        Route::delete('{id}', [DataModelApiController::class, 'destroy']);
-    });
+    // Developer Kit Scaffolding
+    Route::post('manage/infra/models/scaffold', [ScaffolderApiController::class, 'scaffold'])->middleware(['auth:sanctum']);
 
     // License alias routes for backward compatibility
     Route::prefix('system/license')->middleware(['auth:sanctum'])->group(function (): void {

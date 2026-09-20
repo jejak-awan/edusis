@@ -13,6 +13,10 @@ Index: [`../CHANGELOG.md`](../CHANGELOG.md)
 - Dynamic OpenAPI builder + `php artisan dynamic:openapi` / unified `scripts/export-openapi.sh`.
 
 ### Changed
+- Refactored console maintenance routine to optimize active tables without dynamic content model references.
+
+### Removed
+- Removed Data Model Studio & Dynamic Records backend subsystems, controllers, models, OpenAPI exports, seeders, and dropped tables `sys_content_types` and `sys_dynamic_records`.
 
 ### Fixed
 - Scramble OpenAPI: FileManager upload validation uses inline `max:`/`mimes:` helper calls (VR002).

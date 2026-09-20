@@ -197,63 +197,6 @@
           </AccordionContent>
         </AccordionItem>
 
-        <!-- Data Models -->
-        <AccordionItem v-if="isDataStudioActive" value="models">
-          <AccordionTrigger class="px-4 py-3 hover:no-underline hover:bg-muted/50">
-            <div class="flex items-center gap-2 flex-1">
-              <Database class="w-4 h-4 text-cyan-500" />
-              <span>Data Models</span>
-              <Badge
-                variant="secondary"
-                class="ml-2"
-              >
-                {{ models.length }}
-              </Badge>
-              <Button 
-                size="icon" 
-                variant="ghost" 
-                class="ml-auto h-6 w-6" 
-                aria-label="Add all data models"
-                title="Add all data models" 
-                @click.stop="addAll('model', models)"
-              >
-                <Plus class="w-3 h-3" />
-              </Button>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent class="px-4 pb-4">
-            <div class="max-h-[250px] overflow-y-auto pr-2 custom-scrollbar">
-              <div
-                v-if="loadingModels"
-                class="flex justify-center py-4"
-              >
-                <Loader2 class="w-5 h-5 animate-spin text-muted-foreground" />
-              </div>
-              <draggable
-                v-else
-                :list="models"
-                :group="{ name: 'menu', pull: 'clone', put: false }"
-                :clone="(item: unknown) => createItem('model', item)"
-                item-key="id"
-                class="space-y-2"
-              >
-                <template #item="{ element }">
-                  <SourceItem 
-                    :item="element" 
-                    :type="'model'"
-                    @add="addItem('model', element)"
-                  />
-                </template>
-              </draggable>
-              <div
-                v-if="!loadingModels && models.length === 0"
-                class="text-center py-4 text-muted-foreground text-xs"
-              >
-                Tidak ada data model aktif
-              </div>
-            </div>
-          </AccordionContent>
-        </AccordionItem>
 
         <!-- Custom Link -->
         <AccordionItem value="custom">
@@ -322,13 +265,12 @@
 
 <script setup lang="ts">
 import { logger } from '@/shared/utils/logger';
-import { ref, computed, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import draggable from 'vuedraggable';
 import api from '@/engine/api/client';
 import { parseResponse, ensureArray } from '@/shared/utils/responseParser';
 import { useMenuContext } from '@/modules/Layout/composables/useMenu';
-import { useSystemStore } from '@/modules/Core/System/stores/system';
 import { menuItemRegistry } from '../registry';
 
 // UI Components
@@ -348,7 +290,6 @@ import SourceItem from './SourceItem.vue';
 
 import {
   Columns,
-  Database,
   File,
   FileText,
   LinkIcon,
@@ -361,11 +302,6 @@ import {
 
 const { t } = useI18n();
 const menuContext = useMenuContext();
-const systemStore = useSystemStore();
-
-const isDataStudioActive = computed(() => {
-    return systemStore.activeExtensions?.includes('data-studio') ?? false;
-});
 
 defineEmits<{
     (e: 'collapse'): void;
@@ -375,11 +311,9 @@ defineEmits<{
 const pages = ref<unknown[]>([]);
 const posts = ref<unknown[]>([]);
 const categories = ref<unknown[]>([]);
-const models = ref<unknown[]>([]);
 const loadingPages = ref(false);
 const loadingPosts = ref(false);
 const loadingCategories = ref(false);
-const loadingModels = ref(false);
 
 // Custom link form
 const customLink = ref({ title: '', url: 'https://' });
@@ -424,37 +358,13 @@ const fetchCategories = async () => {
     }
 };
 
-const fetchModels = async () => {
-    if (!isDataStudioActive.value) {
-        models.value = [];
-        return;
-    }
-    loadingModels.value = true;
-    try {
-        const response = await api.get('/manage/infra/models/types');
-        const { data } = parseResponse(response);
-        const list = ensureArray(data);
-        models.value = list.map((m: any) => ({
-            id: m.id,
-            name: m.name || m.title || m.slug,
-            slug: m.slug,
-            url: `/dynamic/${m.slug}`
-        }));
-    } catch (error) {
-        logger.error('Failed to fetch data models for menu:', error);
-    } finally {
-        loadingModels.value = false;
-    }
-};
-
 // Create menu item from source
 const createItem = (type: string, sourceItem: unknown) => {
     const si = sourceItem as Record<string, unknown>;
-    const targetType = type === 'model' ? 'custom' : type;
-    const item = menuItemRegistry.createInstance(targetType, {
+    const item = menuItemRegistry.createInstance(type, {
         title: (si.title as string) || (si.name as string),
         target_id: String(si.id),
-        url: (si.url as string) || (type === 'model' && si.slug ? `/dynamic/${si.slug}` : undefined)
+        url: (si.url as string) || undefined
     });
     return item;
 };
@@ -503,7 +413,6 @@ onMounted(() => {
     fetchPages();
     fetchPosts();
     fetchCategories();
-    fetchModels();
 });
 </script>
 

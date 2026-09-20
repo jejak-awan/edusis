@@ -18,6 +18,7 @@ Policy: [`docs/guides/update-changelog.md`](../../../docs/guides/update-changelo
 - See domain files for feature entries (identity, extensions, Data Studio, RBAC hardening, …).
 
 ### Changed
+- Version 1.0.9: Purged Data Model Studio and Dynamic Record runtime subsystems, dropped legacy database tables (`sys_content_types`, `sys_dynamic_records`), pruned console navigation menus, and transitioned onboarding/dashboard to School SIS domain.
 - Version 1.0.8: Removed legacy builder.site menu item from console menus defaults and sync routine.
 - Version 1.0.7: Purged legacy theme remnants from extension management views and locked theme-sarangenge as baseline.
 - Version 1.0.6: Aligned DashboardController activity log query guard dynamically with ActivityLog model table name.

@@ -33,7 +33,7 @@ export interface SystemStats {
     contents?: ContentStats;
     media?: DashboardMediaStats;
     users?: UserStats;
-    models?: { total: number };
+    students?: { total: number };
     tasks?: { total: number; active?: number };
     journal?: { total: number };
 }

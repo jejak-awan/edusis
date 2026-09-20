@@ -33,7 +33,6 @@ export function useConsoleMenu() {
 
     const catalogGroups = ref<Array<{ slug: string; name: string; icon: string }>>([
         { slug: 'all', name: 'All Groups', icon: 'layers' },
-        { slug: 'studio', name: 'Data Model Studio', icon: 'layers' },
         { slug: 'editorial', name: 'Editorial', icon: 'file-text' },
         { slug: 'insight', name: 'Insight', icon: 'bar-chart' },
         { slug: 'library', name: 'Library', icon: 'bookmark' },
