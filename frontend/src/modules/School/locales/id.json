@@ -1,0 +1,92 @@
+{
+    "navigation": {
+        "menu": {
+            "school": "Sistem Informasi Sekolah",
+            "dashboard": "Dashboard Sekolah",
+            "academic": "Data Akademik",
+            "students": "Data Siswa (Dapodik)",
+            "discipline": "Disiplin & Poin Kredit"
+        }
+    },
+    "dashboard": {
+        "title": "Dashboard Sekolah",
+        "subtitle": "Pusat komando dan ringkasan operasional akademik JA-EduSIS",
+        "activeYear": "Tahun Ajaran Aktif",
+        "totalStudents": "Total Siswa Aktif",
+        "totalClasses": "Rombongan Belajar",
+        "totalDepartments": "Kompetensi Keahlian",
+        "avgCreditScore": "Rata-rata Skor Kredit",
+        "recentViolations": "Pelanggaran Terbaru",
+        "recentAchievements": "Prestasi Siswa Terbaru",
+        "noViolations": "Tidak ada catatan pelanggaran terkini",
+        "noAchievements": "Belum ada prestasi tercatat",
+        "quickActions": "Aksi Cepat",
+        "registerStudent": "Tambah Siswa Baru",
+        "recordPoint": "Catat Poin Siswa",
+        "manageClasses": "Kelola Rombel"
+    },
+    "academic": {
+        "title": "Manajemen Akademik",
+        "subtitle": "Konfigurasi tahun ajaran, semester, jurusan, rombel, dan mata pelajaran",
+        "tabs": {
+            "years": "Tahun Ajaran & Semester",
+            "departments": "Kompetensi Keahlian (Jurusan)",
+            "studyGroups": "Rombongan Belajar (Rombel)",
+            "subjects": "Mata Pelajaran"
+        },
+        "addYear": "Tambah Tahun Ajaran",
+        "addDepartment": "Tambah Jurusan",
+        "addGroup": "Tambah Rombel",
+        "addSubject": "Tambah Mapel",
+        "active": "Aktif",
+        "inactive": "Nonaktif",
+        "activate": "Aktifkan"
+    },
+    "students": {
+        "title": "Buku Induk Siswa",
+        "subtitle": "Data pokok kesiswaan dan orang tua terstandar Dapodik Kemendikbudristek",
+        "searchPlaceholder": "Cari nama, NISN, NIS, atau NIK...",
+        "filterDepartment": "Semua Jurusan",
+        "filterGroup": "Semua Rombel",
+        "filterStatus": "Semua Status",
+        "addStudent": "Registrasi Siswa",
+        "fullName": "Nama Lengkap",
+        "nisn": "NISN",
+        "gender": "L/P",
+        "department": "Jurusan",
+        "studyGroup": "Rombel",
+        "creditScore": "Skor Kredit",
+        "status": "Status",
+        "actions": "Aksi",
+        "viewProfile": "Lihat Profil",
+        "awardPoint": "Beri Poin",
+        "edit": "Edit",
+        "delete": "Hapus",
+        "empty": "Tidak ada data siswa ditemukan"
+    },
+    "discipline": {
+        "title": "Disiplin & Poin Perilaku",
+        "subtitle": "Sistem kredit perilaku SISKA, rekapitulasi pelanggaran, dan apresiasi prestasi",
+        "recordTitle": "Pencatatan Poin Siswa",
+        "recordButton": "Catat Poin Baru",
+        "selectStudent": "Pilih Siswa",
+        "selectCategory": "Kategori Poin",
+        "pointType": "Tipe Poin",
+        "violation": "Pelanggaran",
+        "achievement": "Prestasi",
+        "description": "Deskripsi / Kronologi",
+        "points": "Nilai Poin",
+        "date": "Tanggal Kejadian",
+        "sanction": "Sanksi Edukatif",
+        "spLevel": "Tingkat Surat Peringatan",
+        "spNone": "Tanpa SP",
+        "sp1": "SP 1 (Peringatan Pertama)",
+        "sp2": "SP 2 (Peringatan Kedua)",
+        "sp3": "SP 3 (Panggilan Orang Tua)",
+        "violationsTab": "Catatan Pelanggaran & SP",
+        "achievementsTab": "Dinding Prestasi Siswa",
+        "resolved": "Selesai",
+        "pending": "Belum Selesai",
+        "resolveAction": "Tandai Selesai"
+    }
+}

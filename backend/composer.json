@@ -74,6 +74,8 @@
             "Modules\\CmsAi\\": "Modules/CmsAi/app/",
             "Modules\\Member\\": "Modules/Member/app/",
             "Modules\\Site\\": "Modules/Site/app/",
+            "Modules\\School\\": "Modules/School/app/",
+            "Modules\\School\\Database\\Seeders\\": "Modules/School/database/seeders/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }

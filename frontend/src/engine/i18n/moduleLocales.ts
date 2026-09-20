@@ -13,6 +13,7 @@ import formsPack from '@/modules/Forms/locales';
 import searchPack from '@/modules/Search/locales';
 import cmsAiPack from '@/modules/CmsAi/locales';
 import memberPack from '@/modules/Member/locales';
+import schoolPack from '@/modules/School/locales';
 
 import sarangengeEn from '@/modules/Layout/views/themes/sarangenge/locales/en.json';
 import sarangengeId from '@/modules/Layout/views/themes/sarangenge/locales/id.json';
@@ -57,6 +58,7 @@ export const moduleLocaleBundles = {
         search: searchPack.en,
         ai: cmsAiPack.en,
         member: memberPack.en,
+        school: schoolPack.en,
         theme: { sarangenge: sarangengeEn, janari: janariEn, layung: layungEn, sareupna: sareupnaEn },
     },
     id: {
@@ -73,6 +75,7 @@ export const moduleLocaleBundles = {
         search: searchPack.id,
         ai: cmsAiPack.id,
         member: memberPack.id,
+        school: schoolPack.id,
         theme: { sarangenge: sarangengeId, janari: janariId, layung: layungId, sareupna: sareupnaId },
     },
     su: {
@@ -89,6 +92,7 @@ export const moduleLocaleBundles = {
         search: searchPack.su,
         ai: cmsAiPack.su,
         member: memberPack.su,
+        school: schoolPack.su,
         theme: { sarangenge: sarangengeSu, janari: janariSu, layung: layungSu, sareupna: sareupnaSu },
     },
 } as const;

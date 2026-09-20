@@ -1,0 +1,92 @@
+{
+    "navigation": {
+        "menu": {
+            "school": "School Information System",
+            "dashboard": "School Dashboard",
+            "academic": "Academic Data",
+            "students": "Students (Dapodik)",
+            "discipline": "Discipline & Credit Points"
+        }
+    },
+    "dashboard": {
+        "title": "School Dashboard",
+        "subtitle": "Command center and JA-EduSIS academic operations summary",
+        "activeYear": "Active Academic Year",
+        "totalStudents": "Total Active Students",
+        "totalClasses": "Study Groups",
+        "totalDepartments": "Departments",
+        "avgCreditScore": "Average Credit Score",
+        "recentViolations": "Recent Violations",
+        "recentAchievements": "Recent Student Achievements",
+        "noViolations": "No recent violation records",
+        "noAchievements": "No achievements recorded yet",
+        "quickActions": "Quick Actions",
+        "registerStudent": "Register New Student",
+        "recordPoint": "Record Student Point",
+        "manageClasses": "Manage Study Groups"
+    },
+    "academic": {
+        "title": "Academic Management",
+        "subtitle": "Configure academic years, semesters, departments, classes, and subjects",
+        "tabs": {
+            "years": "Academic Years & Semesters",
+            "departments": "Departments",
+            "studyGroups": "Study Groups",
+            "subjects": "Subjects"
+        },
+        "addYear": "Add Academic Year",
+        "addDepartment": "Add Department",
+        "addGroup": "Add Study Group",
+        "addSubject": "Add Subject",
+        "active": "Active",
+        "inactive": "Inactive",
+        "activate": "Activate"
+    },
+    "students": {
+        "title": "Student Directory",
+        "subtitle": "Core student and parent records compliant with Dapodik Kemendikbudristek",
+        "searchPlaceholder": "Search name, NISN, NIS, or NIK...",
+        "filterDepartment": "All Departments",
+        "filterGroup": "All Study Groups",
+        "filterStatus": "All Statuses",
+        "addStudent": "Register Student",
+        "fullName": "Full Name",
+        "nisn": "NISN",
+        "gender": "Gender",
+        "department": "Department",
+        "studyGroup": "Study Group",
+        "creditScore": "Credit Score",
+        "status": "Status",
+        "actions": "Actions",
+        "viewProfile": "View Profile",
+        "awardPoint": "Award Point",
+        "edit": "Edit",
+        "delete": "Delete",
+        "empty": "No students found"
+    },
+    "discipline": {
+        "title": "Discipline & Behavioral Points",
+        "subtitle": "SISKA behavioral credit system, violation records, and achievement awards",
+        "recordTitle": "Record Student Points",
+        "recordButton": "Record New Point",
+        "selectStudent": "Select Student",
+        "selectCategory": "Point Category",
+        "pointType": "Point Type",
+        "violation": "Violation",
+        "achievement": "Achievement",
+        "description": "Description / Chronology",
+        "points": "Point Value",
+        "date": "Incident Date",
+        "sanction": "Educational Sanction",
+        "spLevel": "Warning Letter Level",
+        "spNone": "No Warning",
+        "sp1": "Warning Letter 1",
+        "sp2": "Warning Letter 2",
+        "sp3": "Warning Letter 3",
+        "violationsTab": "Violations & Warnings",
+        "achievementsTab": "Student Achievements Wall",
+        "resolved": "Resolved",
+        "pending": "Pending",
+        "resolveAction": "Mark as Resolved"
+    }
+}

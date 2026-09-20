@@ -27,7 +27,7 @@
             <directory>Modules/Layout/tests</directory>
             <directory>Modules/Media/tests</directory>
             <directory>Modules/Library/tests</directory>
-            <directory>Modules/Newsletter/tests</directory>
+            <directory>Modules/School/tests</directory>
             <directory>Modules/Analytics/tests</directory>
             <directory>Modules/Search/tests</directory>
             <directory>Modules/CmsAi/tests</directory>

@@ -1,0 +1,154 @@
+{
+  "name": "School",
+  "slug": "school",
+  "version": "1.0.0",
+  "description": "JA-EduSIS Core School Management System — Academic, Students, Staff, Attendance, and Discipline",
+  "author": "Jejakawan Team",
+  "type": "module",
+  "family": "sis",
+  "requires": {
+    "php": ">=8.2",
+    "laravel": ">=13.0",
+    "core": ">=1.0.0"
+  },
+  "is_core": false,
+  "license": "Commercial PRO",
+  "license_tier": "pro",
+  "settings_route": "school.settings",
+  "features": [
+    {
+      "slug": "academic",
+      "name": "Academic Management",
+      "description": "Years, Semesters, Study Groups, Subjects, Timetables, and Teaching Journals",
+      "category": "academic"
+    },
+    {
+      "slug": "student",
+      "name": "Student Affairs & Discipline",
+      "description": "Dapodik Student Records, Credit Points, Violations, Achievements, and Counseling",
+      "category": "student"
+    },
+    {
+      "slug": "attendance",
+      "name": "School Attendance",
+      "description": "Daily Student and Staff Attendance tracking with QR and sick note verification",
+      "category": "operations"
+    },
+    {
+      "slug": "grades",
+      "name": "Grading & Report Cards",
+      "description": "Formative and summative grade management and Kurikulum Merdeka report cards",
+      "category": "academic"
+    }
+  ],
+  "capabilities": {
+    "academic": {
+      "name": "Academic Master Data",
+      "description": "Manage academic years, terms, classes, and subjects",
+      "actions": {
+        "view": {
+          "permission": "view academic",
+          "label": "View Academic Data",
+          "label_key": "school.capabilities.academic.view",
+          "action_type": "read",
+          "default_roles": ["admin", "operator", "teacher"],
+          "oauth_scope": "academic:read"
+        },
+        "manage": {
+          "permission": "manage academic",
+          "label": "Manage Academic Data",
+          "label_key": "school.capabilities.academic.manage",
+          "action_type": "manage",
+          "default_roles": ["admin"],
+          "oauth_scope": "academic:write"
+        }
+      }
+    },
+    "students": {
+      "name": "Student Records",
+      "description": "Manage student profiles and admissions",
+      "actions": {
+        "view": {
+          "permission": "view students",
+          "label": "View Students",
+          "label_key": "school.capabilities.students.view",
+          "action_type": "read",
+          "default_roles": ["admin", "operator", "teacher"],
+          "oauth_scope": "students:read"
+        },
+        "manage": {
+          "permission": "manage students",
+          "label": "Manage Students",
+          "label_key": "school.capabilities.students.manage",
+          "action_type": "manage",
+          "default_roles": ["admin"],
+          "oauth_scope": "students:write"
+        }
+      }
+    },
+    "discipline": {
+      "name": "Student Discipline & Credit Points",
+      "description": "Record violations, achievements, and merit/demerit points",
+      "actions": {
+        "view": {
+          "permission": "view discipline",
+          "label": "View Discipline Records",
+          "label_key": "school.capabilities.discipline.view",
+          "action_type": "read",
+          "default_roles": ["admin", "operator", "teacher"],
+          "oauth_scope": "discipline:read"
+        },
+        "manage": {
+          "permission": "manage discipline",
+          "label": "Manage Violations & Sanctions",
+          "label_key": "school.capabilities.discipline.manage",
+          "action_type": "manage",
+          "default_roles": ["admin"],
+          "oauth_scope": "discipline:write"
+        }
+      }
+    },
+    "counseling": {
+      "name": "Guidance & Counseling (BK)",
+      "description": "Counseling cases, sessions, and confidential records",
+      "actions": {
+        "view": {
+          "permission": "view counseling",
+          "label": "View Counseling Cases",
+          "label_key": "school.capabilities.counseling.view",
+          "action_type": "read",
+          "default_roles": ["admin"],
+          "oauth_scope": "counseling:read"
+        },
+        "manage": {
+          "permission": "manage counseling",
+          "label": "Manage Counseling Records",
+          "label_key": "school.capabilities.counseling.manage",
+          "action_type": "manage",
+          "default_roles": ["admin"],
+          "oauth_scope": "counseling:write"
+        }
+      }
+    }
+  },
+  "permissions": [
+    "view academic",
+    "manage academic",
+    "view students",
+    "manage students",
+    "view discipline",
+    "manage discipline",
+    "view counseling",
+    "manage counseling",
+    "view attendance",
+    "manage attendance",
+    "view grades",
+    "manage grades"
+  ],
+  "lifecycle": {
+    "preserve_data_on_deactivate": true,
+    "seeders_on_activate": [
+      "Modules\\School\\Database\\Seeders\\SchoolDatabaseSeeder"
+    ]
+  }
+}

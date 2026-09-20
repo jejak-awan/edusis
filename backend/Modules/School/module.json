@@ -1,0 +1,11 @@
+{
+    "name": "School",
+    "alias": "school",
+    "description": "JA-EduSIS — Core School Information System module (Academic, Student, HR, Operations)",
+    "keywords": ["school", "sis", "academic", "student", "edusis"],
+    "priority": 10,
+    "providers": [
+        "Modules\\School\\Providers\\SchoolServiceProvider"
+    ],
+    "files": []
+}

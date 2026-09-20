@@ -1,0 +1,92 @@
+{
+    "navigation": {
+        "menu": {
+            "school": "Sistem Inpormasi Sakola",
+            "dashboard": "Dasbor Sakola",
+            "academic": "Data Akademik",
+            "students": "Data Murid (Dapodik)",
+            "discipline": "Disiplin & Poin Kirédit"
+        }
+    },
+    "dashboard": {
+        "title": "Dasbor Sakola",
+        "subtitle": "Puseur komando sareng ringkesan operasional akademik JA-EduSIS",
+        "activeYear": "Taun Ajaran Aktip",
+        "totalStudents": "Total Murid Aktip",
+        "totalClasses": "Rombongan Diajar",
+        "totalDepartments": "Jurusan Kaahlian",
+        "avgCreditScore": "Rata-rata Skor Kirédit",
+        "recentViolations": "Pelanggaran Panganyarna",
+        "recentAchievements": "Préstasi Murid Panganyarna",
+        "noViolations": "Teu aya catetan pelanggaran panganyarna",
+        "noAchievements": "Teu acan aya préstasi kacatet",
+        "quickActions": "Aksi Gancang",
+        "registerStudent": "Tambah Murid Anyar",
+        "recordPoint": "Catet Poin Murid",
+        "manageClasses": "Atur Rombongan Diajar"
+    },
+    "academic": {
+        "title": "Manajemén Akademik",
+        "subtitle": "Konfigurasi taun ajaran, seméster, jurusan, rombel, sareng mata pelajaran",
+        "tabs": {
+            "years": "Taun Ajaran & Seméster",
+            "departments": "Jurusan Kaahlian",
+            "studyGroups": "Rombongan Diajar (Rombel)",
+            "subjects": "Mata Pelajaran"
+        },
+        "addYear": "Tambah Taun Ajaran",
+        "addDepartment": "Tambah Jurusan",
+        "addGroup": "Tambah Rombel",
+        "addSubject": "Tambah Mapel",
+        "active": "Aktip",
+        "inactive": "Teu Aktip",
+        "activate": "Aktipkeun"
+    },
+    "students": {
+        "title": "Buku Induk Murid",
+        "subtitle": "Data pokok kamuridan sareng sepuh dumasar standar Dapodik Kemendikbudristek",
+        "searchPlaceholder": "Milari nami, NISN, NIS, atanapi NIK...",
+        "filterDepartment": "Sadaya Jurusan",
+        "filterGroup": "Sadaya Rombel",
+        "filterStatus": "Sadaya Status",
+        "addStudent": "Daptar Murid Anyar",
+        "fullName": "Nami Lengkep",
+        "nisn": "NISN",
+        "gender": "L/P",
+        "department": "Jurusan",
+        "studyGroup": "Rombel",
+        "creditScore": "Skor Kirédit",
+        "status": "Status",
+        "actions": "Aksi",
+        "viewProfile": "Tingal Profil",
+        "awardPoint": "Paparin Poin",
+        "edit": "Édit",
+        "delete": "Hapus",
+        "empty": "Teu aya data murid kapendak"
+    },
+    "discipline": {
+        "title": "Disiplin & Poin Paripolah",
+        "subtitle": "Sistem kirédit paripolah SISKA, rekap pelanggaran, sareng apresiasi préstasi",
+        "recordTitle": "Nyatet Poin Murid",
+        "recordButton": "Catet Poin Anyar",
+        "selectStudent": "Pilih Murid",
+        "selectCategory": "Kategori Poin",
+        "pointType": "Jinis Poin",
+        "violation": "Pelanggaran",
+        "achievement": "Préstasi",
+        "description": "Katerangan / Kronologi",
+        "points": "Peunteun Poin",
+        "date": "Kaping Kajadian",
+        "sanction": "Sanksi Édukatif",
+        "spLevel": "Tingkat Surat Peringatan",
+        "spNone": "Henteu Aya SP",
+        "sp1": "SP 1 (Peringatan Kahiji)",
+        "sp2": "SP 2 (Peringatan Kadua)",
+        "sp3": "SP 3 (Geroan Sepuh)",
+        "violationsTab": "Catetan Pelanggaran & SP",
+        "achievementsTab": "Panghargaan Préstasi Murid",
+        "resolved": "Réngsé",
+        "pending": "Teu Acan Réngsé",
+        "resolveAction": "Tandaan Réngsé"
+    }
+}

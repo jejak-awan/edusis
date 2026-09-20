@@ -39,6 +39,10 @@ export async function bootstrapConsoleApp() {
         coreModules.forEach((m) => registry.register(m));
         await registry.initializeModules(coreModules);
 
+        const { schoolModules } = await import('@/modules/School');
+        schoolModules.forEach((m) => registry.register(m));
+        await registry.initializeModules(schoolModules);
+
         const newly = await registerOptionalFirstPartyModules(systemStore.activeExtensions);
         if (newly.length > 0) {
             logger.info('[Kernel] Optional first-party modules registered', { newly });
