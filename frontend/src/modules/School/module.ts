@@ -6,6 +6,7 @@ import schoolNavigation from './navigation';
 export const SchoolModule: AppModule = {
     id: 'school',
     name: 'School Information System',
+    extensionSlug: 'school',
     routes: schoolRoutes,
     navigation: schoolNavigation,
     dashboards: [

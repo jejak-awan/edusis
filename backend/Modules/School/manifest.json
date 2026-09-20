@@ -2,7 +2,7 @@
   "name": "School",
   "slug": "school",
   "version": "1.0.0",
-  "description": "JA-EduSIS Core School Management System — Academic, Students, Staff, Attendance, and Discipline",
+  "description": "JA-EduSIS Core School Management System — Academic, Students, Staff, Attendance, Discipline, Administration, Facilities, and Student Affairs",
   "author": "Jejakawan Team",
   "type": "module",
   "family": "sis",
@@ -29,6 +29,12 @@
       "category": "student"
     },
     {
+      "slug": "staff",
+      "name": "Educators & Staff (GTK)",
+      "description": "Staff master records, employee shifts, and teaching assignments",
+      "category": "hr"
+    },
+    {
       "slug": "attendance",
       "name": "School Attendance",
       "description": "Daily Student and Staff Attendance tracking with QR and sick note verification",
@@ -39,6 +45,42 @@
       "name": "Grading & Report Cards",
       "description": "Formative and summative grade management and Kurikulum Merdeka report cards",
       "category": "academic"
+    },
+    {
+      "slug": "letters",
+      "name": "Official Letters & Dispositions",
+      "description": "Incoming/outgoing official correspondence and executive dispositions",
+      "category": "operations"
+    },
+    {
+      "slug": "ppdb",
+      "name": "Student Admission (PPDB)",
+      "description": "New student online application, document verification, and admission approval",
+      "category": "operations"
+    },
+    {
+      "slug": "facilities",
+      "name": "Facilities & Logistics (Sarpras)",
+      "description": "Room inventory, asset tracking, and maintenance repair tickets",
+      "category": "facilities"
+    },
+    {
+      "slug": "voting",
+      "name": "Student Affairs & E-Voting Engine",
+      "description": "OSIS/MPK elections, candidate nomination, voter tokens, and kiosk voting booths",
+      "category": "student"
+    },
+    {
+      "slug": "katampi",
+      "name": "KataMPI CBT Engine Integration",
+      "description": "Cross-cluster exam roster synchronization and automated grade ingestion",
+      "category": "integration"
+    },
+    {
+      "slug": "whatsapp",
+      "name": "Parent Communication Gateway",
+      "description": "Automated WhatsApp alerts for daily attendance and student discipline",
+      "category": "integration"
     }
   ],
   "capabilities": {
@@ -86,6 +128,28 @@
         }
       }
     },
+    "staff": {
+      "name": "Educators & GTK Staff",
+      "description": "Manage staff records and assignments",
+      "actions": {
+        "view": {
+          "permission": "view staff",
+          "label": "View Staff",
+          "label_key": "school.capabilities.staff.view",
+          "action_type": "read",
+          "default_roles": ["admin", "operator"],
+          "oauth_scope": "staff:read"
+        },
+        "manage": {
+          "permission": "manage staff",
+          "label": "Manage Staff",
+          "label_key": "school.capabilities.staff.manage",
+          "action_type": "manage",
+          "default_roles": ["admin"],
+          "oauth_scope": "staff:write"
+        }
+      }
+    },
     "discipline": {
       "name": "Student Discipline & Credit Points",
       "description": "Record violations, achievements, and merit/demerit points",
@@ -129,6 +193,182 @@
           "oauth_scope": "counseling:write"
         }
       }
+    },
+    "attendance": {
+      "name": "Daily Attendance",
+      "description": "Student and staff daily attendance verification",
+      "actions": {
+        "view": {
+          "permission": "view attendance",
+          "label": "View Attendance",
+          "label_key": "school.capabilities.attendance.view",
+          "action_type": "read",
+          "default_roles": ["admin", "operator", "teacher"],
+          "oauth_scope": "attendance:read"
+        },
+        "manage": {
+          "permission": "manage attendance",
+          "label": "Manage Attendance",
+          "label_key": "school.capabilities.attendance.manage",
+          "action_type": "manage",
+          "default_roles": ["admin", "teacher"],
+          "oauth_scope": "attendance:write"
+        }
+      }
+    },
+    "grades": {
+      "name": "Grading & Report Cards",
+      "description": "Assessment entries and report cards",
+      "actions": {
+        "view": {
+          "permission": "view grades",
+          "label": "View Grades",
+          "label_key": "school.capabilities.grades.view",
+          "action_type": "read",
+          "default_roles": ["admin", "operator", "teacher"],
+          "oauth_scope": "grades:read"
+        },
+        "manage": {
+          "permission": "manage grades",
+          "label": "Manage Grades",
+          "label_key": "school.capabilities.grades.manage",
+          "action_type": "manage",
+          "default_roles": ["admin", "teacher"],
+          "oauth_scope": "grades:write"
+        }
+      }
+    },
+    "letters": {
+      "name": "Official Letters & Dispositions",
+      "description": "Agenda letters and administrative dispositions",
+      "actions": {
+        "view": {
+          "permission": "view letters",
+          "label": "View Letters",
+          "label_key": "school.capabilities.letters.view",
+          "action_type": "read",
+          "default_roles": ["admin", "operator"],
+          "oauth_scope": "letters:read"
+        },
+        "manage": {
+          "permission": "manage letters",
+          "label": "Manage Letters",
+          "label_key": "school.capabilities.letters.manage",
+          "action_type": "manage",
+          "default_roles": ["admin"],
+          "oauth_scope": "letters:write"
+        }
+      }
+    },
+    "ppdb": {
+      "name": "Student Admission (PPDB)",
+      "description": "Admission applicants and verifications",
+      "actions": {
+        "view": {
+          "permission": "view ppdb",
+          "label": "View PPDB Data",
+          "label_key": "school.capabilities.ppdb.view",
+          "action_type": "read",
+          "default_roles": ["admin", "operator"],
+          "oauth_scope": "ppdb:read"
+        },
+        "manage": {
+          "permission": "manage ppdb",
+          "label": "Manage PPDB Admissions",
+          "label_key": "school.capabilities.ppdb.manage",
+          "action_type": "manage",
+          "default_roles": ["admin"],
+          "oauth_scope": "ppdb:write"
+        }
+      }
+    },
+    "facilities": {
+      "name": "Facilities & Logistics",
+      "description": "Rooms, assets, and maintenance",
+      "actions": {
+        "view": {
+          "permission": "view facilities",
+          "label": "View Facilities",
+          "label_key": "school.capabilities.facilities.view",
+          "action_type": "read",
+          "default_roles": ["admin", "operator"],
+          "oauth_scope": "facilities:read"
+        },
+        "manage": {
+          "permission": "manage facilities",
+          "label": "Manage Facilities",
+          "label_key": "school.capabilities.facilities.manage",
+          "action_type": "manage",
+          "default_roles": ["admin"],
+          "oauth_scope": "facilities:write"
+        }
+      }
+    },
+    "voting": {
+      "name": "E-Voting & Elections",
+      "description": "Digital elections and voting management",
+      "actions": {
+        "view": {
+          "permission": "view voting",
+          "label": "View Voting",
+          "label_key": "school.capabilities.voting.view",
+          "action_type": "read",
+          "default_roles": ["admin", "operator"],
+          "oauth_scope": "voting:read"
+        },
+        "manage": {
+          "permission": "manage voting",
+          "label": "Manage Voting",
+          "label_key": "school.capabilities.voting.manage",
+          "action_type": "manage",
+          "default_roles": ["admin"],
+          "oauth_scope": "voting:write"
+        }
+      }
+    },
+    "katampi": {
+      "name": "KataMPI CBT Integration",
+      "description": "Exam roster and grade sync",
+      "actions": {
+        "view": {
+          "permission": "view katampi",
+          "label": "View KataMPI Sync",
+          "label_key": "school.capabilities.katampi.view",
+          "action_type": "read",
+          "default_roles": ["admin"],
+          "oauth_scope": "katampi:read"
+        },
+        "manage": {
+          "permission": "manage katampi",
+          "label": "Manage KataMPI Sync",
+          "label_key": "school.capabilities.katampi.manage",
+          "action_type": "manage",
+          "default_roles": ["admin"],
+          "oauth_scope": "katampi:write"
+        }
+      }
+    },
+    "whatsapp": {
+      "name": "WhatsApp Gateway",
+      "description": "Parent notification logs and dispatch",
+      "actions": {
+        "view": {
+          "permission": "view whatsapp",
+          "label": "View WhatsApp Logs",
+          "label_key": "school.capabilities.whatsapp.view",
+          "action_type": "read",
+          "default_roles": ["admin"],
+          "oauth_scope": "whatsapp:read"
+        },
+        "manage": {
+          "permission": "manage whatsapp",
+          "label": "Manage WhatsApp Gateway",
+          "label_key": "school.capabilities.whatsapp.manage",
+          "action_type": "manage",
+          "default_roles": ["admin"],
+          "oauth_scope": "whatsapp:write"
+        }
+      }
     }
   },
   "permissions": [
@@ -136,6 +376,8 @@
     "manage academic",
     "view students",
     "manage students",
+    "view staff",
+    "manage staff",
     "view discipline",
     "manage discipline",
     "view counseling",
@@ -143,7 +385,19 @@
     "view attendance",
     "manage attendance",
     "view grades",
-    "manage grades"
+    "manage grades",
+    "view letters",
+    "manage letters",
+    "view ppdb",
+    "manage ppdb",
+    "view facilities",
+    "manage facilities",
+    "view voting",
+    "manage voting",
+    "view katampi",
+    "manage katampi",
+    "view whatsapp",
+    "manage whatsapp"
   ],
   "lifecycle": {
     "preserve_data_on_deactivate": true,

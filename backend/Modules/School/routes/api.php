@@ -24,8 +24,9 @@ use Modules\School\Http\Controllers\Api\Student\StudentController;
 use Modules\School\Http\Controllers\Api\StudentAffairs\ExtracurricularController;
 use Modules\School\Http\Controllers\Api\StudentAffairs\OsisElectionController;
 use Modules\School\Http\Controllers\Api\StudentAffairs\VotingEngineController;
+use Modules\School\Http\Middleware\SchoolContextMiddleware;
 
-Route::prefix('v1/school')->middleware(['auth:sanctum'])->group(function (): void {
+Route::prefix('v1/school')->middleware(['auth:sanctum', SchoolContextMiddleware::class])->group(function (): void {
     // Health / Ping
     Route::get('/ping', function () {
         return response()->json([

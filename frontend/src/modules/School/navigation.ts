@@ -6,6 +6,7 @@ export const schoolNavigation: NavItem[] = [
         labelKey: 'school.navigation.menu.school',
         icon: 'graduation-cap',
         group: 'school',
+        extension: 'school',
         priority: 96,
         children: [
             {
@@ -13,6 +14,8 @@ export const schoolNavigation: NavItem[] = [
                 label: 'Dashboard Sekolah',
                 labelKey: 'school.navigation.menu.dashboard',
                 icon: 'layout-dashboard',
+                permission: 'view academic',
+                extension: 'school',
                 priority: 100,
             },
             {
@@ -20,6 +23,8 @@ export const schoolNavigation: NavItem[] = [
                 label: 'Data Akademik',
                 labelKey: 'school.navigation.menu.academic',
                 icon: 'book-open',
+                permission: 'view academic',
+                extension: 'school',
                 priority: 90,
             },
             {
@@ -27,6 +32,8 @@ export const schoolNavigation: NavItem[] = [
                 label: 'Data Siswa (Dapodik)',
                 labelKey: 'school.navigation.menu.students',
                 icon: 'users',
+                permission: 'view students',
+                extension: 'school',
                 priority: 80,
             },
             {
@@ -34,6 +41,8 @@ export const schoolNavigation: NavItem[] = [
                 label: 'Disiplin & Poin Kredit',
                 labelKey: 'school.navigation.menu.discipline',
                 icon: 'shield-alert',
+                permission: 'view discipline',
+                extension: 'school',
                 priority: 70,
             },
             {
@@ -41,6 +50,8 @@ export const schoolNavigation: NavItem[] = [
                 label: 'Pendidik & GTK',
                 labelKey: 'school.navigation.menu.staff',
                 icon: 'user-check',
+                permission: 'view staff',
+                extension: 'school',
                 priority: 65,
             },
             {
@@ -48,6 +59,8 @@ export const schoolNavigation: NavItem[] = [
                 label: 'Presensi Harian',
                 labelKey: 'school.navigation.menu.attendance',
                 icon: 'calendar-check',
+                permission: 'view attendance',
+                extension: 'school',
                 priority: 60,
             },
             {
@@ -55,6 +68,8 @@ export const schoolNavigation: NavItem[] = [
                 label: 'Jurnal Pembelajaran KBM',
                 labelKey: 'school.navigation.menu.journals',
                 icon: 'clipboard-list',
+                permission: 'view academic',
+                extension: 'school',
                 priority: 55,
             },
             {
@@ -62,6 +77,8 @@ export const schoolNavigation: NavItem[] = [
                 label: 'Nilai & Asesmen',
                 labelKey: 'school.navigation.menu.grades',
                 icon: 'file-spreadsheet',
+                permission: 'view grades',
+                extension: 'school',
                 priority: 50,
             },
             {
@@ -69,6 +86,8 @@ export const schoolNavigation: NavItem[] = [
                 label: 'Leger & Raport Siswa',
                 labelKey: 'school.navigation.menu.reports',
                 icon: 'award',
+                permission: 'view grades',
+                extension: 'school',
                 priority: 45,
             },
             {
@@ -76,6 +95,8 @@ export const schoolNavigation: NavItem[] = [
                 label: 'Bimbingan Konseling (BK)',
                 labelKey: 'school.navigation.menu.counseling',
                 icon: 'heart-handshake',
+                permission: 'view counseling',
+                extension: 'school',
                 priority: 40,
             },
             {
@@ -83,6 +104,8 @@ export const schoolNavigation: NavItem[] = [
                 label: 'Persuratan & Disposisi TU',
                 labelKey: 'school.navigation.menu.letters',
                 icon: 'mail',
+                permission: 'view letters',
+                extension: 'school',
                 priority: 35,
             },
             {
@@ -90,6 +113,8 @@ export const schoolNavigation: NavItem[] = [
                 label: 'PPDB Siswa Baru',
                 labelKey: 'school.navigation.menu.ppdb',
                 icon: 'user-plus',
+                permission: 'view ppdb',
+                extension: 'school',
                 priority: 30,
             },
             {
@@ -97,6 +122,8 @@ export const schoolNavigation: NavItem[] = [
                 label: 'OSIS & E-Voting',
                 labelKey: 'school.navigation.menu.osis',
                 icon: 'vote',
+                permission: 'view voting',
+                extension: 'school',
                 priority: 25,
             },
             {
@@ -104,6 +131,8 @@ export const schoolNavigation: NavItem[] = [
                 label: 'Buku Tamu Resepsionis',
                 labelKey: 'school.navigation.menu.guests',
                 icon: 'book-open-check',
+                permission: 'view letters',
+                extension: 'school',
                 priority: 20,
             },
             {
@@ -111,6 +140,8 @@ export const schoolNavigation: NavItem[] = [
                 label: 'Sarana & Prasarana',
                 labelKey: 'school.navigation.menu.facilities',
                 icon: 'building',
+                permission: 'view facilities',
+                extension: 'school',
                 priority: 15,
             },
             {
@@ -118,6 +149,8 @@ export const schoolNavigation: NavItem[] = [
                 label: 'KataMPI CBT Engine',
                 labelKey: 'school.navigation.menu.katampi',
                 icon: 'server',
+                permission: 'view katampi',
+                extension: 'school',
                 priority: 10,
             },
             {
@@ -125,6 +158,8 @@ export const schoolNavigation: NavItem[] = [
                 label: 'WhatsApp Gateway',
                 labelKey: 'school.navigation.menu.whatsapp',
                 icon: 'message-square',
+                permission: 'view whatsapp',
+                extension: 'school',
                 priority: 5,
             },
         ],

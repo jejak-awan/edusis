@@ -11,7 +11,8 @@ class SchoolServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        //
+        $moduleRoot = dirname(__DIR__, 2);
+        $this->mergeConfigFrom($moduleRoot.'/config/school.php', 'school');
     }
 
     public function boot(): void
@@ -19,6 +20,7 @@ class SchoolServiceProvider extends ServiceProvider
         $moduleRoot = dirname(__DIR__, 2);
 
         $this->loadMigrationsFrom($moduleRoot.'/database/migrations');
+        $this->loadViewsFrom($moduleRoot.'/resources/views', 'school');
 
         Route::middleware('api')
             ->prefix('api')
