@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\School\Models\Academic\AcademicYear;
 use Modules\School\Models\Academic\Semester;
-use Modules\School\Models\Discipline\Violation;
 use Modules\School\Models\HR\Staff;
 use Modules\School\Models\Institution\School;
 use Modules\School\Models\Student\Student;
+use Modules\School\Models\Student\Violation;
 
 class CounselingCase extends Model
 {

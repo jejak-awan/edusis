@@ -404,8 +404,11 @@ async function loadInitialData() {
       SchoolService.getStaff(),
     ]);
 
-    if (stdRes.data?.success) students.value = stdRes.data.data.data || [];
-    if (staffRes.data?.success) counselors.value = staffRes.data.data.data || [];
+    const rawStd = stdRes.data?.data ?? stdRes.data;
+    students.value = Array.isArray(rawStd) ? rawStd : (rawStd?.data ?? []);
+
+    const rawStaff = staffRes.data?.data ?? staffRes.data;
+    counselors.value = Array.isArray(rawStaff) ? rawStaff : (rawStaff?.data ?? []);
 
     await loadCases();
   } catch (err) {
@@ -422,9 +425,8 @@ async function loadCases() {
     if (filterConfidentiality.value) params.confidentiality = filterConfidentiality.value;
 
     const res = await SchoolService.getCounselingCases(params);
-    if (res.data?.success) {
-      cases.value = res.data.data.data || [];
-    }
+    const raw = res.data?.data ?? res.data;
+    cases.value = Array.isArray(raw) ? raw : (raw?.data ?? []);
   } catch (err) {
     console.error('Failed to load counseling cases', err);
   } finally {
