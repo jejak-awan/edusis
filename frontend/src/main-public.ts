@@ -1,4 +1,4 @@
-import '@/styles/shell/console-tailwind.css';
+import '@/styles/shell/public-tailwind.css';
 import i18n from '@/engine/i18n';
 import { setAppShell } from '@/config/shell';
 import {
