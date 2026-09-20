@@ -92,3 +92,4 @@ Sesuai kontrak [`docs/DOCUMENTATION.md`](../DOCUMENTATION.md) Bab 2:
 - [Standar Backend Laravel `docs/architecture/02-backend-standards.md`](../architecture/02-backend-standards.md)
 - [Standar Frontend Vue `docs/architecture/03-frontend-standards.md`](../architecture/03-frontend-standards.md)
 - [Cetak Biru Scaffolding `docs/sis/06-scaffold-and-architecture-blueprint.md`](../sis/06-scaffold-and-architecture-blueprint.md)
+- [Pemetaan Komprehensif `repo_referensi` `docs/sis/07-comprehensive-reference-mapping-and-alignment.md`](../sis/07-comprehensive-reference-mapping-and-alignment.md)

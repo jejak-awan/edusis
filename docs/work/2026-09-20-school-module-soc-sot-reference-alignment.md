@@ -63,6 +63,7 @@ Mengeliminasi seluruh folder kosong pasca-scaffold, meniadakan kode redundan/dup
 ---
 
 ## 3. Rencana Aksi Penyelarasan (Implementation Plan)
+*Rujukan Pemetaan Detail Berkas:* [`docs/sis/07-comprehensive-reference-mapping-and-alignment.md`](../sis/07-comprehensive-reference-mapping-and-alignment.md)
 
 ### Fase 1: Backend SoC (Porting & Alignment Requests & Services)
 1. **Buat `backend/Modules/School/config/school.php`**:
