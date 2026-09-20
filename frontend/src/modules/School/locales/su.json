@@ -17,8 +17,11 @@
             "osis": "OSIS & E-Voting",
             "guests": "Buku Sémah Resepsionis",
             "facilities": "Sarana & Prasarana Sakola",
-            "katampi": "Mesin CBT KataMPI",
-            "whatsapp": "Gerbang WhatsApp"
+            "katampi": "KataMPI CBT Engine",
+            "whatsapp": "WhatsApp Gateway",
+            "teacherPortal": "Portal Guru",
+            "studentPortal": "Portal Murid",
+            "kiosk": "Kiosk E-Voting OSIS"
         }
     },
     "dashboard": {

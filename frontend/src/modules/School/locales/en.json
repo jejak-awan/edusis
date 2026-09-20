@@ -18,7 +18,10 @@
             "guests": "Visitor Guest Book",
             "facilities": "Facilities & Assets",
             "katampi": "KataMPI CBT Engine",
-            "whatsapp": "WhatsApp Gateway"
+            "whatsapp": "WhatsApp Gateway",
+            "teacherPortal": "Teacher Portal",
+            "studentPortal": "Student Portal",
+            "kiosk": "OSIS E-Voting Kiosk"
         }
     },
     "dashboard": {

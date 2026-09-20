@@ -260,6 +260,12 @@
         </div>
       </div>
     </div>
+
+    <!-- Role-Tailored Portal Shortcuts -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <TeacherDashboardWidget />
+      <StudentDashboardWidget />
+    </div>
   </div>
 </template>
 
@@ -280,6 +286,8 @@ import {
   CheckCircle2,
 } from 'lucide-vue-next';
 import { SchoolService } from '../services/schoolService';
+import TeacherDashboardWidget from '../components/dashboard/TeacherDashboardWidget.vue';
+import StudentDashboardWidget from '../components/dashboard/StudentDashboardWidget.vue';
 
 const { t } = useI18n();
 

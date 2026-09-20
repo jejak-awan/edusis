@@ -18,7 +18,10 @@
             "guests": "Buku Tamu Resepsionis",
             "facilities": "Sarana & Prasarana",
             "katampi": "KataMPI CBT Engine",
-            "whatsapp": "WhatsApp Gateway"
+            "whatsapp": "WhatsApp Gateway",
+            "teacherPortal": "Portal Guru",
+            "studentPortal": "Portal Siswa",
+            "kiosk": "Kiosk E-Voting OSIS"
         }
     },
     "dashboard": {
