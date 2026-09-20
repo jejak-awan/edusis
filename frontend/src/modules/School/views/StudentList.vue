@@ -303,9 +303,8 @@ async function loadStudents() {
     if (selectedStatus.value) params.status = selectedStatus.value;
 
     const res = await SchoolService.getStudents(params);
-    if (res.data?.success) {
-      students.value = res.data.data.data || [];
-    }
+    const raw = res.data?.data ?? res.data;
+    students.value = Array.isArray(raw) ? raw : (raw?.data ?? []);
   } catch (err) {
     console.error('Failed to load students', err);
   }
@@ -318,8 +317,11 @@ async function loadFilterData() {
       SchoolService.getDisciplineCategories(),
     ]);
 
-    if (deptRes.data?.success) departments.value = deptRes.data.data;
-    if (catRes.data?.success) pointCategories.value = catRes.data.data;
+    const rawDept = deptRes.data?.data ?? deptRes.data;
+    departments.value = Array.isArray(rawDept) ? rawDept : (rawDept?.data ?? []);
+
+    const rawCat = catRes.data?.data ?? catRes.data;
+    pointCategories.value = Array.isArray(rawCat) ? rawCat : (rawCat?.data ?? []);
   } catch (err) {
     console.error('Failed to load filter data', err);
   }

@@ -113,6 +113,14 @@ export const resetLockdown = (): void => {
 // Request: Auth scoping & Vapor Lock
 apiClient.interceptors.request.use((config: InternalAxiosRequestConfig & { _perfStartedAt?: number }) => {
     config._perfStartedAt = performance.now();
+
+    // Prevent double /api/v1 prefixing if baseURL is already /api/v1
+    if (config.url?.startsWith('/api/v1/')) {
+        config.url = config.url.substring('/api/v1'.length);
+    } else if (config.url === '/api/v1') {
+        config.url = '/';
+    }
+
     const authEndpoints = ['login', 'register', 'forgot-password', 'reset-password', 'sanctum/csrf-cookie', 'logout', 'user'];
     const isAuthRequest = authEndpoints.some(endpoint => config.url?.includes(endpoint));
 
@@ -182,6 +190,10 @@ apiClient.interceptors.response.use(
             if (responseData.success && responseData.data !== undefined) {
                 if ('meta' in responseData) {
                     (response as AxiosResponse & { meta?: unknown }).meta = responseData.meta;
+                }
+                (response as AxiosResponse & { success?: boolean }).success = responseData.success;
+                if (typeof responseData.data === 'object' && responseData.data !== null && !Array.isArray(responseData.data) && !('success' in responseData.data)) {
+                    (responseData.data as Record<string, unknown>).success = responseData.success;
                 }
                 response.data = responseData.data;
             }

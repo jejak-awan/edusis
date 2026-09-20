@@ -596,464 +596,464 @@ export interface WhatsAppStatsData {
 export const SchoolService = {
     // Dashboard
     getDashboard(): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/dashboard');
+        return api.get('/school/dashboard');
     },
 
     // Academic Years
     getYears(): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/academic/years');
+        return api.get('/school/academic/years');
     },
     storeYear(payload: Partial<AcademicYearData>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/academic/years', payload);
+        return api.post('/school/academic/years', payload);
     },
     activateYear(id: number): Promise<AxiosResponse> {
-        return api.post(`/api/v1/school/academic/years/${id}/activate`);
+        return api.post(`/school/academic/years/${id}/activate`);
     },
     deleteYear(id: number): Promise<AxiosResponse> {
-        return api.delete(`/api/v1/school/academic/years/${id}`);
+        return api.delete(`/school/academic/years/${id}`);
     },
     activateSemester(id: number): Promise<AxiosResponse> {
-        return api.post(`/api/v1/school/academic/semesters/${id}/activate`);
+        return api.post(`/school/academic/semesters/${id}/activate`);
     },
 
     // Levels
     getLevels(): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/academic/levels');
+        return api.get('/school/academic/levels');
     },
 
     // Departments
     getDepartments(): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/academic/departments');
+        return api.get('/school/academic/departments');
     },
     storeDepartment(payload: Partial<DepartmentData>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/academic/departments', payload);
+        return api.post('/school/academic/departments', payload);
     },
     updateDepartment(id: number, payload: Partial<DepartmentData>): Promise<AxiosResponse> {
-        return api.put(`/api/v1/school/academic/departments/${id}`, payload);
+        return api.put(`/school/academic/departments/${id}`, payload);
     },
     deleteDepartment(id: number): Promise<AxiosResponse> {
-        return api.delete(`/api/v1/school/academic/departments/${id}`);
+        return api.delete(`/school/academic/departments/${id}`);
     },
 
     // Subjects
     getSubjects(): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/academic/subjects');
+        return api.get('/school/academic/subjects');
     },
     storeSubject(payload: Partial<SubjectData>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/academic/subjects', payload);
+        return api.post('/school/academic/subjects', payload);
     },
     updateSubject(id: number, payload: Partial<SubjectData>): Promise<AxiosResponse> {
-        return api.put(`/api/v1/school/academic/subjects/${id}`, payload);
+        return api.put(`/school/academic/subjects/${id}`, payload);
     },
     deleteSubject(id: number): Promise<AxiosResponse> {
-        return api.delete(`/api/v1/school/academic/subjects/${id}`);
+        return api.delete(`/school/academic/subjects/${id}`);
     },
 
     // Study Groups
     getStudyGroups(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/academic/study-groups', { params });
+        return api.get('/school/academic/study-groups', { params });
     },
     storeStudyGroup(payload: Partial<StudyGroupData>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/academic/study-groups', payload);
+        return api.post('/school/academic/study-groups', payload);
     },
     showStudyGroup(id: number): Promise<AxiosResponse> {
-        return api.get(`/api/v1/school/academic/study-groups/${id}`);
+        return api.get(`/school/academic/study-groups/${id}`);
     },
     updateStudyGroup(id: number, payload: Partial<StudyGroupData>): Promise<AxiosResponse> {
-        return api.put(`/api/v1/school/academic/study-groups/${id}`, payload);
+        return api.put(`/school/academic/study-groups/${id}`, payload);
     },
     deleteStudyGroup(id: number): Promise<AxiosResponse> {
-        return api.delete(`/api/v1/school/academic/study-groups/${id}`);
+        return api.delete(`/school/academic/study-groups/${id}`);
     },
 
     // Students
     getStudents(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/students', { params });
+        return api.get('/school/students', { params });
     },
     showStudent(id: number): Promise<AxiosResponse> {
-        return api.get(`/api/v1/school/students/${id}`);
+        return api.get(`/school/students/${id}`);
     },
     storeStudent(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/students', payload);
+        return api.post('/school/students', payload);
     },
     updateStudent(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.put(`/api/v1/school/students/${id}`, payload);
+        return api.put(`/school/students/${id}`, payload);
     },
     deleteStudent(id: number): Promise<AxiosResponse> {
-        return api.delete(`/api/v1/school/students/${id}`);
+        return api.delete(`/school/students/${id}`);
     },
 
     // Discipline & SISKA Points
     getDisciplineCategories(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/discipline/categories', { params });
+        return api.get('/school/discipline/categories', { params });
     },
     storeDisciplineCategory(payload: Partial<PointCategoryData>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/discipline/categories', payload);
+        return api.post('/school/discipline/categories', payload);
     },
     recordPoint(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/discipline/record', payload);
+        return api.post('/school/discipline/record', payload);
     },
     getViolations(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/discipline/violations', { params });
+        return api.get('/school/discipline/violations', { params });
     },
     resolveViolation(id: number, notes?: string): Promise<AxiosResponse> {
-        return api.post(`/api/v1/school/discipline/violations/${id}/resolve`, { follow_up_notes: notes });
+        return api.post(`/school/discipline/violations/${id}/resolve`, { follow_up_notes: notes });
     },
     getAchievements(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/discipline/achievements', { params });
+        return api.get('/school/discipline/achievements', { params });
     },
 
     // Staff & GTK
     getStaff(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/staff', { params });
+        return api.get('/school/staff', { params });
     },
     storeStaff(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/staff', payload);
+        return api.post('/school/staff', payload);
     },
     showStaff(id: number): Promise<AxiosResponse> {
-        return api.get(`/api/v1/school/staff/${id}`);
+        return api.get(`/school/staff/${id}`);
     },
     updateStaff(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.put(`/api/v1/school/staff/${id}`, payload);
+        return api.put(`/school/staff/${id}`, payload);
     },
     deleteStaff(id: number): Promise<AxiosResponse> {
-        return api.delete(`/api/v1/school/staff/${id}`);
+        return api.delete(`/school/staff/${id}`);
     },
     getStaffShifts(): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/staff/shifts/list');
+        return api.get('/school/staff/shifts/list');
     },
     storeStaffShift(payload: Partial<StaffShiftData>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/staff/shifts', payload);
+        return api.post('/school/staff/shifts', payload);
     },
 
     // Attendances
     getStudentAttendance(params: { study_group_id: number; date: string }): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/attendance/students', { params });
+        return api.get('/school/attendance/students', { params });
     },
     saveBulkStudentAttendance(payload: { study_group_id: number; date: string; records: Array<{ student_id: number; status: string; notes?: string }> }): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/attendance/students/bulk', payload);
+        return api.post('/school/attendance/students/bulk', payload);
     },
     getStaffAttendance(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/attendance/staff', { params });
+        return api.get('/school/attendance/staff', { params });
     },
     recordStaffCheckIn(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/attendance/staff/check-in', payload);
+        return api.post('/school/attendance/staff/check-in', payload);
     },
     recordStaffCheckOut(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/attendance/staff/check-out', payload);
+        return api.post('/school/attendance/staff/check-out', payload);
     },
 
     // Schedules
     getSchedules(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/schedules', { params });
+        return api.get('/school/schedules', { params });
     },
     storeSchedule(payload: Partial<ScheduleData>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/schedules', payload);
+        return api.post('/school/schedules', payload);
     },
     updateSchedule(id: number, payload: Partial<ScheduleData>): Promise<AxiosResponse> {
-        return api.put(`/api/v1/school/schedules/${id}`, payload);
+        return api.put(`/school/schedules/${id}`, payload);
     },
     deleteSchedule(id: number): Promise<AxiosResponse> {
-        return api.delete(`/api/v1/school/schedules/${id}`);
+        return api.delete(`/school/schedules/${id}`);
     },
 
     // Teaching Journals
     getJournals(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/journals', { params });
+        return api.get('/school/journals', { params });
     },
     storeJournal(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/journals', payload);
+        return api.post('/school/journals', payload);
     },
     showJournal(id: number): Promise<AxiosResponse> {
-        return api.get(`/api/v1/school/journals/${id}`);
+        return api.get(`/school/journals/${id}`);
     },
     updateJournal(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.put(`/api/v1/school/journals/${id}`, payload);
+        return api.put(`/school/journals/${id}`, payload);
     },
     deleteJournal(id: number): Promise<AxiosResponse> {
-        return api.delete(`/api/v1/school/journals/${id}`);
+        return api.delete(`/school/journals/${id}`);
     },
 
     // Assessments & Grades
     getAssessments(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/assessments', { params });
+        return api.get('/school/assessments', { params });
     },
     storeAssessment(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/assessments', payload);
+        return api.post('/school/assessments', payload);
     },
     showAssessment(id: number): Promise<AxiosResponse> {
-        return api.get(`/api/v1/school/assessments/${id}`);
+        return api.get(`/school/assessments/${id}`);
     },
     deleteAssessment(id: number): Promise<AxiosResponse> {
-        return api.delete(`/api/v1/school/assessments/${id}`);
+        return api.delete(`/school/assessments/${id}`);
     },
     getAssessmentGrades(id: number): Promise<AxiosResponse> {
-        return api.get(`/api/v1/school/assessments/${id}/grades`);
+        return api.get(`/school/assessments/${id}/grades`);
     },
     storeBulkGrades(id: number, grades: Array<{ student_id: number; score: number; remedial_score?: number | null; notes?: string | null }>): Promise<AxiosResponse> {
-        return api.post(`/api/v1/school/assessments/${id}/grades/bulk`, { grades });
+        return api.post(`/school/assessments/${id}/grades/bulk`, { grades });
     },
 
     // Reports & Ledger
     getLedger(studyGroupId: number): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/reports/ledger', { params: { study_group_id: studyGroupId } });
+        return api.get('/school/reports/ledger', { params: { study_group_id: studyGroupId } });
     },
     calculateReportCards(studyGroupId: number): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/reports/calculate', { study_group_id: studyGroupId });
+        return api.post('/school/reports/calculate', { study_group_id: studyGroupId });
     },
     getStudentReport(studentId: number): Promise<AxiosResponse> {
-        return api.get(`/api/v1/school/reports/student/${studentId}`);
+        return api.get(`/school/reports/student/${studentId}`);
     },
 
     // P5 Projects
     getP5Projects(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/p5/projects', { params });
+        return api.get('/school/p5/projects', { params });
     },
     storeP5Project(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/p5/projects', payload);
+        return api.post('/school/p5/projects', payload);
     },
     showP5Project(id: number): Promise<AxiosResponse> {
-        return api.get(`/api/v1/school/p5/projects/${id}`);
+        return api.get(`/school/p5/projects/${id}`);
     },
     storeBulkP5Assessments(id: number, assessments: Array<{ student_id: number; dimension: string; predicate: string; notes?: string }>): Promise<AxiosResponse> {
-        return api.post(`/api/v1/school/p5/projects/${id}/assessments/bulk`, { assessments });
+        return api.post(`/school/p5/projects/${id}/assessments/bulk`, { assessments });
     },
 
     // Counseling (BK)
     getCounselingCases(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/counseling/cases', { params });
+        return api.get('/school/counseling/cases', { params });
     },
     storeCounselingCase(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/counseling/cases', payload);
+        return api.post('/school/counseling/cases', payload);
     },
     showCounselingCase(id: number): Promise<AxiosResponse> {
-        return api.get(`/api/v1/school/counseling/cases/${id}`);
+        return api.get(`/school/counseling/cases/${id}`);
     },
     updateCounselingCase(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.put(`/api/v1/school/counseling/cases/${id}`, payload);
+        return api.put(`/school/counseling/cases/${id}`, payload);
     },
     resolveCounselingCase(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post(`/api/v1/school/counseling/cases/${id}/resolve`, payload);
+        return api.post(`/school/counseling/cases/${id}/resolve`, payload);
     },
     deleteCounselingCase(id: number): Promise<AxiosResponse> {
-        return api.delete(`/api/v1/school/counseling/cases/${id}`);
+        return api.delete(`/school/counseling/cases/${id}`);
     },
 
     // Letters & Correspondence
     getLetters(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/letters', { params });
+        return api.get('/school/letters', { params });
     },
     generateLetterNumber(params: { type: string; category: string }): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/letters/generate-number', { params });
+        return api.get('/school/letters/generate-number', { params });
     },
     storeLetter(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/letters', payload);
+        return api.post('/school/letters', payload);
     },
     showLetter(id: number): Promise<AxiosResponse> {
-        return api.get(`/api/v1/school/letters/${id}`);
+        return api.get(`/school/letters/${id}`);
     },
     updateLetter(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.put(`/api/v1/school/letters/${id}`, payload);
+        return api.put(`/school/letters/${id}`, payload);
     },
     updateLetterDisposition(id: number, payload: { disposition_to: string; disposition_instruction: string; disposition_status: string }): Promise<AxiosResponse> {
-        return api.post(`/api/v1/school/letters/${id}/disposition`, payload);
+        return api.post(`/school/letters/${id}/disposition`, payload);
     },
     deleteLetter(id: number): Promise<AxiosResponse> {
-        return api.delete(`/api/v1/school/letters/${id}`);
+        return api.delete(`/school/letters/${id}`);
     },
 
     // PPDB Online
     getPpdbList(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/ppdb', { params });
+        return api.get('/school/ppdb', { params });
     },
     storePpdb(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/ppdb', payload);
+        return api.post('/school/ppdb', payload);
     },
     showPpdb(id: number): Promise<AxiosResponse> {
-        return api.get(`/api/v1/school/ppdb/${id}`);
+        return api.get(`/school/ppdb/${id}`);
     },
     updatePpdb(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.put(`/api/v1/school/ppdb/${id}`, payload);
+        return api.put(`/school/ppdb/${id}`, payload);
     },
     verifyPpdb(id: number, payload: { status: string; notes?: string; verified_by?: number }): Promise<AxiosResponse> {
-        return api.post(`/api/v1/school/ppdb/${id}/verify`, payload);
+        return api.post(`/school/ppdb/${id}/verify`, payload);
     },
     admitPpdb(id: number): Promise<AxiosResponse> {
-        return api.post(`/api/v1/school/ppdb/${id}/admit`);
+        return api.post(`/school/ppdb/${id}/admit`);
     },
     deletePpdb(id: number): Promise<AxiosResponse> {
-        return api.delete(`/api/v1/school/ppdb/${id}`);
+        return api.delete(`/school/ppdb/${id}`);
     },
 
     // Guest Book
     getGuestBook(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/guest-book', { params });
+        return api.get('/school/guest-book', { params });
     },
     storeGuest(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/guest-book', payload);
+        return api.post('/school/guest-book', payload);
     },
     showGuest(id: number): Promise<AxiosResponse> {
-        return api.get(`/api/v1/school/guest-book/${id}`);
+        return api.get(`/school/guest-book/${id}`);
     },
     updateGuest(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.put(`/api/v1/school/guest-book/${id}`, payload);
+        return api.put(`/school/guest-book/${id}`, payload);
     },
     checkoutGuest(id: number, notes?: string): Promise<AxiosResponse> {
-        return api.post(`/api/v1/school/guest-book/${id}/checkout`, { notes });
+        return api.post(`/school/guest-book/${id}/checkout`, { notes });
     },
     deleteGuest(id: number): Promise<AxiosResponse> {
-        return api.delete(`/api/v1/school/guest-book/${id}`);
+        return api.delete(`/school/guest-book/${id}`);
     },
 
     // OSIS & E-Voting
     getOsisElections(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/osis/elections', { params });
+        return api.get('/school/osis/elections', { params });
     },
     storeOsisElection(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/osis/elections', payload);
+        return api.post('/school/osis/elections', payload);
     },
     showOsisElection(id: number): Promise<AxiosResponse> {
-        return api.get(`/api/v1/school/osis/elections/${id}`);
+        return api.get(`/school/osis/elections/${id}`);
     },
     updateOsisElection(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.put(`/api/v1/school/osis/elections/${id}`, payload);
+        return api.put(`/school/osis/elections/${id}`, payload);
     },
     deleteOsisElection(id: number): Promise<AxiosResponse> {
-        return api.delete(`/api/v1/school/osis/elections/${id}`);
+        return api.delete(`/school/osis/elections/${id}`);
     },
     addOsisCandidate(electionId: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post(`/api/v1/school/osis/elections/${electionId}/candidates`, payload);
+        return api.post(`/school/osis/elections/${electionId}/candidates`, payload);
     },
     voteOsis(electionId: number, payload: { candidate_id: number; voter_student_id: number; token?: string }): Promise<AxiosResponse> {
-        return api.post(`/api/v1/school/osis/elections/${electionId}/vote`, payload);
+        return api.post(`/school/osis/elections/${electionId}/vote`, payload);
     },
     getOsisQuickCount(electionId: number): Promise<AxiosResponse> {
-        return api.get(`/api/v1/school/osis/elections/${electionId}/quick-count`);
+        return api.get(`/school/osis/elections/${electionId}/quick-count`);
     },
 
     // Generic Reusable E-Voting & Polling Engine
     getVotingEvents(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/voting/events', { params });
+        return api.get('/school/voting/events', { params });
     },
     storeVotingEvent(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/voting/events', payload);
+        return api.post('/school/voting/events', payload);
     },
     showVotingEvent(id: number): Promise<AxiosResponse> {
-        return api.get(`/api/v1/school/voting/events/${id}`);
+        return api.get(`/school/voting/events/${id}`);
     },
     updateVotingEvent(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.put(`/api/v1/school/voting/events/${id}`, payload);
+        return api.put(`/school/voting/events/${id}`, payload);
     },
     deleteVotingEvent(id: number): Promise<AxiosResponse> {
-        return api.delete(`/api/v1/school/voting/events/${id}`);
+        return api.delete(`/school/voting/events/${id}`);
     },
     addVotingCandidate(eventId: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post(`/api/v1/school/voting/events/${eventId}/candidates`, payload);
+        return api.post(`/school/voting/events/${eventId}/candidates`, payload);
     },
     generateVotingVoters(eventId: number, payload: { source: string; study_group_id?: number }): Promise<AxiosResponse> {
-        return api.post(`/api/v1/school/voting/events/${eventId}/generate-voters`, payload);
+        return api.post(`/school/voting/events/${eventId}/generate-voters`, payload);
     },
     getVotingVoters(eventId: number, params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get(`/api/v1/school/voting/events/${eventId}/voters`, { params });
+        return api.get(`/school/voting/events/${eventId}/voters`, { params });
     },
     castVoteEngine(eventId: number, payload: { candidate_id: number; token?: string; student_id?: number; mode?: string }): Promise<AxiosResponse> {
-        return api.post(`/api/v1/school/voting/events/${eventId}/vote`, payload);
+        return api.post(`/school/voting/events/${eventId}/vote`, payload);
     },
     getVotingQuickCount(eventId: number): Promise<AxiosResponse> {
-        return api.get(`/api/v1/school/voting/events/${eventId}/quick-count`);
+        return api.get(`/school/voting/events/${eventId}/quick-count`);
     },
 
     // Extracurriculars
     getExtracurriculars(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/extracurriculars', { params });
+        return api.get('/school/extracurriculars', { params });
     },
     storeExtracurricular(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/extracurriculars', payload);
+        return api.post('/school/extracurriculars', payload);
     },
     showExtracurricular(id: number): Promise<AxiosResponse> {
-        return api.get(`/api/v1/school/extracurriculars/${id}`);
+        return api.get(`/school/extracurriculars/${id}`);
     },
     updateExtracurricular(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.put(`/api/v1/school/extracurriculars/${id}`, payload);
+        return api.put(`/school/extracurriculars/${id}`, payload);
     },
     deleteExtracurricular(id: number): Promise<AxiosResponse> {
-        return api.delete(`/api/v1/school/extracurriculars/${id}`);
+        return api.delete(`/school/extracurriculars/${id}`);
     },
 
     // Facilities - Rooms
     getRooms(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/facilities/rooms', { params });
+        return api.get('/school/facilities/rooms', { params });
     },
     storeRoom(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/facilities/rooms', payload);
+        return api.post('/school/facilities/rooms', payload);
     },
     updateRoom(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.put(`/api/v1/school/facilities/rooms/${id}`, payload);
+        return api.put(`/school/facilities/rooms/${id}`, payload);
     },
     deleteRoom(id: number): Promise<AxiosResponse> {
-        return api.delete(`/api/v1/school/facilities/rooms/${id}`);
+        return api.delete(`/school/facilities/rooms/${id}`);
     },
 
     // Facilities - Assets
     getAssets(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/facilities/assets', { params });
+        return api.get('/school/facilities/assets', { params });
     },
     storeAsset(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/facilities/assets', payload);
+        return api.post('/school/facilities/assets', payload);
     },
     updateAsset(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.put(`/api/v1/school/facilities/assets/${id}`, payload);
+        return api.put(`/school/facilities/assets/${id}`, payload);
     },
     deleteAsset(id: number): Promise<AxiosResponse> {
-        return api.delete(`/api/v1/school/facilities/assets/${id}`);
+        return api.delete(`/school/facilities/assets/${id}`);
     },
 
     // Facilities - Maintenance Tickets
     getTickets(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/facilities/tickets', { params });
+        return api.get('/school/facilities/tickets', { params });
     },
     storeTicket(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/facilities/tickets', payload);
+        return api.post('/school/facilities/tickets', payload);
     },
     updateTicket(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.put(`/api/v1/school/facilities/tickets/${id}`, payload);
+        return api.put(`/school/facilities/tickets/${id}`, payload);
     },
     resolveTicket(id: number, payload: { resolution_notes: string; cost?: number; status?: string }): Promise<AxiosResponse> {
-        return api.post(`/api/v1/school/facilities/tickets/${id}/resolve`, payload);
+        return api.post(`/school/facilities/tickets/${id}/resolve`, payload);
     },
 
     // KataMPI CBT Integration
     getKatampiConfig(): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/integrations/katampi/config');
+        return api.get('/school/integrations/katampi/config');
     },
     updateKatampiConfig(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.put('/api/v1/school/integrations/katampi/config', payload);
+        return api.put('/school/integrations/katampi/config', payload);
     },
     generateKatampiSsoToken(payload: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/integrations/katampi/sso-token', payload);
+        return api.post('/school/integrations/katampi/sso-token', payload);
     },
     getKatampiRoster(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/integrations/katampi/roster', { params });
+        return api.get('/school/integrations/katampi/roster', { params });
     },
     syncKatampiGrades(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/integrations/katampi/sync-grades', payload);
+        return api.post('/school/integrations/katampi/sync-grades', payload);
     },
 
     // WhatsApp Gateway
     getWhatsAppLogs(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/communications/whatsapp/logs', { params });
+        return api.get('/school/communications/whatsapp/logs', { params });
     },
     getWhatsAppStats(): Promise<AxiosResponse> {
-        return api.get('/api/v1/school/communications/whatsapp/stats');
+        return api.get('/school/communications/whatsapp/stats');
     },
     sendWhatsAppMessage(payload: Record<string, unknown>): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/communications/whatsapp/send', payload);
+        return api.post('/school/communications/whatsapp/send', payload);
     },
     sendWhatsAppAttendanceAlerts(payload: { date?: string; statuses?: string[] } = {}): Promise<AxiosResponse> {
-        return api.post('/api/v1/school/communications/whatsapp/alerts/attendance', payload);
+        return api.post('/school/communications/whatsapp/alerts/attendance', payload);
     },
     resendWhatsAppLog(id: number): Promise<AxiosResponse> {
-        return api.post(`/api/v1/school/communications/whatsapp/logs/${id}/resend`);
+        return api.post(`/school/communications/whatsapp/logs/${id}/resend`);
     },
 };
 

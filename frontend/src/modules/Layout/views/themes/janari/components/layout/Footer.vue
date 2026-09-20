@@ -472,7 +472,7 @@ const submitNewsletter = async () => {
     clearErrors()
     
     try {
-        await api.post('/api/v1/newsletter/subscribe', { email: email.value })
+        await api.post('/newsletter/subscribe', { email: email.value })
         toast.success.action(t('publishing.frontend.newsletter.success'))
         email.value = ''
     } catch (error: unknown) {
