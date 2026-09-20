@@ -8,6 +8,7 @@
     "Forms": true,
     "Analytics": true,
     "Search": true,
+    "CmsAi": true,
     "Member": true,
     "Site": true
 }
