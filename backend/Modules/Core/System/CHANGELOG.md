@@ -23,6 +23,7 @@ Index: [`../CHANGELOG.md`](../CHANGELOG.md)
 - Docs: `external-module-packaging.md` + `scripts/scaffold-optional-module.sh`.
 
 ### Fixed
+- **Activity Log Query Guard (`DashboardController.php`)**: Dynamically query `ActivityLog` model's table name instead of checking legacy unused `sys_activity_logs`.
 - **User Creation Verification Default**: New users `is_verified = false` / `email_verified_at = null` ([ADR-019](../../../../docs/adr/ADR-019-user-email-verification-and-privilege-lifecycle.md)).
 - **Strict Console Favicon Resolution (`SpaHtmlFavicon.php`)**: Console/landing never fall back to `site_favicon` ([ADR-015](../../../../docs/adr/ADR-015-favicon-isolation-prepaint-guards-and-zero-race-lifecycle.md)).
 - **Site Identity Layout Guard**: `syncSiteIdentityToActiveTheme()` gated on Layout pack ([ADR-016](../../../../docs/adr/ADR-016-module-aware-site-identity-and-dependency-orchestration.md)).

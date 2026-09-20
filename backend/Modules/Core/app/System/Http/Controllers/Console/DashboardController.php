@@ -148,7 +148,8 @@ class DashboardController extends BaseApiController
         $from = now()->copy()->subDays($days - 1)->startOfDay();
 
         $rows = [];
-        if (Schema::hasTable('sys_activity_logs')) {
+        $activityTable = (new ActivityLog)->getTable();
+        if (Schema::hasTable($activityTable)) {
             $rows = ActivityLog::query()
                 ->selectRaw('DATE(created_at) as period, COUNT(*) as count')
                 ->where('created_at', '>=', $from)
