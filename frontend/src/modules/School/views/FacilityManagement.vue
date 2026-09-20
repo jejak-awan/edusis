@@ -42,7 +42,7 @@
       <div class="rounded-xl border border-border/60 bg-card p-4 shadow-sm flex items-center justify-between">
         <div>
           <div class="text-xs text-muted-foreground font-medium">{{ t('school.facilities.totalRooms') }}</div>
-          <div class="text-2xl font-bold text-foreground mt-1">{{ rooms.length }} Ruang</div>
+          <div class="text-2xl font-bold text-foreground mt-1">{{ (rooms || []).length }} Ruang</div>
         </div>
         <div class="size-10 rounded-lg bg-blue-500/10 text-blue-600 flex items-center justify-center">
           <Building2 class="size-5" />
@@ -929,27 +929,29 @@ const resolveForm = reactive({
 
 // Computed Stats & Filtered
 const totalAssetsCount = computed(() => {
-  return assets.value.reduce((acc, a) => acc + (a.quantity || 1), 0);
+  return (assets.value || []).reduce((acc, a) => acc + (a.quantity || 1), 0);
 });
 
 const pendingTicketsCount = computed(() => {
-  return tickets.value.filter((t) => t.status === 'open' || t.status === 'in_progress').length;
+  return (tickets.value || []).filter((t) => t.status === 'open' || t.status === 'in_progress').length;
 });
 
 const resolvedTicketsCount = computed(() => {
-  return tickets.value.filter((t) => t.status === 'resolved').length;
+  return (tickets.value || []).filter((t) => t.status === 'resolved').length;
 });
 
 const filteredRooms = computed(() => {
-  if (!roomSearch.value) return rooms.value;
+  const list = rooms.value || [];
+  if (!roomSearch.value) return list;
   const q = roomSearch.value.toLowerCase();
-  return rooms.value.filter(
+  return list.filter(
     (r) => r.code.toLowerCase().includes(q) || r.name.toLowerCase().includes(q)
   );
 });
 
 const filteredAssets = computed(() => {
-  return assets.value.filter((a) => {
+  const list = assets.value || [];
+  return list.filter((a) => {
     const matchesSearch =
       !assetSearch.value ||
       a.code.toLowerCase().includes(assetSearch.value.toLowerCase()) ||
@@ -960,7 +962,8 @@ const filteredAssets = computed(() => {
 });
 
 const filteredTickets = computed(() => {
-  return tickets.value.filter((t) => {
+  const list = tickets.value || [];
+  return list.filter((t) => {
     const matchesSearch =
       !ticketSearch.value ||
       t.ticket_number.toLowerCase().includes(ticketSearch.value.toLowerCase()) ||
@@ -1060,7 +1063,8 @@ async function loadRooms() {
   loadingRooms.value = true;
   try {
     const res = await SchoolService.getRooms();
-    rooms.value = res.data.data;
+    const raw = res.data?.data ?? res.data;
+    rooms.value = Array.isArray(raw) ? raw : (raw?.data ?? []);
   } catch (err) {
     console.error(err);
   } finally {
@@ -1072,7 +1076,8 @@ async function loadAssets() {
   loadingAssets.value = true;
   try {
     const res = await SchoolService.getAssets();
-    assets.value = res.data.data;
+    const raw = res.data?.data ?? res.data;
+    assets.value = Array.isArray(raw) ? raw : (raw?.data ?? []);
   } catch (err) {
     console.error(err);
   } finally {
@@ -1084,7 +1089,8 @@ async function loadTickets() {
   loadingTickets.value = true;
   try {
     const res = await SchoolService.getTickets({ per_page: 100 });
-    tickets.value = res.data.data.data || res.data.data;
+    const raw = res.data?.data ?? res.data;
+    tickets.value = Array.isArray(raw) ? raw : (raw?.data ?? []);
   } catch (err) {
     console.error(err);
   } finally {
@@ -1095,7 +1101,8 @@ async function loadTickets() {
 async function loadStaff() {
   try {
     const res = await SchoolService.getStaff({ per_page: 100 });
-    staffList.value = res.data.data.data || res.data.data;
+    const raw = res.data?.data ?? res.data;
+    staffList.value = Array.isArray(raw) ? raw : (raw?.data ?? []);
   } catch (err) {
     console.error(err);
   }

@@ -192,10 +192,34 @@ apiClient.interceptors.response.use(
                     (response as AxiosResponse & { meta?: unknown }).meta = responseData.meta;
                 }
                 (response as AxiosResponse & { success?: boolean }).success = responseData.success;
-                if (typeof responseData.data === 'object' && responseData.data !== null && !Array.isArray(responseData.data) && !('success' in responseData.data)) {
-                    (responseData.data as Record<string, unknown>).success = responseData.success;
+
+                const unpacked = responseData.data;
+                if (typeof unpacked === 'object' && unpacked !== null) {
+                    try {
+                        (unpacked as Record<string, unknown>).success = responseData.success;
+                        if (!('data' in unpacked)) {
+                            Object.defineProperty(unpacked, 'data', {
+                                value: unpacked,
+                                writable: true,
+                                enumerable: false,
+                                configurable: true,
+                            });
+                        } else if (typeof (unpacked as Record<string, unknown>).data === 'object' && (unpacked as Record<string, unknown>).data !== null) {
+                            const innerData = (unpacked as Record<string, unknown>).data;
+                            if (!('data' in (innerData as object))) {
+                                Object.defineProperty(innerData, 'data', {
+                                    value: innerData,
+                                    writable: true,
+                                    enumerable: false,
+                                    configurable: true,
+                                });
+                            }
+                        }
+                    } catch {
+                        // Ignore non-extensible objects
+                    }
                 }
-                response.data = responseData.data;
+                response.data = unpacked;
             }
         }
         return response;
