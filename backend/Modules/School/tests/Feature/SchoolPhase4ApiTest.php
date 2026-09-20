@@ -226,6 +226,21 @@ class SchoolPhase4ApiTest extends TestCase
             ->assertJsonPath('data.status', 'checked_out');
     }
 
+    public function test_guest_and_ppdb_alias_routes(): void
+    {
+        // PPDB alias route /school/ppdb/applicants
+        $ppdbRes = $this->actingAs($this->admin, 'sanctum')
+            ->getJson('/api/v1/school/ppdb/applicants');
+        $ppdbRes->assertStatus(200)
+            ->assertJson(['success' => true]);
+
+        // Guest book alias route /school/guests
+        $guestRes = $this->actingAs($this->admin, 'sanctum')
+            ->getJson('/api/v1/school/guests');
+        $guestRes->assertStatus(200)
+            ->assertJson(['success' => true]);
+    }
+
     public function test_osis_elections_and_quick_count(): void
     {
         $res = $this->actingAs($this->admin, 'sanctum')

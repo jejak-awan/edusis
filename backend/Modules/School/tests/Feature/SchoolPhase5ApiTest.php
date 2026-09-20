@@ -145,6 +145,12 @@ class SchoolPhase5ApiTest extends TestCase
         $resolveResponse->assertStatus(200)
             ->assertJsonPath('data.status', 'resolved')
             ->assertJsonPath('data.cost', '25000.00');
+
+        // Verify maintenance alias route
+        $aliasResponse = $this->actingAs($this->admin, 'sanctum')
+            ->getJson('/api/v1/school/facilities/maintenance');
+        $aliasResponse->assertStatus(200)
+            ->assertJson(['success' => true]);
     }
 
     public function test_katampi_config_and_update(): void

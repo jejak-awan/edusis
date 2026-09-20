@@ -20,15 +20,15 @@ export class FacilityService {
     }
 
     public static async getMaintenanceTickets(params: Record<string, any> = {}): Promise<AxiosResponse<ApiResponse<any[]>>> {
-        return api.get('/school/facilities/maintenance', { params });
+        return api.get('/school/facilities/tickets', { params });
     }
 
     public static async createMaintenanceTicket(data: any): Promise<AxiosResponse<ApiResponse<any>>> {
-        return api.post('/school/facilities/maintenance', data);
+        return api.post('/school/facilities/tickets', data);
     }
 
     public static async resolveMaintenanceTicket(id: number | string, data: any): Promise<AxiosResponse<ApiResponse<any>>> {
-        return api.post(`/school/facilities/maintenance/${id}/resolve`, data);
+        return api.post(`/school/facilities/tickets/${id}/resolve`, data);
     }
 }
 

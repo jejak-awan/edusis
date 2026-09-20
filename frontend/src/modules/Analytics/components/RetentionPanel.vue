@@ -25,17 +25,23 @@ const { t } = useI18n();
 const toast = useToast();
 const { confirm } = useConfirm();
 
-const settings = ref<Setting[]>([]);
-const formData = ref<Record<string, SettingValue>>({});
-const saving = ref(false);
-const cleaning = ref(false);
-const purging = ref(false);
-
 const retentionKeys = [
     'analytics_retention_days',
     'analytics_event_retention_days',
     'analytics_visitor_retention_days',
 ] as const;
+
+const DEFAULT_RETENTION: Record<(typeof retentionKeys)[number], number> = {
+    analytics_retention_days: 90,
+    analytics_event_retention_days: 30,
+    analytics_visitor_retention_days: 365,
+};
+
+const settings = ref<Setting[]>([]);
+const formData = ref<Record<string, SettingValue>>({ ...DEFAULT_RETENTION });
+const saving = ref(false);
+const cleaning = ref(false);
+const purging = ref(false);
 
 const ensureSetting = (key: string, defaultValue: unknown, type: string): void => {
     if (settings.value.some((row) => row.key === key)) {
@@ -58,9 +64,11 @@ const load = async (): Promise<void> => {
         ensureSetting('analytics_retention_days', 90, 'integer');
         ensureSetting('analytics_event_retention_days', 30, 'integer');
         ensureSetting('analytics_visitor_retention_days', 365, 'integer');
-        const next: Record<string, SettingValue> = {};
+        const next: Record<string, SettingValue> = { ...DEFAULT_RETENTION };
         for (const row of settings.value) {
-            next[row.key] = row.value as SettingValue;
+            if (row.value !== undefined) {
+                next[row.key] = row.value as SettingValue;
+            }
         }
         formData.value = next;
     } catch (error: unknown) {
@@ -156,7 +164,7 @@ onMounted(() => {
       <SettingField
         v-for="key in retentionKeys"
         :key="key"
-        :model-value="(formData[key] as never)"
+        :model-value="((formData[key] ?? DEFAULT_RETENTION[key] ?? null) as SettingValue)"
         :field-key="key"
         :label="$t('system.settings.labels.' + key)"
         :description="$t('system.settings.descriptions.' + key)"

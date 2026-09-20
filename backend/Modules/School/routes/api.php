@@ -193,22 +193,37 @@ Route::prefix('v1/school')->middleware(['auth:sanctum', SchoolContextMiddleware:
     // --- PPDB Online ---
     Route::prefix('ppdb')->group(function (): void {
         Route::get('/', [PpdbController::class, 'index']);
+        Route::get('/applicants', [PpdbController::class, 'index']);
         Route::post('/', [PpdbController::class, 'store']);
-        Route::get('/{id}', [PpdbController::class, 'show']);
-        Route::put('/{id}', [PpdbController::class, 'update']);
-        Route::post('/{id}/verify', [PpdbController::class, 'verify']);
-        Route::post('/{id}/admit', [PpdbController::class, 'admit']);
-        Route::delete('/{id}', [PpdbController::class, 'destroy']);
+        Route::post('/register', [PpdbController::class, 'store']);
+        Route::get('/{id}', [PpdbController::class, 'show'])->whereNumber('id');
+        Route::put('/{id}', [PpdbController::class, 'update'])->whereNumber('id');
+        Route::post('/{id}/verify', [PpdbController::class, 'verify'])->whereNumber('id');
+        Route::post('/{id}/admit', [PpdbController::class, 'admit'])->whereNumber('id');
+        Route::post('/applicants/{id}/verify', [PpdbController::class, 'verify'])->whereNumber('id');
+        Route::post('/applicants/{id}/admit', [PpdbController::class, 'admit'])->whereNumber('id');
+        Route::delete('/{id}', [PpdbController::class, 'destroy'])->whereNumber('id');
     });
 
     // --- Buku Tamu Resepsionis / Keamanan ---
     Route::prefix('guest-book')->group(function (): void {
         Route::get('/', [GuestBookController::class, 'index']);
         Route::post('/', [GuestBookController::class, 'store']);
-        Route::get('/{id}', [GuestBookController::class, 'show']);
-        Route::put('/{id}', [GuestBookController::class, 'update']);
-        Route::post('/{id}/checkout', [GuestBookController::class, 'checkout']);
-        Route::delete('/{id}', [GuestBookController::class, 'destroy']);
+        Route::get('/{id}', [GuestBookController::class, 'show'])->whereNumber('id');
+        Route::put('/{id}', [GuestBookController::class, 'update'])->whereNumber('id');
+        Route::post('/{id}/checkout', [GuestBookController::class, 'checkout'])->whereNumber('id');
+        Route::post('/{id}/check-out', [GuestBookController::class, 'checkout'])->whereNumber('id');
+        Route::delete('/{id}', [GuestBookController::class, 'destroy'])->whereNumber('id');
+    });
+    Route::prefix('guests')->group(function (): void {
+        Route::get('/', [GuestBookController::class, 'index']);
+        Route::post('/', [GuestBookController::class, 'store']);
+        Route::post('/check-in', [GuestBookController::class, 'store']);
+        Route::get('/{id}', [GuestBookController::class, 'show'])->whereNumber('id');
+        Route::put('/{id}', [GuestBookController::class, 'update'])->whereNumber('id');
+        Route::post('/{id}/checkout', [GuestBookController::class, 'checkout'])->whereNumber('id');
+        Route::post('/{id}/check-out', [GuestBookController::class, 'checkout'])->whereNumber('id');
+        Route::delete('/{id}', [GuestBookController::class, 'destroy'])->whereNumber('id');
     });
 
     // --- OSIS & E-Voting (Legacy Specific Endpoints) ---
@@ -263,8 +278,12 @@ Route::prefix('v1/school')->middleware(['auth:sanctum', SchoolContextMiddleware:
         // Maintenance Tickets
         Route::get('/tickets', [FacilityController::class, 'getTickets']);
         Route::post('/tickets', [FacilityController::class, 'storeTicket']);
-        Route::put('/tickets/{id}', [FacilityController::class, 'updateTicket']);
-        Route::post('/tickets/{id}/resolve', [FacilityController::class, 'resolveTicket']);
+        Route::put('/tickets/{id}', [FacilityController::class, 'updateTicket'])->whereNumber('id');
+        Route::post('/tickets/{id}/resolve', [FacilityController::class, 'resolveTicket'])->whereNumber('id');
+        Route::get('/maintenance', [FacilityController::class, 'getTickets']);
+        Route::post('/maintenance', [FacilityController::class, 'storeTicket']);
+        Route::put('/maintenance/{id}', [FacilityController::class, 'updateTicket'])->whereNumber('id');
+        Route::post('/maintenance/{id}/resolve', [FacilityController::class, 'resolveTicket'])->whereNumber('id');
     });
 
     // --- Integrasi KataMPI CBT ---

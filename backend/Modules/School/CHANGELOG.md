@@ -19,6 +19,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Centralized school tenant resolution via `SchoolContextMiddleware` and `ScopedBySchool` trait.
 - Applied Laravel Pint code formatting standards and aligned PHPStan Level 9 analysis baseline.
 
+### Fixed
+- Hardened API route parameters with `whereNumber('id')` to eliminate route collision between `{id}` and named actions (`applicants`, `checkout`, `maintenance`).
+- Added backward-compatible aliases for `/school/ppdb/applicants`, `/school/guests`, and `/school/facilities/maintenance` to eliminate 500 and HTML-fallback errors.
+- Aligned `operationsService.ts` and `facilityService.ts` endpoints with canonical backend route contracts.
+
 ### Removed
 - Eliminated all legacy fallback hacks (`School::first() ?? 1`) across all controllers and services.
 - Removed unused empty model directories.

@@ -1,7 +1,7 @@
 {
   "name": "School",
   "slug": "school",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "JA-EduSIS Core School Management System — Academic, Students, Staff, Attendance, Discipline, Administration, Facilities, and Student Affairs",
   "author": "Jejakawan Team",
   "type": "module",

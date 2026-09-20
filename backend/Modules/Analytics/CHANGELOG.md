@@ -9,6 +9,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 
 ### Fixed
+- Prevented Vue `undefined` prop type check warning on `RetentionPanel` setting fields by initializing fallback state with default retention values.
 
 ## [1.0.0] - P3-5+
 

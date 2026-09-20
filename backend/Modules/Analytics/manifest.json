@@ -1,7 +1,7 @@
 {
   "name": "Analytics",
   "slug": "analytics",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Visitor traffic auditing, session tracking, event lifecycle counters, and console dashboard.",
   "author": "Jejakawan Team",
   "type": "module",

@@ -20,32 +20,32 @@ export class OperationsService {
 
     // PPDB
     public static async getPpdbApplicants(params: Record<string, unknown> = {}): Promise<AxiosResponse<ApiResponse<PaginatedData<PpdbApplicant>>>> {
-        return api.get('/school/ppdb/applicants', { params });
+        return api.get('/school/ppdb', { params });
     }
 
     public static async submitPpdbApplication(data: Partial<PpdbApplicant>): Promise<AxiosResponse<ApiResponse<PpdbApplicant>>> {
-        return api.post('/school/ppdb/register', data);
+        return api.post('/school/ppdb', data);
     }
 
     public static async verifyPpdbApplicant(id: number | string, data: { status: string; notes?: string }): Promise<AxiosResponse<ApiResponse<PpdbApplicant>>> {
-        return api.post(`/school/ppdb/applicants/${id}/verify`, data);
+        return api.post(`/school/ppdb/${id}/verify`, data);
     }
 
     public static async admitPpdbApplicant(id: number | string, data: { study_group_id?: number }): Promise<AxiosResponse<ApiResponse<Record<string, unknown>>>> {
-        return api.post(`/school/ppdb/applicants/${id}/admit`, data);
+        return api.post(`/school/ppdb/${id}/admit`, data);
     }
 
     // Buku Tamu / Guest Book
     public static async getGuestBookEntries(params: Record<string, unknown> = {}): Promise<AxiosResponse<ApiResponse<PaginatedData<GuestEntry>>>> {
-        return api.get('/school/guests', { params });
+        return api.get('/school/guest-book', { params });
     }
 
     public static async checkInGuest(data: Partial<GuestEntry>): Promise<AxiosResponse<ApiResponse<GuestEntry>>> {
-        return api.post('/school/guests/check-in', data);
+        return api.post('/school/guest-book', data);
     }
 
     public static async checkOutGuest(id: number | string, notes?: string): Promise<AxiosResponse<ApiResponse<GuestEntry>>> {
-        return api.post(`/school/guests/${id}/check-out`, { notes });
+        return api.post(`/school/guest-book/${id}/checkout`, { notes });
     }
 }
 
