@@ -27,12 +27,7 @@ class ValidNISN implements ValidationRule
         }
 
         if (! is_string($value) || ! preg_match('/^\d{10}$/', $value)) {
-            $fail('NISN harus berupa 10 digit angka.');
-            return;
-        }
-
-        if (! $this->isValidNISNChecksum($value)) {
-            $fail('Format angka kontrol (checksum) NISN tidak valid.');
+            $fail('NISN harus berupa 10 digit angka numerik.');
         }
     }
 

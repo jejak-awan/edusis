@@ -136,6 +136,13 @@
                 >
                   <ShieldAlert class="size-4" />
                 </button>
+                <router-link
+                  :to="`/school/students/${student.id}/edit`"
+                  class="rounded p-1.5 text-muted-foreground hover:bg-primary/10 hover:text-primary transition"
+                  title="Ubah Data Siswa"
+                >
+                  <Edit2 class="size-4" />
+                </router-link>
                 <button
                   @click="openStudentDetail(student.id)"
                   class="rounded p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition"
@@ -246,6 +253,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import {
   Search,
@@ -253,11 +261,13 @@ import {
   ShieldCheck,
   ShieldAlert,
   Eye,
+  Edit2,
   X,
 } from 'lucide-vue-next';
 import { SchoolService } from '../services/schoolService';
 
 const { t } = useI18n();
+const router = useRouter();
 
 const students = ref<any[]>([]);
 const departments = ref<any[]>([]);
@@ -349,11 +359,11 @@ async function submitPointForm() {
 }
 
 function openStudentDetail(id: number) {
-  alert(`Detail profil siswa #${id} dapat dibuka.`);
+  router.push(`/school/students/${id}/edit`);
 }
 
 function openRegisterModal() {
-  alert('Formulir Registrasi Siswa Baru (Standar Dapodik & Orang Tua) siap digunakan.');
+  router.push('/school/students/create');
 }
 
 onMounted(async () => {

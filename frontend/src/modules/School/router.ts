@@ -20,6 +20,18 @@ export const schoolRoutes: RouteRecordRaw[] = [
         meta: { title: 'school.students.title', breadcrumb: 'school.navigation.menu.students' },
     },
     {
+        path: 'school/students/create',
+        name: 'school.students.create',
+        component: () => import('@/modules/School/views/admin/students/Create.vue'),
+        meta: { title: 'school.students.addStudent', breadcrumb: 'school.students.addStudent' },
+    },
+    {
+        path: 'school/students/:id/edit',
+        name: 'school.students.edit',
+        component: () => import('@/modules/School/views/admin/students/Edit.vue'),
+        meta: { title: 'school.students.editStudent', breadcrumb: 'school.students.editStudent' },
+    },
+    {
         path: 'school/discipline',
         name: 'school.discipline',
         component: () => import('@/modules/School/views/DisciplineManagement.vue'),
@@ -102,6 +114,54 @@ export const schoolRoutes: RouteRecordRaw[] = [
         name: 'school.whatsapp',
         component: () => import('@/modules/School/views/WhatsAppGateway.vue'),
         meta: { title: 'school.whatsapp.title', breadcrumb: 'school.navigation.menu.whatsapp' },
+    },
+    {
+        path: 'school/teacher/dashboard',
+        name: 'school.teacher.dashboard',
+        component: () => import('@/modules/School/views/teacher/TeacherDashboard.vue'),
+        meta: { title: 'school.navigation.menu.dashboard', breadcrumb: 'school.navigation.menu.dashboard' },
+    },
+    {
+        path: 'school/teacher/schedule',
+        name: 'school.teacher.schedule',
+        component: () => import('@/modules/School/views/teacher/MyTeachingSchedule.vue'),
+        meta: { title: 'school.navigation.menu.schedule', breadcrumb: 'school.navigation.menu.schedule' },
+    },
+    {
+        path: 'school/teacher/journals',
+        name: 'school.teacher.journals',
+        component: () => import('@/modules/School/views/teacher/JournalEntryView.vue'),
+        meta: { title: 'school.navigation.menu.journals', breadcrumb: 'school.navigation.menu.journals' },
+    },
+    {
+        path: 'school/student/dashboard',
+        name: 'school.student.dashboard',
+        component: () => import('@/modules/School/views/student/StudentDashboard.vue'),
+        meta: { title: 'school.navigation.menu.dashboard', breadcrumb: 'school.navigation.menu.dashboard' },
+    },
+    {
+        path: 'school/student/reports',
+        name: 'school.student.reports',
+        component: () => import('@/modules/School/views/student/MyReportCardView.vue'),
+        meta: { title: 'school.navigation.menu.reports', breadcrumb: 'school.navigation.menu.reports' },
+    },
+    {
+        path: 'school/student/attendance',
+        name: 'school.student.attendance',
+        component: () => import('@/modules/School/views/student/MyAttendanceView.vue'),
+        meta: { title: 'school.navigation.menu.attendance', breadcrumb: 'school.navigation.menu.attendance' },
+    },
+    {
+        path: 'school/kiosk/voting',
+        name: 'school.kiosk.voting',
+        component: () => import('@/modules/School/views/public/VotingKioskView.vue'),
+        meta: { title: 'school.osis.title', breadcrumb: 'school.osis.title' },
+    },
+    {
+        path: 'school/public/ppdb',
+        name: 'school.public.ppdb',
+        component: () => import('@/modules/School/views/public/PublicPpdbView.vue'),
+        meta: { title: 'school.ppdb.title', breadcrumb: 'school.ppdb.title' },
     },
 ];
 
