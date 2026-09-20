@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Core\System\Http\Controllers\Api;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Modules\Core\System\Http\Controllers\BaseApiController;
+use Modules\Core\System\Models\User;
 use Modules\Core\System\Services\SysMaintenanceService;
 
 class MaintenanceApiController extends BaseApiController
@@ -24,13 +26,21 @@ class MaintenanceApiController extends BaseApiController
     }
 
     /**
+     * Check if authenticatable user is a User instance with super role.
+     */
+    protected function isSuperAdmin(?Authenticatable $user): bool
+    {
+        return $user instanceof User && $user->hasRole('super');
+    }
+
+    /**
      * POST /api/v1/manage/system/maintenance/clean-junk
      * Clean temporary ZIP uploads and stale extension caches.
      */
     public function cleanJunk(Request $request): JsonResponse
     {
         // Enforce super-admin checks for system-level actions
-        if ($request->user() === null || ! $request->user()->hasRole('super')) {
+        if (! $this->isSuperAdmin($request->user())) {
             return $this->error('Akses Ditolak', 403);
         }
 
@@ -48,7 +58,7 @@ class MaintenanceApiController extends BaseApiController
      */
     public function optimizeDatabase(Request $request): JsonResponse
     {
-        if ($request->user() === null || ! $request->user()->hasRole('super')) {
+        if (! $this->isSuperAdmin($request->user())) {
             return $this->error('Akses Ditolak', 403);
         }
 
@@ -66,7 +76,7 @@ class MaintenanceApiController extends BaseApiController
      */
     public function boost(Request $request): JsonResponse
     {
-        if ($request->user() === null || ! $request->user()->hasRole('super')) {
+        if (! $this->isSuperAdmin($request->user())) {
             return $this->error('Akses Ditolak', 403);
         }
 
@@ -84,7 +94,8 @@ class MaintenanceApiController extends BaseApiController
      */
     public function factoryReset(Request $request): JsonResponse
     {
-        if ($request->user() === null || ! $request->user()->hasRole('super')) {
+        $user = $request->user();
+        if (! $this->isSuperAdmin($user) || ! ($user instanceof User)) {
             return $this->error('Akses Ditolak', 403);
         }
 
@@ -103,7 +114,7 @@ class MaintenanceApiController extends BaseApiController
         }
 
         // Match currently logged-in super admin password
-        if (! Hash::check($password, $request->user()->password)) {
+        if (! Hash::check($password, $user->password)) {
             return $this->error('Password konfirmasi tidak cocok. Otorisasi gagal.', 403);
         }
 
@@ -117,7 +128,8 @@ class MaintenanceApiController extends BaseApiController
 
     private function validateSuperAdminPassword(Request $request): ?JsonResponse
     {
-        if ($request->user() === null || ! $request->user()->hasRole('super')) {
+        $user = $request->user();
+        if (! $this->isSuperAdmin($user) || ! ($user instanceof User)) {
             return $this->error('Akses Ditolak', 403);
         }
 
@@ -134,7 +146,7 @@ class MaintenanceApiController extends BaseApiController
             return $this->error('Password harus berupa string.', 400);
         }
 
-        if (! Hash::check($password, $request->user()->password)) {
+        if (! Hash::check($password, $user->password)) {
             return $this->error('Password konfirmasi tidak cocok. Otorisasi gagal.', 403);
         }
 
@@ -176,7 +188,7 @@ class MaintenanceApiController extends BaseApiController
 
     public function checkWelcomePhase(Request $request): JsonResponse
     {
-        if ($request->user() === null || ! $request->user()->hasRole('super')) {
+        if (! $this->isSuperAdmin($request->user())) {
             return response()->json(['active' => false]);
         }
 
@@ -189,7 +201,7 @@ class MaintenanceApiController extends BaseApiController
 
     public function seedFresh(Request $request): JsonResponse
     {
-        if ($request->user() === null || ! $request->user()->hasRole('super')) {
+        if (! $this->isSuperAdmin($request->user())) {
             return $this->error('Akses Ditolak', 403);
         }
 
@@ -209,7 +221,7 @@ class MaintenanceApiController extends BaseApiController
 
     public function dismissWelcome(Request $request): JsonResponse
     {
-        if ($request->user() === null || ! $request->user()->hasRole('super')) {
+        if (! $this->isSuperAdmin($request->user())) {
             return $this->error('Akses Ditolak', 403);
         }
 

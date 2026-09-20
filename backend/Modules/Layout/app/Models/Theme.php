@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Modules\Layout\Database\Factories\ThemeFactory;
 use Modules\Layout\Services\ThemeCacheService;
 use Modules\Layout\Support\ThemeViews;
@@ -154,7 +155,7 @@ class Theme extends Model
 
                     return $defaultTheme->fresh();
                 } catch (\Exception $e) {
-                    \Log::warning('Failed to auto-activate default theme: '.$e->getMessage());
+                    Log::warning('Failed to auto-activate default theme: '.$e->getMessage());
                 }
             }
         }
@@ -171,7 +172,7 @@ class Theme extends Model
         $errors = $this->validate();
         if ($errors !== []) {
             // Log warnings but allow activation
-            \Log::warning("Theme '{$this->name}' has validation warnings but will be activated", [
+            Log::warning("Theme '{$this->name}' has validation warnings but will be activated", [
                 'theme_id' => $this->id,
                 'errors' => $errors,
             ]);
@@ -328,13 +329,13 @@ class Theme extends Model
         // For code-first Vue themes, assets directory is optional.
         // Many themes are fully component-driven and ship no static assets folder.
         if (! is_dir("{$themePath}/assets")) {
-            \Log::info("Theme '{$this->name}' does not have an assets directory");
+            Log::info("Theme '{$this->name}' does not have an assets directory");
         }
 
         // Check for Vue components directory (optional but recommended)
         if (! is_dir("{$themePath}/components")) {
             // Not an error, just a warning
-            \Log::info("Theme '{$this->name}' does not have a components directory");
+            Log::info("Theme '{$this->name}' does not have a components directory");
         }
 
         // Update status based on validation

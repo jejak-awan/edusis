@@ -117,7 +117,8 @@ class ContentController extends BaseApiController
         $result = $this->contentService->getPublishedContents($request);
 
         if ($locale !== null) {
-            $items = $result['paginated'] ? $result['data']->items() : $result['data'];
+            $data = $result['data'];
+            $items = ($data instanceof LengthAwarePaginator) ? $data->items() : $data;
             foreach ($items as $item) {
                 if ($item instanceof Content) {
                     $this->applyPublicLocale($item, $locale);
@@ -1225,6 +1226,7 @@ class ContentController extends BaseApiController
             return [];
         }
 
+        /** @var array<string, mixed> $meta */
         return app(BuilderDocumentValidator::class)->validate($meta);
     }
 }

@@ -4,6 +4,7 @@ namespace Modules\Core\Infra\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Modules\Core\Infra\Models\Backup;
 use Modules\Core\Infra\Services\BackupService;
 use Modules\Core\System\Http\Controllers\BaseApiController;
@@ -53,13 +54,13 @@ class BackupController extends BaseApiController
             return $this->success($backup, 'Backup created successfully', 201);
         } catch (\Throwable $e) {
             try {
-                \Log::channel('backup')->error('Backup creation error: '.$e->getMessage(), [
+                Log::channel('backup')->error('Backup creation error: '.$e->getMessage(), [
                     'file' => $e->getFile(),
                     'line' => $e->getLine(),
                     'trace' => $e->getTraceAsString(),
                 ]);
             } catch (\Throwable) {
-                \Log::error('Backup creation error (backup channel unavailable): '.$e->getMessage());
+                Log::error('Backup creation error (backup channel unavailable): '.$e->getMessage());
             }
 
             return $this->error(

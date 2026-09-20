@@ -113,7 +113,7 @@ class SchoolVotingEngineSeeder extends Seeder
                     'event_id' => $osisEvent->id,
                     'candidate_id' => $chosenCandidate->id,
                     'vote_mode' => 'kiosk',
-                    'token_hash' => hash('sha256', $voter->token),
+                    'token_hash' => hash('sha256', (string) $voter->token),
                     'ip_address' => '10.20.0.'.rand(10, 99),
                     'device_info' => 'Bilik Suara Kiosk Lab Komputer TPS-1',
                     'voted_at' => $votedAt,

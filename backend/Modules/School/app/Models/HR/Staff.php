@@ -14,6 +14,21 @@ use Modules\School\Models\Academic\Schedule;
 use Modules\School\Models\Academic\TeachingJournal;
 use Modules\School\Models\Institution\School;
 
+/**
+ * @property int $id
+ * @property int $school_id
+ * @property int|null $user_id
+ * @property string $nip
+ * @property string|null $nuptk
+ * @property string|null $nik
+ * @property string $full_name
+ * @property string|null $title_prefix
+ * @property string|null $title_suffix
+ * @property string $gender
+ * @property string|null $role_title
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Staff extends Model
 {
     use HasFactory, SoftDeletes;

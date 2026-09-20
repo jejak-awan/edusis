@@ -11,6 +11,21 @@ use Illuminate\Support\Str;
 use Modules\School\Models\HR\Staff;
 use Modules\School\Models\Student\Student;
 
+/**
+ * @property int $id
+ * @property int $event_id
+ * @property string $voter_type
+ * @property int|null $student_id
+ * @property int|null $staff_id
+ * @property string $voter_name
+ * @property string|null $voter_identifier
+ * @property string|null $token
+ * @property bool $has_voted
+ * @property \Illuminate\Support\Carbon|null $voted_at
+ * @property \Illuminate\Support\Carbon|null $token_generated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class VoteVoter extends Model
 {
     use HasFactory;

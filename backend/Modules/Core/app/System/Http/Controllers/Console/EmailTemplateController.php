@@ -4,6 +4,7 @@ namespace Modules\Core\System\Http\Controllers\Console;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Modules\Core\System\Http\Controllers\BaseApiController;
 use Modules\Core\System\Models\EmailTemplate;
 
@@ -112,7 +113,7 @@ class EmailTemplateController extends BaseApiController
         $to = is_string($toRaw) ? $toRaw : '';
 
         try {
-            \Mail::raw($rendered['text_body'] ?? strip_tags($rendered['body']), function ($message) use ($to, $rendered): void {
+            Mail::raw($rendered['text_body'] ?? strip_tags($rendered['body']), function ($message) use ($to, $rendered): void {
                 $message->to($to)
                     ->subject($rendered['subject']);
             });

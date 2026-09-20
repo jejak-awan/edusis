@@ -1,72 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Call to static method error\(\) on an unknown class Log\.$#'
-			identifier: class.notFound
-			count: 1
-			path: Modules/Analytics/app/Http/Middleware/TrackAnalytics.php
-
-		-
-			message: '#^Call to static method channel\(\) on an unknown class Log\.$#'
-			identifier: class.notFound
-			count: 1
-			path: Modules/Core/app/Infra/Http/Controllers/BackupController.php
-
-		-
-			message: '#^Call to static method error\(\) on an unknown class Log\.$#'
-			identifier: class.notFound
-			count: 1
-			path: Modules/Core/app/Infra/Http/Controllers/BackupController.php
-
-		-
-			message: '#^Parameter \#4 \$user of static method Modules\\Core\\System\\Models\\ActivityLog\:\:log\(\) expects Modules\\Core\\System\\Models\\User\|null, Modules\\Core\\System\\Models\\User\|Modules\\Member\\Models\\Member\|null given\.$#'
-			identifier: argument.type
-			count: 3
-			path: Modules/Core/app/Infra/Http/Controllers/FileManagerController.php
-
-		-
-			message: '#^Parameter \#2 \$user of static method Modules\\Core\\Security\\Models\\SecurityLog\:\:log\(\) expects Modules\\Core\\System\\Models\\User\|null, Modules\\Core\\System\\Models\\User\|Modules\\Member\\Models\\Member\|null given\.$#'
-			identifier: argument.type
-			count: 2
-			path: Modules/Core/app/Security/Http/Controllers/SecurityController.php
-
-		-
-			message: '#^Cannot cast mixed to string\.$#'
-			identifier: cast.string
-			count: 3
-			path: Modules/Core/app/System/Http/Controllers/Api/DataModelApiController.php
-
-		-
-			message: '#^Method Modules\\Core\\System\\Http\\Controllers\\Api\\DataModelApiController\:\:hydrateRelations\(\) has parameter \$records with generic interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: Modules/Core/app/System/Http/Controllers/Api/DataModelApiController.php
-
-		-
-			message: '#^Possibly invalid array key type mixed\.$#'
-			identifier: offsetAccess.invalidOffset
-			count: 4
-			path: Modules/Core/app/System/Http/Controllers/Api/DataModelApiController.php
-
-		-
-			message: '#^Strict comparison using \!\=\= between non\-falsy\-string and '''' will always evaluate to true\.$#'
-			identifier: notIdentical.alwaysTrue
-			count: 1
-			path: Modules/Core/app/System/Http/Controllers/Api/DataModelApiController.php
-
-		-
-			message: '#^Call to an undefined method Modules\\Core\\System\\Models\\User\|Modules\\Member\\Models\\Member\:\:hasRole\(\)\.$#'
-			identifier: method.notFound
-			count: 8
-			path: Modules/Core/app/System/Http/Controllers/Api/MaintenanceApiController.php
-
-		-
-			message: '#^Call to static method raw\(\) on an unknown class Mail\.$#'
-			identifier: class.notFound
-			count: 1
-			path: Modules/Core/app/System/Http/Controllers/Console/EmailTemplateController.php
-
-		-
 			message: '#^Cannot access an offset on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
@@ -151,58 +85,10 @@ parameters:
 			path: Modules/Core/app/System/Http/Controllers/Console/RedisController.php
 
 		-
-			message: '#^Call to an undefined method Modules\\Core\\System\\Services\\CacheWarmingService\:\:getStatistics\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: Modules/Core/app/System/Http/Controllers/Console/SystemController.php
-
-		-
-			message: '#^Call to an undefined method Modules\\Core\\System\\Services\\CacheWarmingService\:\:warmByType\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: Modules/Core/app/System/Http/Controllers/Console/SystemController.php
-
-		-
-			message: '#^Access to an undefined property Modules\\Core\\System\\Models\\User\|Modules\\Member\\Models\\Member\:\:\$kyc_level\.$#'
-			identifier: property.notFound
-			count: 2
-			path: Modules/Core/app/System/Http/Controllers/Console/UserController.php
-
-		-
-			message: '#^Access to an undefined property Modules\\Core\\System\\Models\\User\|Modules\\Member\\Models\\Member\:\:\$onboarding_step\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/Core/app/System/Http/Controllers/Console/UserController.php
-
-		-
-			message: '#^Call to an undefined method Modules\\Core\\System\\Models\\User\|Modules\\Member\\Models\\Member\:\:passkeys\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: Modules/Core/app/System/Http/Controllers/Console/UserController.php
-
-		-
-			message: '#^Parameter \#2 \$user of static method Modules\\Core\\Security\\Models\\SecurityLog\:\:log\(\) expects Modules\\Core\\System\\Models\\User\|null, Modules\\Core\\System\\Models\\User\|Modules\\Member\\Models\\Member given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Modules/Core/app/System/Http/Middleware/CheckPermission.php
-
-		-
 			message: '#^Access to an undefined property Laravel\\Passport\\Client\:\:\$name\.$#'
 			identifier: property.notFound
 			count: 1
 			path: Modules/Core/app/System/Providers/SystemServiceProvider.php
-
-		-
-			message: '#^Call to static method debug\(\) on an unknown class Log\.$#'
-			identifier: class.notFound
-			count: 1
-			path: Modules/Core/app/System/Services/CacheService.php
-
-		-
-			message: '#^Call to static method warning\(\) on an unknown class Log\.$#'
-			identifier: class.notFound
-			count: 1
-			path: Modules/Core/app/System/Services/CacheService.php
 
 		-
 			message: '#^Cannot access offset ''widgets'' on mixed\.$#'
@@ -271,102 +157,6 @@ parameters:
 			path: Modules/Core/app/System/Services/SystemService.php
 
 		-
-			message: '#^Cannot access offset ''model_has_permissions'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: Modules/Core/database/migrations/2026_01_01_000002_core_security_schema.php
-
-		-
-			message: '#^Cannot access offset ''model_has_roles'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: Modules/Core/database/migrations/2026_01_01_000002_core_security_schema.php
-
-		-
-			message: '#^Cannot access offset ''model_morph_key'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: Modules/Core/database/migrations/2026_01_01_000002_core_security_schema.php
-
-		-
-			message: '#^Cannot access offset ''permission_pivot_key'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: Modules/Core/database/migrations/2026_01_01_000002_core_security_schema.php
-
-		-
-			message: '#^Cannot access offset ''permissions'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 4
-			path: Modules/Core/database/migrations/2026_01_01_000002_core_security_schema.php
-
-		-
-			message: '#^Cannot access offset ''role_has_permissions'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
-			path: Modules/Core/database/migrations/2026_01_01_000002_core_security_schema.php
-
-		-
-			message: '#^Cannot access offset ''role_pivot_key'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: Modules/Core/database/migrations/2026_01_01_000002_core_security_schema.php
-
-		-
-			message: '#^Cannot access offset ''roles'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 4
-			path: Modules/Core/database/migrations/2026_01_01_000002_core_security_schema.php
-
-		-
-			message: '#^Parameter \#1 \$column of method Illuminate\\Database\\Schema\\Blueprint\:\:uuid\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 6
-			path: Modules/Core/database/migrations/2026_01_01_000002_core_security_schema.php
-
-		-
-			message: '#^Parameter \#1 \$columns of method Illuminate\\Database\\Schema\\Blueprint\:\:foreign\(\) expects array\|string, mixed given\.$#'
-			identifier: argument.type
-			count: 4
-			path: Modules/Core/database/migrations/2026_01_01_000002_core_security_schema.php
-
-		-
-			message: '#^Parameter \#1 \$table of method Illuminate\\Database\\Schema\\ForeignKeyDefinition\:\:on\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 4
-			path: Modules/Core/database/migrations/2026_01_01_000002_core_security_schema.php
-
-		-
-			message: '#^Parameter \#1 \$table of static method Illuminate\\Support\\Facades\\Schema\:\:create\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 5
-			path: Modules/Core/database/migrations/2026_01_01_000002_core_security_schema.php
-
-		-
-			message: '#^Parameter \#1 \$table of static method Illuminate\\Support\\Facades\\Schema\:\:dropIfExists\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 5
-			path: Modules/Core/database/migrations/2026_01_01_000002_core_security_schema.php
-
-		-
-			message: '#^Call to static method error\(\) on an unknown class Log\.$#'
-			identifier: class.notFound
-			count: 1
-			path: Modules/Layout/app/Helpers/ThemeDirectoryHelper.php
-
-		-
-			message: '#^Call to static method info\(\) on an unknown class Log\.$#'
-			identifier: class.notFound
-			count: 2
-			path: Modules/Layout/app/Models/Theme.php
-
-		-
-			message: '#^Call to static method warning\(\) on an unknown class Log\.$#'
-			identifier: class.notFound
-			count: 2
-			path: Modules/Layout/app/Models/Theme.php
-
-		-
 			message: '#^Method Modules\\Layout\\Services\\PublicWidgetPresenter\:\:categories\(\) should return list\<array\{id\: string, name\: string, slug\: string\}\> but returns array\<int, array\{id\: string, name\: string, slug\: string\}\>\.$#'
 			identifier: return.type
 			count: 1
@@ -379,34 +169,10 @@ parameters:
 			path: Modules/Layout/app/Services/PublicWidgetPresenter.php
 
 		-
-			message: '#^Call to static method error\(\) on an unknown class Log\.$#'
-			identifier: class.notFound
-			count: 1
-			path: Modules/Layout/app/Services/ThemeService.php
-
-		-
-			message: '#^Call to static method warning\(\) on an unknown class Log\.$#'
-			identifier: class.notFound
-			count: 3
-			path: Modules/Layout/app/Services/ThemeService.php
-
-		-
 			message: '#^Access to an undefined property Modules\\Member\\Models\\MemberBookmark\:\:\$member_id\.$#'
 			identifier: property.notFound
 			count: 1
 			path: Modules/Member/app/Http/Controllers/Api/BookmarkController.php
-
-		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\Publishing\\Models\\Content\>\|Illuminate\\Pagination\\LengthAwarePaginator\<int, Modules\\Publishing\\Models\\Content\>\:\:items\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: Modules/Publishing/app/Http/Controllers/Api/ContentController.php
-
-		-
-			message: '#^Parameter \#1 \$meta of method Modules\\Publishing\\Support\\BuilderDocumentValidator\:\:validate\(\) expects array\<string, mixed\>, array\<mixed, mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: Modules/Publishing/app/Http/Controllers/Api/ContentController.php
 
 		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
@@ -554,18 +320,6 @@ parameters:
 
 		-
 			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Attendance\:\:\$status\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\Staff\:\:\$nip\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\Staff\:\:\$role_title\.$#'
 			identifier: property.notFound
 			count: 1
 			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
@@ -745,12 +499,6 @@ parameters:
 			path: Modules/School/app/Http/Controllers/Api/Communication/WhatsAppController.php
 
 		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Institution\\School\:\:\$name\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/Communication/WhatsAppController.php
-
-		-
 			message: '#^Cannot cast mixed to string\.$#'
 			identifier: cast.string
 			count: 2
@@ -883,12 +631,6 @@ parameters:
 			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
 
 		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Institution\\School\:\:\$name\.$#'
-			identifier: property.notFound
-			count: 3
-			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
-
-		-
 			message: '#^Access to an undefined property Modules\\School\\Models\\Integration\\KatampiConfig\:\:\$api_key\.$#'
 			identifier: property.notFound
 			count: 1
@@ -902,30 +644,6 @@ parameters:
 
 		-
 			message: '#^Access to an undefined property Modules\\School\\Models\\Integration\\KatampiConfig\:\:\$last_sync_at\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$full_name\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$gender\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$nis\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$nisn\.$#'
 			identifier: property.notFound
 			count: 1
 			path: Modules/School/app/Http/Controllers/Api/Integration/KatampiIntegrationController.php
@@ -985,92 +703,8 @@ parameters:
 			path: Modules/School/app/Http/Controllers/Api/Student/StudentController.php
 
 		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$candidate_number\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$chairman\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$mission\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$photo_url\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$viceChairman\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$vision\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$vote_count\.$#'
-			identifier: property.notFound
-			count: 2
-			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\StudentAffairs\\OsisElection\:\:\$period\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\StudentAffairs\\OsisElection\:\:\$status\.$#'
-			identifier: property.notFound
-			count: 2
-			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\StudentAffairs\\OsisElection\:\:\$title\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
-
-		-
 			message: '#^Access to an undefined property Modules\\School\\Models\\StudentAffairs\\OsisVote\:\:\$voted_at\.$#'
 			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
-
-		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\StudentAffairs\\OsisCandidate\>\|Modules\\School\\Models\\StudentAffairs\\OsisCandidate\:\:increment\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
-
-		-
-			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
-			identifier: argument.unresolvableType
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
-
-		-
-			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
-			identifier: method.unresolvableReturnType
 			count: 1
 			path: Modules/School/app/Http/Controllers/Api/StudentAffairs/OsisElectionController.php
 
@@ -1939,24 +1573,6 @@ parameters:
 			path: Modules/School/app/Models/Facilities/Room.php
 
 		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\Staff\:\:\$full_name\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Models/HR/Staff.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\Staff\:\:\$title_prefix\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Models/HR/Staff.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\Staff\:\:\$title_suffix\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Models/HR/Staff.php
-
-		-
 			message: '#^Class Modules\\School\\Models\\HR\\Staff uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
 			identifier: missingType.generics
 			count: 1
@@ -2299,24 +1915,6 @@ parameters:
 			path: Modules/School/app/Models/StudentAffairs/OsisCandidate.php
 
 		-
-			message: '#^Method Modules\\School\\Models\\StudentAffairs\\OsisCandidate\:\:chairman\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: Modules/School/app/Models/StudentAffairs/OsisCandidate.php
-
-		-
-			message: '#^Method Modules\\School\\Models\\StudentAffairs\\OsisCandidate\:\:election\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: Modules/School/app/Models/StudentAffairs/OsisCandidate.php
-
-		-
-			message: '#^Method Modules\\School\\Models\\StudentAffairs\\OsisCandidate\:\:viceChairman\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: Modules/School/app/Models/StudentAffairs/OsisCandidate.php
-
-		-
 			message: '#^Class Modules\\School\\Models\\StudentAffairs\\OsisElection uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
 			identifier: missingType.generics
 			count: 1
@@ -2324,12 +1922,6 @@ parameters:
 
 		-
 			message: '#^Method Modules\\School\\Models\\StudentAffairs\\OsisElection\:\:academicYear\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: Modules/School/app/Models/StudentAffairs/OsisElection.php
-
-		-
-			message: '#^Method Modules\\School\\Models\\StudentAffairs\\OsisElection\:\:candidates\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
 			identifier: missingType.generics
 			count: 1
 			path: Modules/School/app/Models/StudentAffairs/OsisElection.php
@@ -2401,30 +1993,6 @@ parameters:
 			path: Modules/School/app/Models/Voting/VoteCandidate.php
 
 		-
-			message: '#^Method Modules\\School\\Models\\Voting\\VoteCandidate\:\:event\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: Modules/School/app/Models/Voting/VoteCandidate.php
-
-		-
-			message: '#^Method Modules\\School\\Models\\Voting\\VoteCandidate\:\:leader\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: Modules/School/app/Models/Voting/VoteCandidate.php
-
-		-
-			message: '#^Method Modules\\School\\Models\\Voting\\VoteCandidate\:\:staff\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: Modules/School/app/Models/Voting/VoteCandidate.php
-
-		-
-			message: '#^Method Modules\\School\\Models\\Voting\\VoteCandidate\:\:vice\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: Modules/School/app/Models/Voting/VoteCandidate.php
-
-		-
 			message: '#^Class Modules\\School\\Models\\Voting\\VoteEvent uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
 			identifier: missingType.generics
 			count: 1
@@ -2489,18 +2057,6 @@ parameters:
 			identifier: property.notFound
 			count: 1
 			path: Modules/School/app/Policies/CounselingPolicy.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\Staff\:\:\$user_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Policies/StaffPolicy.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$user_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Policies/StudentPolicy.php
 
 		-
 			message: '#^Parameter \#3 \$fail \(Closure\(string\)\: void\) of method Modules\\School\\Rules\\ValidNIK\:\:validate\(\) should be compatible with parameter \$fail \(Closure\(string, string\|null\=\)\: Illuminate\\Translation\\PotentiallyTranslatedString\) of method Illuminate\\Contracts\\Validation\\ValidationRule\:\:validate\(\)$#'
@@ -2665,12 +2221,6 @@ parameters:
 			path: Modules/School/app/Services/Attendance/AttendanceService.php
 
 		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\Staff\:\:\$school_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/Attendance/AttendanceService.php
-
-		-
 			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\StaffShift\:\:\$start_time\.$#'
 			identifier: property.notFound
 			count: 1
@@ -2749,27 +2299,9 @@ parameters:
 			path: Modules/School/app/Services/Integration/KatampiSyncService.php
 
 		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Institution\\School\:\:\$name\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/Integration/KatampiSyncService.php
-
-		-
 			message: '#^Access to an undefined property Modules\\School\\Models\\Integration\\KatampiConfig\:\:\$cbt_url\.$#'
 			identifier: property.notFound
 			count: 1
-			path: Modules/School/app/Services/Integration/KatampiSyncService.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$full_name\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/Integration/KatampiSyncService.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$nisn\.$#'
-			identifier: property.notFound
-			count: 2
 			path: Modules/School/app/Services/Integration/KatampiSyncService.php
 
 		-
@@ -2872,12 +2404,6 @@ parameters:
 			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Attendance\:\:\$status\.$#'
 			identifier: property.notFound
 			count: 2
-			path: Modules/School/app/Services/Integration/WhatsAppGatewayService.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Institution\\School\:\:\$name\.$#'
-			identifier: property.notFound
-			count: 1
 			path: Modules/School/app/Services/Integration/WhatsAppGatewayService.php
 
 		-
@@ -3169,78 +2695,6 @@ parameters:
 			path: Modules/School/app/Services/Student/StudentService.php
 
 		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Voting\\VoteCandidate\>\|Modules\\School\\Models\\Voting\\VoteCandidate\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Voting\\VoteCandidate\>\|Modules\\School\\Models\\Voting\\VoteCandidate\:\:\$title\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$candidate_number\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$mission\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$photo_url\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$title\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$vision\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$vote_count\.$#'
-			identifier: property.notFound
-			count: 2
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\Staff\:\:\$full_name\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$full_name\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$nis\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
 			message: '#^Access to an undefined property Modules\\School\\Models\\Voting\\VoteEvent\:\:\$end_date\.$#'
 			identifier: property.notFound
 			count: 1
@@ -3271,80 +2725,8 @@ parameters:
 			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
 
 		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Voting\\VoteVoter\:\:\$has_voted\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Voting\\VoteVoter\:\:\$token\.$#'
-			identifier: property.notFound
-			count: 2
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Voting\\VoteVoter\:\:\$voter_identifier\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Voting\\VoteVoter\:\:\$voter_name\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Collection\<int, Modules\\School\\Models\\Voting\\VoteCandidate\>\|Modules\\School\\Models\\Voting\\VoteCandidate\:\:increment\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Method Modules\\School\\Services\\StudentAffairs\\VotingEngineService\:\:calculateQuickCount\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Method Modules\\School\\Services\\StudentAffairs\\VotingEngineService\:\:castBallot\(\) has parameter \$data with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Method Modules\\School\\Services\\StudentAffairs\\VotingEngineService\:\:castBallot\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
 			message: '#^Method Modules\\School\\Services\\StudentAffairs\\VotingEngineService\:\:generateVotersDpt\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
-			identifier: argument.unresolvableType
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Parameter \#1 \$callback of static method Illuminate\\Database\\Connection\:\:transaction\(\) contains unresolvable type\.$#'
-			identifier: argument.unresolvableType
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
-			identifier: method.unresolvableReturnType
-			count: 1
-			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
-
-		-
-			message: '#^Return type of call to static method Illuminate\\Database\\Connection\:\:transaction\(\) contains unresolvable type\.$#'
-			identifier: staticMethod.unresolvableReturnType
 			count: 1
 			path: Modules/School/app/Services/StudentAffairs/VotingEngineService.php
 
@@ -3371,42 +2753,6 @@ parameters:
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
 			path: Modules/School/database/factories/DepartmentFactory.php
-
-		-
-			message: '#^Class Modules\\School\\Database\\Factories\\DepartmentFactory extends generic class Illuminate\\Database\\Eloquent\\Factories\\Factory but does not specify its types\: TModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: Modules/School/database/factories/DepartmentFactory.php
-
-		-
-			message: '#^Call to an undefined method Faker\\Generator\:\:state\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: Modules/School/database/factories/SchoolFactory.php
-
-		-
-			message: '#^Class Modules\\School\\Database\\Factories\\SchoolFactory extends generic class Illuminate\\Database\\Eloquent\\Factories\\Factory but does not specify its types\: TModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: Modules/School/database/factories/SchoolFactory.php
-
-		-
-			message: '#^Class Modules\\School\\Database\\Factories\\StaffFactory extends generic class Illuminate\\Database\\Eloquent\\Factories\\Factory but does not specify its types\: TModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: Modules/School/database/factories/StaffFactory.php
-
-		-
-			message: '#^Call to an undefined method Faker\\Generator\:\:state\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: Modules/School/database/factories/StudentFactory.php
-
-		-
-			message: '#^Class Modules\\School\\Database\\Factories\\StudentFactory extends generic class Illuminate\\Database\\Eloquent\\Factories\\Factory but does not specify its types\: TModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: Modules/School/database/factories/StudentFactory.php
 
 		-
 			message: '#^Class Modules\\School\\Database\\Factories\\StudyGroupFactory extends generic class Illuminate\\Database\\Eloquent\\Factories\\Factory but does not specify its types\: TModel$#'
@@ -3463,61 +2809,7 @@ parameters:
 			path: Modules/School/database/seeders/SchoolPhase4Seeder.php
 
 		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$full_name\.$#'
-			identifier: property.notFound
-			count: 3
-			path: Modules/School/database/seeders/SchoolPhase5Seeder.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\HR\\Staff\:\:\$full_name\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/database/seeders/SchoolVotingEngineSeeder.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$full_name\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/database/seeders/SchoolVotingEngineSeeder.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Student\\Student\:\:\$nisn\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/database/seeders/SchoolVotingEngineSeeder.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Voting\\VoteVoter\:\:\$has_voted\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/database/seeders/SchoolVotingEngineSeeder.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Voting\\VoteVoter\:\:\$token\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/database/seeders/SchoolVotingEngineSeeder.php
-
-		-
 			message: '#^Cannot access property \$id on Modules\\School\\Models\\Student\\Student\|null\.$#'
 			identifier: property.nonObject
 			count: 3
 			path: Modules/School/database/seeders/SchoolVotingEngineSeeder.php
-
-		-
-			message: '#^Call to static method make\(\) on an unknown class Hash\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Console/Commands/InstallCommand.php
-
-		-
-			message: '#^Call to static method error\(\) on an unknown class Log\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Http/Controllers/Api/V1/InstallController.php
-
-		-
-			message: '#^Call to static method make\(\) on an unknown class Hash\.$#'
-			identifier: class.notFound
-			count: 2
-			path: app/Http/Controllers/Api/V1/InstallController.php

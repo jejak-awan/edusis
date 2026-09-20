@@ -172,7 +172,7 @@ class ThemeService
         if (! empty($errors)) {
             // Log warnings but allow activation if theme is in database
             // Theme might be created manually or imported
-            \Log::warning('Theme validation warnings: '.implode(', ', $errors), [
+            Log::warning('Theme validation warnings: '.implode(', ', $errors), [
                 'theme_id' => $theme->id,
                 'theme_slug' => $theme->slug,
             ]);
@@ -192,7 +192,7 @@ class ThemeService
             // If activate() throws, check if it's validation error
             if (str_contains($e->getMessage(), 'invalid')) {
                 // Allow activation even if validation fails (theme might be created manually)
-                \Log::warning('Theme activation with validation warnings: '.$e->getMessage());
+                Log::warning('Theme activation with validation warnings: '.$e->getMessage());
                 // Manually activate
                 Theme::where('id', '!=', $theme->id)
                     ->where('type', $theme->type)
@@ -405,7 +405,7 @@ class ThemeService
                 }
 
             } catch (\Exception $e) {
-                \Log::warning('Failed to load theme assets: '.$e->getMessage());
+                Log::warning('Failed to load theme assets: '.$e->getMessage());
                 // Return empty assets on error
             }
 
@@ -630,7 +630,7 @@ class ThemeService
 
                     $themes[] = $theme;
                 } catch (\Exception $e) {
-                    \Log::error("Failed to load theme {$slug} from {$source}: ".$e->getMessage());
+                    Log::error("Failed to load theme {$slug} from {$source}: ".$e->getMessage());
                 }
             }
         }

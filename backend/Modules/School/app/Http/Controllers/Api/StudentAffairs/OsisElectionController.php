@@ -132,7 +132,8 @@ class OsisElectionController extends BaseController
             'voted_at' => now(),
         ]);
 
-        $candidate = OsisCandidate::findOrFail($validated['candidate_id']);
+        $candidate = OsisCandidate::findOrFail((int) $validated['candidate_id']);
+        assert($candidate instanceof OsisCandidate);
         $candidate->increment('vote_count');
 
         return $this->sendResponse([
@@ -146,10 +147,12 @@ class OsisElectionController extends BaseController
     {
         $election = OsisElection::with(['candidates.chairman', 'candidates.viceChairman'])
             ->findOrFail($electionId);
+        assert($election instanceof OsisElection);
 
         $totalVotes = OsisVote::where('election_id', $electionId)->count();
 
-        $candidatesWithPercentages = $election->candidates->map(function ($candidate) use ($totalVotes) {
+        $candidatesWithPercentages = $election->candidates->map(function ($candidate) use ($totalVotes): array {
+            /** @var OsisCandidate $candidate */
             $percentage = $totalVotes > 0 ? round(($candidate->vote_count / $totalVotes) * 100, 2) : 0;
 
             return [

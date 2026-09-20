@@ -4,6 +4,7 @@ namespace Modules\Analytics\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Modules\Analytics\Models\AnalyticsSession;
 use Modules\Analytics\Models\AnalyticsVisit;
 use Modules\Core\System\Models\Setting;
@@ -46,7 +47,7 @@ class TrackAnalytics
 
             } catch (\Exception $e) {
                 // Log error but don't break anything
-                \Log::error('Analytics tracking failed: '.$e->getMessage());
+                Log::error('Analytics tracking failed: '.$e->getMessage());
             }
         }
     }

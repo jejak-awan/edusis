@@ -17,6 +17,25 @@ use Modules\School\Models\Academic\StudyGroup;
 use Modules\School\Models\Institution\School;
 use Modules\School\Models\Institution\SchoolLevel;
 
+/**
+ * @property int $id
+ * @property int $school_id
+ * @property int|null $school_level_id
+ * @property int|null $department_id
+ * @property int|null $user_id
+ * @property string $nisn
+ * @property string|null $nis
+ * @property string|null $nik
+ * @property string $full_name
+ * @property string $gender
+ * @property string|null $place_of_birth
+ * @property string|null $date_of_birth
+ * @property string|null $religion
+ * @property string|null $address
+ * @property string $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Student extends Model
 {
     use HasFactory, SoftDeletes;

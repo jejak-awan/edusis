@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Modules\Core\System\Models\User;
 use Symfony\Component\Process\Process;
 
@@ -69,7 +70,7 @@ class InstallCommand extends Command
                 [
                     'username' => 'super',
                     'name' => 'Super Administrator',
-                    'password' => \Hash::make('password'),
+                    'password' => Hash::make('password'),
                     'email_verified_at' => now(),
                 ]
             );

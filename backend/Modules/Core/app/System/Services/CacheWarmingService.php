@@ -134,4 +134,32 @@ class CacheWarmingService
 
         return $count;
     }
+
+    /**
+     * Warm cache by specific type.
+     */
+    public function warmByType(string $type, int $limit = 50): int
+    {
+        return match ($type) {
+            'languages' => $this->warmLanguages(),
+            'settings' => $this->warmPublicSettings(),
+            'statistics' => $this->warmStatistics(),
+            default => isset(self::$warmers[$type]) ? (int) (self::$warmers[$type])() : 0,
+        };
+    }
+
+    /**
+     * Get statistics on warmed cache keys.
+     *
+     * @return array<string, mixed>
+     */
+    public function getStatistics(): array
+    {
+        return [
+            'languages_cached' => Cache::has(self::PREFIX_LANGUAGE),
+            'settings_cached' => Cache::has(self::PREFIX_SETTINGS),
+            'registered_warmers' => array_keys(self::$warmers),
+            'warmers_count' => count(self::$warmers),
+        ];
+    }
 }

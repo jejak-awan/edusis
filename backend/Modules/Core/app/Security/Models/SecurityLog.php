@@ -2,6 +2,7 @@
 
 namespace Modules\Core\Security\Models;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -57,13 +58,15 @@ class SecurityLog extends Model
     /**
      * Helper method to log security events
      *
-     * @param  User|null  $user
+     * @param  Authenticatable|Model|null  $user
      * @param  array<string, mixed>  $metadata
      */
     public static function log(string $eventType, $user = null, ?string $ipAddress = null, ?string $description = null, array $metadata = []): self
     {
+        $userId = $user instanceof Model ? $user->getKey() : ($user instanceof Authenticatable ? $user->getAuthIdentifier() : null);
+
         $log = self::create([
-            'user_id' => $user?->id,
+            'user_id' => is_numeric($userId) ? (int) $userId : null,
             'event_type' => $eventType,
             'ip_address' => $ipAddress ?? IpHelper::getClientIp(request()),
             'user_agent' => request()->userAgent(),

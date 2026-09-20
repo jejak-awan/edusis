@@ -95,6 +95,9 @@ class VotingEngineService
 
     /**
      * Pencoblosan surat suara secara rahasia (Secret Ballot) dan anti pemilih ganda.
+     *
+     * @param  array<string, mixed>  $data
+     * @return array<string, mixed>
      */
     public function castBallot(VoteEvent $event, array $data, ?string $ip = null, ?string $userAgent = null): array
     {
@@ -107,12 +110,15 @@ class VotingEngineService
             throw new SchoolModuleException('Pemilihan berada di luar jadwal yang ditentukan.', 422);
         }
 
+        $candidateId = is_numeric($data['candidate_id'] ?? null) ? (int) $data['candidate_id'] : 0;
         $candidate = VoteCandidate::where('event_id', $event->id)
-            ->findOrFail($data['candidate_id']);
+            ->findOrFail($candidateId);
+        assert($candidate instanceof VoteCandidate);
 
         $voter = null;
         if (! empty($data['token'])) {
-            $tokenInput = strtoupper(trim($data['token']));
+            $tokenRaw = is_string($data['token']) ? $data['token'] : '';
+            $tokenInput = strtoupper(trim($tokenRaw));
             $voter = VoteVoter::where('event_id', $event->id)
                 ->where('token', $tokenInput)
                 ->first();
@@ -170,6 +176,8 @@ class VotingEngineService
 
     /**
      * Hitung rekapitulasi cepat (Quick Count) pemungutan suara secara real-time.
+     *
+     * @return array<string, mixed>
      */
     public function calculateQuickCount(VoteEvent $event): array
     {
@@ -178,7 +186,8 @@ class VotingEngineService
         $votedDpt = VoteVoter::where('event_id', $event->id)->where('has_voted', true)->count();
         $turnout = $totalDpt > 0 ? round(($votedDpt / $totalDpt) * 100, 2) : 0;
 
-        $results = $event->candidates->map(function ($c) use ($totalBallots) {
+        $results = $event->candidates->map(function ($c) use ($totalBallots): array {
+            /** @var VoteCandidate $c */
             $pct = $totalBallots > 0 ? round(($c->vote_count / $totalBallots) * 100, 2) : 0;
 
             return [

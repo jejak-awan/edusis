@@ -11,8 +11,10 @@ return new class extends Migration
     public function up(): void
     {
         // 1. Spatie Permissions & Roles (UUID-based)
-        $tableNames = config('permission.table_names');
-        $columnNames = config('permission.column_names');
+        /** @var array<string, string> $tableNames */
+        $tableNames = config('permission.table_names') ?? [];
+        /** @var array<string, string> $columnNames */
+        $columnNames = config('permission.column_names') ?? [];
 
         if (empty($tableNames)) {
             $tableNames = [
@@ -287,7 +289,8 @@ return new class extends Migration
 
     public function down(): void
     {
-        $tableNames = config('permission.table_names');
+        /** @var array<string, string> $tableNames */
+        $tableNames = config('permission.table_names') ?? [];
 
         Schema::dropIfExists('oauth_device_codes');
         Schema::dropIfExists('oauth_auth_codes');

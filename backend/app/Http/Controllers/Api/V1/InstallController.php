@@ -8,6 +8,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Modules\Core\Security\Models\SecurityLog;
 use Modules\Core\System\Models\User;
 
@@ -163,7 +165,7 @@ class InstallController extends Controller
                 'name' => $validated['name'],
                 'username' => $validated['username'],
                 'email' => $validated['email'],
-                'password' => \Hash::make($validated['password']),
+                'password' => Hash::make($validated['password']),
             ]);
 
             if (is_object($user) && method_exists($user, 'markEmailAsVerified')) {
@@ -247,7 +249,7 @@ class InstallController extends Controller
                 [
                     'username' => 'super',
                     'name' => 'Super Administrator',
-                    'password' => \Hash::make($password),
+                    'password' => Hash::make($password),
                     'email_verified_at' => now(),
                 ]
             );
@@ -255,7 +257,7 @@ class InstallController extends Controller
                 $user->assignRole('super');
             }
         } catch (\Exception $e) {
-            \Log::error('Failed to create super user: '.$e->getMessage());
+            Log::error('Failed to create super user: '.$e->getMessage());
         }
     }
 

@@ -10,6 +10,8 @@ use Modules\School\Models\Institution\School;
 
 /**
  * Factory untuk entitas Kompetensi Keahlian / Jurusan (Department).
+ *
+ * @extends Factory<Department>
  */
 class DepartmentFactory extends Factory
 {

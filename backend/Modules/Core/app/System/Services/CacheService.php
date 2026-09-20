@@ -3,6 +3,7 @@
 namespace Modules\Core\System\Services;
 
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 
 class CacheService
@@ -101,31 +102,23 @@ class CacheService
 
             return $redis->del($keys);
         } catch (\Exception $e) {
-            \Log::warning('Failed to invalidate cache by pattern: '.$e->getMessage());
+            Log::warning('Failed to invalidate cache by pattern: '.$e->getMessage());
 
             return 0;
         }
     }
 
     /**
-     * Check if Redis is available and configured
+     * Check if Redis is connected and responsive.
      */
-    public function isRedisAvailable(): bool
+    public static function isRedisAvailable(): bool
     {
-        $cacheDriver = config('cache.default');
-
-        // Not using Redis
-        if (! in_array($cacheDriver, ['redis', 'redis_failover', 'failover'])) {
-            return false;
-        }
-
         try {
-            $redis = Redis::connection();
-            $redis->ping();
+            Redis::ping();
 
             return true;
         } catch (\Exception $e) {
-            \Log::debug('Redis not available: '.$e->getMessage());
+            Log::debug('Redis not available: '.$e->getMessage());
 
             return false;
         }

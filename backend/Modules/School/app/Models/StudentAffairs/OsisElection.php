@@ -11,6 +11,19 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\School\Models\Academic\AcademicYear;
 use Modules\School\Models\Institution\School;
 
+/**
+ * @property int $id
+ * @property int $school_id
+ * @property int $academic_year_id
+ * @property string $title
+ * @property string $period
+ * @property \Illuminate\Support\Carbon|null $start_date
+ * @property \Illuminate\Support\Carbon|null $end_date
+ * @property string $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, OsisCandidate> $candidates
+ */
 class OsisElection extends Model
 {
     use HasFactory;
@@ -42,6 +55,9 @@ class OsisElection extends Model
         return $this->belongsTo(AcademicYear::class, 'academic_year_id');
     }
 
+    /**
+     * @return HasMany<OsisCandidate, $this>
+     */
     public function candidates(): HasMany
     {
         return $this->hasMany(OsisCandidate::class, 'election_id')->orderBy('candidate_number');

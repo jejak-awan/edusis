@@ -255,7 +255,7 @@ class UserController extends BaseApiController
     public function passkeys(Request $request): JsonResponse
     {
         $user = $request->user();
-        if (! $user) {
+        if (! ($user instanceof User)) {
             return $this->unauthorized();
         }
 
@@ -270,7 +270,7 @@ class UserController extends BaseApiController
     public function updateKycStep(Request $request): JsonResponse
     {
         $user = $request->user();
-        if (! $user) {
+        if (! ($user instanceof User)) {
             return $this->unauthorized();
         }
 

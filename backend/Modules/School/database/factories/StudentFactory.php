@@ -10,6 +10,8 @@ use Modules\School\Models\Student\Student;
 
 /**
  * Factory untuk entitas Peserta Didik (Buku Induk Siswa Dapodik).
+ *
+ * @extends Factory<Student>
  */
 class StudentFactory extends Factory
 {
@@ -36,7 +38,7 @@ class StudentFactory extends Factory
             'desa_kelurahan' => $this->faker->citySuffix(),
             'kecamatan' => $this->faker->city(),
             'kabupaten_kota' => $this->faker->city(),
-            'provinsi' => $this->faker->state(),
+            'provinsi' => $this->faker->randomElement(['Jawa Barat', 'DKI Jakarta', 'Jawa Tengah', 'Jawa Timur', 'Banten']),
             'postal_code' => $this->faker->postcode(),
             'phone' => '08'.$this->faker->numerify('##########'),
             'email' => $this->faker->unique()->safeEmail(),

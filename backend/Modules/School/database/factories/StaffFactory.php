@@ -10,6 +10,8 @@ use Modules\School\Models\Institution\School;
 
 /**
  * Factory untuk entitas Tenaga Pendidik dan Kependidikan (GTK).
+ *
+ * @extends Factory<Staff>
  */
 class StaffFactory extends Factory
 {

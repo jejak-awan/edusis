@@ -9,6 +9,8 @@ use Modules\School\Models\Institution\School;
 
 /**
  * Factory untuk entitas Institusi / Sekolah.
+ *
+ * @extends Factory<School>
  */
 class SchoolFactory extends Factory
 {
@@ -26,7 +28,7 @@ class SchoolFactory extends Factory
             'desa_kelurahan' => $this->faker->citySuffix(),
             'kecamatan' => $this->faker->city(),
             'kabupaten_kota' => $this->faker->city(),
-            'provinsi' => $this->faker->state(),
+            'provinsi' => $this->faker->randomElement(['Jawa Barat', 'DKI Jakarta', 'Jawa Tengah', 'Jawa Timur', 'Banten']),
             'postal_code' => $this->faker->postcode(),
             'phone' => $this->faker->phoneNumber(),
             'email' => $this->faker->unique()->safeEmail(),

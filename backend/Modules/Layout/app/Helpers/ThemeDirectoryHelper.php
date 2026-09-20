@@ -3,6 +3,7 @@
 namespace Modules\Layout\Helpers;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 class ThemeDirectoryHelper
 {
@@ -139,7 +140,7 @@ README;
 
             return true;
         } catch (\Exception $e) {
-            \Log::error('Failed to create theme structure: '.$e->getMessage());
+            Log::error('Failed to create theme structure: '.$e->getMessage());
 
             return false;
         }

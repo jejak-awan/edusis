@@ -2,6 +2,7 @@
 
 namespace Modules\Core\System\Models;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -66,13 +67,15 @@ class ActivityLog extends Model
 
     /**
      * @param  array<string, mixed>  $changes
+     * @param  Authenticatable|Model|null  $user
      */
-    public static function log(string $action, ?Model $model = null, array $changes = [], ?User $user = null, ?string $description = null): self
+    public static function log(string $action, ?Model $model = null, array $changes = [], $user = null, ?string $description = null): self
     {
         $user ??= auth()->user();
+        $userId = $user instanceof Model ? $user->getKey() : ($user instanceof Authenticatable ? $user->getAuthIdentifier() : null);
 
         return self::create([
-            'user_id' => $user?->id,
+            'user_id' => is_numeric($userId) ? (int) $userId : null,
             'action' => $action,
             'model_type' => $model instanceof Model ? $model::class : null,
             'model_id' => $model?->getKey(),
