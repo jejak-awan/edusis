@@ -33,6 +33,7 @@ Kebijakan: [`DOCUMENTATION.md`](../DOCUMENTATION.md) — nomor ADR **abadi**, ja
 | **[ADR-028](./ADR-028-menu-builder-properties-mega-menu-and-multi-theme-parity.md)** | Menu Builder Properties, Mega Menu Architecture, and Multi-Theme Parity | Accepted | layout |
 | **[ADR-029](./ADR-029-edusis-domain-and-multi-repo-synthesis.md)** | Arsitektur Domain JA-EduSIS dan Sintesis Multi-Repositori | Accepted | edusis:core |
 | **[ADR-030](./ADR-030-school-module-scaffold-and-subdomain-architecture.md)** | Struktur Scaffolding dan Sub-Domain Modul School | Accepted | edusis:school |
+| **[ADR-031](./ADR-031-school-module-soc-sot-and-reference-alignment.md)** | Standarisasi Pemrograman, SoC, SoT, dan Penyelarasan Aset `repo_referensi` | Accepted | edusis:school |
 
 ## Theme-scoped / downstream (stub di folder ini)
 

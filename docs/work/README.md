@@ -14,7 +14,7 @@ Alur wajib: [`WORKFLOW.md`](../WORKFLOW.md) · Mulai task: [`guides/start-a-task
 
 | ID | Judul | Status | Skala |
 | :--- | :--- | :--- | :--- |
-| *(Belum ada task aktif — siap memulai Scaffolding Modules/School)* | | | |
+| [2026-09-20-school-module-soc-sot-reference-alignment](2026-09-20-school-module-soc-sot-reference-alignment.md) | Restrukturisasi Arsitektur Modul School: SoC, SoT, dan Penyelarasan Aset `repo_referensi` | `proposed` | L |
 
 ## Selesai hari ini (belum diarsip)
 
