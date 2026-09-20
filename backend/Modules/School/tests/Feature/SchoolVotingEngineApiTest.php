@@ -77,7 +77,7 @@ class SchoolVotingEngineApiTest extends TestCase
             'end_date' => Carbon::now()->addDays(3)->toIso8601String(),
             'status' => 'active',
             'allow_abstain' => false,
-            'description' => 'Pemilihan ketua klub robotik dan IoT SMKN 6 Bandung.',
+            'description' => 'Pemilihan ketua klub robotik dan IoT sekolah.',
         ];
 
         $response = $this->actingAs($this->admin, 'sanctum')

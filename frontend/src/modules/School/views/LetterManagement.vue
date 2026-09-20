@@ -517,8 +517,8 @@ const openRegisterModal = () => {
   form.letter_number = '';
   form.reference_number = '';
   form.category = 'invitation';
-  form.sender = activeTab.value === 'incoming' ? '' : 'Kepala SMKN 6 Bandung';
-  form.recipient = activeTab.value === 'incoming' ? 'Kepala SMKN 6 Bandung' : '';
+  form.sender = activeTab.value === 'incoming' ? '' : 'Kepala Sekolah';
+  form.recipient = activeTab.value === 'incoming' ? 'Kepala Sekolah' : '';
   form.subject = '';
   form.letter_date = new Date().toISOString().split('T')[0];
   form.received_or_sent_date = new Date().toISOString().split('T')[0];

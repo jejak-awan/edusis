@@ -176,7 +176,7 @@ class SchoolVotingEngineSeeder extends Seeder
                 'type' => 'mpk',
                 'target_audience' => 'specific_classes',
                 'voting_mode' => 'token_kiosk',
-                'description' => 'Musyawarah perwakilan kelas untuk menentukan pimpinan legislatif siswa MPK SMKN 6 Bandung.',
+                'description' => 'Musyawarah perwakilan kelas untuk menentukan pimpinan legislatif siswa MPK sekolah.',
                 'start_date' => now()->addDays(3),
                 'end_date' => now()->addDays(7),
                 'status' => 'active',

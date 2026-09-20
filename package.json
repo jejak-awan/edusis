@@ -1,5 +1,5 @@
 {
-    "name": "jejakawan",
+    "name": "ja-edusis",
     "version": "1.0.0-beta.2",
     "private": true,
     "engines": {
@@ -35,7 +35,7 @@
     },
     "x-agent-guidelines": {
         "purpose": "Standard instructions for AI/coding agents when creating or updating this project.",
-        "scope": "Jejakawan Core Engine; repo ja-core_engine (Core System, Security, Infra, Data Model Studio, IAM, Engine Architecture).",
+        "scope": "JA-EduSIS (Jejakawan Educational School Information System); repo ja-edusis (School SIS Domain, Sarangenge Theme, Publishing, Member, IAM/RBAC, Engine Architecture).",
         "when_creating_or_updating_project": [
             "Read docs/WORKFLOW.md and docs/DOCUMENTATION.md first, then docs/AGENT_START_HERE.md, docs/architectural-status.md, docs/product/downstream-apps-and-licensing.md, and docs/architecture/*.md listed in docs/README.md.",
             "For scale M+ work: create/update a brief under docs/work/ from docs/templates/task-brief.md (audit → plan → implement → verify → record).",

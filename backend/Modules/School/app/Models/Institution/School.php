@@ -13,6 +13,19 @@ use Modules\School\Models\Academic\StudyGroup;
 use Modules\School\Models\Academic\Subject;
 use Modules\School\Models\Student\Student;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $type
+ * @property string $npsn
+ * @property string|null $nss
+ * @property string|null $accreditation
+ * @property string|null $curriculum
+ * @property string|null $address
+ * @property string|null $principal_name
+ * @property string|null $principal_nip
+ * @property bool $is_active
+ */
 class School extends Model
 {
     use HasFactory;

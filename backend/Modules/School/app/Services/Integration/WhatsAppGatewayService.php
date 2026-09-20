@@ -59,7 +59,8 @@ class WhatsAppGatewayService
         $createdLogs = [];
 
         $school = School::find($schoolId);
-        $schoolName = $school?->name ?? config('app.name', 'EduSIS');
+        $fallbackName = config('app.name', 'EduSIS');
+        $schoolName = $school?->name ?? (is_string($fallbackName) ? $fallbackName : 'EduSIS');
 
         $statusLabels = [
             'A' => 'ALPA (Tanpa Keterangan)',

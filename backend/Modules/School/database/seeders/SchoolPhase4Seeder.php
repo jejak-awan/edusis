@@ -46,7 +46,7 @@ class SchoolPhase4Seeder extends Seeder
                 'reference_number' => 'DISDIK-JB/0892/2026',
                 'category' => 'invitation',
                 'sender' => 'Dinas Pendidikan Provinsi Jawa Barat',
-                'recipient' => 'Kepala SMKN 6 Bandung',
+                'recipient' => 'Kepala '.$school->name,
                 'subject' => 'Undangan Rapat Koordinasi Kurikulum Merdeka dan Akreditasi Sekolah Vokasi',
                 'letter_date' => now()->subDays(5)->toDateString(),
                 'received_or_sent_date' => now()->subDays(4)->toDateString(),
