@@ -71,6 +71,18 @@
       "category": "student"
     },
     {
+      "slug": "guest_book",
+      "name": "Guest Book",
+      "description": "Digital visitor logbook and check-in/check-out management",
+      "category": "operations"
+    },
+    {
+      "slug": "osis",
+      "name": "OSIS & Extracurricular",
+      "description": "Student organization elections and extracurricular activity management",
+      "category": "student"
+    },
+    {
       "slug": "katampi",
       "name": "KataMPI CBT Engine Integration",
       "description": "Cross-cluster exam roster synchronization and automated grade ingestion",
@@ -369,6 +381,50 @@
           "oauth_scope": "whatsapp:write"
         }
       }
+    },
+    "guest_book": {
+      "name": "Guest Book",
+      "description": "Digital visitor logbook and school guest management",
+      "actions": {
+        "view": {
+          "permission": "view guest_book",
+          "label": "View Guest Book",
+          "label_key": "school.capabilities.guest_book.view",
+          "action_type": "read",
+          "default_roles": ["admin", "operator"],
+          "oauth_scope": "guest_book:read"
+        },
+        "manage": {
+          "permission": "manage guest_book",
+          "label": "Manage Guest Book",
+          "label_key": "school.capabilities.guest_book.manage",
+          "action_type": "manage",
+          "default_roles": ["admin", "operator"],
+          "oauth_scope": "guest_book:write"
+        }
+      }
+    },
+    "osis": {
+      "name": "OSIS & Extracurricular",
+      "description": "OSIS elections, extracurricular activities, and student organization management",
+      "actions": {
+        "view": {
+          "permission": "view osis",
+          "label": "View OSIS & Extracurricular",
+          "label_key": "school.capabilities.osis.view",
+          "action_type": "read",
+          "default_roles": ["admin", "operator", "teacher"],
+          "oauth_scope": "osis:read"
+        },
+        "manage": {
+          "permission": "manage osis",
+          "label": "Manage OSIS & Extracurricular",
+          "label_key": "school.capabilities.osis.manage",
+          "action_type": "manage",
+          "default_roles": ["admin"],
+          "oauth_scope": "osis:write"
+        }
+      }
     }
   },
   "permissions": [
@@ -397,7 +453,11 @@
     "view katampi",
     "manage katampi",
     "view whatsapp",
-    "manage whatsapp"
+    "manage whatsapp",
+    "view guest_book",
+    "manage guest_book",
+    "view osis",
+    "manage osis"
   ],
   "lifecycle": {
     "preserve_data_on_deactivate": true,
