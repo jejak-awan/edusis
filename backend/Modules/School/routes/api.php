@@ -72,6 +72,19 @@ Route::prefix('v1/school')->middleware(['auth:sanctum', SchoolContextMiddleware:
         Route::delete('/study-groups/{id}', [AcademicController::class, 'deleteStudyGroup']);
         Route::post('/study-groups/{id}/members', [AcademicController::class, 'assignStudentToGroup']);
         Route::delete('/study-groups/{id}/members/{studentId}', [AcademicController::class, 'removeStudentFromGroup']);
+
+        // Aliases for schedules, journals, assessments, reports under academic prefix
+        Route::get('/schedules', [ScheduleController::class, 'index']);
+        Route::post('/schedules', [ScheduleController::class, 'store']);
+        Route::put('/schedules/{id}', [ScheduleController::class, 'update']);
+        Route::delete('/schedules/{id}', [ScheduleController::class, 'destroy']);
+        Route::get('/teaching-journals', [TeachingJournalController::class, 'index']);
+        Route::post('/teaching-journals', [TeachingJournalController::class, 'store']);
+        Route::get('/assessments', [AssessmentController::class, 'index']);
+        Route::post('/assessments', [AssessmentController::class, 'store']);
+        Route::post('/assessments/{id}/grades', [AssessmentController::class, 'storeBulkGrades']);
+        Route::get('/grades/ledger', [ReportCardController::class, 'ledger']);
+        Route::get('/reports/student/{studentId}', [ReportCardController::class, 'studentReport']);
     });
 
     // --- Student Affairs (Kesiswaan Dapodik) ---

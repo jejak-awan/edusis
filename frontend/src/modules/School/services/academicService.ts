@@ -44,39 +44,39 @@ export class AcademicService {
     }
 
     public static async getSchedules(params: Record<string, any> = {}): Promise<AxiosResponse<ApiResponse<Schedule[]>>> {
-        return api.get('/school/academic/schedules', { params });
+        return api.get('/school/schedules', { params });
     }
 
     public static async createSchedule(data: Partial<Schedule>): Promise<AxiosResponse<ApiResponse<Schedule>>> {
-        return api.post('/school/academic/schedules', data);
+        return api.post('/school/schedules', data);
     }
 
     public static async getTeachingJournals(params: Record<string, any> = {}): Promise<AxiosResponse<ApiResponse<TeachingJournal[]>>> {
-        return api.get('/school/academic/teaching-journals', { params });
+        return api.get('/school/journals', { params });
     }
 
     public static async createTeachingJournal(data: Partial<TeachingJournal>): Promise<AxiosResponse<ApiResponse<TeachingJournal>>> {
-        return api.post('/school/academic/teaching-journals', data);
+        return api.post('/school/journals', data);
     }
 
     public static async getAssessments(params: Record<string, any> = {}): Promise<AxiosResponse<ApiResponse<any[]>>> {
-        return api.get('/school/academic/assessments', { params });
+        return api.get('/school/assessments', { params });
     }
 
     public static async createAssessment(data: any): Promise<AxiosResponse<ApiResponse<any>>> {
-        return api.post('/school/academic/assessments', data);
+        return api.post('/school/assessments', data);
     }
 
     public static async saveBulkGrades(assessmentId: number, grades: any[]): Promise<AxiosResponse<ApiResponse<any>>> {
-        return api.post(`/school/academic/assessments/${assessmentId}/grades`, { grades });
+        return api.post(`/school/assessments/${assessmentId}/grades/bulk`, { grades });
     }
 
     public static async getGradeLedger(params: Record<string, any>): Promise<AxiosResponse<ApiResponse<any>>> {
-        return api.get('/school/academic/grades/ledger', { params });
+        return api.get('/school/reports/ledger', { params });
     }
 
     public static async getStudentReportCard(studentId: number | string, params: Record<string, any> = {}): Promise<AxiosResponse<ApiResponse<any>>> {
-        return api.get(`/school/academic/reports/student/${studentId}`, { params });
+        return api.get(`/school/reports/student/${studentId}`, { params });
     }
 }
 

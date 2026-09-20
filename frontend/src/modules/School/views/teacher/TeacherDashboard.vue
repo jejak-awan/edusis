@@ -199,9 +199,8 @@ async function loadSchedules() {
   try {
     const dayOfWeek = now.getDay();
     const res = await AcademicService.getSchedules({ day_of_week: dayOfWeek });
-    if (res.data?.success) {
-      todaySchedules.value = res.data.data || [];
-    }
+    const raw = (res.data?.data ?? res.data) as any;
+    todaySchedules.value = Array.isArray(raw) ? raw : (raw?.data ?? []);
   } catch (err) {
     console.error('Failed to load teacher schedules', err);
   } finally {

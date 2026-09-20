@@ -115,9 +115,8 @@ async function loadSchedules() {
   loading.value = true;
   try {
     const res = await AcademicService.getSchedules();
-    if (res.data?.success) {
-      schedules.value = res.data.data || [];
-    }
+    const raw = (res.data?.data ?? res.data) as any;
+    schedules.value = Array.isArray(raw) ? raw : (raw?.data ?? []);
   } catch (err) {
     console.error('Failed to load schedules', err);
   } finally {
