@@ -808,7 +808,8 @@ class RedisController extends BaseApiController
         do {
             $iterations++;
             /** @var mixed $result */
-            $result = $redis->command('scan', [$cursor, 'match', $pattern, 'count', 100]);
+            // @phpstan-ignore-next-line
+            $result = $redis->scan($cursor, ['match' => $pattern, 'count' => 100]);
 
             if ($result === false || ! is_array($result)) {
                 break;

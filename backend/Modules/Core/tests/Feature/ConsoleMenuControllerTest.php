@@ -27,8 +27,9 @@ class ConsoleMenuControllerTest extends TestCase
         $response->assertOk()
             ->assertJsonPath('success', true);
 
-        // 10 root groups + children (categories removed, consolidated into Content Studio tabs)
-        $this->assertDatabaseCount('sys_console_menus', 54);
+        $defaultMenus = ConsoleMenu::getDefaultMenus();
+        $expectedCount = count($defaultMenus) + array_sum(array_map(fn ($g) => count($g['children'] ?? []), $defaultMenus));
+        $this->assertDatabaseCount('sys_console_menus', $expectedCount);
         $this->assertDatabaseMissing('sys_console_menus', [
             'route_name' => 'categories.index',
         ]);
