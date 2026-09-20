@@ -117,10 +117,10 @@ class ExtensionBootstrapService
             }
         }
         if (! $activeServedSlug) {
-            $settingVal = Setting::get('theme_active', 'janari');
+            $settingVal = Setting::get('theme_active', 'sarangenge');
             $activeServedSlug = is_string($settingVal) && trim($settingVal) !== ''
                 ? strtolower(trim($settingVal))
-                : 'janari';
+                : 'sarangenge';
         }
 
         $count = 0;
@@ -129,7 +129,7 @@ class ExtensionBootstrapService
             $isKernel = $meta['is_core'] || $this->isKernelSlug($slug);
             if ($isKernel) {
                 $status = 'active';
-            } elseif ($slug === 'theme-janari') {
+            } elseif ($slug === 'theme-sarangenge') {
                 $status = 'active';
             } elseif ($meta['type'] === 'theme' && ($meta['theme_slug'] ?? null) === $activeServedSlug) {
                 $status = 'active';

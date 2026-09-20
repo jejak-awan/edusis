@@ -83,37 +83,36 @@ test.describe('honesty pass browser flows', () => {
 
         await consoleLogin(page);
         await page.goto('/dash/themes');
-        await expect(page.getByRole('heading', { name: /janari/i }).first()).toBeVisible({ timeout: 20_000 });
+        await expect(page.getByRole('heading', { name: /sarangenge/i }).first()).toBeVisible({ timeout: 20_000 });
 
         const originalTheme = await page.evaluate(async () => {
             const res = await fetch('/api/v1/public/layout/themes/active', { credentials: 'include' });
             const body = await res.json() as { data?: { slug?: string }; slug?: string };
-            return body.data?.slug ?? body.slug ?? 'janari';
+            return body.data?.slug ?? body.slug ?? 'sarangenge';
         });
 
-        const janariCard = page.locator('.rounded-xl.border').filter({
-            has: page.getByRole('heading', { name: /^Janari$/i }),
+        const sarangengeCard = page.locator('.rounded-xl.border').filter({
+            has: page.getByRole('heading', { name: /^Sarangenge$/i }),
         });
-        const activateJanari = janariCard.getByRole('button', { name: /activate|aktifkan/i });
-        if (await activateJanari.isVisible().catch(() => false)) {
-            await activateJanari.click();
+        const activateSarangenge = sarangengeCard.getByRole('button', { name: /activate|aktifkan/i });
+        if (await activateSarangenge.isVisible().catch(() => false)) {
+            await activateSarangenge.click();
             await confirmDialog(page, /activate|aktifkan/i);
-            await expect(janariCard.getByText(/active|aktif/i).first()).toBeVisible({ timeout: 20_000 });
+            await expect(sarangengeCard.getByText(/active|aktif/i).first()).toBeVisible({ timeout: 20_000 });
         }
 
         try {
             for (const path of ['/', '/about', '/blog', '/contact']) {
                 await page.goto(path);
                 await expect(page.getByText(/halaman tidak stabil/i)).toHaveCount(0, { timeout: 15_000 });
-                await expect(page.locator('.janari-header-toolbar')).toBeVisible({ timeout: 15_000 });
-                await expect(page.locator('.sarangenge-theme')).toHaveCount(0);
-                await expect(page.getByText(/theme\.janari\./)).toHaveCount(0);
+                await expect(page.locator('.sarangenge-theme')).toBeVisible({ timeout: 15_000 });
+                await expect(page.getByText(/theme\.sarangenge\./)).toHaveCount(0);
             }
 
-            await expect(page.locator('body')).not.toContainText('theme.janari.');
+            await expect(page.locator('body')).not.toContainText('theme.sarangenge.');
             expect(i18nErrors, i18nErrors.join('\n')).toEqual([]);
         } finally {
-            if (originalTheme && originalTheme !== 'janari') {
+            if (originalTheme && originalTheme !== 'sarangenge') {
                 await page.goto('/dash/themes');
                 const originalCard = page.locator('.rounded-xl.border').filter({
                     has: page.getByRole('heading', { name: new RegExp(`^${originalTheme}$`, 'i') }),

@@ -18,15 +18,6 @@ import schoolPack from '@/modules/School/locales';
 import sarangengeEn from '@/modules/Layout/views/themes/sarangenge/locales/en.json';
 import sarangengeId from '@/modules/Layout/views/themes/sarangenge/locales/id.json';
 import sarangengeSu from '@/modules/Layout/views/themes/sarangenge/locales/su.json';
-import janariEn from '@/modules/Layout/views/themes/janari/locales/en.json';
-import janariId from '@/modules/Layout/views/themes/janari/locales/id.json';
-import janariSu from '@/modules/Layout/views/themes/janari/locales/su.json';
-import layungEn from '@/modules/Layout/views/themes/layung/locales/en.json';
-import layungId from '@/modules/Layout/views/themes/layung/locales/id.json';
-import layungSu from '@/modules/Layout/views/themes/layung/locales/su.json';
-import sareupnaEn from '@/modules/Layout/views/themes/sareupna/locales/en.json';
-import sareupnaId from '@/modules/Layout/views/themes/sareupna/locales/id.json';
-import sareupnaSu from '@/modules/Layout/views/themes/sareupna/locales/su.json';
 
 import consoleEn from '@/locales/en/console.json';
 import consoleId from '@/locales/id/console.json';
@@ -59,7 +50,7 @@ export const moduleLocaleBundles = {
         ai: cmsAiPack.en,
         member: memberPack.en,
         school: schoolPack.en,
-        theme: { sarangenge: sarangengeEn, janari: janariEn, layung: layungEn, sareupna: sareupnaEn },
+        theme: { sarangenge: sarangengeEn },
     },
     id: {
         system: system.id,
@@ -76,7 +67,7 @@ export const moduleLocaleBundles = {
         ai: cmsAiPack.id,
         member: memberPack.id,
         school: schoolPack.id,
-        theme: { sarangenge: sarangengeId, janari: janariId, layung: layungId, sareupna: sareupnaId },
+        theme: { sarangenge: sarangengeId },
     },
     su: {
         system: system.su,
@@ -93,6 +84,6 @@ export const moduleLocaleBundles = {
         ai: cmsAiPack.su,
         member: memberPack.su,
         school: schoolPack.su,
-        theme: { sarangenge: sarangengeSu, janari: janariSu, layung: layungSu, sareupna: sareupnaSu },
+        theme: { sarangenge: sarangengeSu },
     },
 } as const;

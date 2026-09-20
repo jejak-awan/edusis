@@ -15,12 +15,7 @@ use Tests\TestCase;
 
 /**
  * Feature tests for ADR-023 Phase 1: Theme Registry Packs + License Quotas.
- *
- * Tests cover:
- *  - ExtensionFamilyCatalog THEME family helpers
- *  - LicenseService::getThemeQuota() per tier
- *  - LicenseService::isThemeServeEntitled() per tier
- *  - LicenseService::remainingPremiumSlots()
+ * Updated for ADR-032: Sarangenge as default baseline theme pack.
  */
 final class ThemePackRegistryTest extends TestCase
 {
@@ -45,22 +40,16 @@ final class ThemePackRegistryTest extends TestCase
     {
         $slugs = ExtensionFamilyCatalog::firstPartyThemePackSlugs();
 
-        $this->assertContains('theme-janari', $slugs);
-        $this->assertContains('theme-layung', $slugs);
         $this->assertContains('theme-sarangenge', $slugs);
-        $this->assertContains('theme-sareupna', $slugs);
-        $this->assertCount(4, $slugs);
+        $this->assertCount(1, $slugs);
     }
 
-    public function test_premium_theme_pack_slugs_exclude_janari(): void
+    public function test_premium_theme_pack_slugs_exclude_sarangenge(): void
     {
         $premiumSlugs = ExtensionFamilyCatalog::premiumThemePackSlugs();
 
-        $this->assertNotContains('theme-janari', $premiumSlugs);
-        $this->assertContains('theme-layung', $premiumSlugs);
-        $this->assertContains('theme-sarangenge', $premiumSlugs);
-        $this->assertContains('theme-sareupna', $premiumSlugs);
-        $this->assertCount(3, $premiumSlugs);
+        $this->assertNotContains('theme-sarangenge', $premiumSlugs);
+        $this->assertCount(0, $premiumSlugs);
     }
 
     public function test_resolve_type_theme_maps_to_theme_family(): void
@@ -72,22 +61,22 @@ final class ThemePackRegistryTest extends TestCase
     public function test_theme_pack_activation_priority_after_layout(): void
     {
         $layoutPriority = ExtensionFamilyCatalog::activationPriority('layout');
-        $janariPriority = ExtensionFamilyCatalog::activationPriority('theme-janari');
+        $sarangengePriority = ExtensionFamilyCatalog::activationPriority('theme-sarangenge');
 
-        $this->assertGreaterThan($layoutPriority, $janariPriority);
+        $this->assertGreaterThan($layoutPriority, $sarangengePriority);
     }
 
     // -----------------------------------------------------------------------
     // LicenseService::getThemeQuota()
     // -----------------------------------------------------------------------
 
-    public function test_community_quota_janari_only(): void
+    public function test_community_quota_sarangenge_only(): void
     {
         $quota = $this->license->getThemeQuota(LicenseService::TIER_COMMUNITY);
 
-        $this->assertSame(['janari'], $quota['always_on']);
+        $this->assertSame(['sarangenge'], $quota['always_on']);
         $this->assertSame(0, $quota['max_premium_active']);
-        $this->assertContains('janari', $quota['catalog']);
+        $this->assertContains('sarangenge', $quota['catalog']);
     }
 
     public function test_starter_quota_same_as_community(): void
@@ -102,7 +91,7 @@ final class ThemePackRegistryTest extends TestCase
         $quota = $this->license->getThemeQuota(LicenseService::TIER_PRO);
 
         $this->assertSame(1, $quota['max_premium_active']);
-        $this->assertSame(['janari'], $quota['always_on']);
+        $this->assertSame(['sarangenge'], $quota['always_on']);
     }
 
     public function test_enterprise_quota_unlimited(): void
@@ -123,45 +112,46 @@ final class ThemePackRegistryTest extends TestCase
     // LicenseService::isThemeServeEntitled()
     // -----------------------------------------------------------------------
 
-    public function test_community_can_serve_janari(): void
+    public function test_community_can_serve_sarangenge(): void
     {
         $this->license->deactivateLicense(); // revert to community
 
-        $this->assertTrue($this->license->isThemeServeEntitled('janari'));
+        $this->assertTrue($this->license->isThemeServeEntitled('sarangenge'));
     }
 
     public function test_community_cannot_serve_premium_theme(): void
     {
         $this->license->deactivateLicense();
 
-        $this->assertFalse($this->license->isThemeServeEntitled('layung'));
-        $this->assertFalse($this->license->isThemeServeEntitled('sarangenge'));
-        $this->assertFalse($this->license->isThemeServeEntitled('sareupna'));
+        $this->assertFalse($this->license->isThemeServeEntitled('custom-premium'));
     }
 
-    public function test_pro_can_serve_janari(): void
+    public function test_pro_can_serve_sarangenge(): void
     {
         $this->license->activateLicense('JACP-PRO-TEST-ADR023-PHASE1');
 
-        $this->assertTrue($this->license->isThemeServeEntitled('janari'));
+        $this->assertTrue($this->license->isThemeServeEntitled('sarangenge'));
     }
 
     public function test_pro_can_serve_premium_when_slot_available(): void
     {
         $this->license->activateLicense('JACP-PRO-TEST-ADR023-PHASE1');
+        Setting::set('license_themes_quota', [
+            'always_on' => ['sarangenge'],
+            'max_premium_active' => 1,
+            'catalog' => ['sarangenge', 'custom-premium'],
+        ], 'json');
 
         // No premium currently served — slot should be available
-        $this->assertTrue($this->license->isThemeServeEntitled('layung'));
+        $this->assertTrue($this->license->isThemeServeEntitled('custom-premium'));
     }
 
     public function test_enterprise_can_serve_all_themes(): void
     {
         $this->license->activateLicense('JACP-ENT-ADR023-TEST-9999');
 
-        $this->assertTrue($this->license->isThemeServeEntitled('janari'));
-        $this->assertTrue($this->license->isThemeServeEntitled('layung'));
         $this->assertTrue($this->license->isThemeServeEntitled('sarangenge'));
-        $this->assertTrue($this->license->isThemeServeEntitled('sareupna'));
+        $this->assertTrue($this->license->isThemeServeEntitled('custom-premium'));
     }
 
     // -----------------------------------------------------------------------
@@ -217,47 +207,31 @@ final class ThemePackRegistryTest extends TestCase
         }
     }
 
-    public function test_theme_janari_pack_manifest_column_has_theme_flags(): void
+    public function test_theme_sarangenge_pack_manifest_column_has_theme_flags(): void
     {
         $bootstrapService = app(ExtensionBootstrapService::class);
         $bootstrapService->discover();
 
-        $janariPack = Extension::query()->where('slug', 'theme-janari')->first();
-        $this->assertNotNull($janariPack);
+        $sarangengePack = Extension::query()->where('slug', 'theme-sarangenge')->first();
+        $this->assertNotNull($sarangengePack);
 
-        $manifest = $janariPack->manifest;
+        $manifest = $sarangengePack->manifest;
         $this->assertIsArray($manifest);
         $this->assertArrayHasKey('theme_flags', $manifest);
         $this->assertTrue((bool) ($manifest['theme_flags']['always_on'] ?? false));
         $this->assertTrue((bool) ($manifest['theme_flags']['non_deactivatable'] ?? false));
-    }
-
-    public function test_premium_pack_manifest_has_premium_flag(): void
-    {
-        $bootstrapService = app(ExtensionBootstrapService::class);
-        $bootstrapService->discover();
-
-        $layungPack = Extension::query()->where('slug', 'theme-layung')->first();
-        $this->assertNotNull($layungPack);
-
-        $manifest = $layungPack->manifest;
-        $this->assertIsArray($manifest);
-        $this->assertTrue((bool) ($manifest['theme_flags']['premium'] ?? false));
+        $this->assertFalse((bool) ($manifest['theme_flags']['premium'] ?? true));
     }
 
     public function test_theme_slug_for_pack_resolves_theme_slug(): void
     {
-        $this->assertSame('layung', ExtensionFamilyCatalog::themeSlugForPack('theme-layung'));
-        $this->assertSame('janari', ExtensionFamilyCatalog::themeSlugForPack('theme-janari'));
+        $this->assertSame('sarangenge', ExtensionFamilyCatalog::themeSlugForPack('theme-sarangenge'));
         $this->assertNull(ExtensionFamilyCatalog::themeSlugForPack('cms-publishing'));
     }
 
     public function test_is_premium_theme_pack_slug_identifies_premium_packs(): void
     {
-        $this->assertTrue(ExtensionFamilyCatalog::isPremiumThemePackSlug('theme-layung'));
-        $this->assertTrue(ExtensionFamilyCatalog::isPremiumThemePackSlug('theme-sarangenge'));
-        $this->assertTrue(ExtensionFamilyCatalog::isPremiumThemePackSlug('theme-sareupna'));
-        $this->assertFalse(ExtensionFamilyCatalog::isPremiumThemePackSlug('theme-janari'));
+        $this->assertFalse(ExtensionFamilyCatalog::isPremiumThemePackSlug('theme-sarangenge'));
         $this->assertFalse(ExtensionFamilyCatalog::isPremiumThemePackSlug('layout'));
     }
 
@@ -269,7 +243,7 @@ final class ThemePackRegistryTest extends TestCase
         $bootstrapService = app(ExtensionBootstrapService::class);
         $bootstrapService->discover();
 
-        Setting::set('theme_active', 'janari');
+        Setting::set('theme_active', 'sarangenge');
 
         $response = $this->actingAs($admin, 'sanctum')
             ->getJson('/api/v1/manage/infra/extensions');
@@ -277,13 +251,9 @@ final class ThemePackRegistryTest extends TestCase
         $response->assertOk();
         $data = collect($response->json('data'));
 
-        $janari = $data->firstWhere('slug', 'theme-janari');
-        $this->assertNotNull($janari);
-        $this->assertTrue((bool) ($janari['is_served'] ?? false));
-
-        $layung = $data->firstWhere('slug', 'theme-layung');
-        $this->assertNotNull($layung);
-        $this->assertFalse((bool) ($layung['is_served'] ?? false));
+        $sarangenge = $data->firstWhere('slug', 'theme-sarangenge');
+        $this->assertNotNull($sarangenge);
+        $this->assertTrue((bool) ($sarangenge['is_served'] ?? false));
     }
 
     public function test_theme_controller_returns_3level_meta_and_quota(): void
@@ -353,9 +323,9 @@ final class ThemePackRegistryTest extends TestCase
                     'tier' => 'pro',
                     'expires_at' => null,
                     'themes' => [
-                        'always_on' => ['janari'],
+                        'always_on' => ['sarangenge'],
                         'max_premium_active' => 2,
-                        'catalog' => ['janari', 'layung', 'sarangenge'],
+                        'catalog' => ['sarangenge', 'custom-premium'],
                     ],
                 ],
             ], 200),
@@ -366,13 +336,13 @@ final class ThemePackRegistryTest extends TestCase
 
         $quota = $this->license->getThemeQuota();
         $this->assertSame(2, $quota['max_premium_active']);
-        $this->assertSame(['janari'], $quota['always_on']);
-        $this->assertSame(['janari', 'layung', 'sarangenge'], $quota['catalog']);
+        $this->assertSame(['sarangenge'], $quota['always_on']);
+        $this->assertSame(['sarangenge', 'custom-premium'], $quota['catalog']);
 
-        // Entitlement checks: janari and layung are entitled, sareupna is not in custom catalog
-        $this->assertTrue($this->license->isThemeServeEntitled('janari'));
-        $this->assertTrue($this->license->isThemeServeEntitled('layung'));
-        $this->assertFalse($this->license->isThemeServeEntitled('sareupna'));
+        // Entitlement checks
+        $this->assertTrue($this->license->isThemeServeEntitled('sarangenge'));
+        $this->assertTrue($this->license->isThemeServeEntitled('custom-premium'));
+        $this->assertFalse($this->license->isThemeServeEntitled('unentitled-theme'));
     }
 
     public function test_jacp_payload_partial_missing_fields_falls_back_safely(): void
@@ -385,7 +355,6 @@ final class ThemePackRegistryTest extends TestCase
                     'expires_at' => null,
                     'themes' => [
                         'max_premium_active' => 3,
-                        // always_on and catalog omitted
                     ],
                 ],
             ], 200),
@@ -396,11 +365,8 @@ final class ThemePackRegistryTest extends TestCase
 
         $quota = $this->license->getThemeQuota();
         $this->assertSame(3, $quota['max_premium_active']);
-        $this->assertSame(['janari'], $quota['always_on']);
-        $this->assertContains('janari', $quota['catalog']);
-        $this->assertContains('layung', $quota['catalog']);
+        $this->assertSame(['sarangenge'], $quota['always_on']);
         $this->assertContains('sarangenge', $quota['catalog']);
-        $this->assertContains('sareupna', $quota['catalog']);
     }
 
     public function test_jacp_heartbeat_sync_updates_theme_quota_and_remediates(): void
@@ -409,20 +375,20 @@ final class ThemePackRegistryTest extends TestCase
         $this->license->activateLicense('JACP-PRO-HEARTBEAT-TEST');
         Setting::set('license_key', 'JACP-PRO-HEARTBEAT-TEST');
 
-        // Ensure janari and layung exist in lay_themes
+        // Ensure sarangenge and custom theme exist in lay_themes
         Theme::updateOrCreate(
-            ['slug' => 'janari'],
-            ['name' => 'Janari', 'type' => 'frontend', 'path' => 'themes/janari', 'is_active' => false, 'status' => 'inactive']
+            ['slug' => 'sarangenge'],
+            ['name' => 'Sarangenge', 'type' => 'frontend', 'path' => 'themes/sarangenge', 'is_active' => false, 'status' => 'inactive']
         );
         Theme::updateOrCreate(
-            ['slug' => 'layung'],
-            ['name' => 'Layung', 'type' => 'frontend', 'path' => 'themes/layung', 'is_active' => true, 'status' => 'active']
+            ['slug' => 'custom-premium'],
+            ['name' => 'Custom Premium', 'type' => 'frontend', 'path' => 'themes/custom-premium', 'is_active' => true, 'status' => 'active']
         );
 
-        // Set layung active
+        // Set custom-premium active
         Theme::query()->where('type', 'frontend')->update(['is_active' => false]);
-        Theme::query()->where('slug', 'layung')->update(['is_active' => true]);
-        Setting::set('theme_active', 'layung');
+        Theme::query()->where('slug', 'custom-premium')->update(['is_active' => true]);
+        Setting::set('theme_active', 'custom-premium');
 
         // Mock heartbeat response that reduces quota to 0 premium themes
         Http::fake([
@@ -431,9 +397,9 @@ final class ThemePackRegistryTest extends TestCase
                 'data' => [
                     'tier' => 'community',
                     'themes' => [
-                        'always_on' => ['janari'],
+                        'always_on' => ['sarangenge'],
                         'max_premium_active' => 0,
-                        'catalog' => ['janari'],
+                        'catalog' => ['sarangenge'],
                     ],
                 ],
             ], 200),
@@ -442,19 +408,19 @@ final class ThemePackRegistryTest extends TestCase
         $res = $this->license->syncHeartbeat(true);
         $this->assertTrue($res['success']);
 
-        // Layung should have been remediated back to janari
+        // custom-premium should have been remediated back to sarangenge
         $activeTheme = Theme::query()->where('type', 'frontend')->where('is_active', true)->first();
         $this->assertNotNull($activeTheme);
-        $this->assertSame('janari', $activeTheme->slug);
-        $this->assertSame('janari', Setting::get('theme_active'));
+        $this->assertSame('sarangenge', $activeTheme->slug);
+        $this->assertSame('sarangenge', Setting::get('theme_active'));
     }
 
     public function test_deactivate_license_clears_themes_quota_setting(): void
     {
         Setting::set('license_themes_quota', [
-            'always_on' => ['janari'],
+            'always_on' => ['sarangenge'],
             'max_premium_active' => 5,
-            'catalog' => ['janari', 'layung'],
+            'catalog' => ['sarangenge', 'custom-theme'],
         ], 'json');
 
         $this->license->deactivateLicense();

@@ -436,7 +436,7 @@ const canUndo = computed(() => builder?.canUndo?.value || false)
 const canRedo = computed(() => builder?.canRedo?.value || false)
 
 // Theme switcher state
-const activeThemeSlug = computed(() => builder?.activeTheme?.value || 'janari')
+const activeThemeSlug = computed(() => builder?.activeTheme?.value || 'sarangenge')
 const availableThemes = computed(() => (builder?.availableThemes?.value || []) as Array<{ slug: string; name: string; [k: string]: unknown }>)
 const loadingThemes = computed(() => builder?.loadingThemes?.value || false)
 

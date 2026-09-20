@@ -5,7 +5,6 @@
     "type": "frontend",
     "archetype": "education_school",
     "category": "Education & Institution",
-    "parent_theme": "janari",
     "description": "Sarangenge — tema situs sekolah kejuruan & institusi pendidikan. Fokus kampus vokasi SMK Pusat Keunggulan, PPDB, prestasi, bengkel TEFA, dan aksesibilitas 2026.",
     "author": "Jejakawan Team",
     "supports": {

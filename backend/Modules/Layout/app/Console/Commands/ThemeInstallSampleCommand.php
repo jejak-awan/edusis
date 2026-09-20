@@ -14,11 +14,11 @@ use Modules\Layout\Services\ThemeService;
 class ThemeInstallSampleCommand extends Command
 {
     protected $signature = 'theme:install-sample
-                            {slug : Theme slug (janari, sarangenge, layung)}
+                            {slug=sarangenge : Theme slug (e.g. sarangenge)}
                             {--force : Overwrite existing non-sample data}
                             {--only= : Comma-separated: menus,settings,pages,forms}';
 
-    protected $description = 'Install theme sample data from sample-data/bundle.json. Prefer this over live SQL edits: php artisan theme:install-sample layung --only=menus';
+    protected $description = 'Install theme sample data from sample-data/bundle.json. Prefer this over live SQL edits: php artisan theme:install-sample sarangenge --only=menus';
 
     public function handle(
         ThemeSampleDataReader $reader,

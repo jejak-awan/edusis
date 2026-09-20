@@ -38,13 +38,13 @@ const fileBaseFromThemeComponentsPath = (normalizedKey: string, slugLower: strin
   return file.slice(0, -4)
 }
 
-/** In-tree themes used when the API row has no slug or no active theme. Janari first = CMS reference. */
-export const BUNDLED_FRONTEND_THEME_SLUGS = ['janari', 'sarangenge', 'layung', 'sareupna'] as const
+/** In-tree themes used when the API row has no slug or no active theme. Sarangenge = baseline theme. */
+export const BUNDLED_FRONTEND_THEME_SLUGS = ['sarangenge'] as const
 
 /**
  * @deprecated Violates strict theme isolation (ADR-004). Only kept for
  * `buildThemeViewResolveCandidates` null-theme bootstrap edge-case.
- * Prefer `['janari']` as the safe universal fallback — see `findThemeViewKey`.
+ * Prefer `['sarangenge']` as the safe universal fallback — see `findThemeViewKey`.
  */
 export const withBundledThemeFallbacks = (slugs: string[]): string[] => {
   const seen = new Set<string>()
@@ -86,8 +86,8 @@ export const findThemeViewKey = (
   themeSlugs: string[],
   pageName: string,
 ): string | undefined => {
-  // Defensive: if no candidates provided, fallback to janari (universal parent) only — never leak sibling themes.
-  const slugs = themeSlugs.length > 0 ? themeSlugs : ['janari']
+  // Defensive: if no candidates provided, fallback to sarangenge (universal baseline).
+  const slugs = themeSlugs.length > 0 ? themeSlugs : ['sarangenge']
   const pageBase = themePageBaseName(pageName)
 
   for (const slug of slugs) {

@@ -1,10 +1,9 @@
-# Tema Layung — Dokumentasi
+# Tema Layung — Dokumentasi (Decommissioned)
 
-**SoT paket:** [`frontend/src/modules/Layout/views/themes/layung/readme.md`](../../../frontend/src/modules/Layout/views/themes/layung/readme.md)
+> [!NOTE]
+> Per **[ADR-032](../../adr/ADR-032-sarangenge-as-unified-baseline-theme-and-legacy-theme-pruning.md)**, tema legacy Layung telah didekomisi dan dihapus dari codebase. Seluruh peran default baseline platform digantikan oleh **[Tema Sarangenge](../sarangenge/README.md)**.
 
-Tema publik untuk ISP / fiber / MSP. Host contract & customizer: lihat [04-theme-system.md](../../architecture/04-theme-system.md).
-
-## ADR theme-scoped
+## ADR theme-scoped Arsip
 
 | ADR | Judul |
 | :--- | :--- |

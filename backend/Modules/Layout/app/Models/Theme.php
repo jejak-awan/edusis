@@ -107,9 +107,9 @@ class Theme extends Model
     }
 
     /**
-     * Preferred slug when auto-activating a frontend theme (CMS reference theme).
+     * Preferred slug when auto-activating a frontend theme (baseline theme).
      */
-    public const DEFAULT_FRONTEND_SLUG = 'janari';
+    public const DEFAULT_FRONTEND_SLUG = 'sarangenge';
 
     /**
      * Get active theme by type
@@ -125,8 +125,8 @@ class Theme extends Model
 
         if (! $activeTheme) {
             $defaultTheme = null;
-            // Janari is the CMS reference theme (builder + fork contract); Sarangenge is optional alternate.
-            foreach ([self::DEFAULT_FRONTEND_SLUG, 'sarangenge', 'default'] as $slug) {
+            // Sarangenge is the default baseline theme for the educational platform.
+            foreach ([self::DEFAULT_FRONTEND_SLUG, 'default'] as $slug) {
                 $defaultTheme = self::query()
                     ->where('type', $type)
                     ->where('slug', $slug)

@@ -13,6 +13,7 @@ class BuilderGenerateBlocksGateTest extends TestCase
         parent::setUp();
         $this->seedPermissionsAndRoles();
         $this->activatePack('layout');
+        $this->activatePack('visual-builder');
     }
 
     public function test_generate_blocks_forbidden_when_ai_disabled(): void

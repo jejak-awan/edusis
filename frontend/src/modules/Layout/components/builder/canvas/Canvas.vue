@@ -261,7 +261,7 @@ const themePageBusy = ref(false)
 const wireframeMode = computed(() => builder?.wireframeMode.value || false)
 const previewMode = computed(() => builder?.previewMode.value || false)
 const gridViewMode = computed(() => builder?.gridViewMode.value || false)
-const activeTheme = computed(() => builder?.activeTheme.value || 'janari')
+const activeTheme = computed(() => builder?.activeTheme.value || 'sarangenge')
 const device = computed(() => builder?.device.value || 'desktop')
 const showThemeChrome = computed(() => (builder?.mode?.value || 'site') === 'site')
 
@@ -330,7 +330,7 @@ const injectThemeStyles = () => {
     const settings = builder.themeSettings.value || {}
     const themeDataValue = builder.themeData.value as ThemeData
     const manifest = themeDataValue?.manifest || {}
-    const themeSlug = builder.activeTheme.value || 'janari'
+    const themeSlug = builder.activeTheme.value || 'sarangenge'
 
     if (manifest.settings_schema) {
         Object.keys(manifest.settings_schema).forEach(key => {

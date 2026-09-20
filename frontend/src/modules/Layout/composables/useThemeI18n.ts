@@ -5,16 +5,15 @@ import { useTheme } from '@/modules/Layout/composables/useTheme';
 /**
  * Theme-scoped i18n for in-tree theme Vue files.
  *
- * Pass the **package folder slug** of the calling component (e.g. useThemeI18n('janari')).
+ * Pass the **package folder slug** of the calling component (e.g. useThemeI18n('sarangenge')).
  * Keys are tried in order:
  *   1. theme.<activeSlug>.*     (child / active overrides)
  *   2. theme.<parent_theme>.*   (parent chain)
  *   3. theme.<packageSlug>.*    (locale JSON that ships with this Vue file)
  *
- * This avoids missing-key noise when ThemePageResolver falls back across bundled
- * themes (e.g. Sarangenge active → Janari Team.vue still needs theme.janari.pages.team).
+ * This avoids missing-key noise when ThemePageResolver resolves bundled theme locales.
  */
-export function useThemeI18n(packageSlug = 'janari') {
+export function useThemeI18n(packageSlug = 'sarangenge') {
     const { t, te, locale, ...rest } = useI18n();
     const { activeTheme } = useTheme();
 

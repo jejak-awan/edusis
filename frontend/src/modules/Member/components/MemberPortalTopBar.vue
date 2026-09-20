@@ -137,7 +137,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '@/modules/Layout/views/themes/janari/ui';
+} from '@/shared/components/ui/dropdown-menu';
 import { useMemberStore } from '@/modules/Member/stores/member';
 import { useMemberPortalBranding } from '@/modules/Member/composables/useMemberPortalBranding';
 import MemberPortalBreadcrumbs from '@/modules/Member/components/MemberPortalBreadcrumbs.vue';

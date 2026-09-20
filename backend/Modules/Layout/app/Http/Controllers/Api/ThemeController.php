@@ -52,7 +52,7 @@ class ThemeController extends BaseApiController
         $remainingSlots = $licenseService->remainingPremiumSlots();
         $catalog = is_array($quota['catalog'] ?? null)
             ? array_map('strtolower', $quota['catalog'])
-            : ['janari', 'layung', 'sarangenge', 'sareupna'];
+            : ['sarangenge'];
 
         // Filter out themes outside the entitled catalog (ADR-023 §2.4)
         $themes = $themes->filter(function (Theme $theme) use ($catalog): bool {

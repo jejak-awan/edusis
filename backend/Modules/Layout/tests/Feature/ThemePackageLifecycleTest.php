@@ -53,10 +53,9 @@ class ThemePackageLifecycleTest extends TestCase
     {
         Setting::set('enable_theme_export', false, 'boolean', 'security');
 
-        $theme = Theme::query()->where('slug', 'janari')->first() ?? Theme::factory()->create([
-            'name' => 'Janari',
-            'slug' => 'janari',
-            'path' => 'resources/themes/janari',
+        $theme = Theme::query()->where('slug', 'sarangenge')->first() ?? Theme::factory()->create([
+            'name' => 'Sarangenge',
+            'slug' => 'sarangenge',
             'type' => 'frontend',
             'status' => 'active',
             'is_active' => true,
@@ -72,10 +71,9 @@ class ThemePackageLifecycleTest extends TestCase
     {
         Setting::set('enable_theme_export', true, 'boolean', 'security');
 
-        $theme = Theme::query()->where('slug', 'janari')->first() ?? Theme::factory()->create([
-            'name' => 'Janari',
-            'slug' => 'janari',
-            'path' => 'resources/themes/janari',
+        $theme = Theme::query()->where('slug', 'sarangenge')->first() ?? Theme::factory()->create([
+            'name' => 'Sarangenge',
+            'slug' => 'sarangenge',
             'type' => 'frontend',
             'status' => 'active',
             'is_active' => true,

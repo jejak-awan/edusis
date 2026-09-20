@@ -28,7 +28,7 @@ describe('TopToolbar Zoom & Scale Controls', () => {
       canUndo: ref(false),
       canRedo: ref(false),
       availableThemes: ref([]),
-      activeTheme: ref('janari'),
+      activeTheme: ref('sarangenge'),
       loadingThemes: ref(false),
       isFullscreen: ref(false),
       setDeviceModeAuto: vi.fn(),

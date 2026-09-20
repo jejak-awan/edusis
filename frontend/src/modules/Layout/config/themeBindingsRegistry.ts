@@ -26,4 +26,4 @@ export interface ThemeBindingRegistryComponent {
 }
 
 /** @deprecated Use getThemeBindingRegistry(slug) from customizer/loaders */
-export const THEME_BINDING_REGISTRY: ThemeBindingRegistryComponent[] = getThemeBindingRegistry('janari');
+export const THEME_BINDING_REGISTRY: ThemeBindingRegistryComponent[] = getThemeBindingRegistry('sarangenge');

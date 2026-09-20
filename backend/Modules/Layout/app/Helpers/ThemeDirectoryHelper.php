@@ -46,10 +46,10 @@ class ThemeDirectoryHelper
                     'custom_fonts' => true,
                     'widgets' => true,
                     'menus' => true,
-                    // Forks follow Janari canvas / BlockRenderer contract by default.
-                    'janari_canvas' => true,
+                    // Forks follow Sarangenge canvas / BlockRenderer contract by default.
+                    'sarangenge_canvas' => true,
                 ],
-                'parent_theme' => 'janari',
+                'parent_theme' => 'sarangenge',
                 'assets' => [
                     'css' => [
                         'assets/css/main.css',

@@ -26,10 +26,10 @@
 @source '../../modules/Core/System/views/Maintenance.vue';
 @source '../../modules/Core/System/views/InstallView.vue';
 
-@source '../../modules/Content/Layout/layouts/**/*.{vue,ts,js}';
-@source '../../modules/Content/Layout/components/**/*.{vue,ts,js}';
-@source '../../modules/Content/Layout/composables/**/*.{vue,ts,js}';
-@source '../../modules/Content/Layout/router/**/*.{vue,ts,js}';
-@source '../../modules/Content/Layout/views/themes/janari/**/*.{vue,ts,js}';
+@source '../../modules/Layout/layouts/**/*.{vue,ts,js}';
+@source '../../modules/Layout/components/**/*.{vue,ts,js}';
+@source '../../modules/Layout/composables/**/*.{vue,ts,js}';
+@source '../../modules/Layout/router/**/*.{vue,ts,js}';
+@source '../../modules/Layout/views/themes/sarangenge/**/*.{vue,ts,js}';
 
 @source '../../shared/views/**/*.{vue,ts,js}';

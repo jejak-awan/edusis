@@ -68,8 +68,8 @@ class ThemeDowngradeRemediator
                 ];
             }
 
-            // Not entitled: force revert to janari
-            Log::warning('[ThemeDowngradeRemediator] Served theme not entitled after tier change; reverting to janari.', [
+            // Not entitled: force revert to sarangenge
+            Log::warning('[ThemeDowngradeRemediator] Served theme not entitled after tier change; reverting to sarangenge.', [
                 'previous_slug' => $servedSlug,
                 'tier' => $license->getLicenseTier(),
             ]);
@@ -79,24 +79,24 @@ class ThemeDowngradeRemediator
                 ->where('type', 'frontend')
                 ->update(['is_active' => false]);
 
-            // Activate janari
-            $janari = Theme::query()
-                ->where('slug', 'janari')
+            // Activate sarangenge
+            $sarangenge = Theme::query()
+                ->where('slug', 'sarangenge')
                 ->first();
 
-            if ($janari) {
-                $janari->update(['is_active' => true, 'status' => 'active']);
+            if ($sarangenge) {
+                $sarangenge->update(['is_active' => true, 'status' => 'active']);
             } else {
                 Theme::create([
-                    'slug' => 'janari',
-                    'name' => 'Janari',
+                    'slug' => 'sarangenge',
+                    'name' => 'Sarangenge',
                     'type' => 'frontend',
-                    'path' => 'themes/janari',
+                    'path' => 'themes/sarangenge',
                     'is_active' => true,
                     'status' => 'active',
                 ]);
             }
-            Setting::set('theme_active', 'janari', 'string', 'layout');
+            Setting::set('theme_active', 'sarangenge', 'string', 'layout');
 
             // Clear frontend_theme_snapshot_v1 (ADR-023 §2.7)
             Setting::set('frontend_theme_snapshot_v1', null);
@@ -110,15 +110,15 @@ class ThemeDowngradeRemediator
                 }
             }
 
-            Log::info('[ThemeDowngradeRemediator] Reverted served theme to janari.', [
+            Log::info('[ThemeDowngradeRemediator] Reverted served theme to sarangenge.', [
                 'previous_slug' => $servedSlug,
             ]);
 
             return [
                 'remediated' => true,
                 'previous_slug' => $servedSlug,
-                'new_slug' => 'janari',
-                'message' => "Served theme reverted from [{$servedSlug}] to [janari] due to license downgrade.",
+                'new_slug' => 'sarangenge',
+                'message' => "Served theme reverted from [{$servedSlug}] to [sarangenge] due to license downgrade.",
             ];
         } catch (\Throwable $e) {
             Log::error('[ThemeDowngradeRemediator] Remediation failed: '.$e->getMessage());

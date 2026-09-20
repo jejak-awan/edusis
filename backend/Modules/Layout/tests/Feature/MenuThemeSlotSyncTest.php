@@ -18,8 +18,8 @@ class MenuThemeSlotSyncTest extends TestCase
         Theme::query()->delete();
 
         $theme = Theme::factory()->create([
-            'name' => 'Janari',
-            'slug' => 'janari',
+            'name' => 'Sarangenge',
+            'slug' => 'sarangenge',
             'type' => 'frontend',
             'status' => 'active',
             'is_active' => true,

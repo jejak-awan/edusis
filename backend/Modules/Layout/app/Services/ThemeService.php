@@ -130,19 +130,19 @@ class ThemeService
             );
         }
 
-        // ---- Gate 3: Parent pack check (child themes require theme-janari) -
+        // ---- Gate 3: Parent pack check (child themes require theme-sarangenge) -
         $parentSlug = is_string($theme->parent_theme) ? $theme->parent_theme : null;
-        if ($parentSlug !== null && $parentSlug !== '' && $parentSlug !== 'janari') {
+        if ($parentSlug !== null && $parentSlug !== '' && $parentSlug !== 'sarangenge') {
             if (! $this->isThemePackEnabled($parentSlug)) {
                 throw new \RuntimeException(
                     "Cannot activate theme [{$theme->slug}]: parent pack (theme-{$parentSlug}) is not enabled."
                 );
             }
         }
-        // All child themes implicitly require theme-janari (ADR-023 §2.3)
-        if ($theme->slug !== 'janari' && ! $this->isThemePackEnabled('janari')) {
+        // All child themes implicitly require theme-sarangenge (ADR-023 / ADR-032)
+        if ($theme->slug !== 'sarangenge' && ! $this->isThemePackEnabled('sarangenge')) {
             throw new \RuntimeException(
-                "Cannot activate theme [{$theme->slug}]: baseline pack (theme-janari) is not enabled."
+                "Cannot activate theme [{$theme->slug}]: baseline pack (theme-sarangenge) is not enabled."
             );
         }
 
@@ -230,13 +230,13 @@ class ThemeService
 
     /**
      * Deactivate a theme.
-     * janari (baseline / always-on) cannot be deactivated — throws RuntimeException.
+     * sarangenge (baseline / always-on) cannot be deactivated — throws RuntimeException.
      */
     public function deactivateTheme(Theme $theme): bool
     {
-        if ($theme->slug === 'janari') {
+        if ($theme->slug === 'sarangenge') {
             throw new \RuntimeException(
-                'Cannot deactivate theme [janari]: it is the baseline always-on theme (ADR-023 §2.3). '
+                'Cannot deactivate theme [sarangenge]: it is the baseline always-on theme (ADR-032). '
                 .'Switch the served theme to another entitled theme first, then deactivate its pack if needed.'
             );
         }

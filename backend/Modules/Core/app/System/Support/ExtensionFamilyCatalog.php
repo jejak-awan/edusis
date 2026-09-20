@@ -42,11 +42,8 @@ final class ExtensionFamilyCatalog
         'mail' => self::COMMUNICATIONS,
         'member' => self::AUDIENCE,
         'site' => self::AUDIENCE,
-        // First-party theme packs (ADR-023)
-        'theme-janari' => self::THEME,
-        'theme-layung' => self::THEME,
+        // First-party theme packs (ADR-023 / ADR-032)
         'theme-sarangenge' => self::THEME,
-        'theme-sareupna' => self::THEME,
     ];
 
     public static function resolve(?string $manifestFamily, string $slug, string $type, bool $isCore): string
@@ -102,11 +99,8 @@ final class ExtensionFamilyCatalog
             'analytics' => 70,
             'search' => 80,
             'cms-ai' => 90,
-            // Theme packs activate after layout (ADR-023)
-            'theme-janari' => 110,
-            'theme-layung' => 120,
-            'theme-sarangenge' => 130,
-            'theme-sareupna' => 140,
+            // Theme packs activate after layout (ADR-023 / ADR-032)
+            'theme-sarangenge' => 110,
         ];
 
         return $order[strtolower($slug)] ?? 500;
@@ -127,7 +121,7 @@ final class ExtensionFamilyCatalog
 
     /**
      * Slugs of premium (non-baseline) first-party theme packs.
-     * janari = baseline / always-on, therefore excluded.
+     * sarangenge = baseline / always-on, therefore excluded.
      *
      * @return list<string>
      */
@@ -135,7 +129,7 @@ final class ExtensionFamilyCatalog
     {
         return array_values(array_filter(
             self::firstPartyThemePackSlugs(),
-            static fn (string $slug): bool => $slug !== 'theme-janari',
+            static fn (string $slug): bool => $slug !== 'theme-sarangenge',
         ));
     }
 

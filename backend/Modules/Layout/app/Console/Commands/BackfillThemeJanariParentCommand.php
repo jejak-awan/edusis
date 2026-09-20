@@ -16,14 +16,14 @@ class BackfillThemeJanariParentCommand extends Command
 {
     protected $signature = 'layout:themes:backfill-janari-parent
                             {--apply : Tulis parent_theme ke database (tanpa flag ini hanya laporan)}
-                            {--parent=janari : Slug tema induk (folder harus ada dan punya theme.json)}';
+                            {--parent=sarangenge : Slug tema induk (folder harus ada dan punya theme.json)}';
 
-    protected $description = 'Set parent_theme ke tema Vue yang ada di disk untuk baris tema tanpa folder sendiri (mis. migrasi dari fallback Janari)';
+    protected $description = 'Set parent_theme ke tema Vue yang ada di disk untuk baris tema tanpa folder sendiri (mis. migrasi dari fallback tema baseline)';
 
     public function handle(ThemeService $themeService): int
     {
         $parentSlug = (string) $this->option('parent');
-        $parentSlug = trim($parentSlug) !== '' ? trim($parentSlug) : 'janari';
+        $parentSlug = trim($parentSlug) !== '' ? trim($parentSlug) : 'sarangenge';
 
         if (! $this->themeFolderLooksValid($parentSlug)) {
             $this->error("Folder tema induk tidak valid untuk slug \"{$parentSlug}\" (harus ada direktori + theme.json di ".ThemeViews::pathForSlug($parentSlug).').');

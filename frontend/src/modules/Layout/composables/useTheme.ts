@@ -358,19 +358,19 @@ export function useTheme() {
             }
             }
 
-            // Handle null response (no active theme) — Janari is the CMS default reference theme
+            // Handle null response (no active theme) — Sarangenge is the baseline theme
             if (!data) {
                  activeTheme.value = {
-                     name: 'Janari',
-                     slug: 'janari',
+                     name: 'Sarangenge',
+                     slug: 'sarangenge',
                      type: 'frontend',
                  };
                  return;
             }
             if (typeof (data as Theme).slug !== 'string' || (data as Theme).slug.trim() === '') {
-                (data as Theme).slug = 'janari';
+                (data as Theme).slug = 'sarangenge';
                 if (!(data as Theme).name) {
-                    (data as Theme).name = 'Janari';
+                    (data as Theme).name = 'Sarangenge';
                 }
                 if (!(data as Theme).type) {
                     (data as Theme).type = 'frontend';

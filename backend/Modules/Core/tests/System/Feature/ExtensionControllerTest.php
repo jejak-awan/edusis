@@ -1391,28 +1391,23 @@ class ExtensionControllerTest extends TestCase
 
         $data = collect($response->json('data'));
 
-        $janari = $data->firstWhere('slug', 'theme-janari');
-        $this->assertNotNull($janari, 'theme-janari must be discovered by ExtensionController::index()');
-        $this->assertSame('theme', $janari['type']);
-        $this->assertSame('active', $janari['status']);
-        $this->assertTrue((bool) ($janari['is_served'] ?? false));
-        $this->assertFalse((bool) ($janari['can_uninstall'] ?? true));
-
-        $layung = $data->firstWhere('slug', 'theme-layung');
-        $this->assertNotNull($layung, 'theme-layung must be discovered by ExtensionController::index()');
-        $this->assertSame('theme', $layung['type']);
-        $this->assertFalse((bool) ($layung['can_uninstall'] ?? true));
+        $sarangenge = $data->firstWhere('slug', 'theme-sarangenge');
+        $this->assertNotNull($sarangenge, 'theme-sarangenge must be discovered by ExtensionController::index()');
+        $this->assertSame('theme', $sarangenge['type']);
+        $this->assertSame('active', $sarangenge['status']);
+        $this->assertTrue((bool) ($sarangenge['is_served'] ?? false));
+        $this->assertFalse((bool) ($sarangenge['can_uninstall'] ?? true));
     }
 
-    public function test_deactivate_theme_janari_is_rejected(): void
+    public function test_deactivate_theme_sarangenge_is_rejected(): void
     {
         Extension::updateOrCreate(
-            ['slug' => 'theme-janari'],
-            ['type' => 'theme', 'name' => 'Janari Theme', 'version' => '1.0.0', 'status' => 'active', 'is_core' => false]
+            ['slug' => 'theme-sarangenge'],
+            ['type' => 'theme', 'name' => 'Sarangenge Theme', 'version' => '2.0.7', 'status' => 'active', 'is_core' => false]
         );
 
         $response = $this->actingAs($this->admin, 'sanctum')
-            ->postJson('/api/v1/manage/infra/extensions/theme-janari/deactivate');
+            ->postJson('/api/v1/manage/infra/extensions/theme-sarangenge/deactivate');
 
         $response->assertJsonPath('success', false);
         $this->assertStringContainsString('Baseline theme pack', (string) $response->json('message'));
@@ -1421,12 +1416,12 @@ class ExtensionControllerTest extends TestCase
     public function test_uninstall_theme_pack_is_rejected(): void
     {
         Extension::updateOrCreate(
-            ['slug' => 'theme-janari'],
-            ['type' => 'theme', 'name' => 'Janari Theme', 'version' => '1.0.0', 'status' => 'active', 'is_core' => false]
+            ['slug' => 'theme-sarangenge'],
+            ['type' => 'theme', 'name' => 'Sarangenge Theme', 'version' => '2.0.7', 'status' => 'active', 'is_core' => false]
         );
 
         $response = $this->actingAs($this->admin, 'sanctum')
-            ->deleteJson('/api/v1/manage/infra/extensions/theme-janari/uninstall');
+            ->deleteJson('/api/v1/manage/infra/extensions/theme-sarangenge/uninstall');
 
         $response->assertStatus(422);
         $this->assertStringContainsString('First-party theme packs cannot be uninstalled', (string) $response->json('message'));

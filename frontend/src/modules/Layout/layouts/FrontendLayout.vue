@@ -2,7 +2,7 @@
   <div 
     ref="layoutRoot"
     class="frontend-layout min-h-screen flex flex-col bg-background text-foreground"
-    :class="[rootClasses, activeThemeClass, layungCanvasClass]"
+    :class="[rootClasses, activeThemeClass]"
     :style="[rootStyles, janariRootStyleVars]"
     v-bind="themeRootDataAttrs"
   >
@@ -19,7 +19,7 @@
       <!-- Hybrid: Main is boxed | Full: Main is full -->
       <main
         class="main-content flex-1 w-full relative z-0 flex flex-col min-h-0"
-        :class="[mainChromePaddingClass, layungCanvasClass]"
+        :class="mainChromePaddingClass"
       >
         <div
           class="flex-1 flex flex-col min-h-0 w-full"
@@ -61,7 +61,7 @@
       
       <main
         class="main-content flex-1 w-full relative z-0 flex flex-col min-h-0"
-        :class="[mainChromePaddingClass, layungCanvasClass]"
+        :class="mainChromePaddingClass"
       >
         <router-view v-slot="{ Component }">
           <div
@@ -155,16 +155,10 @@ import { useHead } from '@unhead/vue'
 import { useSystemStore } from '@/modules/Core/System/stores/system'
 import { applyFavicon, isGenericEngineFavicon, resolveFavicon } from '@/modules/Core/System/utils/favicon'
 import { useThemeI18n } from '@/modules/Layout/composables/useThemeI18n'
-import { resolveLayungPublicSeo } from '@/modules/Layout/views/themes/layung/composables/layungPublicSeo'
 import { resolveSarangengePublicSeo } from '@/modules/Layout/views/themes/sarangenge/composables/sarangengePublicSeo'
-import { resolveSareupnaPublicSeo } from '@/modules/Layout/views/themes/sareupna/composables/sareupnaPublicSeo'
-import { resolveJanariPublicSeo } from '@/modules/Layout/views/themes/janari/composables/janariPublicSeo'
 
 const { t } = useI18n({ useScope: 'global' })
-const { t: tLayung } = useThemeI18n('layung')
 const { t: tSarangenge } = useThemeI18n('sarangenge')
-const { t: tSareupna } = useThemeI18n('sareupna')
-const { t: tJanari } = useThemeI18n('janari')
 const { activeTheme, getSetting, loading, error, loadActiveTheme } = useTheme()
 const systemStore = useSystemStore()
 
@@ -207,7 +201,6 @@ useHead(computed(() => {
   if (useMemberShell.value) {
     return {}
   }
-  const slug = activeThemeSlug.value.toLowerCase()
   const siteName = String(
     systemStore.siteSettings?.site_name ||
     systemStore.siteSettings?.site_title ||
@@ -220,32 +213,11 @@ useHead(computed(() => {
   ).trim()
   const themePage = typeof route.meta.themePage === 'string' ? route.meta.themePage : undefined
 
-  let seo: { title: string; description: string } | null = null
-  if (slug === 'layung') {
-    seo = resolveLayungPublicSeo({
-      themePage,
-      siteName: siteName || t('common.siteName', 'Portal Layanan'),
-      t: tLayung,
-    })
-  } else if (slug === 'sarangenge') {
-    seo = resolveSarangengePublicSeo({
-      themePage,
-      siteName: siteName || t('common.schoolName', 'Portal Sekolah'),
-      t: tSarangenge,
-    })
-  } else if (slug === 'sareupna') {
-    seo = resolveSareupnaPublicSeo({
-      themePage,
-      siteName: siteName || t('common.siteName', 'Portal'),
-      t: tSareupna,
-    })
-  } else if (slug === 'janari') {
-    seo = resolveJanariPublicSeo({
-      themePage,
-      siteName: siteName || t('common.siteName', 'Portal'),
-      t: tJanari,
-    })
-  }
+  const seo = resolveSarangengePublicSeo({
+    themePage,
+    siteName: siteName || t('common.schoolName', 'Portal Sekolah'),
+    t: tSarangenge,
+  })
 
   if (!seo) {
     return {}
@@ -268,12 +240,7 @@ useHead(computed(() => {
 
 const usesJanariCanvas = computed(() => themeUsesJanariCanvas(activeTheme.value))
 
-/** Layung public pages share one coastal canvas + footer wave from this layout (SoT). */
-const layungCanvasClass = computed(() => {
-  if (activeThemeSlug.value.toLowerCase() !== 'layung') return ''
-  if (useMemberShell.value) return ''
-  return 'layung-inner-canvas'
-})
+
 
 const activeThemeClass = computed(() => {
   const slug = activeThemeSlug.value
@@ -283,17 +250,7 @@ const activeThemeClass = computed(() => {
     classes.push('theme-janari')
   }
   // School theme tokens (Header/Footer sit outside page roots that also use this class).
-  if (slug.toLowerCase() === 'sarangenge') {
-    classes.push('sarangenge-theme')
-  }
-  // High-performance ISP theme tokens.
-  if (slug.toLowerCase() === 'layung') {
-    classes.push('layung-theme')
-  }
-  // High-performance Cloud & Developer platform theme tokens.
-  if (slug.toLowerCase() === 'sareupna') {
-    classes.push('sareupna-theme')
-  }
+  classes.push('sarangenge-theme')
   return classes
 })
 

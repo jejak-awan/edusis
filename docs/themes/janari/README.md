@@ -1,7 +1,6 @@
-# Tema Janari — Dokumentasi
+# Tema Janari — Dokumentasi (Decommissioned)
 
-**SoT paket:** [`frontend/src/modules/Layout/views/themes/janari/readme.md`](../../../frontend/src/modules/Layout/views/themes/janari/readme.md)
+> [!NOTE]
+> Per **[ADR-032](../../adr/ADR-032-sarangenge-as-unified-baseline-theme-and-legacy-theme-pruning.md)**, tema legacy Janari telah didekomisi dan dihapus dari codebase. Seluruh peran default baseline platform digantikan oleh **[Tema Sarangenge](../sarangenge/README.md)**.
 
-Tema reference CMS korporat. Customizer: `.../janari/customizer/readme.md`.
-
-Belum ada ADR theme-scoped terpisah; keputusan host/customizer ada di `docs/adr/` (ADR-002 s.d. ADR-006, ADR-010, …) dan [04-theme-system.md](../../architecture/04-theme-system.md).
+Berkas ini disimpan sebagai rekam jejak arsitektural. Keputusan arsitektur tema platform global dapat dirujuk pada [04-theme-system.md](../../architecture/04-theme-system.md).

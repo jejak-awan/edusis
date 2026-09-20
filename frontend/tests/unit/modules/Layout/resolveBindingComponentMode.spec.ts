@@ -45,9 +45,9 @@ describe('componentManifestCategories', () => {
   });
 });
 
-describe('Layung preview click targets', () => {
+describe('Sarangenge preview click targets', () => {
   it('maps the HERO badge to the hero component nav item', () => {
-    const targets = getThemePreviewTargets('layung');
+    const targets = getThemePreviewTargets('sarangenge');
     expect(resolvePreviewNavItemId(targets, 'hero', 'design')).toBe('comp-hero');
     expect(resolvePreviewNavItemId(targets, 'footer', 'design')).toBe('ux-footer');
   });

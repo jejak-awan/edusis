@@ -343,7 +343,7 @@ const livePreviewTheme = computed<ThemeModel>(() => {
   const baseSettings = (base.settings || {}) as Record<string, unknown>
   return {
     ...base,
-    slug: base.slug || builderBase.activeTheme.value || 'janari',
+    slug: base.slug || builderBase.activeTheme.value || 'sarangenge',
     name: base.name || 'Theme',
     settings: {
       ...baseSettings,

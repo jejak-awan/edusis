@@ -99,7 +99,7 @@ export function useBuilderState(initialData: { blocks?: BlockInstance[], body?: 
     const previewMode = ref(false)
     const gridViewMode = ref(false)
     const isFullscreen = ref(false)
-    const activeTheme = ref('janari')
+    const activeTheme = ref('sarangenge')
     const activeThemePage = ref<string | null>(null)
     const selectedThemeSlug = ref<string | null>(null)
     const themeData = ref<ThemeData | null>(null)

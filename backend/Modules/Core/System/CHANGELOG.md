@@ -17,6 +17,7 @@ Index: [`../CHANGELOG.md`](../CHANGELOG.md)
 - Module contract freeze + `ModuleManifestValidator`.
 - Discovery sync: `description`, `license` / `license_tier` / `settings_route`; preserve `requirements`.
 - `EnsureExtensionActive` middleware alias `extension.active:{slug}`.
+- **ADR-032 Sarangenge Baseline Theme Unification**: `ExtensionFamilyCatalog` defines `theme-sarangenge` as unified baseline first-party theme pack; `ExtensionController`, `ExtensionBootstrapService`, and `ThemeDowngradeRemediator` enforce `sarangenge` default baseline runtime.
 - **ADR-023 Theme Registry Serving**: `ExtensionController` attaches `is_served` indicator and `ExtensionFamilyCatalog` provides `themeSlugForPack()` and `isPremiumThemePackSlug()`.
 - **ADR-023 Phase 2 JA-CP Themes Payload Integration**: `LicenseService` parses and dynamically applies `themes.*` quota from JA-CP heartbeat/activation responses, auto-triggers `ThemeDowngradeRemediator`, and displays theme quotas in `license:check` CLI.
 - Docs: `external-module-packaging.md` + `scripts/scaffold-optional-module.sh`.

@@ -55,7 +55,6 @@ import { logger } from '@/shared/utils/logger';
 import { ref, computed, watch, toRaw, onMounted, onUnmounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import type { Theme } from '@/modules/Layout/types/theme';
-import { themeUsesJanariCanvas } from '@/modules/Layout/utils/themeManifest';
 import {
   isCustomizerSelectTargetMessage,
   withCustomizerPreviewParams,
@@ -226,8 +225,8 @@ const injectThemeStyles = () => {
     const slug = props.theme.slug || '';
     if (slug) {
       iframeDoc.body.classList.add(`theme-${slug}`);
-      if (themeUsesJanariCanvas(props.theme)) {
-        iframeDoc.body.classList.add('theme-janari');
+      if (slug === 'sarangenge') {
+        iframeDoc.body.classList.add('sarangenge-theme');
       }
     }
 

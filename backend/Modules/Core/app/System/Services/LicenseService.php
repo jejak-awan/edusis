@@ -173,13 +173,13 @@ class LicenseService
 
         /** @var array{always_on: list<string>, max_premium_active: int|null, catalog: list<string>} $defaultQuota */
         $defaultQuota = [
-            'always_on' => ['janari'],
+            'always_on' => ['sarangenge'],
             'max_premium_active' => match (true) {
                 $isEnterprisePlus => null,    // unlimited
                 $isPaid => 1,                 // Pro: 1 premium slot
-                default => 0,                 // Community/Starter: janari only
+                default => 0,                 // Community/Starter: sarangenge only
             },
-            'catalog' => ['janari', 'layung', 'sarangenge', 'sareupna'],
+            'catalog' => ['sarangenge'],
         ];
 
         // If querying a different tier than the active tier, return static default
@@ -210,7 +210,7 @@ class LicenseService
      */
     private function sanitizeThemeQuotaPayload(array $payload, string $tier, array $defaultQuota): array
     {
-        // 1. always_on: list of strings, always ensuring 'janari' is included
+        // 1. always_on: list of strings, always ensuring 'sarangenge' is included
         $alwaysOn = $defaultQuota['always_on'];
         if (isset($payload['always_on']) && is_array($payload['always_on'])) {
             $parsed = [];
@@ -219,8 +219,8 @@ class LicenseService
                     $parsed[] = $item;
                 }
             }
-            if (! in_array('janari', $parsed, true)) {
-                $parsed[] = 'janari';
+            if (! in_array('sarangenge', $parsed, true)) {
+                $parsed[] = 'sarangenge';
             }
             /** @var list<string> $alwaysOn */
             $alwaysOn = array_values(array_unique($parsed));
@@ -241,7 +241,7 @@ class LicenseService
             $maxPremium = $defaultQuota['max_premium_active'];
         }
 
-        // 3. catalog: list of strings, always ensuring 'janari' is included
+        // 3. catalog: list of strings, always ensuring 'sarangenge' is included
         $catalog = $defaultQuota['catalog'];
         if (isset($payload['catalog']) && is_array($payload['catalog'])) {
             $parsedCat = [];
@@ -250,8 +250,8 @@ class LicenseService
                     $parsedCat[] = $item;
                 }
             }
-            if (! in_array('janari', $parsedCat, true)) {
-                $parsedCat[] = 'janari';
+            if (! in_array('sarangenge', $parsedCat, true)) {
+                $parsedCat[] = 'sarangenge';
             }
             /** @var list<string> $catalog */
             $catalog = array_values(array_unique($parsedCat));
@@ -302,7 +302,7 @@ class LicenseService
         }
 
         // First-party theme not in license catalog → not entitled
-        if (in_array($themeSlug, ['janari', 'layung', 'sarangenge', 'sareupna'], true)
+        if (in_array($themeSlug, ['sarangenge'], true)
             && ! in_array($themeSlug, $quota['catalog'], true)) {
             return false;
         }
@@ -319,7 +319,7 @@ class LicenseService
     }
 
     /**
-     * Count how many non-janari (premium) themes are currently served.
+     * Count how many non-sarangenge (premium) themes are currently served.
      * Uses lay_themes table when Layout module is available.
      */
     private function countServedPremiumThemes(): int
@@ -332,7 +332,7 @@ class LicenseService
             return (int) Theme::query()
                 ->where('is_active', true)
                 ->where('type', 'frontend')
-                ->where('slug', '!=', 'janari')
+                ->where('slug', '!=', 'sarangenge')
                 ->count();
         } catch (\Throwable) {
             return 0;

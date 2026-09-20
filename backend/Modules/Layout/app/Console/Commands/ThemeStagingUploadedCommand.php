@@ -13,7 +13,7 @@ use Modules\Layout\Services\ThemeCacheService;
 class ThemeStagingUploadedCommand extends Command
 {
     protected $signature = 'theme:staging-uploaded
-                            {slug=janari : Active frontend theme slug}
+                            {slug=sarangenge : Active frontend theme slug}
                             {--revert : Restore source=bundled and clear bundle_url}';
 
     protected $description = 'Staging: point active theme at storage theme.esm.js (uploaded hybrid loader)';

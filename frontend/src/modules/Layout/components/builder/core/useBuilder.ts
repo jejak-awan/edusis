@@ -59,7 +59,7 @@ export default function useBuilder(initialData = { blocks: [] as BlockInstance[]
     // ============================================
 
     function applyThemeToBuilderState(data: ThemeData): void {
-        applyMergedSettingsSchema(data, data.slug || 'janari')
+        applyMergedSettingsSchema(data, data.slug || 'sarangenge')
         state.themeData.value = data
         state.themeSettings.value = data.settings || {}
         state.activeTheme.value = data.slug

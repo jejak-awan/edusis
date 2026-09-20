@@ -195,7 +195,7 @@
 
             <!-- Entitlement Badge -->
             <Badge
-              v-if="theme.slug === 'janari'"
+              v-if="theme.slug === 'sarangenge'"
               variant="outline"
               class="bg-card/90 backdrop-blur-sm text-[10px] shadow-sm"
             >
@@ -555,7 +555,7 @@ const scanThemes = async () => {
     }
 };
 
-const SAMPLE_DATA_SLUGS = new Set(['janari', 'sarangenge', 'layung', 'sareupna']);
+const SAMPLE_DATA_SLUGS = new Set(['sarangenge']);
 
 const hasSampleData = (theme: Theme) =>
   (theme.type || 'frontend') === 'frontend' && SAMPLE_DATA_SLUGS.has(theme.slug);

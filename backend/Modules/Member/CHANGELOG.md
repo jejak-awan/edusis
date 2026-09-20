@@ -4,6 +4,9 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+- Version 1.0.2: Decoupled `MemberPortalTopBar` dropdown menu import from legacy layout theme to `@/shared/components/ui/dropdown-menu` ([ADR-032](../../docs/adr/ADR-032-sarangenge-as-unified-baseline-theme-and-legacy-theme-pruning.md)).
+
 ### Added
 - Reader register/login, bookmarks, signed email verification.
 - `extension.active:member` on public and authenticated member APIs.

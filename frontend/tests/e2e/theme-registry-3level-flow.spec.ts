@@ -41,29 +41,25 @@ test.describe('3-Level Theme Registry Architecture & Quota Flow', () => {
         await expect(goToThemesBtn).toBeVisible();
 
         // 2. Verify Theme Cards in the Grid
-        // theme-janari must be visible
-        const janariSlug = page.locator('text=theme-janari').first();
-        await expect(janariSlug).toBeVisible({ timeout: 10000 });
+        // theme-sarangenge must be visible
+        const sarangengeSlug = page.locator('text=theme-sarangenge').first();
+        await expect(sarangengeSlug).toBeVisible({ timeout: 10000 });
 
-        // Locate Janari card container
-        const janariCard = page.locator('.group', { has: page.locator('text=theme-janari') }).first();
-        await expect(janariCard).toBeVisible();
+        // Locate Sarangenge card container
+        const sarangengeCard = page.locator('.group', { has: page.locator('text=theme-sarangenge') }).first();
+        await expect(sarangengeCard).toBeVisible();
 
         // Currently served theme indicator
-        const servedBadge = janariCard.locator('text=/Tema Dilayani|Currently Served Theme|Téma Dilayanan/i').first();
+        const servedBadge = sarangengeCard.locator('text=/Tema Dilayani|Currently Served Theme|Téma Dilayanan/i').first();
         await expect(servedBadge).toBeVisible();
 
         // Customizer shortcut button on served theme
-        const customizerBtn = janariCard.getByRole('button', { name: /Buka Customizer|Open Customizer/i }).first();
+        const customizerBtn = sarangengeCard.getByRole('button', { name: /Buka Customizer|Open Customizer/i }).first();
         await expect(customizerBtn).toBeVisible();
 
-        // Invariant: theme-janari is the baseline theme and must be locked (cannot be deactivated)
-        const lockedIndicator = janariCard.locator('text=/Terkunci|Locked/i').first();
+        // Invariant: theme-sarangenge is the baseline theme and must be locked (cannot be deactivated)
+        const lockedIndicator = sarangengeCard.locator('text=/Terkunci|Locked/i').first();
         await expect(lockedIndicator).toBeVisible();
-
-        // Other theme packs (e.g. theme-layung or theme-sarangenge) should also be displayed under Themes tab
-        const layungSlug = page.locator('text=theme-layung').first();
-        await expect(layungSlug).toBeVisible({ timeout: 5000 });
 
         // Non-theme extensions (e.g. floating-social-dock) should NOT be displayed when filtering by Themes
         const dockSlug = page.locator('text=floating-social-dock');
@@ -74,7 +70,7 @@ test.describe('3-Level Theme Registry Architecture & Quota Flow', () => {
         await page.goto('/dash/themes');
         await page.waitForLoadState('networkidle');
 
-        // 1. Verify 3-Level Theme Pipeline Header
+        // 1. Verify 3-Level Theme Architecture Header
         const headerTitle = page.locator('text=/Arsitektur 3-Tingkat Tema|3-Level Theme Architecture|Arsitéktur 3-Tingkat Téma/i').first();
         await expect(headerTitle).toBeVisible({ timeout: 15000 });
 
@@ -96,45 +92,28 @@ test.describe('3-Level Theme Registry Architecture & Quota Flow', () => {
         const appStoreBtn = page.getByRole('button', { name: /App Store & Ekstensi|App Store & Extensions/i }).first();
         await expect(appStoreBtn).toBeVisible();
 
-        // 2. Verify Janari Theme Card & Badges
-        const janariHeading = page.getByRole('heading', { name: /Janari/i }).first();
-        await expect(janariHeading).toBeVisible({ timeout: 10000 });
+        // 2. Verify Sarangenge Baseline Theme Card & Badges
+        const sarangengeHeading = page.getByRole('heading', { name: /Sarangenge/i }).first();
+        await expect(sarangengeHeading).toBeVisible({ timeout: 10000 });
 
-        const janariCard = page.locator('.group', { has: janariHeading }).first();
-        await expect(janariCard).toBeVisible();
+        const sarangengeCard = page.locator('.group', { has: sarangengeHeading }).first();
+        await expect(sarangengeCard).toBeVisible();
 
         // Entitlement badge: Free Baseline
-        const baselineBadge = janariCard.locator('text=/Basis Gratis|Free Baseline|Dadasar Gratis/i').first();
+        const baselineBadge = sarangengeCard.locator('text=/Basis Gratis|Free Baseline|Dadasar Gratis/i').first();
         await expect(baselineBadge).toBeVisible();
 
         // Pack Inventory badge: Pack Enabled
-        const packBadge = janariCard.locator('text=/Paket Aktif|Pack Enabled|Pakét Aktif/i').first();
+        const packBadge = sarangengeCard.locator('text=/Paket Aktif|Pack Enabled|Pakét Aktif/i').first();
         await expect(packBadge).toBeVisible();
 
         // Active state badge
-        const activeBadge = janariCard.locator('text=/Aktif|Active/i').first();
+        const activeBadge = sarangengeCard.locator('text=/Aktif|Active/i').first();
         await expect(activeBadge).toBeVisible();
 
         // Active theme provides Open Customizer button
-        const customizerBtn = janariCard.getByRole('button', { name: /Buka Customizer|Open Customizer/i }).first();
+        const customizerBtn = sarangengeCard.getByRole('button', { name: /Buka Customizer|Open Customizer/i }).first();
         await expect(customizerBtn).toBeVisible();
-
-        // 3. Verify Premium Themes (Layung / Sarangenge / Sareupna)
-        const premiumThemes = page.locator('.group', {
-            has: page.locator('text=/Layung|Sarangenge|Sareupna/i'),
-        });
-        const premiumCount = await premiumThemes.count();
-        expect(premiumCount).toBeGreaterThan(0);
-
-        // Verify that premium theme cards have entitlement badge
-        const firstPremium = premiumThemes.first();
-        const entitlementBadge = firstPremium.locator('text=/Termasuk PRO|PRO Included|Perlu Lisensi PRO|PRO Required|Peryogi Lisensi PRO/i').first();
-        await expect(entitlementBadge).toBeVisible();
-
-        // If not entitled, activate button is disabled or has PRO lock label
-        const isLocked = await firstPremium.locator('button:has-text("Perlu Lisensi PRO"), button:has-text("PRO Required")').count() > 0;
-        const isEntitled = await firstPremium.locator('button:has-text("Aktifkan"), button:has-text("Activate")').count() > 0;
-        expect(isLocked || isEntitled).toBe(true);
     });
 
     test('Inter-page navigation connects App Store and Themes Manager seamlessly', async ({ page }) => {

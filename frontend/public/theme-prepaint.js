@@ -88,7 +88,7 @@
             if (snapshotStr) {
                 const snapshot = JSON.parse(snapshotStr);
                 Object.entries(snapshot).forEach(([key, value]) => {
-                    if (key.startsWith('data-janari-')) {
+                    if (key.startsWith('data-janari-') || key.startsWith('data-sarangenge-')) {
                         document.documentElement.setAttribute(key, value);
                     }
                 });

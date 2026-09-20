@@ -2,6 +2,12 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.1.9] - 2026-09-20
+
+### Changed
+- **ADR-032 Sarangenge Unified Baseline Theme**: Set `sarangenge` as the default frontend baseline theme (`Theme::DEFAULT_FRONTEND_SLUG = 'sarangenge'`), protected from deactivation.
+- Decommissioned legacy themes (`janari`, `layung`, `sareupna`) and streamlined demo seeding to `SarangengeThemeDemoSeeder`.
+
 ## [Unreleased]
 
 ### Added

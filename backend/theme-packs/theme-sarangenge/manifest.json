@@ -1,23 +1,22 @@
 {
   "name": "Sarangenge Theme",
   "slug": "theme-sarangenge",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "type": "theme",
   "family": "theme",
   "theme_slug": "sarangenge",
-  "description": "Tema premium katalog — tersedia mulai tier Pro. Membutuhkan tema Janari sebagai parent.",
+  "description": "Tema baseline Community — tema situs sekolah kejuruan & institusi pendidikan.",
   "author": "Jejakawan Team",
   "is_core": false,
   "license": "Jejakawan First-Party",
-  "license_tier": "pro",
+  "license_tier": "free",
   "dependencies": {
-    "layout": ">=1.0.0",
-    "theme-janari": ">=1.0.0"
+    "layout": ">=1.0.0"
   },
   "suggests": ["publishing", "media", "forms"],
   "theme_flags": {
-    "always_on": false,
-    "non_deactivatable": false,
-    "premium": true
+    "always_on": true,
+    "non_deactivatable": true,
+    "premium": false
   }
 }

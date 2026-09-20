@@ -238,6 +238,11 @@ for (const [key, row] of packs) {
   const current = versionOf(readJsonAt(meta.versionFile, 'WORKTREE'));
   const previous = versionOf(readJsonAt(meta.versionFile, base));
 
+  if (current === null && previous !== null) {
+    // Pack or theme was pruned/removed from worktree
+    continue;
+  }
+
   if (!current || !SEMVER.test(current)) {
     errors.push(
       `${key}: missing/invalid SemVer in ${meta.versionFile} (got ${JSON.stringify(current)})`,

@@ -319,13 +319,13 @@ class InstallProfileApplicator
             $themes = app(ThemeService::class);
             $scanned = $themes->scanThemes();
 
-            // Enable theme-janari registry pack (ADR-023 §2.3, §2.2).
-            // Only janari is baseline; child packs are NOT auto-enabled here.
-            $janariPack = Extension::query()->where('slug', 'theme-janari')->first();
-            if ($janariPack !== null && $janariPack->status !== 'active') {
-                $janariPack->update(['status' => 'active']);
+            // Enable theme-sarangenge registry pack (ADR-023 / ADR-032).
+            // Sarangenge is baseline; child packs are NOT auto-enabled here.
+            $sarangengePack = Extension::query()->where('slug', 'theme-sarangenge')->first();
+            if ($sarangengePack !== null && $sarangengePack->status !== 'active') {
+                $sarangengePack->update(['status' => 'active']);
                 Extension::flushProductActiveMemo();
-                Log::info('Install profile: enabled theme-janari pack in registry.');
+                Log::info('Install profile: enabled theme-sarangenge pack in registry.');
             }
 
             $active = $themes->ensureDefaultFrontendTheme();

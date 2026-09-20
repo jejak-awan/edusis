@@ -148,12 +148,12 @@ About.vue
 
 ## Referensi
 
-- [About.vue](../../../frontend/src/modules/Layout/views/themes/layung/pages/About.vue) — implementasi halaman Tentang Kami
-- [Contact.vue](../../../frontend/src/modules/Layout/views/themes/layung/pages/Contact.vue) — referensi pola isEnabled, PluginSlot, PageDisabled
-- [Services.vue](../../../frontend/src/modules/Layout/views/themes/layung/pages/Services.vue) — referensi pola 3-priority layer (builder/cms/default)
-- [layung.css](../../../frontend/src/modules/Layout/views/themes/layung/assets/styles/layung.css) — SoC untuk semua styling Layung theme
+- `About.vue` — implementasi halaman Tentang Kami (arsip)
+- `Contact.vue` — referensi pola isEnabled, PluginSlot, PageDisabled (arsip)
+- `Services.vue` — referensi pola 3-priority layer (builder/cms/default) (arsip)
+- `layung.css` — SoC untuk semua styling Layung theme (arsip)
 - [useThemeMotion.ts](../../../frontend/src/modules/Layout/composables/useThemeMotion.ts) — GSAP wrapper yang respects animation settings
-- [preview.targets.json](../../../frontend/src/modules/Layout/views/themes/layung/customizer/preview.targets.json) — mapping halaman ke customizer nav item
-- [schema.settings.json](../../../frontend/src/modules/Layout/views/themes/layung/customizer/schema.settings.json) — customizer settings schema
+- `preview.targets.json` — mapping halaman ke customizer nav item (arsip)
+- `schema.settings.json` — customizer settings schema (arsip)
 - Commits: `435e605` (initial refactor), `7b55b4b` (SoC & ADR)
 

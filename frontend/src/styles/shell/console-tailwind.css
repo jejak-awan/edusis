@@ -24,4 +24,4 @@
 @source '../../main-landing.ts';
 
 @source '../../modules/**/*.{vue,ts,js}';
-@source not '../../modules/Layout/views/themes/janari/**/*';
+@source not '../../modules/Layout/views/themes/sarangenge/**/*';

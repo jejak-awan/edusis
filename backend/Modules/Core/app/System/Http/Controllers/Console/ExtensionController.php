@@ -63,7 +63,7 @@ class ExtensionController extends BaseApiController
         $quota = $licenseService->getThemeQuota($tier);
         $catalog = is_array($quota['catalog'] ?? null)
             ? array_map('strtolower', $quota['catalog'])
-            : ['janari', 'layung', 'sarangenge', 'sareupna'];
+            : ['sarangenge'];
 
         // Filter out theme packs outside the entitled catalog (ADR-023 §2.4)
         $extensions = $extensions->reject(function (Extension $extension) use ($catalog): bool {
@@ -104,11 +104,11 @@ class ExtensionController extends BaseApiController
             }
         }
 
-        $activeThemeVal = Setting::get('theme_active', 'janari');
+        $activeThemeVal = Setting::get('theme_active', 'sarangenge');
 
         return is_string($activeThemeVal) && trim($activeThemeVal) !== ''
             ? strtolower(trim($activeThemeVal))
-            : 'janari';
+            : 'sarangenge';
     }
 
     /**
@@ -310,8 +310,8 @@ class ExtensionController extends BaseApiController
             return $guard;
         }
 
-        if ($extension->slug === 'theme-janari') {
-            return $this->error('Baseline theme pack (theme-janari) cannot be deactivated');
+        if ($extension->slug === 'theme-sarangenge') {
+            return $this->error('Baseline theme pack (theme-sarangenge) cannot be deactivated');
         }
 
         if ($extension->type === 'theme') {
@@ -945,11 +945,11 @@ class ExtensionController extends BaseApiController
         foreach ($discovered as $slug => $meta) {
             $existing = Extension::where('slug', $slug)->first();
             // Kernel packages are always active — heal stale inactive rows from old discovery.
-            // theme-janari is always-on baseline when layout is present (ADR-023).
+            // theme-sarangenge is always-on baseline when layout is present (ADR-023 / ADR-032).
             // Any currently served theme is active (ADR-023).
             if ($meta['is_core']) {
                 $status = 'active';
-            } elseif ($slug === 'theme-janari') {
+            } elseif ($slug === 'theme-sarangenge') {
                 $status = 'active';
             } elseif ($meta['type'] === 'theme' && ($meta['theme_slug'] ?? null) === $activeServedSlug) {
                 $status = 'active';
