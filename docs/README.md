@@ -18,7 +18,9 @@ Seluruh spesifikasi domain operasional sekolah didokumentasikan pada folder [`do
 | [**03. Pemisahan CBT/LMS (KataMPI)**](sis/03-integration-katampi-cbt.md) | Batas arsitektur: mesin CBT dan LMS dialokasikan ke `ja-katampi` (Aksara) terpisah dari SIS |
 | [**04. Standar Data & Dapodik**](sis/04-dapodik-and-data-standards.md) | Konvensi tabel `sch_*`, skema PostgreSQL `edusis`, dan kepatuhan atribut Dapodik Kemendikbud |
 | [**05. Roadmap & Milestones**](sis/05-milestones-and-roadmap.md) | Rencana tahapan pengerjaan (Fase 1 s/d Fase 5) |
+| [**06. Blueprint Scaffold & Sub-Domain**](sis/06-scaffold-and-architecture-blueprint.md) | Cetak biru teknis struktur backend `Modules/School` & frontend `modules/School` |
 | [**ADR-029: EduSIS Domain & Synthesis**](adr/ADR-029-edusis-domain-and-multi-repo-synthesis.md) | Keputusan arsitektur resmi lahirnya JA-EduSIS |
+| [**ADR-030: School Module Scaffolding**](adr/ADR-030-school-module-scaffold-and-subdomain-architecture.md) | Keputusan struktur sub-domain, tabel `sch_*`, dan multi-portal UI |
 
 ---
 
