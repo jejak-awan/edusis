@@ -3,8 +3,6 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Modules\Layout\Http\Controllers\Api\BuilderController;
-use Modules\Layout\Http\Controllers\Api\BuilderPresetController;
 use Modules\Layout\Http\Controllers\Api\MenuController;
 use Modules\Layout\Http\Controllers\Api\PluginThemeSlotsController;
 use Modules\Layout\Http\Controllers\Api\PublicPluginBlocksController;
@@ -88,13 +86,5 @@ Route::prefix('v1')->group(function (): void {
         Route::get('themes/{theme}/export', [ThemeController::class, 'export']);
         Route::get('plugin-theme-slots', [PluginThemeSlotsController::class, 'index']);
         Route::apiResource('themes', ThemeController::class);
-
-        // Visual Builder
-        Route::prefix('builder')->middleware(['extension.active:visual-builder'])->group(function (): void {
-            Route::get('dynamic-sources', [BuilderController::class, 'dynamicSources']);
-            Route::post('resolve-dynamic', [BuilderController::class, 'resolveDynamic']);
-            Route::post('generate-blocks', [BuilderController::class, 'generateBlocks']);
-        });
-        Route::apiResource('builder-presets', BuilderPresetController::class)->middleware(['extension.active:visual-builder']);
     });
 });

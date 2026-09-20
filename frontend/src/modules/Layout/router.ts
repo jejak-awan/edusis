@@ -57,19 +57,6 @@ const layoutRoutes: RouteRecordRaw[] = [
             fullWidth: true,
         },
     },
-    {
-        path: 'site-editor',
-        name: 'builder.site',
-        component: () => import('@/modules/Layout/views/builder/SiteEditor.vue'),
-        meta: {
-            permission: 'edit content',
-            extension: 'visual-builder',
-            title: 'Visual Site Editor',
-            breadcrumb: 'layout.navigation.menu.siteEditor',
-            // Fresh mount each visit — avoids KeepAlive stale builder methods/locks/content.
-            noCache: true,
-        },
-    },
 ];
 
 export default layoutRoutes;

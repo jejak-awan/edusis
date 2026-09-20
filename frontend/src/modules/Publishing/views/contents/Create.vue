@@ -29,7 +29,6 @@
             @save="handleSubmit"
             @toggle-auto-save="handleAutoSaveToggle"
             @cancel="handleCancel"
-            @open-builder="openVisualBuilder"
           />
         </ConsoleFormCard>
       </div>
@@ -204,20 +203,6 @@
         </div>
       </DialogContent>
     </Dialog>
-
-    <!-- Fullscreen Visual Page Builder Modal -->
-    <div
-      v-if="isVisualBuilderOpen"
-      class="fixed inset-0 z-50 bg-background flex flex-col"
-    >
-      <Builder
-        :initial-data="{ blocks: form.meta?.builder_blocks || [], body: form.body || '', title: form.title || '', slug: form.slug || '' }"
-        mode="page"
-        @close="isVisualBuilderOpen = false"
-        @save="handleBuilderSave"
-        @update="handleBuilderUpdate"
-      />
-    </div>
   </div>
 </template>
 
@@ -247,7 +232,6 @@ import ActionToolbar from '@/modules/Publishing/components/content/ActionToolbar
 import AutoSaveIndicator from '@/shared/components/AutoSaveIndicator.vue';
 import ContentMain from '@/modules/Publishing/components/content/ContentMain.vue';
 import ContentSidebar from '@/modules/Publishing/components/content/ContentSidebar.vue';
-import Builder from '@/modules/Layout/components/builder/Builder.vue';
 import BlockRenderer from '@/modules/Layout/components/content-renderer/BlockRenderer.vue';
 import { Monitor, Tablet, Smartphone } from 'lucide-vue-next';
 
@@ -261,8 +245,6 @@ import type { Menu } from '@/modules/Layout/types/menu';
 import type { Category } from '@/modules/Publishing/types/taxonomy';
 import type { Tag } from '@/modules/Library/types/taxonomy';
 import type { ContentForm } from '@/modules/Publishing/types/content';
-import type { BlockInstance } from '@/modules/Layout/types/builder';
-import { builderToHtml } from '@/modules/Layout/utils/builderTransformer';
 
 interface ConflictDetails {
     id: string;
@@ -281,56 +263,9 @@ const router = useRouter();
 const toast = useToast();
 const systemStore = useSystemStore();
 
-// Visual Builder & Preview State
-const isVisualBuilderOpen = ref(false);
+// Preview State
 const isPreviewModalOpen = ref(false);
 const previewDevice = ref<'desktop' | 'tablet' | 'mobile'>('desktop');
-
-const openVisualBuilder = () => {
-  const isVisualBuilderActive = systemStore.activeExtensions?.includes('visual-builder') ?? false;
-  if (!isVisualBuilderActive) {
-    toast.error.action({ message: t('publishing.content.builder.extensionInactive', 'Modul Visual Builder tidak aktif. Aktifkan modul Visual Builder di Pengaturan Ekstensi.') });
-    return;
-  }
-  isVisualBuilderOpen.value = true;
-};
-
-const handleBuilderUpdate = (payload: { blocks: BlockInstance[] }) => {
-  if (!form.value.meta) {
-    form.value.meta = {};
-  }
-  const blocks = payload.blocks || [];
-  const themePage = typeof form.value.meta.theme_page === 'string' ? form.value.meta.theme_page.trim() : '';
-  form.value.meta.builder_blocks = blocks;
-  if (themePage) {
-    const enableOverride = blocks.length > 0;
-    form.value.meta.builder_override = enableOverride;
-    form.value.meta.use_theme_template = !enableOverride;
-  }
-};
-
-const handleBuilderSave = async (status?: string | null) => {
-  // Wait for Builder flush emit('update') so builder_blocks is current (not stale debounce).
-  await nextTick();
-  isVisualBuilderOpen.value = false;
-  if (status && (status === 'draft' || status === 'published')) {
-    form.value.status = status;
-  }
-  const blocks = form.value.meta?.builder_blocks;
-  if (Array.isArray(blocks) && blocks.length > 0) {
-    const html = builderToHtml(blocks as BlockInstance[]);
-    if (html) {
-      form.value.body = html;
-    }
-  }
-  if (form.value.title && form.value.title.trim().length > 0) {
-    try {
-      await handleSubmit(form.value.status);
-    } catch (e) {
-      logger.error('Auto-submitting content after builder save failed', e);
-    }
-  }
-}
 
 const { validateWithZod, setErrors, clearErrors } = useFormValidation(contentSchema);
 

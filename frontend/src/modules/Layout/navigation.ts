@@ -10,15 +10,6 @@ export const layoutNavigation: NavItem[] = [
         priority: 94,
         children: [
             {
-                name: 'builder.site',
-                label: 'Site Editor',
-                labelKey: 'layout.navigation.menu.siteEditor',
-                permission: 'edit content',
-                extension: 'visual-builder',
-                icon: 'layout',
-                priority: 84,
-            },
-            {
                 name: 'themes',
                 label: 'Themes',
                 labelKey: 'publishing.navigation.menu.themes',

@@ -9,6 +9,7 @@ Index: [`../CHANGELOG.md`](../CHANGELOG.md)
 ## [Unreleased]
 
 ### Changed
+- Removed legacy builder.site menu item from console menus defaults and sync routine.
 - Purged legacy theme remnants in extension management components and locked theme-sarangenge as baseline.
 
 ### Added

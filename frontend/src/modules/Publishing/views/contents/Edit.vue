@@ -121,7 +121,6 @@
             @save="handleSubmit"
             @toggle-auto-save="handleAutoSaveToggle"
             @cancel="handleCancel"
-            @open-builder="openVisualBuilder"
           />
         </ConsoleFormCard>
       </div>
@@ -220,21 +219,6 @@
         </DialogFooter>
       </DialogContent>
     </Dialog>
-
-    <!-- Fullscreen Visual Page Builder Modal -->
-    <div
-      v-if="isVisualBuilderOpen"
-      class="fixed inset-0 z-50 bg-background flex flex-col"
-    >
-      <Builder
-        :initial-data="{ blocks: form.meta?.builder_blocks || [], body: form.body || '', title: form.title || '', slug: form.slug || '' }"
-        :content-id="id"
-        mode="page"
-        @close="isVisualBuilderOpen = false"
-        @save="handleBuilderSave"
-        @update="handleBuilderUpdate"
-      />
-    </div>
   </div>
 </template>
 
@@ -283,7 +267,6 @@ import AutoSaveIndicator from '@/shared/components/AutoSaveIndicator.vue';
 import ContentPreviewModal from '@/modules/Core/System/components/console/ContentPreviewModal.vue';
 import ContentMain from '@/modules/Publishing/components/content/ContentMain.vue';
 import ContentSidebar from '@/modules/Publishing/components/content/ContentSidebar.vue';
-import Builder from '@/modules/Layout/components/builder/Builder.vue';
 
 // Composables & Utils
 import { parseSingleResponse, parseResponse, ensureArray, getResponseList } from '@/shared/utils/responseParser';
@@ -296,7 +279,6 @@ import type { Menu } from '@/modules/Layout/types/menu';
 import type { Category } from '@/modules/Publishing/types/taxonomy';
 import type { Tag } from '@/modules/Library/types/taxonomy';
 import type { Content, ContentForm } from '@/modules/Publishing/types/content';
-import type { BlockInstance } from '@/modules/Layout/types/builder';
 
 interface LockStatus {
     is_locked: boolean;
@@ -356,41 +338,6 @@ const handleReject = async () => {
     toast.error.default(t('publishing.content.messages.rejectFailed', 'Failed to reject content'));
   }
 };
-
-// Visual Builder State
-const isVisualBuilderOpen = ref(false);
-
-const openVisualBuilder = () => {
-  const isVisualBuilderActive = systemStore.activeExtensions?.includes('visual-builder') ?? false;
-  if (!isVisualBuilderActive) {
-    toast.error.default(t('publishing.content.builder.extensionInactive', 'Modul Visual Builder tidak aktif. Aktifkan modul Visual Builder di Pengaturan Ekstensi.'));
-    return;
-  }
-  isVisualBuilderOpen.value = true;
-};
-
-const handleBuilderUpdate = (payload: { blocks: BlockInstance[] }) => {
-  if (!form.value.meta) {
-    form.value.meta = {};
-  }
-  const blocks = payload.blocks || [];
-  const themePage = typeof form.value.meta.theme_page === 'string' ? form.value.meta.theme_page.trim() : '';
-  form.value.meta.builder_blocks = blocks;
-  if (themePage) {
-    const enableOverride = blocks.length > 0;
-    form.value.meta.builder_override = enableOverride;
-    form.value.meta.use_theme_template = !enableOverride;
-  }
-};
-
-const handleBuilderSave = async (status?: string | null) => {
-  await nextTick();
-  isVisualBuilderOpen.value = false;
-  if (status && (status === 'draft' || status === 'published')) {
-    form.value.status = status;
-  }
-  // Builder already PUT contents when contentId exists. Avoid a second stale form submit.
-}
 
 const isSidebarOpen = ref(true);
 const contentId = route.params.id as string;

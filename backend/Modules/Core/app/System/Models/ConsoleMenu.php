@@ -378,17 +378,6 @@ class ConsoleMenu extends Model
                         'order' => 4,
                     ],
                     [
-                        'name' => 'Site Editor',
-                        'label_key' => 'layout.navigation.menu.siteEditor',
-                        'route_name' => 'builder.site',
-                        'icon' => 'layout',
-                        'permission' => 'edit content',
-                        'extension_slug' => 'visual-builder',
-                        'badge_text' => 'PRO',
-                        'badge_variant' => 'primary',
-                        'order' => 5,
-                    ],
-                    [
                         'name' => 'Themes',
                         'label_key' => 'publishing.navigation.menu.themes',
                         'route_name' => 'themes',
@@ -891,10 +880,8 @@ class ConsoleMenu extends Model
             'label_key' => 'library.navigation.menu.generalTags',
         ]);
 
-        // Sync extension_slug for builder.site to visual-builder
-        self::query()->where('route_name', 'builder.site')->update([
-            'extension_slug' => 'visual-builder',
-        ]);
+        // Clean up legacy builder.site menu if still present
+        self::query()->where('route_name', 'builder.site')->delete();
 
         // Sync extension_slug for Data Model Studio
         self::query()->where('route_name', 'model-index')->update([

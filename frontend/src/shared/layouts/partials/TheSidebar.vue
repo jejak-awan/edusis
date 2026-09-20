@@ -431,23 +431,6 @@ const autoExpandActiveGroup = () => {
     }
 };
 
-const ensureSiteEditorGroupExpanded = () => {
-    for (const item of filteredNavigation.value) {
-        if (item.children?.some((c) => c.name === 'builder.site')) {
-            const key = navItemKey(item);
-            if (accordionMode.value === 'single') {
-                if (Object.keys(expandedGroups.value).length === 0 || item.children.some(c => isChildActive(c))) {
-                    expandedGroups.value = { [key]: true };
-                }
-            } else {
-                if (expandedGroups.value[key] !== false) {
-                    expandedGroups.value[key] = true;
-                }
-            }
-        }
-    }
-};
-
 const filteredNavigation = computed<ResolvedNavItem[]>(() => {
     const routeNames = buildRouteNameSet();
     const permissionSet = authStore.permissionNameSet;
@@ -561,7 +544,6 @@ onMounted(() => {
         catch { /* ignore */ }
     }
     autoExpandActiveGroup();
-    ensureSiteEditorGroupExpanded();
     if (authStore.isAuthenticated && !navigationStore.dbMenuRegistry) {
         void navigationStore.fetchConsoleMenus();
     }
@@ -584,7 +566,6 @@ watch(
 );
 
 watch(() => $route.name, () => autoExpandActiveGroup());
-watch(filteredNavigation, () => ensureSiteEditorGroupExpanded(), { flush: 'post' });
 </script>
 
 <style scoped>

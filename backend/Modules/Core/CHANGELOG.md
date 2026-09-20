@@ -18,6 +18,7 @@ Policy: [`docs/guides/update-changelog.md`](../../../docs/guides/update-changelo
 - See domain files for feature entries (identity, extensions, Data Studio, RBAC hardening, …).
 
 ### Changed
+- Version 1.0.8: Removed legacy builder.site menu item from console menus defaults and sync routine.
 - Version 1.0.7: Purged legacy theme remnants from extension management views and locked theme-sarangenge as baseline.
 - Version 1.0.6: Aligned DashboardController activity log query guard dynamically with ActivityLog model table name.
 - Version 1.0.5: ADR-032 Sarangenge baseline unification — removed legacy theme packs from catalog, set sarangenge as default baseline theme, and updated theme downgrade remediator.
