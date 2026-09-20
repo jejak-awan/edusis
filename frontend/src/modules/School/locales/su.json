@@ -1,7 +1,11 @@
 {
     "navigation": {
         "menu": {
-            "school": "Sistem Inpormasi Sakola",
+            "school": "Sistem Informasi Sakola",
+            "academicGroup": "Akademik & Pangajaran",
+            "studentsGroup": "Kasiswaan & Bimbingan",
+            "operationsGroup": "Tata Usaha & Pangaturan",
+            "integrationsGroup": "Integrasi & Gateway",
             "dashboard": "Dasbor Sakola",
             "academic": "Data Akademik",
             "students": "Data Murid (Dapodik)",

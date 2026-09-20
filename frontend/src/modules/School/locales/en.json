@@ -2,6 +2,10 @@
     "navigation": {
         "menu": {
             "school": "School Information System",
+            "academicGroup": "Academic & Learning",
+            "studentsGroup": "Student Affairs & Guidance",
+            "operationsGroup": "Administration & Operations",
+            "integrationsGroup": "Integrations & Gateway",
             "dashboard": "School Dashboard",
             "academic": "Academic Data",
             "students": "Students (Dapodik)",

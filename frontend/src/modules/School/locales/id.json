@@ -2,6 +2,10 @@
     "navigation": {
         "menu": {
             "school": "Sistem Informasi Sekolah",
+            "academicGroup": "Akademik & Pembelajaran",
+            "studentsGroup": "Kesiswaan & Bimbingan",
+            "operationsGroup": "Manajemen & Tata Usaha",
+            "integrationsGroup": "Integrasi & Gateway",
             "dashboard": "Dashboard Sekolah",
             "academic": "Data Akademik",
             "students": "Data Siswa (Dapodik)",
