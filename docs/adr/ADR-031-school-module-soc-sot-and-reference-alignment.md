@@ -86,6 +86,12 @@ Sesuai kontrak [`docs/DOCUMENTATION.md`](../DOCUMENTATION.md) Bab 2:
    - Memisahkan disk publik (`public` untuk foto siswa/guru, aset sekolah) dan disk privat terlindungi (`local` untuk catatan konseling BK, pindaian surat dinas, berkas pendaftar PPDB) yang hanya dialirkan via proxy controller terotorisasi.
 8. **Engine Impor/Ekspor Data Dapodik (`ImportDataService.php`)**:
    - Mengadopsi parser Excel berbasis `PhpSpreadsheet` dari `ja-siska` dengan validasi otomatis format baku Kemendikbudristek (NISN 10 digit, NIK 16 digit, gender L/P).
+9. **Domain Rules & Exceptions**:
+   - Menerapkan `ValidNIK`, `ValidNISN`, `ValidPhoneNumber` dari `ja-siska` dan `SchoolModuleException` dari `cijulang`.
+10. **Mesin Cetak Berkas Resmi & Dokumen PDF**:
+    - Mengadopsi template Blade cetak resmi untuk Biodata Dapodik, KTA Siswa, SKL, Raport Merdeka, dan Kartu Pemilih DPT.
+11. **Dekomposisi Dashboard Berbasis Peran**:
+    - Memisahkan dashboard institusi menjadi komponen spesifik peran di `components/dashboard/`.
 
 ---
 
@@ -96,7 +102,10 @@ Sesuai kontrak [`docs/DOCUMENTATION.md`](../DOCUMENTATION.md) Bab 2:
 - **Zero Empty Folders**: Menghapus seluruh folder kosong pasca-scaffold dan menatanya ke dalam hierarki modular yang utuh.
 - **Kepatuhan Enterprise**: Memenuhi standar arsitektur `ja-core_engine` (Thin Controller, FormRequest, Services, Pinia, dan L1 Docs).
 
-### Batasan Mutlak:
+### Batasan Mutlak & Mandat Kualitas:
+- **Pristine Comments**: DILARANG membawa komentar usang, spesifik institusi lama ("SMKN 1 Cijulang"), atau dead code dari repo referensi. Anotasi wajib bersih dan seragam.
+- **Legacy Purge**: Menghapus total seluruh fallback hack (`$school = School::first() ?? 1`) dan kode mati (*dead code*).
+- **Kepatuhan Standar Core Engine**: Wajib 100% patuh pada [`docs/architecture/02-backend-standards.md`](../architecture/02-backend-standards.md), [`docs/architecture/03-frontend-standards.md`](../architecture/03-frontend-standards.md), dan [`docs/DOCUMENTATION.md`](../DOCUMENTATION.md).
 - **Zero Regression**: Proses penyelarasan dan refactoring **wajib mempertahankan kelulusan 100% dari 47 feature test yang ada** (`php artisan test Modules/School`).
 - **Data Integrity**: Tidak mengubah struktur tabel migrasi `sch_*` yang sudah termigrasi rapi di PostgreSQL.
 

@@ -154,10 +154,40 @@ Mengeliminasi seluruh folder kosong pasca-scaffold, meniadakan kode redundan/dup
 
 ---
 
-## 4. Acceptance Criteria
+## 4. Tiga Mandat Kualitas & Standarisasi Eksekusi
+
+Sesuai instruksi dan keselarasan platform Jejakawan Core Engine:
+
+### A. Anotasi & Komentar Kode Bersih (*Pristine Docblocks & No Stale Comments*)
+- **DILARANG** menyalin atau mempertahankan komentar peninggalan (*legacy comments*) dari `repo_referensi`, seperti referensi ke institusi spesifik ("SMKN 1 Cijulang", author asli, TODO basi, atau potongan kode yang di-comment out).
+- Seluruh berkas baru maupun refaktor wajib menggunakan anotasi PHPDoc / JSDoc yang bersih, profesional, dan seragam sesuai standar Core Engine (`@param`, `@return`, `@throws`, strict typing).
+
+### B. Pembersihan Menyeluruh Kode Usang & Fallback Hack (*Clean Refactor & Legacy Purge*)
+- **ELIMINASI TOTAL** fallback hack darurat seperti `$school = School::first(); return $school ? $school->id : 1;`.
+- Pengelolaan tenant wajib sepenuhnya diserahkan ke `SchoolContextMiddleware` dan `ScopedBySchool`.
+- Hapus semua *dead code*, import tidak terpakai (*unused imports*), dan method controller usang. Hasil refactor harus murni (*clean codebase*), bukan kode bertumpuk tambal-sulam.
+
+### C. Konsistensi Ketat terhadap Dokumen Standar Core Engine (`docs/`)
+- **Backend Standards** ([`docs/architecture/02-backend-standards.md`](../architecture/02-backend-standards.md)):
+  - *Thin Controllers*: Tidak ada query query SQL / Eloquent langsung atau validasi inline di controller.
+  - *Standard JSON Response*: Format seragam `{ success: true, data: ..., message: ... }` atau `{ success: false, message: ..., errors: ... }`.
+  - *FormRequest & Services*: Validasi terpusat di `app/Http/Requests/` dan alur logika bisnis terenkapsulasi di `app/Services/` dengan `DB::transaction()`.
+- **Frontend Standards** ([`docs/architecture/03-frontend-standards.md`](../architecture/03-frontend-standards.md)):
+  - *Single Unified Console SPA*: Vue 3.5 Composition API `<script setup lang="ts">`.
+  - *Strict Typing*: Tidak boleh menggunakan `any`, seluruh payload API wajib memiliki tipe data di `types/<subdomain>.ts`.
+  - *Pinia Stores*: State management reaktif terenkapsulasi per sub-domain.
+  - *i18n Parity*: Setiap string UI wajib menggunakan kunci translasi yang simetris 100% pada `id.json`, `en.json`, dan `su.json`.
+- **Dokumentasi L1** ([`docs/DOCUMENTATION.md`](../DOCUMENTATION.md)):
+  - Menghasilkan berkas kontrak `README.md` dan catatan rilis `CHANGELOG.md` pada modul BE dan FE.
+
+---
+
+## 5. Acceptance Criteria
 - [ ] 0 folder kosong di dalam `frontend/src/modules/School/views/`.
 - [ ] 0 validasi inline `$request->validate()` di dalam API Controller backend.
-- [ ] Layer `app/Http/Requests/` dan `app/Services/` aktif penuh di backend.
+- [ ] 0 fallback hack `$school = School::first() ?? 1` di seluruh controller (100% via `Context`).
+- [ ] 0 komentar usang/spesifik repo lama yang terbawa ke dalam kode `ja-edusis`.
+- [ ] Layer `app/Http/Requests/`, `app/Services/`, `app/Rules/`, dan `app/Exceptions/` aktif penuh di backend.
 - [ ] `SchoolContextMiddleware` dan `ScopedBySchool` aktif mengisolasi multi-tenancy.
 - [ ] `SchoolDatabaseSeeder.php` dan `SchoolRoleSeeder.php` terdaftar dan dapat dieksekusi tanpa error.
 - [ ] Seluruh 47 feature test di backend lulus 100% (`php artisan test Modules/School`).
@@ -168,9 +198,12 @@ Mengeliminasi seluruh folder kosong pasca-scaffold, meniadakan kode redundan/dup
 
 ---
 
-## 5. Log Proses
+## 6. Log Proses
 | Waktu | Catatan |
 | :--- | :--- |
 | 2026-09-20 18:20 | Penyelarasan rencana kerja dengan aset `repo_referensi` berbasis ADR-031. |
 | 2026-09-20 18:35 | Pendalaman komprehensif: Manifest Spatie permissions, Master Seeder, SchoolContextMiddleware, ScopedBySchool trait, Policies, Factories, Storage Strategy, dan ImportDataService. |
+| 2026-09-20 18:50 | Penambahan aset Rules (`ValidNIK`, `ValidNISN`, `ValidPhoneNumber`), Exceptions (`SchoolModuleException`), Template PDF Blade, dan Role Dashboards. |
+| 2026-09-20 18:55 | Penegasan 3 Mandat Eksekusi: Pembersihan komentar repo lama, pembersihan total fallback hack, dan kepatuhan penuh terhadap standar Core Engine (`02-backend-standards`, `03-frontend-standards`, `DOCUMENTATION.md`). |
+
 
