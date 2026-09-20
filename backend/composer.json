@@ -1,9 +1,9 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "jejakawan/ja-core-engine",
-    "version": "1.0.0-beta.2",
+    "name": "jejakawan/ja-edusis",
+    "version": "1.0.0-alpha.1",
     "type": "project",
-    "description": "Jejakawan Core Engine - Foundational Application Kernel",
+    "description": "JA-EduSIS — School Management System built on ja-core-engine",
     "authors": [
         {
             "name": "Jejakawan",
