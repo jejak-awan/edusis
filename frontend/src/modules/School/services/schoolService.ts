@@ -426,6 +426,75 @@ export interface OsisElectionData {
     total_votes?: number;
 }
 
+export type VotingEventType = 'osis' | 'mpk' | 'ekskul' | 'guru_favorit' | 'polling' | 'komite';
+export type VotingMode = 'token_kiosk' | 'online_login' | 'hybrid';
+export type TargetAudience = 'all_students' | 'specific_classes' | 'teachers_only' | 'parents' | 'all';
+
+export interface VoteCandidateData {
+    id: number;
+    event_id: number;
+    candidate_number: number;
+    title: string;
+    leader_student_id?: number | null;
+    vice_student_id?: number | null;
+    staff_id?: number | null;
+    vision?: string | null;
+    mission?: string | null;
+    photo_url?: string | null;
+    vote_count: number;
+    percentage?: number;
+    leader_name?: string;
+    vice_name?: string;
+    leader?: StudentData;
+    vice?: StudentData;
+    staff?: StaffData;
+}
+
+export interface VoteVoterData {
+    id: number;
+    event_id: number;
+    voter_type: 'student' | 'staff' | 'parent' | 'general';
+    student_id?: number | null;
+    staff_id?: number | null;
+    voter_name: string;
+    voter_identifier?: string | null;
+    token: string;
+    has_voted: boolean;
+    voted_at?: string | null;
+    token_generated_at?: string | null;
+}
+
+export interface VoteEventData {
+    id: number;
+    school_id: number;
+    academic_year_id?: number | null;
+    title: string;
+    type: VotingEventType;
+    description?: string | null;
+    target_audience: TargetAudience;
+    voting_mode: VotingMode;
+    start_date: string;
+    end_date: string;
+    status: 'draft' | 'active' | 'closed';
+    allow_abstain: boolean;
+    candidates?: VoteCandidateData[];
+    candidates_count?: number;
+    voters_count?: number;
+    ballots_count?: number;
+}
+
+export interface VotingQuickCountData {
+    event_id: number;
+    event_title: string;
+    event_type: VotingEventType;
+    status: string;
+    total_ballots: number;
+    total_dpt: number;
+    voted_dpt: number;
+    turnout_percentage: number;
+    candidates: VoteCandidateData[];
+}
+
 export interface ExtracurricularData {
     id: number;
     school_id: number;
@@ -860,6 +929,38 @@ export const SchoolService = {
     },
     getOsisQuickCount(electionId: number): Promise<AxiosResponse> {
         return api.get(`/api/v1/school/osis/elections/${electionId}/quick-count`);
+    },
+
+    // Generic Reusable E-Voting & Polling Engine
+    getVotingEvents(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/voting/events', { params });
+    },
+    storeVotingEvent(payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/voting/events', payload);
+    },
+    showVotingEvent(id: number): Promise<AxiosResponse> {
+        return api.get(`/api/v1/school/voting/events/${id}`);
+    },
+    updateVotingEvent(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.put(`/api/v1/school/voting/events/${id}`, payload);
+    },
+    deleteVotingEvent(id: number): Promise<AxiosResponse> {
+        return api.delete(`/api/v1/school/voting/events/${id}`);
+    },
+    addVotingCandidate(eventId: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post(`/api/v1/school/voting/events/${eventId}/candidates`, payload);
+    },
+    generateVotingVoters(eventId: number, payload: { source: string; study_group_id?: number }): Promise<AxiosResponse> {
+        return api.post(`/api/v1/school/voting/events/${eventId}/generate-voters`, payload);
+    },
+    getVotingVoters(eventId: number, params: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.get(`/api/v1/school/voting/events/${eventId}/voters`, { params });
+    },
+    castVoteEngine(eventId: number, payload: { candidate_id: number; token?: string; student_id?: number; mode?: string }): Promise<AxiosResponse> {
+        return api.post(`/api/v1/school/voting/events/${eventId}/vote`, payload);
+    },
+    getVotingQuickCount(eventId: number): Promise<AxiosResponse> {
+        return api.get(`/api/v1/school/voting/events/${eventId}/quick-count`);
     },
 
     // Extracurriculars

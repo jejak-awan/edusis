@@ -23,6 +23,7 @@ use Modules\School\Http\Controllers\Api\Student\DisciplineController;
 use Modules\School\Http\Controllers\Api\Student\StudentController;
 use Modules\School\Http\Controllers\Api\StudentAffairs\ExtracurricularController;
 use Modules\School\Http\Controllers\Api\StudentAffairs\OsisElectionController;
+use Modules\School\Http\Controllers\Api\StudentAffairs\VotingEngineController;
 
 Route::prefix('v1/school')->middleware(['auth:sanctum'])->group(function (): void {
     // Health / Ping
@@ -196,7 +197,7 @@ Route::prefix('v1/school')->middleware(['auth:sanctum'])->group(function (): voi
         Route::delete('/{id}', [GuestBookController::class, 'destroy']);
     });
 
-    // --- OSIS & E-Voting ---
+    // --- OSIS & E-Voting (Legacy Specific Endpoints) ---
     Route::prefix('osis')->group(function (): void {
         Route::get('/elections', [OsisElectionController::class, 'index']);
         Route::post('/elections', [OsisElectionController::class, 'store']);
@@ -206,6 +207,20 @@ Route::prefix('v1/school')->middleware(['auth:sanctum'])->group(function (): voi
         Route::post('/elections/{id}/candidates', [OsisElectionController::class, 'addCandidate']);
         Route::post('/elections/{id}/vote', [OsisElectionController::class, 'vote']);
         Route::get('/elections/{id}/quick-count', [OsisElectionController::class, 'quickCount']);
+    });
+
+    // --- Generic Reusable E-Voting & Polling Engine ---
+    Route::prefix('voting')->group(function (): void {
+        Route::get('/events', [VotingEngineController::class, 'getEvents']);
+        Route::post('/events', [VotingEngineController::class, 'storeEvent']);
+        Route::get('/events/{id}', [VotingEngineController::class, 'showEvent']);
+        Route::put('/events/{id}', [VotingEngineController::class, 'updateEvent']);
+        Route::delete('/events/{id}', [VotingEngineController::class, 'destroyEvent']);
+        Route::post('/events/{id}/candidates', [VotingEngineController::class, 'addCandidate']);
+        Route::post('/events/{id}/generate-voters', [VotingEngineController::class, 'generateVoters']);
+        Route::get('/events/{id}/voters', [VotingEngineController::class, 'getVoters']);
+        Route::post('/events/{id}/vote', [VotingEngineController::class, 'castVote']);
+        Route::get('/events/{id}/quick-count', [VotingEngineController::class, 'quickCount']);
     });
 
     // --- Ekstrakurikuler ---
