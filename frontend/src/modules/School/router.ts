@@ -85,6 +85,24 @@ export const schoolRoutes: RouteRecordRaw[] = [
         component: () => import('@/modules/School/views/GuestBook.vue'),
         meta: { title: 'school.guests.title', breadcrumb: 'school.navigation.menu.guests' },
     },
+    {
+        path: 'school/facilities',
+        name: 'school.facilities',
+        component: () => import('@/modules/School/views/FacilityManagement.vue'),
+        meta: { title: 'school.facilities.title', breadcrumb: 'school.navigation.menu.facilities' },
+    },
+    {
+        path: 'school/katampi',
+        name: 'school.katampi',
+        component: () => import('@/modules/School/views/KatampiIntegration.vue'),
+        meta: { title: 'school.katampi.title', breadcrumb: 'school.navigation.menu.katampi' },
+    },
+    {
+        path: 'school/whatsapp',
+        name: 'school.whatsapp',
+        component: () => import('@/modules/School/views/WhatsAppGateway.vue'),
+        meta: { title: 'school.whatsapp.title', breadcrumb: 'school.navigation.menu.whatsapp' },
+    },
 ];
 
 export default schoolRoutes;

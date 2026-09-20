@@ -13,8 +13,11 @@ use Modules\School\Http\Controllers\Api\Academic\TeachingJournalController;
 use Modules\School\Http\Controllers\Api\Administration\GuestBookController;
 use Modules\School\Http\Controllers\Api\Administration\LetterController;
 use Modules\School\Http\Controllers\Api\Administration\PpdbController;
+use Modules\School\Http\Controllers\Api\Communication\WhatsAppController;
 use Modules\School\Http\Controllers\Api\Counseling\CounselingController;
+use Modules\School\Http\Controllers\Api\Facilities\FacilityController;
 use Modules\School\Http\Controllers\Api\HR\StaffController;
+use Modules\School\Http\Controllers\Api\Integration\KatampiIntegrationController;
 use Modules\School\Http\Controllers\Api\SchoolDashboardController;
 use Modules\School\Http\Controllers\Api\Student\DisciplineController;
 use Modules\School\Http\Controllers\Api\Student\StudentController;
@@ -213,5 +216,43 @@ Route::prefix('v1/school')->middleware(['auth:sanctum'])->group(function (): voi
         Route::put('/{id}', [ExtracurricularController::class, 'update']);
         Route::delete('/{id}', [ExtracurricularController::class, 'destroy']);
     });
-});
 
+    // --- Sarana & Prasarana (Facilities) ---
+    Route::prefix('facilities')->group(function (): void {
+        // Rooms
+        Route::get('/rooms', [FacilityController::class, 'getRooms']);
+        Route::post('/rooms', [FacilityController::class, 'storeRoom']);
+        Route::put('/rooms/{id}', [FacilityController::class, 'updateRoom']);
+        Route::delete('/rooms/{id}', [FacilityController::class, 'deleteRoom']);
+
+        // Assets
+        Route::get('/assets', [FacilityController::class, 'getAssets']);
+        Route::post('/assets', [FacilityController::class, 'storeAsset']);
+        Route::put('/assets/{id}', [FacilityController::class, 'updateAsset']);
+        Route::delete('/assets/{id}', [FacilityController::class, 'deleteAsset']);
+
+        // Maintenance Tickets
+        Route::get('/tickets', [FacilityController::class, 'getTickets']);
+        Route::post('/tickets', [FacilityController::class, 'storeTicket']);
+        Route::put('/tickets/{id}', [FacilityController::class, 'updateTicket']);
+        Route::post('/tickets/{id}/resolve', [FacilityController::class, 'resolveTicket']);
+    });
+
+    // --- Integrasi KataMPI CBT ---
+    Route::prefix('integrations/katampi')->group(function (): void {
+        Route::get('/config', [KatampiIntegrationController::class, 'getConfig']);
+        Route::put('/config', [KatampiIntegrationController::class, 'updateConfig']);
+        Route::post('/sso-token', [KatampiIntegrationController::class, 'generateSsoToken']);
+        Route::get('/roster', [KatampiIntegrationController::class, 'getRoster']);
+        Route::post('/sync-grades', [KatampiIntegrationController::class, 'syncGrades']);
+    });
+
+    // --- WhatsApp Gateway & Komunikasi Orang Tua ---
+    Route::prefix('communications/whatsapp')->group(function (): void {
+        Route::get('/logs', [WhatsAppController::class, 'getLogs']);
+        Route::get('/stats', [WhatsAppController::class, 'getStats']);
+        Route::post('/send', [WhatsAppController::class, 'sendMessage']);
+        Route::post('/alerts/attendance', [WhatsAppController::class, 'sendAttendanceAlerts']);
+        Route::post('/logs/{id}/resend', [WhatsAppController::class, 'resendLog']);
+    });
+});

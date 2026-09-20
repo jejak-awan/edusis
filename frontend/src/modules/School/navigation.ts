@@ -106,6 +106,27 @@ export const schoolNavigation: NavItem[] = [
                 icon: 'book-open-check',
                 priority: 20,
             },
+            {
+                name: 'school.facilities',
+                label: 'Sarana & Prasarana',
+                labelKey: 'school.navigation.menu.facilities',
+                icon: 'building',
+                priority: 15,
+            },
+            {
+                name: 'school.katampi',
+                label: 'KataMPI CBT Engine',
+                labelKey: 'school.navigation.menu.katampi',
+                icon: 'server',
+                priority: 10,
+            },
+            {
+                name: 'school.whatsapp',
+                label: 'WhatsApp Gateway',
+                labelKey: 'school.navigation.menu.whatsapp',
+                icon: 'message-square',
+                priority: 5,
+            },
         ],
     },
 ];

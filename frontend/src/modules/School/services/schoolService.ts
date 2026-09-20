@@ -439,6 +439,91 @@ export interface ExtracurricularData {
     advisor?: StaffData;
 }
 
+export interface RoomData {
+    id: number;
+    school_id: number;
+    code: string;
+    name: string;
+    type: 'classroom' | 'laboratory' | 'workshop' | 'library' | 'hall' | 'office' | 'other';
+    capacity: number;
+    floor: number;
+    condition: 'baik' | 'rusak_ringan' | 'rusak_berat';
+    description: string | null;
+    assets_count?: number;
+    assets?: AssetData[];
+}
+
+export interface AssetData {
+    id: number;
+    school_id: number;
+    room_id: number | null;
+    code: string;
+    name: string;
+    category: 'elektronik' | 'mebeler' | 'alat_praktik' | 'kendaraan' | 'buku' | 'lainnya';
+    brand_model: string | null;
+    acquisition_year: number | null;
+    quantity: number;
+    condition: 'baik' | 'rusak_ringan' | 'rusak_berat';
+    source_of_fund: string;
+    notes: string | null;
+    room?: RoomData;
+    maintenance_tickets?: MaintenanceTicketData[];
+}
+
+export interface MaintenanceTicketData {
+    id: number;
+    school_id: number;
+    room_id: number;
+    asset_id: number | null;
+    reporter_staff_id: number;
+    ticket_number: string;
+    issue_description: string;
+    priority: 'rendah' | 'sedang' | 'tinggi' | 'darurat';
+    status: 'open' | 'in_progress' | 'resolved' | 'cancelled';
+    cost: number;
+    resolution_notes: string | null;
+    resolved_at: string | null;
+    created_at: string;
+    room?: RoomData;
+    asset?: AssetData;
+    reporter?: { id: number; full_name: string; nip?: string };
+}
+
+export interface KatampiConfigData {
+    id: number;
+    school_id: number;
+    cbt_url: string;
+    api_key: string | null;
+    is_active: boolean;
+    last_sync_at: string | null;
+    sync_stats: Record<string, unknown> | null;
+}
+
+export interface WhatsAppLogData {
+    id: number;
+    school_id: number;
+    student_id: number | null;
+    recipient_phone: string;
+    recipient_name: string | null;
+    message_type: 'attendance_alert' | 'discipline_sp' | 'achievement' | 'announcement' | 'general';
+    content: string;
+    status: 'queued' | 'sent' | 'delivered' | 'failed';
+    sent_at: string | null;
+    error_message: string | null;
+    created_at: string;
+    student?: { id: number; full_name: string; nisn?: string };
+}
+
+export interface WhatsAppStatsData {
+    total: number;
+    sent: number;
+    failed: number;
+    queued?: number;
+    delivered?: number;
+    attendance_alerts: number;
+    announcements: number;
+}
+
 export const SchoolService = {
     // Dashboard
     getDashboard(): Promise<AxiosResponse> {
@@ -792,6 +877,82 @@ export const SchoolService = {
     },
     deleteExtracurricular(id: number): Promise<AxiosResponse> {
         return api.delete(`/api/v1/school/extracurriculars/${id}`);
+    },
+
+    // Facilities - Rooms
+    getRooms(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/facilities/rooms', { params });
+    },
+    storeRoom(payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/facilities/rooms', payload);
+    },
+    updateRoom(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.put(`/api/v1/school/facilities/rooms/${id}`, payload);
+    },
+    deleteRoom(id: number): Promise<AxiosResponse> {
+        return api.delete(`/api/v1/school/facilities/rooms/${id}`);
+    },
+
+    // Facilities - Assets
+    getAssets(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/facilities/assets', { params });
+    },
+    storeAsset(payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/facilities/assets', payload);
+    },
+    updateAsset(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.put(`/api/v1/school/facilities/assets/${id}`, payload);
+    },
+    deleteAsset(id: number): Promise<AxiosResponse> {
+        return api.delete(`/api/v1/school/facilities/assets/${id}`);
+    },
+
+    // Facilities - Maintenance Tickets
+    getTickets(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/facilities/tickets', { params });
+    },
+    storeTicket(payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/facilities/tickets', payload);
+    },
+    updateTicket(id: number, payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.put(`/api/v1/school/facilities/tickets/${id}`, payload);
+    },
+    resolveTicket(id: number, payload: { resolution_notes: string; cost?: number; status?: string }): Promise<AxiosResponse> {
+        return api.post(`/api/v1/school/facilities/tickets/${id}/resolve`, payload);
+    },
+
+    // KataMPI CBT Integration
+    getKatampiConfig(): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/integrations/katampi/config');
+    },
+    updateKatampiConfig(payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.put('/api/v1/school/integrations/katampi/config', payload);
+    },
+    generateKatampiSsoToken(payload: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/integrations/katampi/sso-token', payload);
+    },
+    getKatampiRoster(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/integrations/katampi/roster', { params });
+    },
+    syncKatampiGrades(payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/integrations/katampi/sync-grades', payload);
+    },
+
+    // WhatsApp Gateway
+    getWhatsAppLogs(params: Record<string, unknown> = {}): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/communications/whatsapp/logs', { params });
+    },
+    getWhatsAppStats(): Promise<AxiosResponse> {
+        return api.get('/api/v1/school/communications/whatsapp/stats');
+    },
+    sendWhatsAppMessage(payload: Record<string, unknown>): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/communications/whatsapp/send', payload);
+    },
+    sendWhatsAppAttendanceAlerts(payload: { date?: string; statuses?: string[] } = {}): Promise<AxiosResponse> {
+        return api.post('/api/v1/school/communications/whatsapp/alerts/attendance', payload);
+    },
+    resendWhatsAppLog(id: number): Promise<AxiosResponse> {
+        return api.post(`/api/v1/school/communications/whatsapp/logs/${id}/resend`);
     },
 };
 
