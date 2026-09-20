@@ -11,6 +11,26 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\School\Models\HR\Staff;
 use Modules\School\Models\Institution\School;
 
+/**
+ * @property int $id
+ * @property int $school_id
+ * @property int $academic_year_id
+ * @property int $semester_id
+ * @property int $study_group_id
+ * @property int $subject_id
+ * @property int|null $teacher_id
+ * @property int|null $learning_objective_id
+ * @property string $title
+ * @property string $type
+ * @property int $weight
+ * @property int $max_score
+ * @property \Illuminate\Support\Carbon|null $date
+ * @property string|null $description
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Grade> $grades
+ * @property-read Subject|null $subject
+ */
 class Assessment extends Model
 {
     use HasFactory;
@@ -74,6 +94,9 @@ class Assessment extends Model
         return $this->belongsTo(LearningObjective::class, 'learning_objective_id');
     }
 
+    /**
+     * @return HasMany<Grade, $this>
+     */
     public function grades(): HasMany
     {
         return $this->hasMany(Grade::class, 'assessment_id');

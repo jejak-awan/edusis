@@ -14,6 +14,20 @@ use Modules\School\Models\Institution\School;
 use Modules\School\Models\Institution\SchoolLevel;
 use Modules\School\Models\Student\Student;
 
+/**
+ * @property int $id
+ * @property int $school_id
+ * @property int|null $school_level_id
+ * @property int|null $department_id
+ * @property int $academic_year_id
+ * @property string $name
+ * @property int|null $homeroom_teacher_id
+ * @property int $capacity
+ * @property bool $is_active
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Student> $students
+ */
 class StudyGroup extends Model
 {
     use HasFactory;
@@ -61,6 +75,9 @@ class StudyGroup extends Model
         return $this->hasMany(StudyGroupMember::class, 'study_group_id');
     }
 
+    /**
+     * @return BelongsToMany<Student, $this>
+     */
     public function students(): BelongsToMany
     {
         return $this->belongsToMany(Student::class, 'sch_acad_study_group_members', 'study_group_id', 'student_id')

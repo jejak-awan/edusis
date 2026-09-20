@@ -187,24 +187,6 @@ parameters:
 			path: Modules/School/app/Http/Controllers/Api/Academic/AssessmentController.php
 
 		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Grade\:\:\$notes\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/Academic/AssessmentController.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Grade\:\:\$remedial_score\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/Academic/AssessmentController.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Grade\:\:\$score\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/Academic/AssessmentController.php
-
-		-
 			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 1
@@ -265,31 +247,7 @@ parameters:
 			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
 
 		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$full_name\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$gender\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 2
-			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
-
-		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$late_minutes\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$nisn\.$#'
 			identifier: property.notFound
 			count: 1
 			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
@@ -337,13 +295,13 @@ parameters:
 			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
 
 		-
-			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Modules\\School\\Models\\HR\\Staff\>\:\:map\(\) contains unresolvable type\.$#'
 			identifier: argument.unresolvableType
 			count: 1
 			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
 
 		-
-			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Modules\\School\\Models\\HR\\Staff\>\:\:map\(\) contains unresolvable type\.$#'
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Modules\\School\\Models\\Student\\Student\>\:\:map\(\) contains unresolvable type\.$#'
 			identifier: argument.unresolvableType
 			count: 1
 			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
@@ -373,13 +331,13 @@ parameters:
 			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
 
 		-
-			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
+			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,Modules\\School\\Models\\HR\\Staff\>\:\:map\(\) contains unresolvable type\.$#'
 			identifier: method.unresolvableReturnType
 			count: 1
 			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
 
 		-
-			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,Modules\\School\\Models\\HR\\Staff\>\:\:map\(\) contains unresolvable type\.$#'
+			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,Modules\\School\\Models\\Student\\Student\>\:\:map\(\) contains unresolvable type\.$#'
 			identifier: method.unresolvableReturnType
 			count: 1
 			path: Modules/School/app/Http/Controllers/Api/Academic/AttendanceController.php
@@ -937,12 +895,6 @@ parameters:
 			path: Modules/School/app/Models/Academic/Assessment.php
 
 		-
-			message: '#^Method Modules\\School\\Models\\Academic\\Assessment\:\:grades\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: Modules/School/app/Models/Academic/Assessment.php
-
-		-
 			message: '#^Method Modules\\School\\Models\\Academic\\Assessment\:\:learningObjective\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
 			identifier: missingType.generics
 			count: 1
@@ -1043,12 +995,6 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: Modules/School/app/Models/Academic/Department.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Grade\:\:\$score\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Models/Academic/Grade.php
 
 		-
 			message: '#^Class Modules\\School\\Models\\Academic\\Grade uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
@@ -1286,12 +1232,6 @@ parameters:
 
 		-
 			message: '#^Method Modules\\School\\Models\\Academic\\StudyGroup\:\:school\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: Modules/School/app/Models/Academic/StudyGroup.php
-
-		-
-			message: '#^Method Modules\\School\\Models\\Academic\\StudyGroup\:\:students\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany does not specify its types\: TRelatedModel, TDeclaringModel, TPivotModel, TAccessor \(2\-4 required\)$#'
 			identifier: missingType.generics
 			count: 1
 			path: Modules/School/app/Models/Academic/StudyGroup.php
@@ -2119,103 +2059,19 @@ parameters:
 			path: Modules/School/app/Services/Academic/AcademicService.php
 
 		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$full_name\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$gender\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
-
-		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
 			identifier: property.notFound
-			count: 7
-			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$nis\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$nisn\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$score\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$student_id\.$#'
-			identifier: property.notFound
-			count: 10
-			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Assessment\:\:\$title\.$#'
-			identifier: property.notFound
-			count: 4
-			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\Assessment\:\:\$weight\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
-
-		-
-			message: '#^Method Modules\\School\\Services\\Academic\\AssessmentCalculationService\:\:getLedger\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
-
-		-
-			message: '#^Method Modules\\School\\Services\\Academic\\AssessmentCalculationService\:\:getStudentReport\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
-
-		-
-			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
-			identifier: argument.unresolvableType
-			count: 1
-			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
-
-		-
-			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
-			identifier: method.unresolvableReturnType
-			count: 1
+			count: 2
 			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
 
 		-
 			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
 			identifier: nullsafe.neverNull
-			count: 4
+			count: 2
 			path: Modules/School/app/Services/Academic/AssessmentCalculationService.php
 
 		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/Attendance/AttendanceService.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\StudyGroup\:\:\$academic_year_id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/Attendance/AttendanceService.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\StudyGroup\:\:\$school_id\.$#'
 			identifier: property.notFound
 			count: 1
 			path: Modules/School/app/Services/Attendance/AttendanceService.php
@@ -2263,39 +2119,9 @@ parameters:
 			path: Modules/School/app/Services/Facilities/FacilityService.php
 
 		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$full_name\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/Integration/KatampiSyncService.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$gender\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/Integration/KatampiSyncService.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/Integration/KatampiSyncService.php
-
-		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
 			identifier: property.notFound
 			count: 2
-			path: Modules/School/app/Services/Integration/KatampiSyncService.php
-
-		-
-			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$nisn\.$#'
-			identifier: property.notFound
-			count: 1
-			path: Modules/School/app/Services/Integration/KatampiSyncService.php
-
-		-
-			message: '#^Access to an undefined property Modules\\School\\Models\\Academic\\StudyGroup\:\:\$name\.$#'
-			identifier: property.notFound
-			count: 1
 			path: Modules/School/app/Services/Integration/KatampiSyncService.php
 
 		-
@@ -2341,12 +2167,6 @@ parameters:
 			path: Modules/School/app/Services/Integration/KatampiSyncService.php
 
 		-
-			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
-			identifier: argument.unresolvableType
-			count: 1
-			path: Modules/School/app/Services/Integration/KatampiSyncService.php
-
-		-
 			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Modules\\School\\Models\\Academic\\StudyGroup\>\:\:map\(\) contains unresolvable type\.$#'
 			identifier: argument.unresolvableType
 			count: 1
@@ -2355,12 +2175,6 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$string of function base64_encode expects string, string\|false given\.$#'
 			identifier: argument.type
-			count: 1
-			path: Modules/School/app/Services/Integration/KatampiSyncService.php
-
-		-
-			message: '#^Return type of call to method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) contains unresolvable type\.$#'
-			identifier: method.unresolvableReturnType
 			count: 1
 			path: Modules/School/app/Services/Integration/KatampiSyncService.php
 

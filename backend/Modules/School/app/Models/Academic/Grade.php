@@ -9,6 +9,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\School\Models\Student\Student;
 
+/**
+ * @property int $id
+ * @property int $assessment_id
+ * @property int $student_id
+ * @property float $score
+ * @property float|null $remedial_score
+ * @property string|null $notes
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read float $effective_score
+ * @property-read Assessment|null $assessment
+ * @property-read Student|null $student
+ */
 class Grade extends Model
 {
     use HasFactory;

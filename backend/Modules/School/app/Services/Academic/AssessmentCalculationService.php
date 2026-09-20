@@ -9,6 +9,7 @@ use Modules\School\Exceptions\SchoolModuleException;
 use Modules\School\Models\Academic\AcademicYear;
 use Modules\School\Models\Academic\Assessment;
 use Modules\School\Models\Academic\Attendance;
+use Modules\School\Models\Academic\Grade;
 use Modules\School\Models\Academic\ReportCard;
 use Modules\School\Models\Academic\StudyGroup;
 use Modules\School\Models\Academic\Subject;
@@ -27,7 +28,7 @@ class AssessmentCalculationService
             ->first();
 
         $academicYearId = $activeYear ? $activeYear->id : 1;
-        $semesterId = $activeYear?->activeSemester?->id ?? 1;
+        $semesterId = $activeYear?->activeSemester->id ?? 1;
 
         $assessments = Assessment::where('study_group_id', $studyGroupId)
             ->where('semester_id', $semesterId)
@@ -46,11 +47,18 @@ class AssessmentCalculationService
                 $studentGrades = [];
 
                 foreach ($subjectAssessments as $asm) {
+                    if (! ($asm instanceof Assessment)) {
+                        continue;
+                    }
                     $weight = $asm->weight ?: 1;
                     foreach ($asm->grades as $grade) {
+                        if (! ($grade instanceof Grade)) {
+                            continue;
+                        }
+                        $studentId = $grade->student_id;
                         $effectiveScore = (float) ($grade->remedial_score ?? $grade->score);
-                        if (! isset($studentGrades[$grade->student_id])) {
-                            $studentGrades[$grade->student_id] = [
+                        if (! isset($studentGrades[$studentId])) {
+                            $studentGrades[$studentId] = [
                                 'weighted_sum' => 0,
                                 'total_weight' => 0,
                                 'highest_score' => 0,
@@ -59,16 +67,16 @@ class AssessmentCalculationService
                                 'lowest_topic' => $asm->title,
                             ];
                         }
-                        $studentGrades[$grade->student_id]['weighted_sum'] += ($effectiveScore * $weight);
-                        $studentGrades[$grade->student_id]['total_weight'] += $weight;
+                        $studentGrades[$studentId]['weighted_sum'] += ($effectiveScore * $weight);
+                        $studentGrades[$studentId]['total_weight'] += $weight;
 
-                        if ($effectiveScore >= $studentGrades[$grade->student_id]['highest_score']) {
-                            $studentGrades[$grade->student_id]['highest_score'] = $effectiveScore;
-                            $studentGrades[$grade->student_id]['highest_topic'] = $asm->title;
+                        if ($effectiveScore >= $studentGrades[$studentId]['highest_score']) {
+                            $studentGrades[$studentId]['highest_score'] = $effectiveScore;
+                            $studentGrades[$studentId]['highest_topic'] = $asm->title;
                         }
-                        if ($effectiveScore <= $studentGrades[$grade->student_id]['lowest_score']) {
-                            $studentGrades[$grade->student_id]['lowest_score'] = $effectiveScore;
-                            $studentGrades[$grade->student_id]['lowest_topic'] = $asm->title;
+                        if ($effectiveScore <= $studentGrades[$studentId]['lowest_score']) {
+                            $studentGrades[$studentId]['lowest_score'] = $effectiveScore;
+                            $studentGrades[$studentId]['lowest_topic'] = $asm->title;
                         }
                     }
                 }
@@ -118,6 +126,8 @@ class AssessmentCalculationService
 
     /**
      * Susun leger nilai per rombel termasuk absensi dan rerata capaian.
+     *
+     * @return array<string, mixed>
      */
     public function getLedger(int $studyGroupId, int $schoolId): array
     {
@@ -142,7 +152,8 @@ class AssessmentCalculationService
             ->get()
             ->groupBy('student_id');
 
-        $studentsData = $studyGroup->students->map(function ($student) use ($subjects, $reportCards, $studyGroupId) {
+        $studentsData = $studyGroup->students->map(function ($student) use ($subjects, $reportCards, $studyGroupId): array {
+            /** @var Student $student */
             $cards = $reportCards->get($student->id, collect())->keyBy('subject_id');
 
             $subjectScores = [];
@@ -195,6 +206,8 @@ class AssessmentCalculationService
 
     /**
      * Dapatkan transkrip raport individu siswa untuk semester berjalan.
+     *
+     * @return array<string, mixed>
      */
     public function getStudentReport(int $studentId, int $schoolId): array
     {
@@ -206,7 +219,7 @@ class AssessmentCalculationService
             ->first();
 
         $academicYearId = $activeYear?->id ?? 1;
-        $semesterId = $activeYear?->activeSemester?->id ?? 1;
+        $semesterId = $activeYear?->activeSemester->id ?? 1;
 
         $reportCards = ReportCard::where('student_id', $studentId)
             ->where('academic_year_id', $academicYearId)
