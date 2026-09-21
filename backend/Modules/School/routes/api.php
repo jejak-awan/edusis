@@ -126,6 +126,12 @@ Route::prefix('v1/school')->middleware(['auth:sanctum', SchoolContextMiddleware:
         Route::post('/staff/check-out', [AttendanceController::class, 'recordStaffCheckOut']);
     });
 
+    // Alias kompatibilitas
+    Route::prefix('academic/attendance')->group(function (): void {
+        Route::get('/students', [AttendanceController::class, 'getStudentAttendance']);
+        Route::post('/students/bulk', [AttendanceController::class, 'saveBulkStudentAttendance']);
+    });
+
     // --- Jadwal Pelajaran (Schedules) ---
     Route::prefix('schedules')->group(function (): void {
         Route::get('/', [ScheduleController::class, 'index']);

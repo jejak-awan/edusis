@@ -98,6 +98,10 @@ class SpaController extends Controller
      */
     public function fallback(Request $request): Response
     {
+        if ($request->expectsJson() || $request->is('api/*')) {
+            abort(404, 'API endpoint not found');
+        }
+
         if ($this->isConsoleSpaPath($request->path())) {
             return $this->serveConsoleSpa();
         }

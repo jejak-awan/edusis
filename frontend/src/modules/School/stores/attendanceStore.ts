@@ -22,8 +22,8 @@ export const useAttendanceStore = defineStore('schoolAttendance', () => {
         error.value = null;
         try {
             const res = await AttendanceService.getStudentAttendance(params);
-            // res.data → ApiResponse<AttendanceRecord[]>, res.data.data → AttendanceRecord[]
-            attendanceRecords.value = res.data?.data ?? [];
+            const data = res.data?.data;
+            attendanceRecords.value = Array.isArray(data) ? data : ((data as any)?.attendances ?? []);
             selectedDate.value = params.date;
             selectedStudyGroupId.value = params.study_group_id;
         } catch (err: any) {

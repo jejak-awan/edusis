@@ -852,7 +852,7 @@
 <script setup lang="ts">
 import { consolePath } from '@/shared/utils/consoleRoute';
 import { logger } from '@/shared/utils/logger';
-import { ref, computed, onMounted, onUnmounted, type Component } from 'vue';
+import { ref, computed, watch, onMounted, onUnmounted, type Component } from 'vue';
 import { ConsoleListCard, ConsoleStatCard, PageHeader } from '@/shared/components/shell';
 import { useI18n } from 'vue-i18n';
 import axios from 'axios';
@@ -1085,6 +1085,33 @@ const stats = ref<RedisStat>({ ...EMPTY_STATS });
 const statsSnapshot = ref<RedisStatsSnapshot | null>(null);
 const loadingStats = ref(false);
 const statsInterval = ref<ReturnType<typeof setInterval> | null>(null);
+const consecutiveStatsErrors = ref(0);
+
+const startStatsPolling = (): void => {
+  if (statsInterval.value) return;
+  statsInterval.value = setInterval(() => {
+    if (activeTab.value === 'statistics') {
+      loadStats();
+    }
+  }, 30000);
+};
+
+const stopStatsPolling = (): void => {
+  if (statsInterval.value) {
+    clearInterval(statsInterval.value);
+    statsInterval.value = null;
+  }
+};
+
+watch(activeTab, (newTab) => {
+  if (newTab === 'statistics') {
+    consecutiveStatsErrors.value = 0;
+    loadStats();
+    startStatsPolling();
+  } else {
+    stopStatsPolling();
+  }
+});
 
 // Cache
 const cacheStats = ref<CacheStats>({ ...EMPTY_CACHE_STATS });
@@ -1271,15 +1298,28 @@ const testConnection = async (): Promise<void> => {
   }
 };
 
-const loadStats = async (): Promise<void> => {
+const loadStats = async (isManual = false): Promise<void> => {
+  if (isManual) {
+    consecutiveStatsErrors.value = 0;
+  }
   loadingStats.value = true;
   try {
     const response = await api.get('/manage/redis/info');
     const payload = response?.data as Partial<RedisStat> | undefined;
     stats.value = { ...EMPTY_STATS, ...(payload || {}) };
+    consecutiveStatsErrors.value = 0;
+    if (!statsInterval.value && activeTab.value === 'statistics') {
+      startStatsPolling();
+    }
   } catch (error: unknown) {
+    consecutiveStatsErrors.value++;
     logger.error('Failed to load Redis stats:', error);
     stats.value = { ...EMPTY_STATS };
+
+    if (consecutiveStatsErrors.value >= 2) {
+      stopStatsPolling();
+      logger.warning('Paused auto-refresh for Redis stats after repeated connection failures. Click refresh to retry.');
+    }
   } finally {
     loadingStats.value = false;
   }
@@ -1596,17 +1636,13 @@ onMounted(() => {
   searchRedisKeys();
   getCacheStatus();
 
-  statsInterval.value = setInterval(() => {
-    if (activeTab.value === 'statistics') {
-      loadStats();
-    }
-  }, 30000);
+  if (activeTab.value === 'statistics') {
+    startStatsPolling();
+  }
 });
 
 onUnmounted(() => {
-  if (statsInterval.value) {
-    clearInterval(statsInterval.value);
-  }
+  stopStatsPolling();
 });
 </script>
 
