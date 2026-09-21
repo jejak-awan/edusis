@@ -11,4 +11,5 @@
 | [ADR-007](ADR-007-hero-section-telemetry-animations-slider-and-customizer-isolation.md) | Hero telemetry, slider, isolasi customizer |
 | [ADR-008](ADR-008-navigation-hierarchy-alignment-homepage-anchors-and-footer-refinement.md) | Navigasi, anchor homepage, footer |
 
-ADR tenant K2NET (simulator bandwidth) → stub [`docs/adr/ADR-009`](../../adr/ADR-009-interactive-bandwidth-simulator-and-k2net-package-mapping.md) → SoT di `k2net-portal`.
+ADR tenant K2NET (simulator bandwidth) dialokasikan pada repositori terpisah `k2net-portal` (ADR-009).
+
