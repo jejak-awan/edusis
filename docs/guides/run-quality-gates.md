@@ -10,13 +10,13 @@ Jalankan gate sebelum mengklaim task selesai atau membuka PR.
 
 ## Steps
 
-1. Dari root repo `ja-core_engine`:
+1. Dari root repo `ja-edusis`:
 
 ```bash
 npm run agent:verify
 ```
 
-Ini menjalankan `quality:frontend`, `quality:backend` (Pint `--test` + `composer run quality`), `docs:links`, `versions:check`, dan `modules:versions:check`.
+Ini menjalankan `quality:frontend`, `quality:backend` (Pint `--test` + `composer run quality`), `check:client-hardcoding`, `docs:links`, `versions:check`, dan `modules:versions:check`.
 
 2. Jika hanya menyentuh frontend dan butuh feedback cepat:
 

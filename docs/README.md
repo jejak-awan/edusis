@@ -47,7 +47,7 @@ JA-EduSIS mewarisi standar arsitektur dan sistem keamanan enterprise dari Core E
 | **Standar Backend** | [02. Backend Standards](architecture/02-backend-standards.md) | Laravel 13, FormRequest validation, Service layer, tests |
 | **Standar Frontend** | [03. Frontend Standards](architecture/03-frontend-standards.md) | Vue 3 SPA, Pinia state stores, TypeScript, TanStack Table |
 | **Internasionalisasi** | [05. i18n Guidelines](architecture/05-i18n-guidelines.md) | Paritas multibahasa: Indonesia (`id`), Sunda (`su`), Inggris (`en`) |
-| **Modul & Ekstensi** | [Module Contract](extensions/module-contract.md) · [Lifecycle](extensions/lifecycle.md) | Nwidart modularity, `module.json`, capability registry |
+| **Modul & Ekstensi** | [Extensions & Modul](extensions/README.md) · [Contract](extensions/module-contract.md) · [Lifecycle](extensions/lifecycle.md) | Nwidart modularity, manifest schema, capability registry |
 | **Penyimpanan Berkas** | [Media Library](reference/modules.md) | Unggah foto siswa/guru, dokumen PPDB, kompresi aset |
 | **Layanan Surel** | [JA-Mail](extensions/ja-mail.md) | Transaksional email, reset kata sandi, notifikasi |
 | **ADRs Platform** | [Indeks ADR Core (ADR-001 s/d ADR-028)](adr/README.md) | Riwayat keputusan teknis platform dasar |

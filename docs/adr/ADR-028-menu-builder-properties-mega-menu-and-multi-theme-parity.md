@@ -19,6 +19,9 @@ related:
 
 ---
 
+> [!NOTE]
+> **Konteks JA-EduSIS:** Arsitektur Menu Builder dan Mega Menu ini aktif pada tema baseline **Sarangenge** (tema legacy `janari`, `layung`, dan `sareupna` telah didekomisi per [ADR-032](./ADR-032-sarangenge-as-unified-baseline-theme-and-legacy-theme-pruning.md)).
+
 ## 1. Konteks & Latar Belakang
 
 Menu Builder pada platform Jejakawan Core Engine (`ja-core_engine`) bertugas mengelola struktur navigasi hirarkis multi-level untuk berbagai slot tema (`header`, `footer`, dsb.). Pada pengujian lapangan dan kustomisasi menu, ditemukan beberapa masalah mendasar yang menyebabkan kegagalan penyimpanan konfigurasi serta ketiadaan render visual untuk fitur tingkat lanjut seperti **Mega Menu**:

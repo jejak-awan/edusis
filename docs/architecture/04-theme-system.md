@@ -28,7 +28,7 @@ Explanation singkat arsitektur tema publik di **Jejakawan Core Engine**. Kontrak
 | **Platform settings** | Keys `scope: platform` (identitas global, layout modes, …) | `customizer/platform/schema/` |
 | **Theme package** | UI publik, CSS tokens, halaman, theme-scoped settings | `views/themes/<slug>/` |
 | **Theme customizer extension** | Sidebar bindings, schema theme-only, visibility | `views/themes/<slug>/customizer/` |
-| **Plugins / slots** | Fitur lintas-tema (mis. cinematic-nav, social dock) | `engine/plugins/` + ADR-018 |
+| **Plugins / slots** | Fitur lintas-tema (mis. floating-social-dock, instagram-feed) | `engine/plugins/` |
 
 Inspirasi industri: Shopify (`settings_schema` vs section schema) dan WordPress (`theme.json` vs templates).
 
@@ -50,7 +50,7 @@ Inspirasi industri: Shopify (`settings_schema` vs section schema) dan WordPress 
 1. **Jangan** taruh aturan CSS spesifik tema di `frontend/src/styles/` global shell.
 2. **Jangan** import komponen console/dashboard ke dalam paket tema publik.
 3. **Jangan** hardcode identitas klien (logo legal, nomor telepon riil, jurusan sekolah) di core — lihat ADR-022 / `AGENTS.md`.
-4. Fitur yang dipakai **lebih dari satu tema** naik ke host/plugin (contoh: ADR-018), bukan digandakan per tema.
+4. Tema **tidak boleh** menduplikasi fitur cross-cutting; fitur tersebut naik ke host/plugin — lihat ADR-022 dan ADR-028.
 
 ---
 
@@ -63,9 +63,6 @@ Inspirasi industri: Shopify (`settings_schema` vs section schema) dan WordPress 
 | [ADR-004](../adr/ADR-004-floating-social-dock-and-customizer-controls.md) | Floating social dock |
 | [ADR-005](../adr/ADR-005-brand-visual-styles-live-preview-sync-and-smart-poppers.md) | Live preview sync |
 | [ADR-006](../adr/ADR-006-master-layout-modes-and-homepage-sections.md) | Master layout modes |
-| [ADR-010](../adr/ADR-010-builder-viewport-preview-scaling-and-adaptive-responsive-toolbar.md) | Viewport builder |
-| [ADR-011](../adr/ADR-011-visual-builder-modular-extension-and-license-gating.md) | Visual builder modular |
-| [ADR-018](../adr/ADR-018-theme-sarangenge-side-nav-presets-and-viewport-scroll-snap.md) | Plugin SoC/SoT & slot contracts |
 | [ADR-022](../adr/ADR-022-upstream-core-curation-and-generic-theme-seeder-architecture.md) | Generic theme demo seeders |
 
 Baseline tema tunggal JA-EduSIS: [Tema Sarangenge](../themes/sarangenge/README.md) (ADR-032).

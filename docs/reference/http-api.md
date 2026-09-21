@@ -1,6 +1,6 @@
 # Reference: HTTP / OpenAPI API
 
-Dua jalur dokumentasi API di Core Engine — jangan dicampur.
+Dokumentasi API di JA-EduSIS berpusat pada generator Dedoc Scramble untuk seluruh route API backend.
 
 ## 1. Console / route API (Scramble)
 
@@ -10,7 +10,7 @@ Dua jalur dokumentasi API di Core Engine — jangan dicampur.
 | Config | `backend/config/scramble.php` |
 | UI docs | `/docs/api` (middleware `EnsureApiDocsAccess` — selalu butuh login **admin+**, termasuk `APP_ENV=local`) |
 | Export default | `api.json` (`export_path` di config) |
-| Cakupan | Route di bawah path `api`, **kecuali** `api/v1/dynamic` (lihat `api_path.exclude` — dynamic CRUD pakai generator §2) |
+| Cakupan | Route di bawah path `api` |
 
 **Cara pakai (dev):**
 
@@ -22,21 +22,14 @@ Guest diarahkan ke `/auth/console-sign-in`. Role di bawah admin mendapat **403**
 
 Ini adalah **generator resmi** untuk permukaan HTTP Laravel yang di-anotasi / diinfer Scramble — bukan salinan manual di markdown.
 
-## 2. Data Model Studio — dynamic OpenAPI
+## 2. ~~Data Model Studio — dynamic OpenAPI~~ (Didekomisi di JA-EduSIS)
 
-API runtime: `/api/v1/dynamic/{slug}` (gate `extension.active:data-studio`).
+> [!WARNING]
+> **Fitur ini tidak tersedia di JA-EduSIS.** Ekstensi `data-studio` telah didekomisi dari codebase EduSIS karena tidak relevan dengan domain sistem informasi sekolah (lihat ADR-012 di [ADR Reserved](../adr/README.md)). Endpoint `/api/v1/dynamic/{slug}` dan class `DynamicOpenApiBuilder` tidak aktif di repositori ini. Fitur ini masih tersedia di `ja-core_engine` untuk downstream portal CMS.
 
-| Item | Nilai |
-| :--- | :--- |
-| Builder | `Modules\Core\System\Support\DynamicOpenApiBuilder` |
-| HTTP index | `GET /api/v1/manage/infra/models/types/openapi-index` |
-| HTTP per slug | `GET /api/v1/manage/infra/models/types/by-slug/{slug}/openapi` |
-| CLI export | `php artisan dynamic:openapi [slug] [--output=dir]` |
-| Output default CLI | `docs/api/dynamic-<slug>.openapi.json` |
+## 3. Unified exporter
 
-## 3. Unified exporter (disarankan)
-
-Satu pintu untuk kedua generator:
+Satu pintu untuk generator Scramble:
 
 ```bash
 # dari root repo
@@ -48,7 +41,6 @@ bash scripts/export-openapi.sh
 Menulis:
 
 - `docs/api/console.openapi.json` — Scramble
-- `docs/api/dynamic-*.openapi.json` — Data Model Studio
 - `docs/api/INDEX.md` — indeks artifact
 
 ## 4. Smoke tanpa OpenAPI UI
@@ -60,7 +52,6 @@ bash scripts/member-security-qa.sh   # member auth surface
 
 ## Related
 
-- ADR-012 (Data Model Studio modular)
 - CLI index: [cli-commands.md](cli-commands.md)
 - Security how-to: [security-checks.md](../guides/security-checks.md)
 - Product / OpenAPI SemVer: [release-and-versioning.md](../guides/release-and-versioning.md)

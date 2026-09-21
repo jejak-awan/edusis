@@ -1,6 +1,6 @@
 # How-to: Run Playwright E2E
 
-E2E browser untuk console / public / member di **ja-core_engine**.  
+E2E browser untuk console / public / member di **JA-EduSIS**.  
 Peta suite lengkap: [testing.md](../reference/testing.md).
 
 ## Prerequisites
@@ -65,7 +65,7 @@ Jalankan dari `frontend/` atau via root wrapper bila ada.
 | :--- | :--- |
 | `test:e2e:smoke` / `test:e2e:ci` | `auth-probe-notfound`, `login`, `onboarding-wizard` |
 | `test:e2e:auth` | probe + login |
-| `test:e2e:public` | `public-site-smoke`, `layung-theme-public` |
+| `test:e2e:public` | `public-site-smoke`, `sarangenge-dynamic-content` |
 | `test:e2e:member` | `member-security` |
 | `test:e2e:console` | appearance + shell/modal a11y + pagination mobile |
 | `test:e2e:console-appearance` | appearance saja |

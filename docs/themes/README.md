@@ -1,6 +1,6 @@
 # Themes — Indeks Dokumentasi
 
-Dokumentasi **lintas-repo** untuk paket tema publik di Core Engine.
+Dokumentasi tema publik di JA-EduSIS.
 
 > **SoT UI/paket tema** tetap di kode:  
 > `frontend/src/modules/Layout/views/themes/<slug>/readme.md`  
@@ -19,12 +19,11 @@ Dokumentasi **lintas-repo** untuk paket tema publik di Core Engine.
 ## Cross-cutting (bukan per-tema)
 
 - [Architecture: Theme System](../architecture/04-theme-system.md) — host vs theme, SoC/SoT customizer
-- [ADR-018](../adr/ADR-018-theme-sarangenge-side-nav-presets-and-viewport-scroll-snap.md) — plugin platform `cinematic-nav` / slot contracts (**scope: core**)
 - [ADR-022](../adr/ADR-022-upstream-core-curation-and-generic-theme-seeder-architecture.md) — generic theme demo seeders
 
 Kebijakan: [`DOCUMENTATION.md`](../DOCUMENTATION.md).
 
-## CMS baseline (alignment lintas tema)
+## CMS baseline (alignment tema)
 
 Kontrak fitur yang **harus sama** vs yang **tetap khas** per tema:  
 [`docs/work/archive/core-engine/2026-09-18-theme-cms-baseline-alignment.md`](../work/archive/core-engine/2026-09-18-theme-cms-baseline-alignment.md)
@@ -43,9 +42,8 @@ Setiap paket tema publik harus punya:
 | `disabled_page_behavior` | Enum: `message` \| `redirect` saja |
 | Customizer schema theme-only | Platform identity / floating dock / colors dari host `global.settings.schema.json` |
 | Instagram | Extension `instagram-feed` + slots — **bukan** `social_instagram_feed_*` di tema |
-| Side-nav | Host `cinematic-nav` (ADR-018); keys `home_side_nav_dots\|style\|show_mobile` |
 | PluginSlot | `after_hero` on CMS pages; `before_footer` host-only — see [theme-host-contract](../../frontend/src/modules/Layout/views/themes/theme-host-contract.md) |
 | sample-data menus | Dict keyed by location (list form is ignored by seeder) |
-| Page filenames | English **and theme-native** (`Solutions` ≠ Layung `Services` ≠ school `Programs`) |
+| Page filenames | English **and domain-native** (school `Programs`, `PPDB`, dll.) |
 
-Ringkas: About/Contact(Reach slug)/Blog/Search/menus/SEO/sample-data/disabled enums align; section archetype (ISP, PPDB, terminal, …) tetap SoC paket.
+Ringkas: About/Contact(Reach slug)/Blog/Search/menus/SEO/sample-data/disabled enums align; section archetype sekolah (PPDB, jurusan/program, dll.) tetap SoC paket.

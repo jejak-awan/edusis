@@ -76,7 +76,7 @@ Authenticated `/member/*` (portal) does **not** use the marketing Header/Footer.
 - `components/layout/MemberHeader.vue` — logo, Back to site, account menu (Profile / Sign out); no marketing nav
 - `components/layout/MemberFooter.vue` — one-line copyright; no Explore/Company columns
 
-Resolver basename match (`MemberHeader` / `MemberFooter`) + bundled fallbacks (janari → sarangenge → layung). Uploaded themes without these files fall back to janari quiet chrome.
+Resolver basename match (`MemberHeader` / `MemberFooter`) dengan fallback ke chrome baseline Sarangenge. Tema turunan yang tidak mendefinisikan berkas ini akan mewarisi quiet chrome Sarangenge.
 
 **Portal body** (`MemberPortalLayout`): sidebar + main workspace (full remaining width, card shell). Shared `MemberPortalTopBar`.
 
@@ -360,7 +360,7 @@ Console UI: list (DataTable + bulk), create/edit forms, detail page with activit
 | Layout | Portal under `FrontendLayout`; optional slim chrome via theme setting `member_portal_chrome` |
 | Header CTAs | Prefer `/member` (dashboard) when authenticated; login URL from customizer |
 | i18n | Pack locales under `theme.*` only for marketing; portal strings in `Member` + contributing pack locales (`id`/`en`/`su`) |
-| Themes | Janari / Sarangenge / Layung consume same routes — no per-theme portal forks |
+| Themes | Sarangenge (dan tema turunan) mengonsumsi route yang sama — tidak ada fork per-tema |
 
 ---
 

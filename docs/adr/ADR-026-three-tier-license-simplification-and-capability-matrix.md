@@ -21,7 +21,9 @@ related:
 
 ---
 
-## 1. Konteks & Permasalahan
+> [!NOTE]
+> **Konteks JA-EduSIS:** ADR ini adalah keputusan platform `ja-core_engine`. Di repositori **JA-EduSIS**, fitur `visual-builder` (ADR-011) dan `data-studio` (ADR-012) yang disebutkan dalam matriks kapabilitas ini **telah didekomisi** dan tidak tersedia. Matriks kapabilitas berlaku untuk aspek IAM, RBAC, lisensi sekolah, dan ekstensi yang relevan dengan domain SIS.
+
 
 Sebelumnya, sistem lisensi Jejakawan Core Engine memiliki fragmentasi tingkatan (*tiers*):
 - `community`: Gratis / open core.

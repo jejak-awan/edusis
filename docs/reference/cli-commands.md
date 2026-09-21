@@ -29,8 +29,7 @@ Perintah yang sering dipakai di `ja-core_engine`. Jalankan dari lokasi yang dise
 | `php artisan theme:seed` | Demo seeder tema aktif / default |
 | `php artisan theme:seed <slug>` | Demo seeder satu tema |
 | `php artisan theme:seed --all` | Semua tema resmi |
-| `php artisan ja:apply-install-profile <core\|cms\|cms_site>` | Terapkan install profile |
-| `php artisan dynamic:openapi [slug]` | Export OpenAPI 3 JSON dynamic models → `docs/api/` |
+| `php artisan ja:apply-install-profile <core|cms|cms_site>` | Terapkan install profile |
 | `php artisan migrate:fresh --seed` | Reset DB + seed (hormati `INSTALL_PROFILE`) |
 | `./vendor/bin/pint` | Format PHP |
 | `./vendor/bin/pint --test` | Cek format tanpa tulis |
@@ -40,7 +39,7 @@ Perintah yang sering dipakai di `ja-core_engine`. Jalankan dari lokasi yang dise
 | Command | Fungsi |
 | :--- | :--- |
 | `npm run docs:links` | Cek relative link di `docs/` |
-| `npm run docs:openapi` | Export Scramble + dynamic OpenAPI → `docs/api/` |
+| `npm run docs:openapi` | Export Scramble OpenAPI → `docs/api/` |
 | `npm run docs:sync-downstream` | Mirror guides + reference + architecture + policy → downstream |
 | `bash scripts/sync-docs-guides-reference-downstream.sh` | Sama dengan `docs:sync-downstream` |
 

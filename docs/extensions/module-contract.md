@@ -1,7 +1,7 @@
 # First-party module contract (frozen)
 
 **Status:** P1 — golden sample = **JA-Mail** (`slug: mail`)  
-**Audience:** agents and humans adding optional modules to `ja-core_engine` (or packaging them from another repo later).
+**Audience:** agents and humans adding optional modules to JA-EduSIS / platform (or packaging them from another repo later).
 
 This document freezes the **product contract**. Package boot (nwidart) stays always-on for first-party modules; **capability** is gated by the Module Registry (`sys_extensions`).
 

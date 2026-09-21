@@ -6,7 +6,7 @@ Detail: [`WORKFLOW.md`](../WORKFLOW.md).
 ## Prerequisites
 
 1. Baca [`AGENT_START_HERE.md`](../AGENT_START_HERE.md) + [`AGENTS.md`](../../AGENTS.md)
-2. Pastikan repo/scope benar (`ja-core_engine` vs downstream)
+2. Pastikan repo/scope benar (`ja-edusis` vs repo downstream/referensi)
 3. Tentukan skala XS–XL ([WORKFLOW §2](../WORKFLOW.md))
 
 ## Steps

@@ -15,6 +15,9 @@ supersedes: []
 
 ---
 
+> [!NOTE]
+> **Konteks JA-EduSIS:** Prinsip guard dependensi modul ini berlaku penuh di JA-EduSIS. Pada modul `layout`, tema yang dilayani adalah tema tunggal **Sarangenge** (tema legacy `layung` dan `janari` telah didekomisi per [ADR-032](./ADR-032-sarangenge-as-unified-baseline-theme-and-legacy-theme-pruning.md)).
+
 ## 1. Konteks & Permasalahan
 
 Dalam arsitektur modular Jejakawan Core Engine, fungsionalitas portal publik disediakan oleh modul opsional pihak pertama (*optional first-party pack*):

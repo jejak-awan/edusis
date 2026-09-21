@@ -14,6 +14,9 @@ supersedes: []
 
 ---
 
+> [!NOTE]
+> **Konteks JA-EduSIS:** ADR ini mendokumentasikan desain awal arsitektur animasi GSAP dan kontrol Customizer untuk Floating Social Dock. Pada repositori **JA-EduSIS**, fitur ini telah didecouple menjadi ekstensi modular `backend/extensions/floating-social-dock` dan plugin component `FloatingSocialDockBlock.vue` yang aktif pada tema **Sarangenge** (tema `layung` telah didekomisi per [ADR-032](./ADR-032-sarangenge-as-unified-baseline-theme-and-legacy-theme-pruning.md)).
+
 ## Konteks
 
 Sebelumnya pada Theme Layung:

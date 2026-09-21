@@ -12,14 +12,13 @@ Alur wajib: [`WORKFLOW.md`](../WORKFLOW.md) · Mulai task: [`guides/start-a-task
 
 ## Indeks aktif
 
-| ID | Judul | Status | Skala |
-| :--- | :--- | :--- | :--- |
-| [2026-09-20-school-module-soc-sot-reference-alignment](2026-09-20-school-module-soc-sot-reference-alignment.md) | Restrukturisasi Arsitektur Modul School: SoC, SoT, dan Penyelarasan Aset `repo_referensi` | `proposed` | L |
+*Tidak ada task aktif saat ini.*
 
 ## Selesai hari ini (belum diarsip)
 
 | ID | Judul | Status | Skala |
 | :--- | :--- | :--- | :--- |
+| [2026-09-20-school-module-soc-sot-reference-alignment](2026-09-20-school-module-soc-sot-reference-alignment.md) | Restrukturisasi Arsitektur Modul School: SoC, SoT, dan Penyelarasan Aset `repo_referensi` | `completed` | L |
 | [2026-09-20-edusis-foundation-and-documentation-refactor](2026-09-20-edusis-foundation-and-documentation-refactor.md) | Inisialisasi Fondasi JA-EduSIS & Refactoring Dokumentasi Domain | `done` | M |
 
 ## Archive

@@ -1,6 +1,6 @@
 # Guides (How-to)
 
-Prosedur singkat untuk tugas umum di **ja-core_engine**.  
+Prosedur singkat untuk tugas operasional dan pengembangan di **JA-EduSIS**.  
 Bukan penjelasan arsitektur — untuk “kenapa”, lihat `docs/architecture/` dan ADR.
 
 | Guide | Kapan dipakai |
@@ -17,6 +17,6 @@ Bukan penjelasan arsitektur — untuk “kenapa”, lihat `docs/architecture/` d
 | [Run Playwright E2E](run-e2e-playwright.md) | Smoke Docker/full-stack, matrix npm, captcha bypass |
 | [Update changelogs](update-changelog.md) | Dual-layer: modul/tema + root |
 | [Release & versioning](release-and-versioning.md) | SemVer produk, API `v1`, OpenAPI, cut release |
-| [Sync docs downstream](sync-docs-downstream.md) | Mirror guides/reference → k2net / smkn6 / ja-cms |
+| [Sync docs downstream](sync-docs-downstream.md) | Pedoman deployment dan sinkronisasi docs ops multi-host |
 
 Kebijakan: [`DOCUMENTATION.md`](../DOCUMENTATION.md) · Tutorial onboarding: [`AGENT_START_HERE.md`](../AGENT_START_HERE.md) · Contributing: [`CONTRIBUTING.md`](../../CONTRIBUTING.md).

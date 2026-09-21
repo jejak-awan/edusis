@@ -33,13 +33,16 @@ Core engine **bisa** bertindak sebagai **OAuth2 identity provider** untuk app do
 
 CMS domains diekstrak dari `ja-cms` sebagai pack (`publishing`, `media`, `forms`, …) — bukan dimasukkan ke `Modules/Core`.
 
-## Editions (konsep)
+## Editions (JA-EduSIS)
+
+> [!NOTE]
+> JA-EduSIS mengimplementasikan model **single-theme** per [ADR-032](../adr/ADR-032-sarangenge-as-unified-baseline-theme-and-legacy-theme-pruning.md) — tema baseline tunggal adalah **Sarangenge**. Berbeda dari model `ja-core_engine` yang menggunakan multi-tema dengan kuota lisensi.
 
 | Edition | Isi tipikal |
 | :--- | :--- |
-| **Community** | Core kernel; public themes = **janari only** (lihat ADR-023) |
-| **Starter / Pro** | Extension premium; Pro theme quota = **janari + 1 premium** dari katalog |
-| **Enterprise / White-label** | Multi-site, branding console; **semua** first-party themes |
+| **Community** | Core kernel; public theme = **Sarangenge** (baseline tunggal EduSIS) |
+| **Starter / Pro** | Extension premium sekolah; tema tetap Sarangenge |
+| **Enterprise / White-label** | Multi-site, branding console; tema Sarangenge + kustomisasi penuh |
 
-Detail tier = kontrak bisnis di JA-CP; matrix fitur di `LicenseService::getFeaturesMatrix()`.  
-Theme packs sebagai Module Registry + kuota: **[ADR-023](../adr/ADR-023-first-party-themes-as-registry-packs-and-license-quotas.md)** (fase 1 implementasi: [`docs/work/archive/core-engine/2026-09-18-theme-registry-packs-phase1.md`](../work/archive/core-engine/2026-09-18-theme-registry-packs-phase1.md)).
+Detail tier = kontrak bisnis di JA-CP; matrix fitur di `LicenseService::getFeaturesMatrix()`.
+Theme packs sebagai Module Registry + kuota: **[ADR-023](../adr/ADR-023-first-party-themes-as-registry-packs-and-license-quotas.md)** (keputusan platform `ja-core_engine`; JA-EduSIS menerapkan model single-theme per ADR-032).

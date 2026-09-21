@@ -1,6 +1,6 @@
 # External / first-party module packaging (P2)
 
-**Status:** P2 — how optional modules (CMS packs from `ja-cms`, verticals, etc.) land on **ja-core_engine** without forking the kernel forever.
+**Status:** P2 — how optional modules (CMS packs, SIS domain packs, verticals) land on the platform / JA-EduSIS without forking the kernel forever.
 
 Prerequisites: [module-contract.md](./module-contract.md) (P1) · golden sample **JA-Mail**.
 
@@ -10,9 +10,9 @@ Prerequisites: [module-contract.md](./module-contract.md) (P1) · golden sample 
 |---------------------|------------------------------|
 | `Modules/Core` | `publishing`, `library`, `media`, `layout`, `forms`, … |
 | `Modules/Mail` (reference) | Intelligence: `analytics`, `newsletter`, `search`, `cms-ai` |
-| Module Registry host | Future verticals |
+| Module Registry host | Domain verticals (e.g. `Modules/School`) |
 
-Kernel stays thin. Product shape = activate packs in Module Registry **or** compose via DMS/CCK.
+Kernel stays thin. Product shape = activate packs in Module Registry atau modul domain vertikal terdedikasi.
 
 ## Three install modes (pick one per pack)
 

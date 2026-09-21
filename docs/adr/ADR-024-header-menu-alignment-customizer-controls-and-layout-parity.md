@@ -19,6 +19,9 @@ related:
 
 ---
 
+> [!NOTE]
+> **Konteks JA-EduSIS:** Pengaturan perataan menu header ini aktif pada tema baseline **Sarangenge** (tema legacy `janari`, `layung`, dan `sareupna` telah didekomisi per [ADR-032](./ADR-032-sarangenge-as-unified-baseline-theme-and-legacy-theme-pruning.md)).
+
 ## 1. Konteks & Latar Belakang
 
 Pada seluruh tema first-party Jejakawan (`janari`, `layung`, `sarangenge`, `sareupna`), posisi menu navigasi utama desktop (`<nav>`) sebelumnya ditentukan secara statis (*hardcoded*):

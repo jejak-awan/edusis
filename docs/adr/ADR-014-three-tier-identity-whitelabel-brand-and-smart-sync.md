@@ -15,6 +15,9 @@ supersedes: []
 
 ---
 
+> [!NOTE]
+> **Konteks JA-EduSIS:** Arsitektur 3-Tier Identity dan Smart Brand Sync ini berlaku penuh di JA-EduSIS. Pada lapisan Tier 3 (Public Portal), tema aktif yang dilayani secara eksklusif adalah tema **Sarangenge** (tema legacy `janari` dan `layung` telah didekomisi per [ADR-032](./ADR-032-sarangenge-as-unified-baseline-theme-and-legacy-theme-pruning.md)).
+
 ## 1. Konteks & Permasalahan
 
 Dalam sistem arsitektur Jejakawan Core Engine (`ja-core_engine`), identitas sistem terbagi menjadi beberapa domain yang sebelumnya saling bercampur atau tumpang tindih:

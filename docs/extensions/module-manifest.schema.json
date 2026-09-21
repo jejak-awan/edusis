@@ -19,10 +19,19 @@
       "description": "SemVer (optional pre-release / build metadata)",
       "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$"
     },
-    "type": { "type": "string", "enum": ["module", "plugin"] },
+    "type": { "type": "string", "enum": ["module", "plugin", "theme"] },
     "family": {
       "type": "string",
-      "enum": ["platform", "cms", "communications", "module", "plugin"]
+      "enum": ["platform", "cms", "communications", "module", "plugin", "sis", "theme"]
+    },
+    "theme_slug": { "type": "string" },
+    "theme_flags": {
+      "type": "object",
+      "properties": {
+        "always_on": { "type": "boolean" },
+        "non_deactivatable": { "type": "boolean" },
+        "premium": { "type": "boolean" }
+      }
     },
     "parent_slug": { "type": "string" },
     "is_core": { "type": "boolean" },

@@ -20,6 +20,9 @@ related:
 
 ---
 
+> [!NOTE]
+> **Konteks JA-EduSIS:** Mekanisme prepaint resilience, default theme mode, dan default site locale ini aktif pada tema baseline **Sarangenge** (tema legacy `janari`, `layung`, dan `sareupna` telah didekomisi per [ADR-032](./ADR-032-sarangenge-as-unified-baseline-theme-and-legacy-theme-pruning.md)).
+
 ## 1. Konteks & Latar Belakang
 
 Sebelumnya, tema publik Jejakawan belum memiliki kontrol terpusat di **Theme Customizer** untuk menentukan mode tampilan warna awal (*default theme mode*) dan bahasa utama situs (*default site locale*) bagi pengunjung baru:

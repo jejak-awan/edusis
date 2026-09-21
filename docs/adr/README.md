@@ -49,10 +49,6 @@ Keputusan teknis pada mesin tema, customizer live preview, dan komponen UI publi
 | **[ADR-004](./ADR-004-floating-social-dock-and-customizer-controls.md)** | Floating Social Dock & Customizer Controls | Accepted | `core` |
 | **[ADR-005](./ADR-005-brand-visual-styles-live-preview-sync-and-smart-poppers.md)** | Brand Visual Styles Live Preview Sync & Smart Poppers | Accepted | `core` |
 | **[ADR-006](./ADR-006-master-layout-modes-and-homepage-sections.md)** | Master Layout Modes & Homepage Sections | Accepted | `core` |
-| **[ADR-010](./ADR-010-builder-viewport-preview-scaling-and-adaptive-responsive-toolbar.md)** | Builder Viewport Preview Scaling & Adaptive Responsive Toolbar | Accepted | `core` |
-| **[ADR-011](./ADR-011-visual-builder-modular-extension-and-license-gating.md)** | Visual Builder Modular Extension & License Gating | Accepted | `core` |
-| **[ADR-012](./ADR-012-data-model-studio-modular-extension-and-license-gating.md)** | Data Model Studio Modular Extension & License Gating | Accepted | `core` |
-| **[ADR-018](./ADR-018-theme-sarangenge-side-nav-presets-and-viewport-scroll-snap.md)** | Plugin SoC/SoT — Cinematic Nav, Floating Extensions & Slots | Accepted | `core` |
 | **[ADR-022](./ADR-022-upstream-core-curation-and-generic-theme-seeder-architecture.md)** | Upstream Curation, Zero Client Hardcoding & Generic Theme Demo Seeders | Accepted | `core` |
 | **[ADR-023](./ADR-023-first-party-themes-as-registry-packs-and-license-quotas.md)** | First-Party Themes as Registry Packs & License Quotas | Accepted | `core` |
 | **[ADR-024](./ADR-024-header-menu-alignment-customizer-controls-and-layout-parity.md)** | Header Menu Alignment Customizer Controls & Multi-Theme Layout Parity | Accepted | `layout` |
@@ -67,3 +63,7 @@ Keputusan teknis pada mesin tema, customizer live preview, dan komponen UI publi
 Nomor ADR berikut tetap dicadangkan untuk menjaga integritas riwayat arsitektur dan tidak digunakan ulang:
 - **ADR-001, ADR-007, ADR-008**: Dialokasikan pada tema legacy `layung` yang telah didekomisi dan dihapus per ADR-032.
 - **ADR-009**: Dialokasikan pada downstream eksternal `k2net-portal` (Simulator Bandwidth ISP) yang terpisah dari ekosistem EduSIS.
+- **ADR-010**: Visual Builder Viewport Preview Scaling & Adaptive Toolbar — didekomisi bersama fitur Visual Builder (`JA-Builder`) yang dihapus dari JA-EduSIS.
+- **ADR-011**: Visual Builder Modular Extension & License Gating — didekomisi bersama penghapusan ekstensi `visual-builder` dari codebase EduSIS.
+- **ADR-012**: Data Model Studio Modular Extension & License Gating — didekomisi bersama penghapusan ekstensi `data-studio` dari codebase EduSIS.
+- **ADR-018**: Platform Plugin SoC/SoT & Cinematic Nav (`cinematic-nav`) — didekomisi bersama penghapusan fitur `cinematic-nav` (DotNav) dan tema legacy (`janari`, `layung`, `sareupna`) per ADR-032.

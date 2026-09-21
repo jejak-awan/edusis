@@ -14,6 +14,9 @@ supersedes: []
 
 ---
 
+> [!NOTE]
+> **Konteks JA-EduSIS:** Mekanisme dynamic typography, real-time postMessage sync, dan visual styles yang diputuskan di sini berlaku sebagai fondasi arsitektur frontend pada tema **Sarangenge** (tema `layung` yang disebut pada bagian konteks telah didekomisi per [ADR-032](./ADR-032-sarangenge-as-unified-baseline-theme-and-legacy-theme-pruning.md)).
+
 ## Konteks
 
 Dalam pengembangan fitur Theme Customizer dan Theme Layung, ditemukan beberapa isu arsitektural:

@@ -31,9 +31,9 @@ Struktur modular monolith JA-EduSIS dibagi ke dalam 3 tier domain utama:
 │ • User & IAM     │          │ • Akademik & Mapel│          │ • Portal Alumni   │
 │ • RBAC + ABAC    │          │ • Siswa & Rombel  │          │ • Ekstrakurikuler │
 │ • System Settings│          │ • Kurikulum Merde.│          │ • Komite Sekolah  │
-│ • Data Studio    │          │ • Presensi Geofenc│          │ • Hub Informasi   │
-│ • Task Crons     │          │ • Poin & BK       │          └───────────────────┘
-│ • Redis & SIEM   │          │ • Rapor & Ledger  │
+│ • Task Crons     │          │ • Presensi Geofenc│          │ • Hub Informasi   │
+│ • Redis & SIEM   │          │ • Poin & BK       │          └───────────────────┘
+│ • Webhook        │          │ • Rapor & Ledger  │
 └──────────────────┘          │ • Persuratan & TU │
                               └───────────────────┘
 ```
@@ -61,7 +61,7 @@ Menyediakan fondasi tata kelola sistem operasi aplikasi, otentikasi, dan konfigu
    - Dual Login support: Email atau Username. TOTP 2FA & WebAuthn Passkeys.
 2. **System & Infrastructure**:
    - Dynamic Settings dengan in-memory caching.
-   - Data Studio, Task Scheduler & Cron runner, Backup & Snapshot Manager, Webhook Dispatcher.
+   - Task Scheduler & Cron runner, Backup & Snapshot Manager, Webhook Dispatcher.
    - Redis Manager dengan monitoring memori real-time.
 3. **Audit & Observability**:
    - SIEM Security Audit Logs, full activity journaling, dan CSP (Content Security Policy) report collector.

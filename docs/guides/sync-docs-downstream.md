@@ -1,28 +1,29 @@
-# How-to: Sync guides/reference to downstream
+# How-to: Sync dokumentasi ke instansi deployment sekolah
 
-Mirror `docs/guides/` + `docs/reference/` + **`docs/architecture/`** + policy (`DOCUMENTATION` / `WORKFLOW` / `COMPLETENESS`) dari **ja-core_engine** ke portal downstream.  
-SoT tetap di core — salinan downstream hanya untuk navigasi lokal agen.
+> [!NOTE]
+> **Konteks JA-EduSIS:** Guide ini berbeda dari panduan sync `ja-core_engine`. JA-EduSIS adalah produk SIS mandiri — **tidak** memiliki downstream portal CMS (`k2net-portal`, `smkn6-portal`, dsb). Docs dari repositori ini tidak di-mirror ke portal CMS.
 
-## Prerequisites
+## Deployment ke `ja-srv`
 
-- Repo sibling di `/home/jejakawan/dev/`: `k2net-portal`, `smkn6-portal`, `smkn1cijulang-portal`, `ja-cms`
-- Sudah mengedit di **core** dulu
-
-## Steps
+Deploy artefak build ke server produksi EduSIS dilakukan via publish script dari `ja-dev`:
 
 ```bash
-cd /home/jejakawan/dev/ja-core_engine
-npm run docs:sync-downstream
+bash /home/jejakawan/dev/docs/configs/publish-from-jadev.sh
 ```
 
-## Verify
+Atau sync manual sesuai mandat workspace:
 
 ```bash
-ls ../k2net-portal/docs/architecture
-ls ../smkn6-portal/docs/architecture
-ls ../smkn1cijulang-portal/docs/architecture
-ls ../ja-cms/docs/architecture
-head -n 3 ../k2net-portal/docs/architecture/01-overview-and-tier-design.md
+rsync -avz /home/jejakawan/dev/ja-edusis/ ja-srv:/home/jejakawan/www/edusis/
+```
+
+## Sync docs ops (multi-host)
+
+Sesuai [AGENTS.md](../../AGENTS.md), perubahan di `docs/` root workspace wajib disinkronkan:
+
+```bash
+rsync -avz /home/jejakawan/dev/docs/ ja-srv:/home/jejakawan/dev/docs/
+rsync -avz /home/jejakawan/dev/docs/ ja-aksara:/home/jejakawan/dev/docs/
 ```
 
 ## Related

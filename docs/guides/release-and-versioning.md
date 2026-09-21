@@ -11,9 +11,9 @@ Satu produk, beberapa lapisan versi. Jangan campur SoT-nya.
 
 | Lapisan | SoT | Contoh | Catatan |
 | :--- | :--- | :--- | :--- |
-| **Produk** (Core Engine release) | Root `package.json` → `"version"` | `1.0.0-beta.2` | Harus sama dengan `frontend/package.json` + `backend/composer.json` |
+| **Produk** (JA-EduSIS release) | Root `package.json` → `"version"` | `1.0.0-beta.2` | Harus sama dengan `frontend/package.json` + `backend/composer.json` |
 | **Override deploy** | `APP_VERSION` di `.env` | opsional | Mengisi `config('app.version')` / `site_version` |
-| **OpenAPI info.version** | Sama produk; override `API_VERSION` | jarang | Scramble + Dynamic OpenAPI memakai `config('app.version')` kecuali `API_VERSION` diset |
+| **OpenAPI info.version** | Sama produk; override `API_VERSION` | jarang | Scramble OpenAPI memakai `config('app.version')` kecuali `API_VERSION` diset |
 | **URL API** | Prefix `api/v1` | stabil | Bukan SemVer. Naik ke `v2` hanya lewat **ADR** breaking change |
 | **Modul / plugin** | `module.json` / `manifest.json` → `version` | `1.0.0` | SemVer mandiri; dependency constraints dicek saat activate |
 | **Tema** | `theme.json` → `version` | `2.0.0` | SemVer (`x.y.z`, boleh pre-release). Jangan `V.2.0` |
@@ -99,7 +99,7 @@ Fail jika path runtime pack/tema berubah tanpa naikkan `version` di SoT + tanpa 
 
 - Path tetap `/api/v1/...` sampai ada ADR deprecation untuk `v2`.
 - Jangan naikkan path hanya karena bump produk SemVer.
-- Dokumentasi UI: `/docs/api` (admin+); dynamic CRUD: `dynamic:openapi`.
+- Dokumentasi UI: `/docs/api` (admin+ via Dedoc Scramble).
 
 ## Verify
 

@@ -12,7 +12,7 @@ Aplikasi beroperasi dalam arsitektur **Modular Monolith** dengan pemisahan domai
 
 | Domain Layer | Status | Modul Backend (`backend/Modules/`) | Modul Frontend (`frontend/src/modules/`) | Peran & Ruang Lingkup |
 | :--- | :--- | :--- | :--- | :--- |
-| **Core Kernel** | **Live** | `Core/app/{System,Infra,Security}` | `Core/{System,Infra,Security}` | IAM console (`srv_auth_users`), RBAC/ABAC, Data Studio, System Settings, Audit SIEM, Webhook, Redis Engine, Task Crons. |
+| **Core Kernel** | **Live** | `Core/app/{System,Infra,Security}` | `Core/{System,Infra,Security}` | IAM console (`srv_auth_users`), RBAC/ABAC, System Settings, Audit SIEM, Webhook, Redis Engine, Task Crons. |
 | **School SIS** | **Live** | `School/` (`app/{Academic,Student,Staff,Letter,PPDB,Facility,Council,Attendance,Grading}`) | `School/` (`views/{academic,student,staff,attendance,grading,rapor}`) | Manajemen operasional sekolah: Kurikulum Merdeka, entitas Dapodik (`sch_*`), presensi geofencing, poin kesiswaan & BK, penilaian rapor/ledger. |
 | **Community** | **Live** | `Community/` | `Community/` | Portal komunitas sekolah, alumni, komite sekolah, dan ekstrakurikuler. |
 | **Extensions** | **Live** | `Extensions/` | `Extensions/` | Plugin sandbox, integrasi JA-Mail transaksional, webhook external. |

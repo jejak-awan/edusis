@@ -14,6 +14,9 @@ supersedes: []
 
 ---
 
+> [!NOTE]
+> **Konteks JA-EduSIS:** ADR ini merekam sejarah kurasi codebase upstream dan arsitektur seeder generik platform. Di **JA-EduSIS**, seeder tema yang dipelihara secara aktif adalah `SarangengeThemeDemoSeeder` (tema baseline tunggal per [ADR-032](./ADR-032-sarangenge-as-unified-baseline-theme-and-legacy-theme-pruning.md)), sedangkan seeder tema legacy (`janari`, `layung`) telah dihapus.
+
 ## Konteks & Latar Belakang
 
 Sebelumnya, pengembangan intensif fitur core platform (Enterprise RBAC Registry, Extension License Gating, Dual-Mode Appearance Workspace, Console Menu Preloading, ADR-011 s.d. ADR-021) dilakukan pada repositori produk klien (`k2net-portal` dan `smkn6-portal`). Hal ini menyebabkan beberapa friksi arsitektural:

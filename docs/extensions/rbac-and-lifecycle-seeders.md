@@ -156,6 +156,7 @@ See [member-area.md](./member-area.md) §7.
 | Member | ✅ | ⚠️ manifest-only | ❌ | ✅ | via contribution service | ❌ |
 | Mail | ✅ | ⚠️ Foundation | ❌ | ❌ | — | ❌ |
 | CmsAi | ✅ | ❌ | ❌ | ❌ | ✅ (hook present) | ❌ |
+| School | ✅ | ✅ `SchoolRoleSeeder` | ✅ `SchoolDatabaseSeeder` | ✅ | ✅ | ❌ |
 
 ### Findings
 

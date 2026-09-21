@@ -9,14 +9,13 @@
 #   DOCUMENTATION.md, WORKFLOW.md, COMPLETENESS.md (policy mirrors)
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-DEV_ROOT="$(cd "${ROOT}/.." && pwd)"
+echo "NOTE: JA-EduSIS is a standalone SIS product and does not sync docs to CMS portals."
+echo "Refer to docs/guides/sync-docs-downstream.md for deployment sync guidelines."
+exit 0
 
 TARGETS=(
-  "${DEV_ROOT}/k2net-portal"
   "${DEV_ROOT}/smkn6-portal"
   "${DEV_ROOT}/smkn1cijulang-portal"
-  "${DEV_ROOT}/ja-cms"
 )
 
 inject_sot_banner() {

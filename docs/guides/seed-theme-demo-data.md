@@ -10,23 +10,20 @@ Isi **data demo generik** untuk tema resmi (bukan seeder deployment klien).
 
 ## Steps
 
-1. Seed tema aktif (atau default `janari` jika belum diset):
+1. Seed tema aktif (default **`sarangenge`** di JA-EduSIS per ADR-032):
 
 ```bash
 cd backend
 php artisan theme:seed
 ```
 
-2. Seed satu slug:
+2. Seed slug spesifik:
 
 ```bash
-php artisan theme:seed layung
 php artisan theme:seed sarangenge
-php artisan theme:seed janari
-php artisan theme:seed sareupna
 ```
 
-3. Seed semua tema resmi:
+3. Seed seluruh tema resmi terpasang:
 
 ```bash
 php artisan theme:seed --all

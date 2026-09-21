@@ -30,7 +30,7 @@ Tambah satu setting baru tanpa melanggar SoC host vs tema.
 | :--- | :--- |
 | Namespace key sesuai naming conventions | Hardcode brand klien di schema core |
 | Co-locate schema tema di folder tema | CSS tema di `frontend/src/styles/` global |
-| Naikkan fitur lintas-tema ke plugin/host (ADR-018) | Copy-paste komponen yang sama ke tiap tema |
+| Naikkan fitur lintas-tampilan ke plugin/host | Copy-paste komponen yang sama ke komponen tema |
 
 ## Related
 

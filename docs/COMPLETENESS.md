@@ -19,7 +19,7 @@ Checklist fondasi docs (update saat menambah kuadran/lapisan baru).
 | School domain changelogs | ✅ | `School/CHANGELOG.md` (BE+FE) |
 | Core domain changelogs | ✅ | `Core/{System,Infra,Security}/CHANGELOG.md` (BE+FE) |
 | Link checker + CI | ✅ | `npm run docs:links`, CI `docs-links` (+ product & module version checks) |
-| Mirror downstream | ✅ | guides + reference + **architecture** + policy → k2net, smkn6, smkn1cijulang, ja-cms |
+| Mirror downstream | ✅ (N/A) | JA-EduSIS adalah produk SIS mandiri \u2014 tidak memiliki downstream portal CMS. Sync ke instansi deployment sekolah dikelola via `rsync` / publish script ke `ja-srv`. |
 | Ops/kredensial host | ✅ (terpisah) | `/home/jejakawan/dev/docs/` |
 
 ## Saat task docs berikutnya

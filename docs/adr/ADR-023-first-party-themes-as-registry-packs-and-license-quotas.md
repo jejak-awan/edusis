@@ -20,6 +20,9 @@ related:
 
 ---
 
+> [!NOTE]
+> **Konteks JA-EduSIS:** ADR ini adalah keputusan platform `ja-core_engine` tentang kuota multi-tema. Di repositori **JA-EduSIS**, sistem multi-tema ini **tidak diterapkan** — EduSIS mengimplementasikan model **single-theme** dengan Sarangenge sebagai satu-satunya tema baseline per [ADR-032](./ADR-032-sarangenge-as-unified-baseline-theme-and-legacy-theme-pruning.md). Tema `janari`, `layung`, dan `sareupna` yang disebutkan di ADR ini tidak ada di codebase JA-EduSIS.
+
 ## 1. Konteks
 
 Hari ini:
