@@ -106,6 +106,15 @@ export const SCHOOL_SUB_FEATURES: readonly SchoolSubFeature[] = [
         defaultActive: true,
     },
     {
+        slug: 'school.career',
+        name: 'Career & Job Vacancies (BKK)',
+        description: 'Bursa Kerja Khusus (BKK), portal lowongan kerja alumni, dan pelacakan lamaran mitra industri',
+        category: 'operational',
+        dependencies: ['school.core', 'school.graduation'],
+        licenseTier: 'pro',
+        defaultActive: true,
+    },
+    {
         slug: 'school.admission',
         name: 'PPDB Online',
         description: 'Penerimaan peserta didik baru, seleksi jalur, dan verifikasi berkas',

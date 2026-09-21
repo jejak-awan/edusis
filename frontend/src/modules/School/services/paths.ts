@@ -97,11 +97,22 @@ export const schoolPaths = {
     },
 
     graduation: {
-        index: '/school/graduation',
-        show: (id: number | string) => `/school/graduation/${id}`,
-        studentResult: (studentId: number | string) => `/school/graduation/student/${studentId}`,
-        downloadCertificate: (studentId: number | string) => `/school/graduation/student/${studentId}/certificate`,
+        index: '/school/graduation/batches',
+        show: (id: number | string) => `/school/graduation/batches/${id}`,
+        process: '/school/graduation/process',
+        studentResult: (studentId: number | string) => `/school/graduation/students/${studentId}/skl`,
+        downloadCertificate: (studentId: number | string) => `/school/graduation/students/${studentId}/certificate`,
         alumni: '/school/alumni',
+        alumniTracerStats: '/school/alumni/stats/tracer',
+    },
+
+    career: {
+        vacancies: '/school/career/vacancies',
+        vacancy: (id: number | string) => `/school/career/vacancies/${id}`,
+        apply: (id: number | string) => `/school/career/vacancies/${id}/apply`,
+        applications: (id: number | string) => `/school/career/vacancies/${id}/applications`,
+        updateApplicationStatus: (id: number | string) => `/school/career/applications/${id}/status`,
+        stats: '/school/career/stats',
     },
 
     grades: {

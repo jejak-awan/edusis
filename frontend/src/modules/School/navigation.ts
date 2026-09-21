@@ -149,6 +149,15 @@ export const schoolNavigation: NavItem[] = [
                 priority: 61,
             },
             {
+                name: 'school.career.portal',
+                label: 'Bursa Kerja (BKK)',
+                labelKey: 'school.navigation.menu.career',
+                icon: 'briefcase',
+                permission: 'view vacancies',
+                extension: 'school',
+                priority: 60,
+            },
+            {
                 name: 'school.student.dashboard',
                 label: 'Portal Siswa',
                 labelKey: 'school.navigation.menu.studentPortal',

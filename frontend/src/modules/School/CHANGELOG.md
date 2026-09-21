@@ -3,6 +3,21 @@
 All notable changes to this module will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.2.0] - 2026-09-22
+
+### Added
+- **Bursa Kerja Khusus (BKK / Career & Job Vacancies)**:
+  - Sub-module `school.career` registered in `registry.ts`, `router.ts`, and `navigation.ts`.
+  - Type definitions: `types/career.ts` (`JobVacancyData`, `JobApplicationData`, `CareerStats`).
+  - Service: `services/careerService.ts` for vacancies & application review workflows.
+  - View: `views/career/JobPortal.vue` with 4 KPI summary cards, multi-filter, vacancy cards, and applicant drawer.
+  - Dialog: `components/career/VacancyDialog.vue` for partner company vacancy publishing.
+- **Backend Graduation Batches & Alumni Tracer**:
+  - Eloquent models: `GraduationBatch`, `Alumni`, `JobVacancy`, `JobApplication`.
+  - Database migration: `2026_09_20_000014_create_school_alumni_and_career_tables.php`.
+  - Controllers: `GraduationController`, `AlumniController`, `CareerController`.
+  - Automated feature test: `SchoolAlumniAndCareerApiTest.php` (100% pass).
+
 ## [1.1.0] - 2026-09-22
 
 ### Added

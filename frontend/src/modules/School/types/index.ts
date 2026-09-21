@@ -15,4 +15,5 @@ export * from './facility';
 export * from './osis';
 export * from './extracurricular';
 export * from './graduation';
+export * from './career';
 export * from './integration';

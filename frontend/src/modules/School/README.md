@@ -20,6 +20,7 @@ Modul `School` memiliki deklarasi sub-modul independen yang dapat diaktifkan/din
 | `school.osis` | OSIS & E-Voting | Operasional + Engine | `school.students`, `school.operations` | Pro / Addon |
 | `school.extracurricular` | Ekstrakurikuler | Operasional | `school.students`, `school.attendance` | Standard |
 | `school.graduation` | Kelulusan & Alumni | Operasional | `school.students`, `school.operations` | Pro / Addon |
+| `school.career` | Bursa Kerja Khusus (BKK) | Operasional | `school.core`, `school.graduation` | Pro / Addon |
 | `school.admission` | PPDB Online | Operasional | `school.core` | Pro / Addon |
 | `school.integrations` | Gateway WA & KataMPI | Sistem | `school.core` | Enterprise |
 

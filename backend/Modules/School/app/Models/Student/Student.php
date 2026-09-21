@@ -161,6 +161,14 @@ class Student extends Model
     }
 
     /**
+     * @return HasOne<Alumni, $this>
+     */
+    public function alumni(): HasOne
+    {
+        return $this->hasOne(Alumni::class, 'student_id');
+    }
+
+    /**
      * Compute current total behavioral credit score
      */
     public function getTotalCreditScoreAttribute(): int

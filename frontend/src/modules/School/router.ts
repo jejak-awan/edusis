@@ -265,6 +265,18 @@ export const schoolRoutes: RouteRecordRaw[] = [
         },
     },
     {
+        path: 'school/career/portal',
+        name: 'school.career.portal',
+        component: () => import('@/modules/School/views/career/JobPortal.vue'),
+        meta: {
+            extension: 'school',
+            subFeature: 'school.career',
+            permission: 'manage vacancies',
+            title: 'school.career.title',
+            breadcrumb: 'school.navigation.menu.career',
+        },
+    },
+    {
         path: 'school/osis',
         name: 'school.osis',
         component: () => import('@/modules/School/views/osis/Index.vue'),

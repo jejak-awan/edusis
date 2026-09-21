@@ -16,10 +16,13 @@ use Modules\School\Http\Controllers\Api\Administration\PpdbController;
 use Modules\School\Http\Controllers\Api\Communication\WhatsAppController;
 use Modules\School\Http\Controllers\Api\Counseling\CounselingController;
 use Modules\School\Http\Controllers\Api\Facilities\FacilityController;
+use Modules\School\Http\Controllers\Api\HR\CareerController;
 use Modules\School\Http\Controllers\Api\HR\StaffController;
 use Modules\School\Http\Controllers\Api\Integration\KatampiIntegrationController;
 use Modules\School\Http\Controllers\Api\SchoolDashboardController;
+use Modules\School\Http\Controllers\Api\Student\AlumniController;
 use Modules\School\Http\Controllers\Api\Student\DisciplineController;
+use Modules\School\Http\Controllers\Api\Student\GraduationController;
 use Modules\School\Http\Controllers\Api\Student\StudentController;
 use Modules\School\Http\Controllers\Api\StudentAffairs\ExtracurricularController;
 use Modules\School\Http\Controllers\Api\StudentAffairs\OsisElectionController;
@@ -308,5 +311,37 @@ Route::prefix('v1/school')->middleware(['auth:sanctum', SchoolContextMiddleware:
         Route::post('/send', [WhatsAppController::class, 'sendMessage']);
         Route::post('/alerts/attendance', [WhatsAppController::class, 'sendAttendanceAlerts']);
         Route::post('/logs/{id}/resend', [WhatsAppController::class, 'resendLog']);
+    });
+
+    // --- Kelulusan & Penerbitan SKL Digital (Graduation) ---
+    Route::prefix('graduation')->group(function (): void {
+        Route::get('/batches', [GraduationController::class, 'getBatches']);
+        Route::post('/batches', [GraduationController::class, 'storeBatch']);
+        Route::get('/batches/{id}', [GraduationController::class, 'showBatch']);
+        Route::post('/process', [GraduationController::class, 'processGraduation']);
+        Route::get('/students/{studentId}/skl', [GraduationController::class, 'showSkl']);
+    });
+
+    // --- Direktori Alumni & Tracer Study ---
+    Route::prefix('alumni')->group(function (): void {
+        Route::get('/', [AlumniController::class, 'index']);
+        Route::post('/', [AlumniController::class, 'store']);
+        Route::get('/stats/tracer', [AlumniController::class, 'getTracerStats']);
+        Route::get('/{id}', [AlumniController::class, 'show'])->whereNumber('id');
+        Route::put('/{id}', [AlumniController::class, 'update'])->whereNumber('id');
+        Route::delete('/{id}', [AlumniController::class, 'destroy'])->whereNumber('id');
+    });
+
+    // --- Bursa Kerja Khusus (BKK / Career Vacancies & Applications) ---
+    Route::prefix('career')->group(function (): void {
+        Route::get('/vacancies', [CareerController::class, 'getVacancies']);
+        Route::post('/vacancies', [CareerController::class, 'storeVacancy']);
+        Route::get('/stats', [CareerController::class, 'getStats']);
+        Route::get('/vacancies/{id}', [CareerController::class, 'showVacancy'])->whereNumber('id');
+        Route::put('/vacancies/{id}', [CareerController::class, 'updateVacancy'])->whereNumber('id');
+        Route::delete('/vacancies/{id}', [CareerController::class, 'destroyVacancy'])->whereNumber('id');
+        Route::post('/vacancies/{id}/apply', [CareerController::class, 'applyVacancy'])->whereNumber('id');
+        Route::get('/vacancies/{id}/applications', [CareerController::class, 'getApplications'])->whereNumber('id');
+        Route::put('/applications/{id}/status', [CareerController::class, 'updateApplicationStatus'])->whereNumber('id');
     });
 });
