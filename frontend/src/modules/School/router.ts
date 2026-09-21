@@ -157,6 +157,30 @@ export const schoolRoutes: RouteRecordRaw[] = [
         },
     },
     {
+        path: 'school/attendance/recap-class',
+        name: 'school.attendance.recapClass',
+        component: () => import('@/modules/School/views/attendance/ClassRecap.vue'),
+        meta: {
+            extension: 'school',
+            subFeature: 'school.attendance',
+            permission: 'view attendance recap',
+            title: 'school.attendance.title',
+            breadcrumb: 'school.attendance.title',
+        },
+    },
+    {
+        path: 'school/attendance/recap-student',
+        name: 'school.attendance.recapStudent',
+        component: () => import('@/modules/School/views/attendance/StudentRecap.vue'),
+        meta: {
+            extension: 'school',
+            subFeature: 'school.attendance',
+            permission: 'view attendance recap',
+            title: 'school.attendance.title',
+            breadcrumb: 'school.attendance.title',
+        },
+    },
+    {
         path: 'school/journals',
         name: 'school.journals',
         component: () => import('@/modules/School/views/academic/TeachingJournals.vue'),
@@ -214,6 +238,30 @@ export const schoolRoutes: RouteRecordRaw[] = [
             permission: 'manage ppdb',
             title: 'school.ppdb.title',
             breadcrumb: 'school.navigation.menu.ppdb',
+        },
+    },
+    {
+        path: 'school/graduation',
+        name: 'school.graduation',
+        component: () => import('@/modules/School/views/graduation/Index.vue'),
+        meta: {
+            extension: 'school',
+            subFeature: 'school.graduation',
+            permission: 'manage graduation',
+            title: 'school.graduation.title',
+            breadcrumb: 'school.navigation.menu.graduation',
+        },
+    },
+    {
+        path: 'school/graduation/alumni',
+        name: 'school.graduation.alumni',
+        component: () => import('@/modules/School/views/graduation/Alumni.vue'),
+        meta: {
+            extension: 'school',
+            subFeature: 'school.graduation',
+            permission: 'manage alumni',
+            title: 'school.graduation.alumni',
+            breadcrumb: 'school.graduation.alumni',
         },
     },
     {
