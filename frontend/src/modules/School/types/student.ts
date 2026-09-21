@@ -50,6 +50,8 @@ export interface StudentData {
     level?: { id: number; name: string };
     department?: DepartmentData;
     study_groups?: StudyGroupData[];
+    study_group?: StudyGroupData;
+    photo?: string | null;
     parent?: StudentParentData;
     total_credit_score?: number;
     father_name?: string | null;

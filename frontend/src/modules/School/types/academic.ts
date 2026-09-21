@@ -11,6 +11,7 @@ export interface AcademicYearData {
     id: number;
     school_id: number;
     name: string;
+    year?: string;
     start_date: string | null;
     end_date: string | null;
     is_active: boolean;

@@ -61,6 +61,18 @@ export const schoolRoutes: RouteRecordRaw[] = [
         },
     },
     {
+        path: 'school/students/:id',
+        name: 'school.students.show',
+        component: () => import('@/modules/School/views/students/Show.vue'),
+        meta: {
+            extension: 'school',
+            subFeature: 'school.students',
+            permission: 'view students',
+            title: 'school.students.title',
+            breadcrumb: 'school.students.title',
+        },
+    },
+    {
         path: 'school/discipline',
         name: 'school.discipline',
         component: () => import('@/modules/School/views/discipline/Index.vue'),
@@ -94,6 +106,42 @@ export const schoolRoutes: RouteRecordRaw[] = [
             permission: 'manage staff',
             title: 'school.staff.title',
             breadcrumb: 'school.navigation.menu.staff',
+        },
+    },
+    {
+        path: 'school/staff/create',
+        name: 'school.staff.create',
+        component: () => import('@/modules/School/views/staff/Create.vue'),
+        meta: {
+            extension: 'school',
+            subFeature: 'school.staff',
+            permission: 'create staff',
+            title: 'school.staff.addStaff',
+            breadcrumb: 'school.staff.addStaff',
+        },
+    },
+    {
+        path: 'school/staff/:id',
+        name: 'school.staff.show',
+        component: () => import('@/modules/School/views/staff/Show.vue'),
+        meta: {
+            extension: 'school',
+            subFeature: 'school.staff',
+            permission: 'view staff',
+            title: 'school.staff.title',
+            breadcrumb: 'school.staff.title',
+        },
+    },
+    {
+        path: 'school/staff/:id/edit',
+        name: 'school.staff.edit',
+        component: () => import('@/modules/School/views/staff/Edit.vue'),
+        meta: {
+            extension: 'school',
+            subFeature: 'school.staff',
+            permission: 'edit staff',
+            title: 'school.staff.title',
+            breadcrumb: 'school.staff.title',
         },
     },
     {
@@ -262,6 +310,18 @@ export const schoolRoutes: RouteRecordRaw[] = [
         },
     },
     {
+        path: 'school/teacher/grades',
+        name: 'school.teacher.grades',
+        component: () => import('@/modules/School/views/teacher/GradesInput.vue'),
+        meta: {
+            extension: 'school',
+            subFeature: 'school.academic',
+            permission: 'manage grades',
+            title: 'school.grades.title',
+            breadcrumb: 'school.navigation.menu.grades',
+        },
+    },
+    {
         path: 'school/student/dashboard',
         name: 'school.student.dashboard',
         component: () => import('@/modules/School/views/student/StudentDashboard.vue'),
@@ -284,6 +344,17 @@ export const schoolRoutes: RouteRecordRaw[] = [
         },
     },
     {
+        path: 'school/student/grades',
+        name: 'school.student.grades',
+        component: () => import('@/modules/School/views/student/Grades.vue'),
+        meta: {
+            extension: 'school',
+            subFeature: 'school.academic',
+            title: 'school.grades.title',
+            breadcrumb: 'school.navigation.menu.grades',
+        },
+    },
+    {
         path: 'school/student/attendance',
         name: 'school.student.attendance',
         component: () => import('@/modules/School/views/student/MyAttendanceView.vue'),
@@ -292,6 +363,17 @@ export const schoolRoutes: RouteRecordRaw[] = [
             subFeature: 'school.attendance',
             title: 'school.navigation.menu.attendance',
             breadcrumb: 'school.navigation.menu.attendance',
+        },
+    },
+    {
+        path: 'school/student/graduation',
+        name: 'school.student.graduation',
+        component: () => import('@/modules/School/views/student/Graduation.vue'),
+        meta: {
+            extension: 'school',
+            subFeature: 'school.graduation',
+            title: 'school.navigation.menu.graduation',
+            breadcrumb: 'school.navigation.menu.graduation',
         },
     },
     {

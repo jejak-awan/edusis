@@ -87,10 +87,10 @@ class ConsoleMenu extends Model
     public static function getDefaultMenus(): array
     {
         return [
-            // 1. Akademik & Pembelajaran (Academic & Teaching)
+            // 1. Akademik (Academic)
             [
                 'group_slug' => 'school_academic',
-                'name' => 'Akademik & Pembelajaran',
+                'name' => 'Akademik',
                 'label_key' => 'school.navigation.menu.academicGroup',
                 'icon' => 'graduation-cap',
                 'extension_slug' => 'school',
@@ -165,14 +165,14 @@ class ConsoleMenu extends Model
             // 2. Kesiswaan & Bimbingan (Student Affairs & Guidance)
             [
                 'group_slug' => 'school_students',
-                'name' => 'Kesiswaan & Bimbingan',
+                'name' => 'Kesiswaan',
                 'label_key' => 'school.navigation.menu.studentsGroup',
                 'icon' => 'users',
                 'extension_slug' => 'school',
                 'order' => 2,
                 'children' => [
                     [
-                        'name' => 'Data Siswa (Dapodik)',
+                        'name' => 'Data Siswa',
                         'label_key' => 'school.navigation.menu.students',
                         'route_name' => 'school.students',
                         'icon' => 'users',
@@ -190,7 +190,7 @@ class ConsoleMenu extends Model
                         'order' => 2,
                     ],
                     [
-                        'name' => 'Bimbingan Konseling (BK)',
+                        'name' => 'Bimbingan Konseling',
                         'label_key' => 'school.navigation.menu.counseling',
                         'route_name' => 'school.counseling',
                         'icon' => 'heart-handshake',
@@ -222,7 +222,7 @@ class ConsoleMenu extends Model
             // 3. Manajemen & Tata Usaha (Administration & Operations)
             [
                 'group_slug' => 'school_operations',
-                'name' => 'Manajemen & Tata Usaha',
+                'name' => 'Manajemen',
                 'label_key' => 'school.navigation.menu.operationsGroup',
                 'icon' => 'briefcase',
                 'extension_slug' => 'school',
@@ -238,7 +238,7 @@ class ConsoleMenu extends Model
                         'order' => 1,
                     ],
                     [
-                        'name' => 'Persuratan & Disposisi TU',
+                        'name' => 'Persuratan',
                         'label_key' => 'school.navigation.menu.letters',
                         'route_name' => 'school.letters',
                         'icon' => 'mail',
@@ -247,7 +247,7 @@ class ConsoleMenu extends Model
                         'order' => 2,
                     ],
                     [
-                        'name' => 'PPDB Siswa Baru',
+                        'name' => 'PPDB',
                         'label_key' => 'school.navigation.menu.ppdb',
                         'route_name' => 'school.ppdb',
                         'icon' => 'user-plus',
@@ -256,7 +256,7 @@ class ConsoleMenu extends Model
                         'order' => 3,
                     ],
                     [
-                        'name' => 'Buku Tamu Resepsionis',
+                        'name' => 'Buku Tamu',
                         'label_key' => 'school.navigation.menu.guests',
                         'route_name' => 'school.guests',
                         'icon' => 'book-open-check',

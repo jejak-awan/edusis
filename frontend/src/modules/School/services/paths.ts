@@ -47,6 +47,7 @@ export const schoolPaths = {
         update: (id: number | string) => `/school/staff/${id}`,
         delete: (id: number | string) => `/school/staff/${id}`,
         shifts: '/school/staff/shifts/list',
+        salaryStructure: (id: number | string) => `/school/staff/${id}/salary-structure`,
     },
 
     attendance: {
@@ -93,6 +94,19 @@ export const schoolPaths = {
         index: '/school/extracurriculars',
         show: (id: number | string) => `/school/extracurriculars/${id}`,
         members: (id: number | string) => `/school/extracurriculars/${id}/members`,
+    },
+
+    graduation: {
+        index: '/school/graduation',
+        show: (id: number | string) => `/school/graduation/${id}`,
+        studentResult: (studentId: number | string) => `/school/graduation/student/${studentId}`,
+        downloadCertificate: (studentId: number | string) => `/school/graduation/student/${studentId}/certificate`,
+        alumni: '/school/alumni',
+    },
+
+    grades: {
+        studentGrades: (studentId: number | string) => `/school/grades/student/${studentId}`,
+        saveBulk: '/school/grades/bulk',
     },
 
     facilities: {

@@ -71,6 +71,17 @@ export class HrService {
     public static async getStaffAttendance(params: Record<string, unknown> = {}): Promise<AxiosResponse<ApiResponse<StaffAttendanceData[]>>> {
         return api.get(schoolPaths.attendance.staff, { params });
     }
+
+    /** Ambil struktur gaji staf. */
+    public static async getSalaryStructure(staffId: number | string): Promise<AxiosResponse<ApiResponse<Record<string, unknown>>>> {
+        return api.get(schoolPaths.staff.salaryStructure(staffId));
+    }
+
+    /** Simpan komponen struktur gaji staf. */
+    public static async saveSalaryStructure(staffId: number | string, data: Record<string, unknown>): Promise<AxiosResponse<ApiResponse<Record<string, unknown>>>> {
+        return api.post(schoolPaths.staff.salaryStructure(staffId), data);
+    }
 }
 
+export const StaffService = HrService;
 export default HrService;
