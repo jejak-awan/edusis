@@ -289,6 +289,18 @@ export const schoolRoutes: RouteRecordRaw[] = [
         },
     },
     {
+        path: 'school/extracurricular',
+        name: 'school.extracurricular',
+        component: () => import('@/modules/School/views/extracurricular/Index.vue'),
+        meta: {
+            extension: 'school',
+            subFeature: 'school.extracurricular',
+            permission: 'manage extracurricular',
+            title: 'school.extracurricular.title',
+            breadcrumb: 'school.extracurricular.title',
+        },
+    },
+    {
         path: 'school/guests',
         name: 'school.guests',
         component: () => import('@/modules/School/views/operations/GuestBook.vue'),

@@ -148,7 +148,7 @@
             <textarea
               v-model="form.address"
               rows="2"
-              placeholder="Contoh: Jl. Raya Cijulang No. 45"
+              placeholder="Contoh: Jl. Pendidikan No. 45"
               class="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
             ></textarea>
           </div>
