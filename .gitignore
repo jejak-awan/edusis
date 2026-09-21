@@ -60,6 +60,8 @@ backend/build/
 # Runtime/cache artifacts
 backend/storage/logs/*.log
 backend/storage/framework/cache/data/*
+backend/storage/framework/cache/*.php
+!backend/storage/framework/cache/.gitignore
 backend/storage/framework/sessions/*
 backend/storage/framework/views/*
 !backend/storage/framework/sessions/.gitignore

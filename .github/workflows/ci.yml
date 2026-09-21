@@ -28,7 +28,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          extensions: mbstring, pdo, pdo_sqlite, sqlite3
+          extensions: mbstring, pdo, pdo_sqlite, sqlite3, gd, intl, zip
           coverage: none
           ini-values: memory_limit=512M
 
@@ -115,7 +115,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.3"
-          extensions: mbstring, pdo, pdo_sqlite, sqlite3
+          extensions: mbstring, pdo, pdo_sqlite, sqlite3, gd, intl, zip
           ini-values: memory_limit=512M
           tools: composer
 
@@ -141,6 +141,7 @@ jobs:
           composer install --no-interaction --prefer-dist
           cp .env.example .env
           {
+            echo "APP_NAME=JA-EduSIS"
             echo "FORCE_HTTPS_URLS=false"
             echo "SESSION_SECURE_COOKIE=false"
             echo "SANCTUM_STATEFUL_DOMAINS=127.0.0.1:8081,localhost:8081,127.0.0.1,localhost"

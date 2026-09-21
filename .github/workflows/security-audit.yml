@@ -3,40 +3,46 @@ name: Security Audit
 on:
   workflow_dispatch:
   schedule:
+    # Run daily at 01:30 UTC
     - cron: "30 1 * * *"
 
+concurrency:
+  group: security-audit-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  smoke-check:
+  security-checks:
+    name: Dependency & Extension Security Audit
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: backend
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.3"
-          extensions: mbstring, pdo, sqlite
+          extensions: mbstring, pdo, pdo_sqlite, sqlite3, gd, intl, zip
           coverage: none
 
-      - name: Install dependencies
+      - name: Install Composer dependencies
         run: composer install --no-interaction --prefer-dist
 
-      - name: Prepare app
+      - name: Prepare application environment
         run: |
           cp .env.example .env
           php artisan key:generate
           touch database/database.sqlite
           php artisan migrate --force
 
-      - name: Dependency audit
+      - name: Dependency vulnerability audit
         run: composer security:smoke-check
 
-      - name: Extension security sandbox
+      - name: Extension security sandbox test
         run: php artisan test Modules/Core/tests/System/Feature/ExtensionSecuritySandboxTest.php --ansi
 
-      - name: Security maintenance
+      - name: Security maintenance tasks
         run: php artisan security:maintenance --ansi
