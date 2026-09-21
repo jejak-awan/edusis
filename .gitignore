@@ -3,6 +3,9 @@
 Thumbs.db
 .idea/
 .vscode/
+!.cursor/
+!.cursor/rules/
+!.cursor/rules/*.mdc
 .envrc
 /core
 /core.[0-9]*

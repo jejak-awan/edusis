@@ -11,7 +11,7 @@ When you **create or meaningfully change** a first-party module under `backend/M
 
 1. **`README.md`** in the module root (BE and FE separately if both exist)
    - Purpose, quick path map, permissions/gates, runtime deps (if any)
-   - Links to `docs/extensions/*.md` or architecture docs when relevant
+   - Links to `docs/sis/*.md`, `docs/extensions/*.md`, or architecture docs when relevant
    - Short “Agent notes” (do/don’t for the next agent)
 2. **`CHANGELOG.md`** in the same module root
    - [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) style
@@ -22,10 +22,11 @@ When you **create or meaningfully change** a first-party module under `backend/M
 
 | Layer | Path | Isi |
 | :--- | :--- | :--- |
-| Module | `backend/Modules/*/CHANGELOG.md`, `frontend/src/modules/*/CHANGELOG.md` | Detail teknis domain |
-| Core domains | `Modules/Core/{System,Infra,Security}/CHANGELOG.md` (+ FE) | Wajib per domain; `Core/CHANGELOG.md` = index |
-| Theme package | `frontend/src/modules/Layout/views/themes/<slug>/CHANGELOG.md` | Hanya perubahan khusus slug |
-| Root | `/CHANGELOG.md` | Ringkas release-facing + pointer (bukan duplikat esai) |
+| **School SIS Domain** | `backend/Modules/School/CHANGELOG.md`, `frontend/src/modules/School/CHANGELOG.md` | Detail domain Akademik, Kesiswaan, GTK, Sarpras, Persuratan, PPDB, OSIS |
+| **Core domains** | `Modules/Core/{System,Infra,Security}/CHANGELOG.md` (+ FE) | Wajib per domain kernel; `Core/CHANGELOG.md` = index |
+| **Other Modules** | `backend/Modules/*/CHANGELOG.md`, `frontend/src/modules/*/CHANGELOG.md` | Layout, Publishing, Member, Mail, Forms, Analytics, dll. |
+| **Theme package** | `frontend/src/modules/Layout/views/themes/<slug>/CHANGELOG.md` | Perubahan khusus tema publik (mis. `sarangenge`) |
+| **Root** | `/CHANGELOG.md` | Ringkas release-facing + pointer (bukan duplikat esai) |
 
 How-to: [`docs/guides/update-changelog.md`](../../docs/guides/update-changelog.md).  
 Versioning (produk + per pack): [`docs/guides/release-and-versioning.md`](../../docs/guides/release-and-versioning.md) · `npm run modules:versions:check`.  
@@ -33,13 +34,13 @@ Template: [`docs/templates/changelog-module.md`](../../docs/templates/changelog-
 
 ## Also update
 
-- Extension/product doc if one exists (e.g. `docs/extensions/ja-mail.md`)
+- Domain doc if one exists (e.g. `docs/sis/*.md` for School, `docs/extensions/ja-mail.md` for Mail)
 - Pack **`manifest.json` `version`** (or theme `theme.json`) when changing runtime code — forward-only SemVer; locales count as PATCH
 - Root `CHANGELOG.md` `[Unreleased]` with a one-line pointer for user-visible **or** system-docs changes
 - Task brief § Hasil when scale M+ (`docs/work/`)
 
 ## Do not
 
-- Leave hanging “future backlog” items that belong to other systems (e.g. MTA/DNS/IMAP for JA-Mail)
+- Leave hanging “future backlog” items that belong to other systems (e.g. KataMPI CBT engine or MTA/IMAP)
 - Skip changelog when behavior, API, permissions, or public theme UX change
-- Put client/tenant brand data into changelogs or seeders in this repo
+- Put client/tenant-specific hardcoded data into changelogs or seeders

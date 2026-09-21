@@ -1,6 +1,6 @@
-# Alur Kerja Standar Agen — Jejakawan Core Engine
+# Alur Kerja Standar Agen — JA-EduSIS
 
-Kontrak wajib untuk setiap pekerjaan di `ja-core_engine` (manusia atau agen AI).  
+Kontrak wajib untuk setiap pekerjaan di `ja-edusis` (manusia atau agen AI).  
 Melengkapi [`DOCUMENTATION.md`](DOCUMENTATION.md) (SoT docs) dan [`AGENTS.md`](../AGENTS.md) (batasan repo).
 
 ---

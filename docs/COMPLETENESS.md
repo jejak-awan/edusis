@@ -1,4 +1,4 @@
-# Documentation completeness — ja-core_engine
+# Documentation completeness — JA-EduSIS
 
 Checklist fondasi docs (update saat menambah kuadran/lapisan baru).
 
@@ -7,6 +7,7 @@ Checklist fondasi docs (update saat menambah kuadran/lapisan baru).
 | Kebijakan SoT / SoC / Diátaxis | ✅ | `DOCUMENTATION.md` |
 | Alur kerja agen | ✅ | `WORKFLOW.md`, `guides/start-a-task.md`, `work/` |
 | Tutorial onboarding | ✅ | `AGENT_START_HERE.md`, `CONTRIBUTING.md` |
+| SIS Domain Architecture | ✅ | `sis/01-overview-and-domain-map.md`, `sis/03-integration-katampi-cbt.md` |
 | How-to (guides) | ✅ | `guides/` |
 | Reference | ✅ | `reference/`, `extensions/*schema*` |
 | Explanation / standards | ✅ | `architecture/` |
@@ -15,6 +16,7 @@ Checklist fondasi docs (update saat menambah kuadran/lapisan baru).
 | Testing / QA suite map | ✅ | `reference/testing.md`, `guides/run-e2e-playwright.md` |
 | Dual-layer changelog | ✅ | modul + tema + root |
 | Release / SemVer alignment | ✅ | `guides/release-and-versioning.md`, `npm run versions:check`, `npm run modules:versions:check` |
+| School domain changelogs | ✅ | `School/CHANGELOG.md` (BE+FE) |
 | Core domain changelogs | ✅ | `Core/{System,Infra,Security}/CHANGELOG.md` (BE+FE) |
 | Link checker + CI | ✅ | `npm run docs:links`, CI `docs-links` (+ product & module version checks) |
 | Mirror downstream | ✅ | guides + reference + **architecture** + policy → k2net, smkn6, smkn1cijulang, ja-cms |

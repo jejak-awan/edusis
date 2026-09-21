@@ -1,30 +1,36 @@
 ---
-description: Jejakawan Core Engine — agent identity & start pointers
+description: JA-EduSIS — agent identity, core architecture & start pointers
 alwaysApply: true
 ---
 
-# Jejakawan Core Engine (`ja-core_engine`)
+# JA-EduSIS (`ja-edusis`)
 
-This repo is the **headless kernel + unified admin console**, not `ja-cms` and not `ja-control-plane`.
+This repository is **JA-EduSIS** (*Jejakawan Educational School Information System*), an enterprise-grade integrated school information system, academic management engine, and educational community portal.
 
 ## Canonical facts
-- **Branch:** `main` only (CMS `develop` line retired Aug 2026).
-- **Kernel modules:** `Modules/Core` → System, Infra, Security. Optional first-party extension: **JA-Mail** (`Modules/Mail`).
-- **Stack:** Laravel 12 modular API · Vue 3 unified console SPA · PostgreSQL/SQLite · Redis.
-- **Downstream apps** (CMS, portals, SaaS) = **separate forks**, not long-lived branches here.
+- **Branch:** `main` (Remote: `git@github.com:jejak-awan/edusis.git`).
+- **Architecture:** Modular Monolith with 14 Backend Laravel Modules and 13 Frontend Vue 3 Modules.
+- **Core Domain (`Modules/School`):** Institutional hierarchy (Dapodik compliant), Academic (Kurikulum Merdeka), Student affairs & discipline points, HR/GTK, Administration/Secretariat, Facilities/Assets, PPDB, OSIS E-Voting, and WhatsApp Gateway.
+- **Portal & Community:** Public portal on **Sarangenge** baseline theme (`Modules/Layout`), Publishing (news/articles), and Member Portal for students/parents (`Modules/Member`).
+- **Platform Kernel:** `Modules/Core` (System, IAM/RBAC, Infra, Security).
+- **CBT Separation:** EduSIS **DOES NOT** run an interactive CBT exam runner or question authoring engine here; exam delivery is delegated to **JA-Katampi** (Aksara cluster) via API & Webhook synchronization.
+- **Infrastructure:** PostgreSQL 16+/18 with isolated schema **`edusis`** · Valkey CT 206 (`10.20.0.206:6379`) · MinIO CDN (`ja-cdn`).
 
 ## Read first
-1. [docs/WORKFLOW.md](../../docs/WORKFLOW.md) — audit → plan → implement → verify → record
-2. [docs/AGENT_START_HERE.md](../../docs/AGENT_START_HERE.md)
-3. [docs/architectural-status.md](../../docs/architectural-status.md)
-4. [AGENTS.md](../../AGENTS.md)
+1. [`docs/AGENT_START_HERE.md`](../../docs/AGENT_START_HERE.md) — Product story, domain synthesis, and architecture map.
+2. [`docs/WORKFLOW.md`](../../docs/WORKFLOW.md) — Audit → plan → implement → verify → record.
+3. [`docs/sis/01-overview-and-domain-map.md`](../../docs/sis/01-overview-and-domain-map.md) — SIS domain map & Dapodik compliance.
+4. [`docs/sis/03-integration-katampi-cbt.md`](../../docs/sis/03-integration-katampi-cbt.md) — Boundary between SIS and KataMPI CBT.
+5. [`AGENTS.md`](../../AGENTS.md) — Workspace rules, multi-host sync, and commit conventions.
 
-Task M+: create/update brief under [docs/work/](../../docs/work/README.md) from [docs/templates/task-brief.md](../../docs/templates/task-brief.md).
+Task M+: create/update brief under [`docs/work/`](../../docs/work/README.md) from [`docs/templates/task-brief.md`](../../docs/templates/task-brief.md).
 
 ## Do / don't
-- Do not call this product `ja-cms` / `JA-CMS` in new user-facing copy.
-- Do not re-add Content/Layout/Publishing/themes to `main` unless explicitly building a downstream product line.
-- Do not mark work `done` without verify evidence and task brief § Hasil (scale M+).
-- Prefer minimal diffs; run `npm run agent:verify` (or CI gates) before calling work done.
-- Never commit secrets / `.env`.
+- **Call this product JA-EduSIS** (not `ja-core_engine`, not `ja-cms`).
+- **Use `sch_*` prefix** for all School module database tables inside schema `edusis`.
+- **Do not build a CBT exam runner** in this codebase — keep exam delivery delegated to KataMPI.
+- **Protect PII data** (NISN, NIK, student & parent contact numbers) with appropriate masking and authorization.
+- **Quality Gates:** Maintain PHPStan Level 9 strict typing with zero baseline tolerance; run `npm run agent:verify` and Pest test suites before marking work done.
+- **Commit convention:** Always use `feat(...)` conventional commits (e.g. `feat(school): ...`, `feat(system): ...`).
+- **Never commit secrets / `.env`**.
 - Keep per-module `README.md` + `CHANGELOG.md` updated (see `.cursor/rules/module-documentation.mdc`).

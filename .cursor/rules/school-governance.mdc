@@ -1,0 +1,65 @@
+---
+description: School SIS Module governance — Dapodik standards, Kurikulum Merdeka, CBT boundaries, and PII protection
+globs: backend/Modules/School/**/*,frontend/src/modules/School/**/*
+alwaysApply: false
+---
+
+# School Module Governance (`Modules/School`)
+
+This rule enforces core business logic, schema conventions, and architectural boundaries for the flagship **School Information System** in JA-EduSIS.
+
+---
+
+## 1. Database & Schema Conventions
+
+* **PostgreSQL Schema**: Always run within schema **`edusis`**.
+* **Table Prefix**: All tables for the school domain **MUST** use prefix **`sch_*`** (e.g., `sch_academic_years`, `sch_study_groups`, `sch_students`, `sch_attendances`, `sch_violations`).
+* **Dapodik Compliance**: Entity attributes must strictly follow standard Kemendikbudristek Dapodik specifications (e.g., NISN 10-digit, NIK 16-digit, gender `L`/`P`, academic year format `YYYY/YYYY`).
+* **Data Types & Primary Keys**: Prefer `bigIncrements` / `id` for primary keys with standard foreign key constraints. Maintain strict soft delete (`deleted_at`) where audit history is required.
+
+---
+
+## 2. CBT Engine Boundary (Non-Negotiable)
+
+* **No In-Tree CBT Engine**: **DO NOT** build an interactive CBT exam runner, browser lockdown engine, or question bank execution runtime inside `ja-edusis`.
+* **Delegation to KataMPI**: All computer-based test delivery is handled externally by **JA-Katampi** (Aksara CBT cluster).
+* **Integration Surface**: EduSIS only manages:
+  1. Student & roster sync to KataMPI (`/school/katampi/roster`).
+  2. SSO token generation for exam access (`/school/katampi/sso-token`).
+  3. Exam score webhook ingestion and grade reconciliation (`/school/katampi/sync-grades`).
+
+---
+
+## 3. Kurikulum Merdeka & Assessment Rules
+
+* **Hierarchy**: Capaian Pembelajaran (CP) → Tujuan Pembelajaran (TP) → Materi / Lingkup Materi.
+* **Assessment Types**: Formative (assessments during learning) and Summative (assessments at end of TP/semester).
+* **P5 Integration**: Projek Penguatan Profil Pelajar Pancasila dimensions, elements, sub-elements, and qualitative rubrics (*BB, MB, BSH, SB*).
+* **Raport Generation**: Leger computation must validate that all mandatory summatives are scored before final grade export.
+
+---
+
+## 4. Student Character & Discipline (Kesiswaan)
+
+* **Accumulative Point System**: Disciplinary violation points accumulate across the academic year.
+* **Warning Letter Escalation (SP)**:
+  * Tier 1: Surat Peringatan 1 (SP1)
+  * Tier 2: Surat Peringatan 2 (SP2)
+  * Tier 3: Surat Peringatan 3 / Pemanggilan Orang Tua (SP3)
+* **BK Workflow**: Case handling, home visit notes, and counseling records must be restricted strictly to Counselor (`counselor` / `guru-bk`) and Principal roles.
+
+---
+
+## 5. PII & Data Privacy
+
+* **Protected Student Fields**: NISN, NIK, home address, parent phone number, and medical notes.
+* **Access Control**: Parents and students in Member Portal (`Modules/Member`) must only access their own records.
+* **Sanitization**: Never log raw NIK or parent phone numbers in plaintext log files or external API debuggers.
+
+---
+
+## 6. Code Quality & Verification Gates
+
+* **PHPStan Level 9**: All backend classes in `Modules/School` must pass PHPStan Level 9 with zero baseline errors.
+* **Pest Test Suites**: Feature tests in `Modules/School/tests/Feature/` (Phases 1 to 5 + Voting Engine) must pass cleanly.
+* **Frontend Typing**: Vue components and stores must be strictly typed and pass `vue-tsc --noEmit`.

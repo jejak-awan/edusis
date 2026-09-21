@@ -1,6 +1,6 @@
-# Kebijakan Dokumentasi — Jejakawan Core Engine
+# Kebijakan Dokumentasi — JA-EduSIS
 
-Panduan ini adalah **kontrak dokumentasi** untuk repo `ja-core_engine`. Semua agen dan kontributor wajib mengikutinya sebelum menambah atau memindah dokumen.
+Panduan ini adalah **kontrak dokumentasi** untuk repo `ja-edusis`. Semua agen dan kontributor wajib mengikutinya sebelum menambah atau memindah dokumen.
 
 ---
 
@@ -8,9 +8,9 @@ Panduan ini adalah **kontrak dokumentasi** untuk repo `ja-core_engine`. Semua ag
 
 Dokumentasi harus:
 
-1. Menggambarkan proyek dari aspek pemrograman yang relevan (domain, backend, frontend, theme, identity/RBAC, extensions, security, i18n, upstream/downstream, quality gates).
+1. Menggambarkan proyek dari aspek pemrograman yang relevan (domain SIS/sekolah, akademik, Dapodik, backend, frontend, theme, identity/RBAC, extensions, security, i18n, CBT boundary, quality gates).
 2. Menjaga **Single Source of Truth (SoT)** — tidak menduplikasi kontrak yang sudah hidup di kode.
-3. Menjaga **Separation of Concerns (SoC)** — core vs tema vs tenant/deployment.
+3. Menjaga **Separation of Concerns (SoC)** — core SIS vs portal publik/tema vs evaluasi eksternal CBT (KataMPI).
 4. Tetap selaras dengan codebase aktual (docs mengikuti kode, bukan sebaliknya untuk fakta implementasi).
 
 ---
@@ -21,10 +21,10 @@ Dokumentasi harus:
 | :--- | :--- | :--- |
 | **L0 — Code contract** | Schema, types, manifest, naming | Colocated di kode (mis. `module-manifest.schema.json`, `naming-conventions.md`, `theme.json`) |
 | **L1 — Module docs** | Cara modul bekerja, API permukaan | `backend/Modules/*/README.md`, `frontend/src/modules/*/README.md` (+ `CHANGELOG.md`) |
-| **L2 — Architecture** | Cross-cutting: tier, theme host, security, i18n | `docs/architecture/` |
-| **L3 — Decisions** | Kenapa X dipilih (immutable) | `docs/adr/` (core); `docs/themes/<slug>/` (ADR tema) |
-| **L4 — Product / ops** | Downstream, licensing, bootstrap | `docs/product/` |
-| **L5 — Evidence** | Audit, investigasi | `docs/audit/` (core saja). Audit/ADR tenant → repo downstream |
+| **L2 — Architecture** | Cross-cutting: tier, SIS domain map, theme host, security, i18n | `docs/architecture/`, `docs/sis/` |
+| **L3 — Decisions** | Kenapa X dipilih (immutable) | `docs/adr/` (core/SIS); `docs/themes/<slug>/` (ADR tema) |
+| **L4 — Product / ops** | Integrasi KataMPI CBT, Dapodik standards, bootstrap | `docs/product/`, `docs/sis/` |
+| **L5 — Evidence** | Audit, investigasi | `docs/audit/` |
 
 **Aturan:** `docs/` menjelaskan konteks dan **menaut** ke L0/L1. Jangan menyalin ulang schema/types ke L2 kecuali ringkasan singkat yang mudah basi.
 
@@ -36,10 +36,10 @@ Setiap dokumen baru harus masuk salah satu kuadran:
 
 | Jenis | Pertanyaan | Contoh |
 | :--- | :--- | :--- |
-| **Tutorial** | “Saya baru — bawa saya jalan” | `AGENT_START_HERE.md`, bootstrap downstream |
-| **How-to** | “Saya mau X — langkahnya?” | seed theme, packaging modul, sync RBAC |
-| **Reference** | “Apa kontraknya?” | JSON Schema, naming conventions, module contract |
-| **Explanation** | “Kenapa arsitekturnya begini?” | overview tier, Data Studio vs CCK, ADR |
+| **Tutorial** | “Saya baru — bawa saya jalan” | `AGENT_START_HERE.md`, bootstrap dev server |
+| **How-to** | “Saya mau X — langkahnya?” | seed theme, packaging modul, sync RBAC, hitung leger nilai |
+| **Reference** | “Apa kontraknya?” | JSON Schema, Dapodik specs, naming conventions, module contract |
+| **Explanation** | “Kenapa arsitekturnya begini?” | overview tier, batasan arsitektur SIS vs KataMPI CBT, ADR |
 
 Hindari dokumen hibrida panjang. Lebih baik dua file pendek yang saling link.
 
@@ -47,7 +47,7 @@ Hindari dokumen hibrida panjang. Lebih baik dua file pendek yang saling link.
 
 ## 4. SoC — apa boleh di repo ini
 
-| Boleh di `ja-core_engine/docs` | Tidak boleh (pindah ke tempat lain) |
+| Boleh di `ja-edusis/docs` | Tidak boleh (pindah ke tempat lain) |
 | :--- | :--- |
 | Arsitektur kernel & packs generik | Identitas legal/brand klien (K2NET, SMKN 6, dll.) sebagai SoT operasional |
 | ADR keputusan **engine-level** | ADR / audit yang hanya relevan satu portal tenant |
