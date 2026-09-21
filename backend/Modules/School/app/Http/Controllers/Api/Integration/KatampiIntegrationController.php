@@ -183,7 +183,7 @@ class KatampiIntegrationController extends BaseController
             $assessment = Assessment::findOrFail((int) $validated['assessment_id']);
         } else {
             $teacher = Staff::where('school_id', $schoolId)->first();
-            $teacherId = $validated['teacher_id'] ?? ($teacher?->id ?? 1);
+            $teacherId = $validated['teacher_id'] ?? ($teacher ? $teacher->id : 1);
 
             $assessment = Assessment::create([
                 'school_id' => $schoolId,

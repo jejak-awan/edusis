@@ -23,8 +23,6 @@ use Modules\School\Models\Institution\School;
  */
 class KatampiConfig extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_int_katampi_configs';
 
     protected $fillable = [
@@ -42,6 +40,9 @@ class KatampiConfig extends Model
         'sync_stats' => 'array',
     ];
 
+    /**
+     * @return BelongsTo<School, $this>
+     */
     public function school(): BelongsTo
     {
         return $this->belongsTo(School::class, 'school_id');

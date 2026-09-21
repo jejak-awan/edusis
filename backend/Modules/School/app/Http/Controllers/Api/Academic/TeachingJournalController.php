@@ -39,7 +39,7 @@ class TeachingJournalController extends BaseController
             $query->where('date', $request->input('date'));
         }
 
-        $perPage = min((int) ($request->input('per_page', 20)), 100);
+        $perPage = min($request->integer('per_page', 20), 100);
         $journals = $query->latest('date')->paginate($perPage);
 
         return $this->sendResponse($journals, 'Teaching journals retrieved');

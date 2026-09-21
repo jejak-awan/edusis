@@ -32,15 +32,18 @@ class ImportDataService
                     continue;
                 }
 
-                $fullName = (string) ($row['full_name'] ?? $row['nama_lengkap']);
-                $gender = strtoupper(trim((string) ($row['gender'] ?? $row['jenis_kelamin'] ?? 'L')));
+                $rawFullName = $row['full_name'] ?? $row['nama_lengkap'];
+                $fullName = is_string($rawFullName) ? $rawFullName : '';
+
+                $rawGender = $row['gender'] ?? $row['jenis_kelamin'] ?? 'L';
+                $gender = is_string($rawGender) ? strtoupper(trim($rawGender)) : 'L';
                 if (! in_array($gender, ['L', 'P'], true)) {
                     $gender = 'L';
                 }
 
-                $nisn = ! empty($row['nisn']) ? substr(trim((string) $row['nisn']), 0, 10) : null;
-                $nis = ! empty($row['nis']) ? substr(trim((string) $row['nis']), 0, 20) : null;
-                $nik = ! empty($row['nik']) ? substr(trim((string) $row['nik']), 0, 16) : null;
+                $nisn = ! empty($row['nisn']) && is_scalar($row['nisn']) ? substr(trim((string) $row['nisn']), 0, 10) : null;
+                $nis = ! empty($row['nis']) && is_scalar($row['nis']) ? substr(trim((string) $row['nis']), 0, 20) : null;
+                $nik = ! empty($row['nik']) && is_scalar($row['nik']) ? substr(trim((string) $row['nik']), 0, 16) : null;
 
                 $student = Student::updateOrCreate(
                     [
@@ -110,8 +113,11 @@ class ImportDataService
                     continue;
                 }
 
-                $fullName = (string) ($row['full_name'] ?? $row['nama_lengkap']);
-                $gender = strtoupper(trim((string) ($row['gender'] ?? $row['jenis_kelamin'] ?? 'L')));
+                $rawFullName = $row['full_name'] ?? $row['nama_lengkap'];
+                $fullName = is_string($rawFullName) ? $rawFullName : '';
+
+                $rawGender = $row['gender'] ?? $row['jenis_kelamin'] ?? 'L';
+                $gender = is_string($rawGender) ? strtoupper(trim($rawGender)) : 'L';
                 if (! in_array($gender, ['L', 'P'], true)) {
                     $gender = 'L';
                 }

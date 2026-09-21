@@ -25,8 +25,6 @@ use Modules\School\Models\Student\Student;
  */
 class SchoolLevel extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_ins_levels';
 
     protected $fillable = [
@@ -41,16 +39,25 @@ class SchoolLevel extends Model
         'is_active' => 'boolean',
     ];
 
+    /**
+     * @return BelongsTo<School, $this>
+     */
     public function school(): BelongsTo
     {
         return $this->belongsTo(School::class, 'school_id');
     }
 
+    /**
+     * @return HasMany<StudyGroup, $this>
+     */
     public function studyGroups(): HasMany
     {
         return $this->hasMany(StudyGroup::class, 'school_level_id');
     }
 
+    /**
+     * @return HasMany<Student, $this>
+     */
     public function students(): HasMany
     {
         return $this->hasMany(Student::class, 'school_level_id');

@@ -10,8 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class VoteBallot extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_vote_ballots';
 
     protected $fillable = [
@@ -28,11 +26,17 @@ class VoteBallot extends Model
         'voted_at' => 'datetime',
     ];
 
+    /**
+     * @return BelongsTo<VoteEvent, $this>
+     */
     public function event(): BelongsTo
     {
         return $this->belongsTo(VoteEvent::class, 'event_id');
     }
 
+    /**
+     * @return BelongsTo<VoteCandidate, $this>
+     */
     public function candidate(): BelongsTo
     {
         return $this->belongsTo(VoteCandidate::class, 'candidate_id');

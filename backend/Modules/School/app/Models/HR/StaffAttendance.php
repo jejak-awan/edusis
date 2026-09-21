@@ -28,8 +28,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class StaffAttendance extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_hr_attendances';
 
     protected $fillable = [
@@ -54,11 +52,17 @@ class StaffAttendance extends Model
         'longitude' => 'decimal:7',
     ];
 
+    /**
+     * @return BelongsTo<Staff, $this>
+     */
     public function staff(): BelongsTo
     {
         return $this->belongsTo(Staff::class, 'staff_id');
     }
 
+    /**
+     * @return BelongsTo<StaffShift, $this>
+     */
     public function shift(): BelongsTo
     {
         return $this->belongsTo(StaffShift::class, 'shift_id');

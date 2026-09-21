@@ -28,8 +28,6 @@ use Modules\School\Models\Student\Student;
  */
 class WhatsAppLog extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_comm_wa_logs';
 
     protected $fillable = [

@@ -16,6 +16,8 @@ class AttendanceService
 {
     /**
      * Simpan presensi massal siswa dalam satu rombel untuk tanggal tertentu.
+     *
+     * @param array<int, array<string, mixed>> $records
      */
     public function saveBulkStudentAttendance(
         int $studyGroupId,
@@ -82,7 +84,8 @@ class AttendanceService
         if ($shift) {
             $shiftStartTime = strtotime($shift->start_time);
             $checkInTime = strtotime($nowTime);
-            $graceMinutes = (int) ($shift->grace_period_minutes ?? config('school.attendance.staff_grace_period_minutes', 15));
+            $rawGrace = $shift->grace_period_minutes ?? config('school.attendance.staff_grace_period_minutes', 15);
+            $graceMinutes = is_numeric($rawGrace) ? (int) $rawGrace : 15;
             $graceEndTime = $shiftStartTime + ($graceMinutes * 60);
 
             if ($checkInTime > $graceEndTime) {

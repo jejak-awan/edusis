@@ -14,6 +14,8 @@ class PpdbService
 {
     /**
      * Daftarkan pendaftar calon siswa baru (PPDB).
+     *
+     * @param array<string, mixed> $data
      */
     public function registerApplicant(array $data, int $schoolId): PpdbRegistration
     {
@@ -35,6 +37,8 @@ class PpdbService
 
     /**
      * Verifikasi berkas kelengkapan pendaftar PPDB.
+     *
+     * @param array<string, mixed> $data
      */
     public function verifyApplicant(PpdbRegistration $registration, array $data): PpdbRegistration
     {
@@ -50,6 +54,8 @@ class PpdbService
 
     /**
      * Terima pendaftar PPDB menjadi siswa aktif dan terbitkan NIS sekolah.
+     *
+     * @return array{registration: PpdbRegistration, student: Student}
      */
     public function admitApplicant(PpdbRegistration $registration): array
     {

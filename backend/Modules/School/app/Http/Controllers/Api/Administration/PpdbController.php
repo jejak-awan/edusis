@@ -36,7 +36,7 @@ class PpdbController extends BaseController
         }
 
         if ($request->filled('search')) {
-            $search = (string) $request->input('search');
+            $search = $request->string('search')->toString();
             $query->where(function ($q) use ($search): void {
                 $q->where('full_name', 'like', "%{$search}%")
                     ->orWhere('registration_number', 'like', "%{$search}%")
@@ -45,7 +45,7 @@ class PpdbController extends BaseController
             });
         }
 
-        $perPage = min((int) ($request->input('per_page', 20)), 100);
+        $perPage = min($request->integer('per_page', 20), 100);
         $registrations = $query->latest('id')->paginate($perPage);
 
         return $this->sendResponse($registrations, 'PPDB registrations retrieved successfully');

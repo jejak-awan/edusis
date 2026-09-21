@@ -13,11 +13,15 @@ class StudentService
 {
     /**
      * Daftarkan siswa baru beserta biodata orang tua / wali dan rombel awal.
+     *
+     * @param array<string, mixed> $data
      */
     public function registerStudent(array $data, int $schoolId): Student
     {
         $studentData = $data;
-        $parentData = $studentData['parent'] ?? [];
+        $rawParent = $studentData['parent'] ?? [];
+        /** @var array<string, mixed> $parentData */
+        $parentData = is_array($rawParent) ? $rawParent : [];
         $studyGroupId = $studentData['study_group_id'] ?? null;
         unset($studentData['parent'], $studentData['study_group_id']);
 
@@ -45,11 +49,15 @@ class StudentService
 
     /**
      * Perbarui data pokok siswa dan data orang tua.
+     *
+     * @param array<string, mixed> $data
      */
     public function updateStudent(Student $student, array $data): Student
     {
         $studentData = $data;
-        $parentData = $studentData['parent'] ?? null;
+        $rawParent = $studentData['parent'] ?? null;
+        /** @var array<string, mixed>|null $parentData */
+        $parentData = is_array($rawParent) ? $rawParent : null;
         unset($studentData['parent']);
 
         return DB::transaction(function () use ($student, $studentData, $parentData) {
@@ -68,6 +76,8 @@ class StudentService
 
     /**
      * Dapatkan profil lengkap siswa beserta rekam jejak poin kredit, pelanggaran, dan prestasi.
+     *
+     * @return array<string, mixed>
      */
     public function getStudentProfile(int $studentId): array
     {

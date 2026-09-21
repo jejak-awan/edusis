@@ -25,7 +25,7 @@ class P5ProjectController extends BaseController
         }
 
         if ($request->filled('theme')) {
-            $query->where('theme', 'ilike', '%'.$request->input('theme').'%');
+            $query->where('theme', 'ilike', '%'.$request->string('theme')->toString().'%');
         }
 
         $projects = $query->latest()->paginate(20);

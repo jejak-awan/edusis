@@ -16,7 +16,7 @@ class ValidNISN implements ValidationRule
     /**
      * Jalankan validasi NISN.
      *
-     * @param  Closure(string): void  $fail
+     * @param  Closure(string, ?string=): \Illuminate\Translation\PotentiallyTranslatedString  $fail
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
@@ -27,23 +27,5 @@ class ValidNISN implements ValidationRule
         if (! is_string($value) || ! preg_match('/^\d{10}$/', $value)) {
             $fail('NISN harus berupa 10 digit angka numerik.');
         }
-    }
-
-    /**
-     * Verifikasi bobot checksum 10-digit NISN.
-     */
-    private function isValidNISNChecksum(string $nisn): bool
-    {
-        $digits = str_split($nisn);
-        $sum = 0;
-
-        for ($i = 0; $i < 8; $i++) {
-            $sum += ((int) $digits[$i]) * (9 - $i);
-        }
-
-        $checkDigit = $sum % 10;
-        $expectedCheckDigit = ((int) $digits[8]) * 10 + ((int) $digits[9]);
-
-        return $checkDigit === ($expectedCheckDigit % 10);
     }
 }

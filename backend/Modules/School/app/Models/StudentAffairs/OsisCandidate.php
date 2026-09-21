@@ -27,8 +27,6 @@ use Modules\School\Models\Student\Student;
  */
 class OsisCandidate extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_std_osis_candidates';
 
     protected $fillable = [

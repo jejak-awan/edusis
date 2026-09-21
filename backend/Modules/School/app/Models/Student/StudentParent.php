@@ -46,8 +46,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class StudentParent extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_std_parents';
 
     protected $fillable = [

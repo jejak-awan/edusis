@@ -70,7 +70,7 @@ class DisciplineController extends BaseController
             $query->where('is_resolved', filter_var($request->input('is_resolved'), FILTER_VALIDATE_BOOLEAN));
         }
 
-        $perPage = min((int) ($request->input('per_page', 20)), 100);
+        $perPage = min($request->integer('per_page', 20), 100);
         $violations = $query->latest('violation_date')->paginate($perPage);
 
         return $this->sendResponse($violations, 'Violations retrieved');
@@ -101,7 +101,7 @@ class DisciplineController extends BaseController
             $query->where('type', $request->input('type'));
         }
 
-        $perPage = min((int) ($request->input('per_page', 20)), 100);
+        $perPage = min($request->integer('per_page', 20), 100);
         $achievements = $query->latest('event_date')->paginate($perPage);
 
         return $this->sendResponse($achievements, 'Achievements retrieved');

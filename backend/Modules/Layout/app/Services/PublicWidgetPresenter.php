@@ -102,7 +102,7 @@ class PublicWidgetPresenter
             ? max(1, min(12, (int) $settings['count']))
             : 5;
 
-        return Content::query()
+        return array_values(Content::query()
             ->where('status', 'published')
             ->where('type', 'post')
             ->whereNotNull('published_at')
@@ -114,9 +114,9 @@ class PublicWidgetPresenter
                 'id' => (string) $row->id,
                 'title' => (string) $row->title,
                 'slug' => (string) $row->slug,
-                'excerpt' => $row->excerpt,
+                'excerpt' => $row->excerpt !== null ? (string) $row->excerpt : null,
             ])
-            ->all();
+            ->all());
     }
 
     /**
@@ -133,7 +133,7 @@ class PublicWidgetPresenter
             ? max(1, min(24, (int) $settings['count']))
             : 12;
 
-        return Category::query()
+        return array_values(Category::query()
             ->where('is_active', true)
             ->orderBy('sort_order')
             ->limit($limit)
@@ -143,6 +143,6 @@ class PublicWidgetPresenter
                 'name' => (string) $row->name,
                 'slug' => (string) $row->slug,
             ])
-            ->all();
+            ->all());
     }
 }

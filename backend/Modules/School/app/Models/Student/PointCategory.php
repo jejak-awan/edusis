@@ -21,8 +21,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class PointCategory extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_std_point_categories';
 
     protected $fillable = [

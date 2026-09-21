@@ -51,7 +51,7 @@ class DisciplineService
             ->first();
 
         $academicYearId = $activeYear ? $activeYear->id : null;
-        $semesterId = $activeYear?->activeSemester?->id ?? null;
+        $semesterId = ($activeYear && $activeYear->activeSemester) ? $activeYear->activeSemester->id : null;
 
         return DB::transaction(function () use (
             $data,

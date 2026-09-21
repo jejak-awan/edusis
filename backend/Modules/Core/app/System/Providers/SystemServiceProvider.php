@@ -97,9 +97,12 @@ class SystemServiceProvider extends ServiceProvider
                 ->values()
                 ->all();
 
+            $rawClientName = $client instanceof Client ? $client->getAttribute('name') : null;
+            $clientName = is_string($rawClientName) || is_numeric($rawClientName) ? (string) $rawClientName : '';
+
             return redirect()->to('/'.Setting::resolveConsoleDashboardSlug().'/oauth/consent?'.http_build_query([
                 'auth_token' => $authToken,
-                'client' => $client->name,
+                'client' => $clientName,
                 'scopes' => implode(' ', $scopeIds),
             ]));
         });

@@ -17,16 +17,20 @@ class LetterService
         $month = (int) date('n');
         $romanMonth = $this->getRomanMonth($month);
 
-        $codeMap = config('school.operations.letter_classification_codes', [
+        $rawCodeMap = config('school.operations.letter_classification_codes');
+        /** @var array<string, string> $defaultCodeMap */
+        $defaultCodeMap = [
             'invitation' => '005',
             'assignment' => '090',
             'decree' => '421.5',
             'certificate' => '421.3',
             'circular' => '005',
             'general' => '420',
-        ]);
+        ];
+        $codeMap = is_array($rawCodeMap) ? $rawCodeMap : $defaultCodeMap;
 
-        $classificationCode = $codeMap[$category] ?? '420';
+        $rawCode = $codeMap[$category] ?? '420';
+        $classificationCode = is_string($rawCode) ? $rawCode : '420';
 
         $count = Letter::where('school_id', $schoolId)
             ->whereYear('created_at', $year)
@@ -52,6 +56,8 @@ class LetterService
 
     /**
      * Simpan surat masuk / keluar baru.
+     *
+     * @param array<string, mixed> $data
      */
     public function createLetter(array $data, int $schoolId): Letter
     {
@@ -64,6 +70,8 @@ class LetterService
 
     /**
      * Catat arahan disposisi pimpinan atas surat.
+     *
+     * @param array<string, mixed> $data
      */
     public function updateDisposition(Letter $letter, array $data): Letter
     {

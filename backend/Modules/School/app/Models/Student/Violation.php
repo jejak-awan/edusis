@@ -26,8 +26,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Violation extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_std_violations';
 
     protected $fillable = [

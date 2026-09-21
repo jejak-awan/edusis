@@ -28,8 +28,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Achievement extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_std_achievements';
 
     protected $fillable = [

@@ -11,8 +11,6 @@ use Modules\School\Models\Student\Student;
 
 class StudyGroupMember extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_acad_study_group_members';
 
     protected $fillable = [
@@ -21,11 +19,17 @@ class StudyGroupMember extends Model
         'status',
     ];
 
+    /**
+     * @return BelongsTo<StudyGroup, $this>
+     */
     public function studyGroup(): BelongsTo
     {
         return $this->belongsTo(StudyGroup::class, 'study_group_id');
     }
 
+    /**
+     * @return BelongsTo<Student, $this>
+     */
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class, 'student_id');

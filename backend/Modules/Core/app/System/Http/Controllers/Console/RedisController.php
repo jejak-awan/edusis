@@ -571,7 +571,9 @@ class RedisController extends BaseApiController
             return strtolower($type);
         }
 
-        return match ((int) $type) {
+        $intType = is_numeric($type) ? (int) $type : 0;
+
+        return match ($intType) {
             1 => 'string',
             2 => 'set',
             3 => 'list',

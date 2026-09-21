@@ -28,8 +28,6 @@ use Modules\School\Models\Student\Student;
  */
 class VoteVoter extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_vote_voters';
 
     protected $fillable = [
@@ -51,16 +49,25 @@ class VoteVoter extends Model
         'token_generated_at' => 'datetime',
     ];
 
+    /**
+     * @return BelongsTo<VoteEvent, $this>
+     */
     public function event(): BelongsTo
     {
         return $this->belongsTo(VoteEvent::class, 'event_id');
     }
 
+    /**
+     * @return BelongsTo<Student, $this>
+     */
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class, 'student_id');
     }
 
+    /**
+     * @return BelongsTo<Staff, $this>
+     */
     public function staff(): BelongsTo
     {
         return $this->belongsTo(Staff::class, 'staff_id');

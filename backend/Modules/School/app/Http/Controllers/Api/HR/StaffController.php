@@ -19,7 +19,7 @@ class StaffController extends BaseController
         $query = Staff::where('school_id', $schoolId);
 
         if ($request->filled('search')) {
-            $search = '%'.trim((string) $request->input('search')).'%';
+            $search = '%'.trim($request->string('search')->toString()).'%';
             $query->where(function ($q) use ($search) {
                 $q->where('full_name', 'ilike', $search)
                     ->orWhere('nip', 'ilike', $search)
@@ -32,10 +32,10 @@ class StaffController extends BaseController
         }
 
         if ($request->filled('role_title')) {
-            $query->where('role_title', 'ilike', '%'.$request->input('role_title').'%');
+            $query->where('role_title', 'ilike', '%'.$request->string('role_title')->toString().'%');
         }
 
-        $perPage = min((int) ($request->input('per_page', 20)), 100);
+        $perPage = min($request->integer('per_page', 20), 100);
         $staff = $query->orderBy('full_name')->paginate($perPage);
 
         return $this->sendResponse($staff, 'Staff members retrieved');

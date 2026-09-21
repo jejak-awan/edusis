@@ -11,6 +11,7 @@ use Modules\Core\System\Services\ExtensionBootstrapService;
 use Modules\Core\System\Services\LicenseService;
 use Modules\Core\System\Support\ExtensionFamilyCatalog;
 use Modules\Layout\Models\Theme;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
@@ -19,6 +20,8 @@ use Tests\TestCase;
  */
 final class ThemePackRegistryTest extends TestCase
 {
+    use RefreshDatabase;
+
     private LicenseService $license;
 
     protected function setUp(): void

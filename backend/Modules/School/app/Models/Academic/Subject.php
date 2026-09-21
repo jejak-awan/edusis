@@ -11,8 +11,6 @@ use Modules\School\Models\Institution\School;
 
 class Subject extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_acad_subjects';
 
     protected $fillable = [
@@ -29,6 +27,9 @@ class Subject extends Model
         'is_active' => 'boolean',
     ];
 
+    /**
+     * @return BelongsTo<School, $this>
+     */
     public function school(): BelongsTo
     {
         return $this->belongsTo(School::class, 'school_id');

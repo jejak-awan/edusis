@@ -101,7 +101,7 @@ class FacilityController extends BaseController
         }
 
         if ($request->filled('search')) {
-            $search = (string) $request->input('search');
+            $search = $request->string('search')->toString();
             $query->where(function ($q) use ($search): void {
                 $q->where('name', 'like', "%{$search}%")
                     ->orWhere('code', 'like', "%{$search}%")
@@ -109,7 +109,7 @@ class FacilityController extends BaseController
             });
         }
 
-        $perPage = min((int) ($request->input('per_page', 20)), 100);
+        $perPage = min($request->integer('per_page', 20), 100);
         $assets = $query->latest('id')->paginate($perPage);
 
         return $this->sendResponse($assets, 'Assets retrieved successfully');
@@ -175,7 +175,7 @@ class FacilityController extends BaseController
             $query->where('priority', $request->input('priority'));
         }
 
-        $perPage = min((int) ($request->input('per_page', 20)), 100);
+        $perPage = min($request->integer('per_page', 20), 100);
         $tickets = $query->latest('id')->paginate($perPage);
 
         return $this->sendResponse($tickets, 'Maintenance tickets retrieved successfully');

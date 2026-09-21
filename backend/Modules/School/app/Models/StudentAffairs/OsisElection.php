@@ -26,8 +26,6 @@ use Modules\School\Models\Institution\School;
  */
 class OsisElection extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_std_osis_elections';
 
     protected $fillable = [
@@ -45,11 +43,17 @@ class OsisElection extends Model
         'end_date' => 'datetime',
     ];
 
+    /**
+     * @return BelongsTo<School, $this>
+     */
     public function school(): BelongsTo
     {
         return $this->belongsTo(School::class, 'school_id');
     }
 
+    /**
+     * @return BelongsTo<AcademicYear, $this>
+     */
     public function academicYear(): BelongsTo
     {
         return $this->belongsTo(AcademicYear::class, 'academic_year_id');
@@ -63,6 +67,9 @@ class OsisElection extends Model
         return $this->hasMany(OsisCandidate::class, 'election_id')->orderBy('candidate_number');
     }
 
+    /**
+     * @return HasMany<OsisVote, $this>
+     */
     public function votes(): HasMany
     {
         return $this->hasMany(OsisVote::class, 'election_id');

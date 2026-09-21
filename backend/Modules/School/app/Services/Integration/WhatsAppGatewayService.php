@@ -111,7 +111,7 @@ class WhatsAppGatewayService
             }
 
             $statusLabel = $statusLabels[$att->status] ?? $att->status;
-            $groupName = $att->studyGroup?->name ?? '-';
+            $groupName = $att->studyGroup ? $att->studyGroup->name : '-';
 
             $message = sprintf(
                 "Yth. %s,\n\nKami menginformasikan bahwa putra/putri Anda:\nNama: *%s*\nKelas: *%s*\nTanggal: *%s*\nStatus Presensi: *%s*\n\nMohon konfirmasi atau hubungi pihak sekolah jika terdapat kekeliruan.\nTerima kasih.\n\n— *%s*",

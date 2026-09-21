@@ -11,8 +11,6 @@ use Modules\School\Models\Institution\School;
 
 class Letter extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_adm_letters';
 
     protected $fillable = [
@@ -39,6 +37,9 @@ class Letter extends Model
         'received_or_sent_date' => 'date',
     ];
 
+    /**
+     * @return BelongsTo<School, $this>
+     */
     public function school(): BelongsTo
     {
         return $this->belongsTo(School::class, 'school_id');

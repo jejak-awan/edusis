@@ -140,7 +140,7 @@ class AssessmentCalculationService
             ->with('activeSemester')
             ->first();
 
-        $semesterId = $activeYear?->activeSemester?->id ?? 1;
+        $semesterId = ($activeYear && $activeYear->activeSemester) ? $activeYear->activeSemester->id : 1;
 
         $subjects = Subject::where('school_id', $schoolId)
             ->where('is_active', true)
@@ -218,8 +218,8 @@ class AssessmentCalculationService
             ->with('activeSemester')
             ->first();
 
-        $academicYearId = $activeYear?->id ?? 1;
-        $semesterId = $activeYear?->activeSemester->id ?? 1;
+        $academicYearId = $activeYear ? $activeYear->id : 1;
+        $semesterId = ($activeYear && $activeYear->activeSemester) ? $activeYear->activeSemester->id : 1;
 
         $reportCards = ReportCard::where('student_id', $studentId)
             ->where('academic_year_id', $academicYearId)

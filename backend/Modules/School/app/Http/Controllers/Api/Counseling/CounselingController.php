@@ -40,7 +40,7 @@ class CounselingController extends BaseController
             $query->where('confidentiality', $request->input('confidentiality'));
         }
 
-        $perPage = min((int) ($request->input('per_page', 20)), 100);
+        $perPage = min($request->integer('per_page', 20), 100);
         $cases = $query->latest('date')->paginate($perPage);
 
         return $this->sendResponse($cases, 'Counseling cases retrieved successfully');

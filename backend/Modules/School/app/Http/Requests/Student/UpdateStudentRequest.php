@@ -17,6 +17,9 @@ class UpdateStudentRequest extends FormRequest
         return true;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function rules(): array
     {
         $studentId = $this->route('id') ?? $this->route('student');

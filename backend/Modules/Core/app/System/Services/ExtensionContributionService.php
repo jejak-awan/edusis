@@ -77,10 +77,12 @@ class ExtensionContributionService
             return [];
         }
 
+        /** @var list<string> $present */
         $present = Permission::query()
             ->where('guard_name', 'web')
             ->whereIn('name', $declared)
             ->pluck('name')
+            ->map(static fn (mixed $item): string => is_string($item) || is_numeric($item) ? (string) $item : '')
             ->all();
 
         return array_values(array_diff($declared, $present));
@@ -94,8 +96,9 @@ class ExtensionContributionService
     public function declaredWidgets(Extension $extension): array
     {
         $raw = [];
-        if (is_array($extension->manifest) && isset($extension->manifest['contribution_points']['widgets']) && is_array($extension->manifest['contribution_points']['widgets'])) {
-            $raw = $extension->manifest['contribution_points']['widgets'];
+        $manifest = $extension->manifest;
+        if (is_array($manifest) && isset($manifest['contribution_points']) && is_array($manifest['contribution_points']) && isset($manifest['contribution_points']['widgets']) && is_array($manifest['contribution_points']['widgets'])) {
+            $raw = $manifest['contribution_points']['widgets'];
         }
 
         $out = [];

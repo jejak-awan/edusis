@@ -47,6 +47,9 @@ class BaseController extends Controller
         ], $code);
     }
 
+    /**
+     * @param array<string, mixed>|list<string> $errorMessages
+     */
     public function sendError(string $error, array $errorMessages = [], int $code = 400): JsonResponse
     {
         $response = [

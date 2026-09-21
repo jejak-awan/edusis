@@ -24,8 +24,6 @@ use Modules\School\Models\Student\Student;
  */
 class Grade extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_acad_grades';
 
     protected $fillable = [
@@ -41,11 +39,17 @@ class Grade extends Model
         'remedial_score' => 'decimal:2',
     ];
 
+    /**
+     * @return BelongsTo<Assessment, $this>
+     */
     public function assessment(): BelongsTo
     {
         return $this->belongsTo(Assessment::class, 'assessment_id');
     }
 
+    /**
+     * @return BelongsTo<Student, $this>
+     */
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class, 'student_id');

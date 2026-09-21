@@ -31,8 +31,6 @@ use Modules\School\Models\Student\Student;
  */
 class VoteCandidate extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_vote_candidates';
 
     protected $fillable = [
@@ -85,6 +83,9 @@ class VoteCandidate extends Model
         return $this->belongsTo(Staff::class, 'staff_id');
     }
 
+    /**
+     * @return HasMany<VoteBallot, $this>
+     */
     public function ballots(): HasMany
     {
         return $this->hasMany(VoteBallot::class, 'candidate_id');

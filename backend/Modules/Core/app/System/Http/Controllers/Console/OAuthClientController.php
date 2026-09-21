@@ -113,13 +113,16 @@ class OAuthClientController extends BaseApiController
         $redirectUrisRaw = $client->getAttribute('redirect_uris');
         $redirectUris = is_array($redirectUrisRaw) ? $redirectUrisRaw : [];
 
+        $id = $client->getKey();
+        $name = $client->getAttribute('name');
+
         $payload = [
-            'id' => $client->id,
-            'name' => $client->name,
+            'id' => is_scalar($id) ? (string) $id : '',
+            'name' => is_string($name) ? $name : '',
             'redirect' => $redirectUris[0] ?? '',
             'redirect_uris' => $redirectUris,
-            'revoked' => (bool) $client->revoked,
-            'created_at' => $client->created_at,
+            'revoked' => (bool) $client->getAttribute('revoked'),
+            'created_at' => $client->getAttribute('created_at'),
         ];
 
         if ($includeSecret && ! empty($client->plainSecret)) {

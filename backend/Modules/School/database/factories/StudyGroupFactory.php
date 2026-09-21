@@ -18,10 +18,13 @@ class StudyGroupFactory extends Factory
 {
     protected $model = StudyGroup::class;
 
+    /**
+     * @return array<string, mixed>
+     */
     public function definition(): array
     {
         $grade = $this->faker->numberBetween(10, 12);
-        $suffix = $this->faker->randomElement(['A', 'B', 'C', 'D']);
+        $suffix = is_string($this->faker->randomElement(['A', 'B', 'C', 'D'])) ? $this->faker->randomElement(['A', 'B', 'C', 'D']) : 'A';
 
         return [
             'school_id' => School::factory(),

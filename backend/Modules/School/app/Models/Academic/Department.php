@@ -26,6 +26,7 @@ use Modules\School\Models\Student\Student;
  */
 class Department extends Model
 {
+    /** @use HasFactory<\Modules\School\Database\Factories\DepartmentFactory> */
     use HasFactory;
 
     protected $table = 'sch_acad_departments';
@@ -42,16 +43,25 @@ class Department extends Model
         'is_active' => 'boolean',
     ];
 
+    /**
+     * @return BelongsTo<School, $this>
+     */
     public function school(): BelongsTo
     {
         return $this->belongsTo(School::class, 'school_id');
     }
 
+    /**
+     * @return HasMany<StudyGroup, $this>
+     */
     public function studyGroups(): HasMany
     {
         return $this->hasMany(StudyGroup::class, 'department_id');
     }
 
+    /**
+     * @return HasMany<Student, $this>
+     */
     public function students(): HasMany
     {
         return $this->hasMany(Student::class, 'department_id');

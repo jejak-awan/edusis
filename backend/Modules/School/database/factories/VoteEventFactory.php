@@ -18,15 +18,20 @@ class VoteEventFactory extends Factory
 {
     protected $model = VoteEvent::class;
 
+    /**
+     * @return array<string, mixed>
+     */
     public function definition(): array
     {
         $startDate = $this->faker->dateTimeBetween('now', '+7 days');
         $endDate = $this->faker->dateTimeBetween('+8 days', '+14 days');
+        $rawName = $this->faker->randomElement(['Ketua OSIS', 'Ketua MPK', 'Ekstrakurikuler Favorit']);
+        $eventName = is_string($rawName) ? $rawName : 'Ketua OSIS';
 
         return [
             'school_id' => School::factory(),
             'academic_year_id' => AcademicYear::factory(),
-            'title' => 'Pemilihan '.$this->faker->randomElement(['Ketua OSIS', 'Ketua MPK', 'Ekstrakurikuler Favorit']),
+            'title' => 'Pemilihan '.$eventName,
             'type' => $this->faker->randomElement(['osis', 'mpk', 'ekskul', 'polling']),
             'description' => $this->faker->optional()->sentence(),
             'target_audience' => $this->faker->randomElement(['all_students', 'specific_classes']),

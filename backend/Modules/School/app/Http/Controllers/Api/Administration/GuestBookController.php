@@ -27,7 +27,7 @@ class GuestBookController extends BaseController
         }
 
         if ($request->filled('search')) {
-            $search = (string) $request->input('search');
+            $search = $request->string('search')->toString();
             $query->where(function ($q) use ($search): void {
                 $q->where('visitor_name', 'like', "%{$search}%")
                     ->orWhere('institution', 'like', "%{$search}%")
@@ -36,7 +36,7 @@ class GuestBookController extends BaseController
             });
         }
 
-        $perPage = min((int) ($request->input('per_page', 20)), 100);
+        $perPage = min($request->integer('per_page', 20), 100);
         $guests = $query->latest('check_in_at')->paginate($perPage);
 
         return $this->sendResponse($guests, 'Guest book records retrieved successfully');
@@ -82,7 +82,7 @@ class GuestBookController extends BaseController
     {
         $guest = GuestBook::findOrFail($id);
         if ($request->filled('notes')) {
-            $guest->notes = $request->input('notes');
+            $guest->notes = $request->string('notes')->toString();
         }
         $updated = $this->guestBookService->checkOut($guest);
 

@@ -12,8 +12,6 @@ use Modules\School\Models\Institution\School;
 
 class Asset extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_fac_assets';
 
     protected $fillable = [
@@ -30,16 +28,25 @@ class Asset extends Model
         'notes',
     ];
 
+    /**
+     * @return BelongsTo<School, $this>
+     */
     public function school(): BelongsTo
     {
         return $this->belongsTo(School::class, 'school_id');
     }
 
+    /**
+     * @return BelongsTo<Room, $this>
+     */
     public function room(): BelongsTo
     {
         return $this->belongsTo(Room::class, 'room_id');
     }
 
+    /**
+     * @return HasMany<MaintenanceTicket, $this>
+     */
     public function maintenanceTickets(): HasMany
     {
         return $this->hasMany(MaintenanceTicket::class, 'asset_id');

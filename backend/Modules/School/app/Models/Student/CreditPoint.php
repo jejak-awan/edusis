@@ -36,8 +36,6 @@ use Modules\School\Models\Academic\Semester;
  */
 class CreditPoint extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_std_credit_points';
 
     protected $fillable = [

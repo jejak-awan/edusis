@@ -48,6 +48,7 @@ use Modules\School\Models\Institution\SchoolLevel;
  */
 class Student extends Model
 {
+    /** @use HasFactory<\Modules\School\Database\Factories\StudentFactory> */
     use HasFactory, SoftDeletes;
 
     protected $table = 'sch_std_students';

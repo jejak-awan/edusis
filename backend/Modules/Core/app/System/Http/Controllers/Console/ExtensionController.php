@@ -379,12 +379,14 @@ class ExtensionController extends BaseApiController
             if ($license !== null) {
                 $preview['license'] = $license;
                 $preview['can_proceed'] = false;
-                $preview['blockers'][] = [
+                $blockers = is_array($preview['blockers'] ?? null) ? $preview['blockers'] : [];
+                $blockers[] = [
                     'slug' => 'license',
                     'name' => 'license',
                     'reason' => 'license',
                     'satisfied' => false,
                 ];
+                $preview['blockers'] = $blockers;
             }
         }
 
@@ -1464,7 +1466,7 @@ class ExtensionController extends BaseApiController
 
         if (is_string($family) && $family !== '') {
             $catalog = ExtensionFamilyCatalog::slugsInFamily($family);
-            $fromDb = Extension::query()->where('family', $family)->pluck('slug')->all();
+            $fromDb = Extension::query()->where('family', $family)->pluck('slug')->map(static fn (mixed $s): string => is_string($s) || is_numeric($s) ? (string) $s : '')->all();
             $merged = array_values(array_unique(array_merge($catalog, $fromDb, $extraSlugs)));
             if ($merged === []) {
                 return [];
@@ -1635,6 +1637,9 @@ class ExtensionController extends BaseApiController
         ]);
     }
 
+    /**
+     * @param list<string> $cascadeSlugs
+     */
     protected function performActivation(Extension $extension, array $cascadeSlugs = []): Extension
     {
         $versionBefore = $extension->version;

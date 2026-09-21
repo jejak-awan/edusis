@@ -12,8 +12,6 @@ use Modules\School\Models\Institution\School;
 
 class Extracurricular extends Model
 {
-    use HasFactory;
-
     protected $table = 'sch_std_extracurriculars';
 
     protected $fillable = [
@@ -31,11 +29,17 @@ class Extracurricular extends Model
         'is_active' => 'boolean',
     ];
 
+    /**
+     * @return BelongsTo<School, $this>
+     */
     public function school(): BelongsTo
     {
         return $this->belongsTo(School::class, 'school_id');
     }
 
+    /**
+     * @return BelongsTo<Staff, $this>
+     */
     public function advisor(): BelongsTo
     {
         return $this->belongsTo(Staff::class, 'advisor_staff_id');

@@ -10,6 +10,8 @@ class GuestBookService
 {
     /**
      * Catat kedatangan tamu sekolah dan terbitkan nomor badge pengenal.
+     *
+     * @param array<string, mixed> $data
      */
     public function checkIn(array $data, int $schoolId): GuestBook
     {

@@ -12,6 +12,8 @@ class FacilityService
 {
     /**
      * Daftarkan ruangan / laboratorium / bengkel baru sekolah.
+     *
+     * @param array<string, mixed> $data
      */
     public function createRoom(array $data, int $schoolId): Room
     {
@@ -24,6 +26,8 @@ class FacilityService
 
     /**
      * Daftarkan aset sarana dan prasarana.
+     *
+     * @param array<string, mixed> $data
      */
     public function createAsset(array $data, int $schoolId): Asset
     {
@@ -34,6 +38,8 @@ class FacilityService
 
     /**
      * Laporkan tiket kendala / kerusakan sarpras.
+     *
+     * @param array<string, mixed> $data
      */
     public function reportMaintenanceTicket(array $data, int $schoolId): MaintenanceTicket
     {
@@ -51,6 +57,8 @@ class FacilityService
 
     /**
      * Catat penanganan dan penutupan tiket perbaikan sarpras.
+     *
+     * @param array<string, mixed> $data
      */
     public function resolveMaintenanceTicket(MaintenanceTicket $ticket, array $data): MaintenanceTicket
     {

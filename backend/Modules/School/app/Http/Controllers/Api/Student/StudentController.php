@@ -25,7 +25,7 @@ class StudentController extends BaseController
             ->with(['level', 'department', 'studyGroups', 'parent']);
 
         if ($request->filled('search')) {
-            $search = '%'.trim((string) $request->input('search')).'%';
+            $search = '%'.trim($request->string('search')->toString()).'%';
             $query->where(function ($q) use ($search) {
                 $q->where('full_name', 'ilike', $search)
                     ->orWhere('nisn', 'ilike', $search)
@@ -53,7 +53,7 @@ class StudentController extends BaseController
             });
         }
 
-        $perPage = min((int) ($request->input('per_page', 15)), 100);
+        $perPage = min($request->integer('per_page', 15), 100);
         $students = $query->orderBy('full_name')->paginate($perPage);
 
         return $this->sendResponse($students, 'Students retrieved');

@@ -16,7 +16,7 @@ class ValidNIK implements ValidationRule
     /**
      * Jalankan validasi NIK.
      *
-     * @param  Closure(string): void  $fail
+     * @param  Closure(string, ?string=): \Illuminate\Translation\PotentiallyTranslatedString  $fail
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {

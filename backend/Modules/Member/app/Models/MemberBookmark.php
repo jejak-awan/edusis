@@ -9,6 +9,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\Publishing\Models\Content;
 
+/**
+ * @property string $id
+ * @property string $member_id
+ * @property string $content_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Member|null $member
+ * @property-read Content|null $content
+ */
 class MemberBookmark extends Model
 {
     use HasUuids;

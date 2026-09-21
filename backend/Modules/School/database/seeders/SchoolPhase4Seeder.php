@@ -279,11 +279,16 @@ class SchoolPhase4Seeder extends Seeder
         }
 
         if ($students->count() >= 2) {
+            $s0 = $students->get(0);
+            $s1 = $students->get(1);
+            $s2 = $students->get(2);
+            $s3 = $students->get(3);
+
             $paslon1 = OsisCandidate::firstOrCreate(
                 ['election_id' => $election->id, 'candidate_number' => 1],
                 [
-                    'chairman_student_id' => $students->get(0)?->id ?? 1,
-                    'vice_chairman_student_id' => $students->get(1)?->id ?? 1,
+                    'chairman_student_id' => $s0 ? $s0->id : 1,
+                    'vice_chairman_student_id' => $s1 ? $s1->id : 1,
                     'vision' => 'Mewujudkan OSIS yang Proaktif, Inovatif, Berkarakter Pancasila, dan Unggul dalam Kolaborasi Digital.',
                     'mission' => "1. Meningkatkan literasi teknologi dan kreativitas siswa melalui workshop industri.\n2. Mengoptimalkan wadah aspirasi siswa berbasis platform digital terbuka.\n3. Menyelenggarakan kegiatan keagamaan, sosial, dan perlombaan seni-olahraga berkala.",
                     'photo_url' => '/images/osis/paslon-1.jpg',
@@ -294,8 +299,8 @@ class SchoolPhase4Seeder extends Seeder
             $paslon2 = OsisCandidate::firstOrCreate(
                 ['election_id' => $election->id, 'candidate_number' => 2],
                 [
-                    'chairman_student_id' => $students->get(2)?->id ?? 1,
-                    'vice_chairman_student_id' => $students->get(3)?->id ?? 1,
+                    'chairman_student_id' => $s2 ? $s2->id : 1,
+                    'vice_chairman_student_id' => $s3 ? $s3->id : 1,
                     'vision' => 'Membangun Ekosistem Kesiswaan yang Inklusif, Disiplin, Peduli Lingkungan, dan Berdaya Saing Global.',
                     'mission' => "1. Menumbuhkan budaya green-campus dan pengelolaan sampah mandiri di lingkungan sekolah.\n2. Mengembangkan program mentoring sebaya untuk prestasi akademik dan non-akademik.\n3. Mempererat persaudaraan antarkelas melalui festival kreasi siswa dan pekan olahraga sekolah.",
                     'photo_url' => '/images/osis/paslon-2.jpg',

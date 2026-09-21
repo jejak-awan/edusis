@@ -703,7 +703,8 @@ class SystemService
         }
 
         // Database engine & version
-        $dbEngine = config('database.default', 'mysql');
+        $rawDbEngine = config('database.default', 'mysql');
+        $dbEngine = is_string($rawDbEngine) ? $rawDbEngine : 'mysql';
         $dbVersion = 'Unknown';
         try {
             $dbVersionRow = DB::select('SELECT VERSION() as v');

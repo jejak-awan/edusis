@@ -17,6 +17,9 @@ class DepartmentFactory extends Factory
 {
     protected $model = Department::class;
 
+    /**
+     * @return array<string, mixed>
+     */
     public function definition(): array
     {
         $departments = [
@@ -27,6 +30,7 @@ class DepartmentFactory extends Factory
             ['code' => 'OTKP', 'name' => 'Otomatisasi & Tata Kelola Perkantoran'],
             ['code' => 'BDP', 'name' => 'Bisnis Daring & Pemasaran'],
         ];
+        /** @var array{code: string, name: string} $dept */
         $dept = $this->faker->randomElement($departments);
 
         return [
