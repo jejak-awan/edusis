@@ -1,8 +1,8 @@
-# Changelog
+# Changelog — JA-EduSIS (`ja-edusis`)
 
-Semua perubahan penting pada **Jejakawan Core Engine (`ja-core_engine`)**.
+Semua perubahan penting pada **JA-EduSIS** (*Jejakawan Educational School Information System*).
 
-> Fork dari **`ja-cms`** → master kernel untuk aplikasi downstream. Branch `develop` (line CMS) dihapus Aug 2026; Content/member/themes = downstream, bukan scope `main`.
+> Repositori mandiri terisolasi (*hard-isolated*) turunan Core Engine per [ADR-029](docs/adr/ADR-029-edusis-domain-and-multi-repo-synthesis.md) khusus untuk sistem informasi sekolah terpadu, manajemen akademik Kurikulum Merdeka, dan portal komunitas pendidikan.
 
 Format: [Keep a Changelog](https://keepachangelog.com/id/1.0.0/) · [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 

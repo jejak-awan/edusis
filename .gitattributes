@@ -14,8 +14,8 @@
 *.ttf binary
 *.eot binary
 
-# Upstream Core Repository Contract:
-# All theme packages and demo seeders in ja-core_engine are upstream-owned,
-# 100% platform-agnostic, and must have ZERO client-specific hardcoding.
-# Downstream client identities are injected via downstream deployment seeders.
-# @see docs/branching.md
+# JA-EduSIS Repository Contract:
+# Enterprise-grade Integrated School Information System (SIS) & Educational Portal.
+# All school data schemas must follow Kemendikbudristek Dapodik standards.
+# CBT engine delivery is decoupled and delegated to JA-Katampi.
+# @see docs/AGENT_START_HERE.md
