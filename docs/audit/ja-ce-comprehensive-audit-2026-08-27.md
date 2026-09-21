@@ -249,7 +249,6 @@ Pendapat agent untuk sesi dewa — **boleh ditolak**:
 - [architectural-status.md](../architectural-status.md)
 - [lifecycle.md](../extensions/lifecycle.md)
 - [module-contract.md](../extensions/module-contract.md)
-- [data-studio-vs-cck.md](../architecture/data-studio-vs-cck.md)
 - [AGENT_START_HERE.md](../AGENT_START_HERE.md)
 - Canvas: workspace `canvases/ja-ce-comprehensive-audit.canvas.tsx`
 

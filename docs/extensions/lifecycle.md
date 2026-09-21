@@ -74,4 +74,5 @@ Console remains `/dash`. Do not send public 404 Home to the console SPA.
 
 ## Still not this document
 
-Vertical modules and GitHub Actions billing — see [architectural-status.md](../architectural-status.md). Data Studio vs CCK: [data-studio-vs-cck.md](../architecture/data-studio-vs-cck.md). Full RBAC/seeder audit: [rbac-and-lifecycle-seeders.md](./rbac-and-lifecycle-seeders.md).
+Vertical modules and GitHub Actions billing — see [architectural-status.md](../architectural-status.md). Full RBAC/seeder audit: [rbac-and-lifecycle-seeders.md](./rbac-and-lifecycle-seeders.md).
+

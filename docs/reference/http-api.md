@@ -60,7 +60,6 @@ bash scripts/member-security-qa.sh   # member auth surface
 
 ## Related
 
-- Data Studio vs CCK: [data-studio-vs-cck.md](../architecture/data-studio-vs-cck.md)
 - ADR-012 (Data Model Studio modular)
 - CLI index: [cli-commands.md](cli-commands.md)
 - Security how-to: [security-checks.md](../guides/security-checks.md)
