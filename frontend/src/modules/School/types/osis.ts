@@ -108,5 +108,7 @@ export interface VotingQuickCountData {
 }
 
 export type VotingCandidate = VoteCandidateData;
+export type CandidateData = VoteCandidateData;
 export type VotingEvent = VoteEventData;
+export type ElectionData = OsisElectionData;
 export type VotingVoter = VoteVoterData;

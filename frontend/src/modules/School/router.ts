@@ -229,6 +229,18 @@ export const schoolRoutes: RouteRecordRaw[] = [
         },
     },
     {
+        path: 'school/osis/elections/:id/results',
+        name: 'school.osis.results',
+        component: () => import('@/modules/School/views/osis/ElectionResults.vue'),
+        meta: {
+            extension: 'school',
+            subFeature: 'school.osis',
+            permission: 'view voting results',
+            title: 'school.osis.results',
+            breadcrumb: 'school.osis.results',
+        },
+    },
+    {
         path: 'school/guests',
         name: 'school.guests',
         component: () => import('@/modules/School/views/operations/GuestBook.vue'),
@@ -394,6 +406,16 @@ export const schoolRoutes: RouteRecordRaw[] = [
             subFeature: 'school.admission',
             title: 'school.ppdb.title',
             breadcrumb: 'school.ppdb.title',
+        },
+    },
+    {
+        path: 'school/public/offline-voting',
+        name: 'school.public.offlineVoting',
+        component: () => import('@/modules/School/views/public/OfflineVoting.vue'),
+        meta: {
+            subFeature: 'school.osis',
+            title: 'school.osis.title',
+            breadcrumb: 'school.osis.title',
         },
     },
 ];
