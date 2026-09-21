@@ -8,12 +8,13 @@ Dokumentasi **lintas-repo** untuk paket tema publik di Core Engine.
 
 ## Paket tema
 
-| Tema | Status | Fokus | SoT di kode | Docs di sini |
-| :--- | :--- | :--- | :--- | :--- |
-| [Sarangenge](sarangenge/README.md) | **Active (Default Baseline)** | Sekolah / vokasi / kampus | [`.../sarangenge/readme.md`](../../frontend/src/modules/Layout/views/themes/sarangenge/readme.md) | Indeks |
-| [Janari](janari/README.md) | Decommissioned (ADR-032) | CMS korporat / legacy reference | Pruned | Indeks Arsip |
-| [Layung](layung/README.md) | Decommissioned (ADR-032) | ISP / fiber / MSP | Pruned | Indeks Arsip + ADR-001, 007, 008 |
-| [Sareupna](sareupna/README.md) | Decommissioned (ADR-032) | Cloud / developer platform | Pruned | Indeks Arsip |
+| Tema | Status | Fokus | SoT di kode |
+| :--- | :--- | :--- | :--- |
+| [Sarangenge](sarangenge/README.md) | **Active (Default Baseline Tunggal)** | Sekolah / vokasi / kampus | [`.../sarangenge/readme.md`](../../frontend/src/modules/Layout/views/themes/sarangenge/readme.md) |
+
+> [!NOTE]
+> **Pembersihan Tema Legacy:** Berdasarkan [ADR-032](../adr/ADR-032-sarangenge-as-unified-baseline-theme-and-legacy-theme-pruning.md), paket tema lama (`janari`, `layung`, dan `sareupna`) telah didekomisi dan dihapus dari repositori JA-EduSIS untuk memfokuskan platform sepenuhnya pada ekosistem pendidikan kejuruan dan sekolah.
+
 
 ## Cross-cutting (bukan per-tema)
 

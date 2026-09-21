@@ -68,7 +68,8 @@ Inspirasi industri: Shopify (`settings_schema` vs section schema) dan WordPress 
 | [ADR-018](../adr/ADR-018-theme-sarangenge-side-nav-presets-and-viewport-scroll-snap.md) | Plugin SoC/SoT & slot contracts |
 | [ADR-022](../adr/ADR-022-upstream-core-curation-and-generic-theme-seeder-architecture.md) | Generic theme demo seeders |
 
-ADR tema Layung: [`docs/themes/layung/`](../themes/layung/).
+Baseline tema tunggal JA-EduSIS: [Tema Sarangenge](../themes/sarangenge/README.md) (ADR-032).
+
 
 ---
 
