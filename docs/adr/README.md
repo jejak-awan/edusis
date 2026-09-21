@@ -17,6 +17,7 @@ Keputusan arsitektur yang mendasari pembentukan, struktur modul sekolah, tata ke
 | **[ADR-030](./ADR-030-school-module-scaffold-and-subdomain-architecture.md)** | Struktur Scaffolding dan Sub-Domain Modul School (`Modules/School`) | Accepted | `edusis:school` |
 | **[ADR-031](./ADR-031-school-module-soc-sot-and-reference-alignment.md)** | Standarisasi Pemrograman, SoC, SoT, dan Penyelarasan Aset `repo_referensi` | Accepted | `edusis:school` |
 | **[ADR-032](./ADR-032-sarangenge-as-unified-baseline-theme-and-legacy-theme-pruning.md)** | Sarangenge Sebagai Baseline Theme Tunggal & Decommission Tema Lama | Accepted | `edusis:theme` |
+| **[ADR-033](./ADR-033-school-engine-capabilities-submodule-registry-and-soc-standardization.md)** | Arsitektur Kapabilitas Engine Sekolah, Sub-Modul Registry (App Store Aligned), dan Standarisasi SoC Frontend | Accepted | `edusis:school` |
 
 ---
 

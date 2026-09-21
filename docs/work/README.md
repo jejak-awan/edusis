@@ -12,7 +12,9 @@ Alur wajib: [`WORKFLOW.md`](../WORKFLOW.md) · Mulai task: [`guides/start-a-task
 
 ## Indeks aktif
 
-*Tidak ada task aktif saat ini.*
+| ID | Judul | Status | Skala |
+| :--- | :--- | :--- | :--- |
+| [2026-09-21-school-engine-submodule-registry-and-soc-refactor](2026-09-21-school-engine-submodule-registry-and-soc-refactor.md) | Refactoring Modul School: Engine Reusability, Sub-Modul Registry, dan Standarisasi SoC Frontend | `in_progress` | L |
 
 ## Selesai hari ini (belum diarsip)
 
