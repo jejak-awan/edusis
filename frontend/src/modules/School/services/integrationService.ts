@@ -1,20 +1,14 @@
-/**
- * Integration Service — External System Integrations
- * Domain service untuk KataMPI CBT & WhatsApp Gateway.
- *
- * @see ADR-031 — Domain Services Layer
- */
-
 import api from '@/engine/api/client';
+import { schoolPaths } from './paths';
 import type { AxiosResponse } from 'axios';
-import type { ApiResponse, PaginatedData, WhatsAppLogData, WhatsAppStatsData } from './types';
+import type { ApiResponse, PaginatedData, WhatsAppLogData, WhatsAppStatsData, KatampiConfigData } from '../types';
 
 export class IntegrationService {
     // ─── KataMPI CBT Integration ──────────────────────────────────────────
 
     /** Ambil konfigurasi integrasi KataMPI saat ini. */
-    public static async getKatampiConfig(): Promise<AxiosResponse<ApiResponse<any>>> {
-        return api.get('/school/integrations/katampi/config');
+    public static async getKatampiConfig(): Promise<AxiosResponse<ApiResponse<KatampiConfigData>>> {
+        return api.get(schoolPaths.integrations.katampiConfig);
     }
 
     /** Perbarui konfigurasi KataMPI (URL + API Key). */
@@ -22,8 +16,8 @@ export class IntegrationService {
         cbt_url: string;
         api_key?: string;
         is_active?: boolean;
-    }): Promise<AxiosResponse<ApiResponse<any>>> {
-        return api.put('/school/integrations/katampi/config', data);
+    }): Promise<AxiosResponse<ApiResponse<KatampiConfigData>>> {
+        return api.put(schoolPaths.integrations.katampiConfig, data);
     }
 
     /** Generate SSO token untuk login ke platform KataMPI. */
@@ -42,7 +36,7 @@ export class IntegrationService {
 
     /** Ambil roster peserta ujian dari KataMPI. */
     public static async getKatampiRoster(params: Record<string, unknown> = {}): Promise<AxiosResponse<ApiResponse<Record<string, unknown>>>> {
-        return api.get('/school/integrations/katampi/roster', { params });
+        return api.get(schoolPaths.integrations.katampiRoster, { params });
     }
 
     /** Sinkronkan nilai ujian dari KataMPI ke buku raport. */
@@ -58,12 +52,12 @@ export class IntegrationService {
 
     /** Ambil log pengiriman pesan WhatsApp. */
     public static async getWhatsAppLogs(params: Record<string, unknown> = {}): Promise<AxiosResponse<ApiResponse<PaginatedData<WhatsAppLogData>>>> {
-        return api.get('/school/communications/whatsapp/logs', { params });
+        return api.get(schoolPaths.integrations.whatsAppLogs, { params });
     }
 
     /** Ambil statistik pengiriman WhatsApp (total, sent, failed, dll.). */
     public static async getWhatsAppStats(): Promise<AxiosResponse<ApiResponse<WhatsAppStatsData>>> {
-        return api.get('/school/communications/whatsapp/stats');
+        return api.get(schoolPaths.integrations.whatsAppStats);
     }
 
     /** Kirim pesan WhatsApp custom ke nomor tertentu. */
@@ -73,7 +67,7 @@ export class IntegrationService {
         student_id?: number;
         message_type?: string;
     }): Promise<AxiosResponse<ApiResponse<Record<string, unknown>>>> {
-        return api.post('/school/communications/whatsapp/send', data);
+        return api.post(schoolPaths.integrations.whatsAppSend, data);
     }
 
     /** Kirim alert presensi otomatis ke orang tua siswa alpha/izin/sakit. */
@@ -91,7 +85,7 @@ export class IntegrationService {
     }
 
     /** Kirim ulang log pesan yang gagal. */
-    public static async resendWhatsAppLog(id: number | string): Promise<AxiosResponse<ApiResponse<any>>> {
+    public static async resendWhatsAppLog(id: number | string): Promise<AxiosResponse<ApiResponse<unknown>>> {
         return api.post(`/school/communications/whatsapp/logs/${id}/resend`);
     }
 }

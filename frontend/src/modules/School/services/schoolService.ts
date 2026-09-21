@@ -119,11 +119,12 @@ import { OperationsService } from './operationsService';
 import { VotingService } from './votingService';
 import { HrService } from './hrService';
 import { IntegrationService } from './integrationService';
+import { schoolPaths } from './paths';
 
 export const SchoolService = {
     // ── Dashboard ──────────────────────────────────────────────────────────
     getDashboard(): Promise<AxiosResponse> {
-        return api.get('/school/dashboard');
+        return api.get(schoolPaths.dashboard);
     },
 
     // ── Academic Years ─────────────────────────────────────────────────────
@@ -306,7 +307,7 @@ export const SchoolService = {
     getTickets: (params = {}) => FacilityService.getMaintenanceTickets(params),
     storeTicket: (payload: object) => FacilityService.createMaintenanceTicket(payload),
     updateTicket: (id: number, payload: object) => api.put(`/school/facilities/tickets/${id}`, payload),
-    resolveTicket: (id: number, payload: object) => FacilityService.resolveMaintenanceTicket(id, payload),
+    resolveTicket: (id: number, payload: object) => FacilityService.resolveMaintenanceTicket(id, payload as Record<string, unknown>),
 
     // ── KataMPI CBT Integration ────────────────────────────────────────────
     getKatampiConfig: () => IntegrationService.getKatampiConfig(),

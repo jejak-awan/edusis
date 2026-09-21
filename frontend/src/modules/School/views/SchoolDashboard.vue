@@ -285,18 +285,45 @@ import {
   Award,
   CheckCircle2,
 } from 'lucide-vue-next';
+import { logger } from '@/shared/utils/logger';
 import { SchoolService } from '../services/schoolService';
 import TeacherDashboardWidget from '../components/dashboard/TeacherDashboardWidget.vue';
 import StudentDashboardWidget from '../components/dashboard/StudentDashboardWidget.vue';
 
+import type { SchoolInfo, AcademicYearData, DepartmentData } from '../types';
+
 const { t } = useI18n();
 
-const schoolInfo = ref<Record<string, any> | null>(null);
-const activeAcademicYear = ref<Record<string, any> | null>(null);
+interface DashboardSchoolInfo extends Partial<SchoolInfo> {
+  accreditation?: string;
+  curriculum?: string;
+  kabupaten_kota?: string;
+}
+
+interface DashboardViolation {
+  id: number;
+  violation_date: string;
+  sanction?: string | null;
+  student?: { full_name: string; nisn?: string; department?: { code?: string } };
+  credit_point?: { category?: { name: string }; points: number; description?: string };
+  sp_level?: string;
+}
+
+interface DashboardAchievement {
+  id: number;
+  event_date: string;
+  title: string;
+  level?: string;
+  rank?: string;
+  student?: { full_name: string };
+}
+
+const schoolInfo = ref<DashboardSchoolInfo | null>(null);
+const activeAcademicYear = ref<AcademicYearData | null>(null);
 const metrics = ref<Record<string, number>>({});
-const departmentsSummary = ref<any[]>([]);
-const recentViolations = ref<any[]>([]);
-const recentAchievements = ref<any[]>([]);
+const departmentsSummary = ref<DepartmentData[]>([]);
+const recentViolations = ref<DashboardViolation[]>([]);
+const recentAchievements = ref<DashboardAchievement[]>([]);
 
 async function loadDashboard() {
   try {
@@ -311,7 +338,7 @@ async function loadDashboard() {
       recentAchievements.value = d.recent_achievements || [];
     }
   } catch (err) {
-    console.error('Failed to load school dashboard', err);
+    logger.error('[School:Dashboard] Failed to load school dashboard', err);
   }
 }
 
