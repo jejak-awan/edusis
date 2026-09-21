@@ -1,8 +1,8 @@
-# 02. Backend Standards & Patterns — Jejakawan Core Engine
+# 02. Backend Standards & Patterns — JA-EduSIS
 
-Panduan standar pengembangan backend Laravel di **Jejakawan Core Engine (`ja-core_engine`)**.
+Panduan standar pengembangan backend Laravel 13 di **JA-EduSIS (`ja-edusis`)**.
 
-Modul contoh di bawah memakai domain **System** (kernel). Downstream apps menambah modul sendiri di `backend/Modules/{Product}/` — lihat [downstream-apps-and-licensing.md](../product/downstream-apps-and-licensing.md).
+Aplikasi menggunakan arsitektur **Modular Monolith** dengan modul utama di `backend/Modules/Core/`, `backend/Modules/School/`, dan `backend/Modules/Community/`.
 
 > **SoT per modul:** `backend/Modules/{Module}/README.md` (+ `CHANGELOG.md`). Dokumen ini = standar lintas-modul. Kebijakan docs: [`DOCUMENTATION.md`](../DOCUMENTATION.md).
 
@@ -13,29 +13,29 @@ Modul contoh di bawah memakai domain **System** (kernel). Downstream apps menamb
 Setiap modul di `backend/Modules/{Module}/` memiliki struktur folder terstandardisasi:
 
 ```
-Modules/Core/app/System/
-├── Http/
-│   ├── Controllers/
-│   │   ├── Console/          # Admin console API
-│   │   └── Public/           # Public / guest API bila ada
-│   ├── Middleware/
-│   └── Requests/             # FormRequest validasi
-├── Models/
-├── Providers/
-├── Services/                 # Business logic
-├── Events/
-└── Listeners/
-Modules/Core/database/
-├── migrations/
-├── seeders/
-└── factories/
-Modules/Core/routes/
-├── system_api.php            # /api/v1/manage/system/...
-└── ...
-Modules/Core/tests/
-├── Feature/
-└── Unit/
+Modules/
+├── Core/                         # Kernel Fondasi (IAM, Security, System, Infra)
+│   ├── app/
+│   │   ├── System/
+│   │   ├── Infra/
+│   │   └── Security/
+│   ├── database/{migrations,seeders,factories}/
+│   ├── routes/
+│   └── tests/
+├── School/                       # Sistem Informasi Sekolah (SIS)
+│   ├── app/
+│   │   ├── Academic/             # Tahun ajaran, semester, mapel, rombel, kurikulum
+│   │   ├── Student/              # Data induk siswa, mutasi, biodata Dapodik
+│   │   ├── Attendance/           # Presensi geofencing harian & jam pelajaran
+│   │   ├── Grading/              # Penilaian formatif/sumatif, ledger, rapor Kurikulum Merdeka
+│   │   ├── Staff/                # Data guru & tenaga kependidikan (GTK)
+│   │   └── Letter/               # Persuratan dinas & tata usaha (TU)
+│   ├── database/{migrations,seeders,factories}/
+│   ├── routes/
+│   └── tests/
+└── Community/                    # Portal Komunitas & Ekstrakurikuler
 ```
+
 
 ---
 

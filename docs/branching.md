@@ -1,33 +1,26 @@
-# Git Branching & Multi-Repository Architecture — `Jejakawan Portal Platform`
+# Git Branching & Multi-Repository Architecture — `JA-EduSIS & Jejakawan Ecosystem`
 
-**Update:** 2026-09-07 (Pasca Kurasi Codebase & Modernisasi `ja-cms` — ADR-022)
+**Update:** 2026-09-21 (Pasca Pembentukan JA-EduSIS — ADR-029 & ADR-030)
 
-Sistem portal Jejakawan beroperasi dengan model **Upstream Core Engine + Downstream Client Deployments**:
+Ekosistem Jejakawan beroperasi dengan model **Upstream Core Engine + Vertikal Khusus & Downstream Deployments**:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────┐
 │                          UPSTREAM CORE REPOSITORY                               │
 │              ja-core_engine (git@github.com:jejak-awan/ja-core_engine.git)       │
 │              Branch: main                                                       │
-│              - Kernel, System, RBAC Registry, Extension Engine                  │
-│              - Official Theme Library: Janari, Layung, Sarangenge               │
-│              - Generic Theme Demo Seeders (php artisan theme:seed)              │
+│              - Kernel, IAM, System, Security, RBAC Registry, Extension Engine   │
 │              - ZERO Client Data / 100% Platform Agnostic                        │
 └────────────────────────────────────────┬────────────────────────────────────────┘
-                                         │
-                        git pull upstream main (Fast-Forward / Merge)
                                          │
         ┌────────────────────────────────┼────────────────────────────────┐
         ▼                                ▼                                ▼
 ┌──────────────────────────┐ ┌──────────────────────────┐ ┌──────────────────────────┐
-│  DOWNSTREAM JEJAKAWAN    │ │   DOWNSTREAM K2NET       │ │   DOWNSTREAM SMKN 6      │
-│ ja-cms                   │ │ k2net-portal             │ │ smkn6-portal             │
-│ (origin: ja-cmspro.git)  │ │ (origin: k2netid/portal) │ │ (origin: k2netid/portal) │
-│ Branch: main             │ │ Branch: main             │ │ Branch: feat/sarangenge  │
-│ Theme: Janari (Default)  │ │ Theme: Layung (ISP/MSP)  │ │ Theme: Sarangenge (SMK)  │
-│ Seeder:                  │ │ Seeder:                  │ │ Seeder:                  │
-│ JejakawanDeploymentSeeder│ │ K2netDeploymentSeeder    │ │ Smkn6DeploymentSeeder    │
-│ Target: jejakawan.com    │ │ Target: k2net.id         │ │ Target: smkn6.sch.id     │
+│   DOWNSTREAM PORTALS     │ │      JA-KATAMPI          │ │       JA-EDUSIS        │
+│ k2net-portal / smkn6     │ │ ja-katampi (Aksara Engine│ │ ja-edusis (origin: edusis)│
+│ (Portal Publik & CMS)    │ │ CBT/CAT Online Exam)     │ │ Branch: main              │
+│ Sinkronisasi: git merge  │ │ Node: ja-aksara (CT 204) │ │ Model: Hard-Isolation     │
+│ upstream main            │ │ Terpisah dari SIS        │ │ Patching: Cherry-pick only│
 └──────────────────────────┘ └──────────────────────────┘ └──────────────────────────┘
 ```
 
@@ -35,95 +28,70 @@ Sistem portal Jejakawan beroperasi dengan model **Upstream Core Engine + Downstr
 
 ## 1. Matriks & Peran Repositori
 
-| Repositori | Peran / Scope | Branch Utama | Remote Upstream | Basis Tema | Seeder Deployment Khusus |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| [**`ja-core_engine`**](file:///home/jejakawan/dev/ja-core_engine) | **Upstream Source of Truth** | `main` | - | Janari, Layung, Sarangenge | `JanariThemeDemoSeeder`, `LayungThemeDemoSeeder`, `SarangengeThemeDemoSeeder` *(Semua Generic)* |
-| [**`ja-cms`**](file:///home/jejakawan/dev/ja-cms) | **Official Jejakawan (Supported by K2NET)** | `main` | `ja-core_engine.git` | **`sareupna`** | [`JejakawanDeploymentSeeder`](file:///home/jejakawan/dev/ja-cms/backend/database/seeders/JejakawanDeploymentSeeder.php) |
-| [**`k2net-portal`**](file:///home/jejakawan/dev/k2net-portal) | **PT Kirana Karina Network (ISP)** | `main` | `ja-core_engine.git` | **`layung`** | [`K2netDeploymentSeeder`](file:///home/jejakawan/dev/k2net-portal/backend/database/seeders/K2netDeploymentSeeder.php) |
-| [**`smkn6-portal`**](file:///home/jejakawan/dev/smkn6-portal) | **SMK Negeri 6 Bandung (Vokasi PK)** | `feat/theme-sarangenge` | `ja-core_engine.git` | **`sarangenge`** | [`Smkn6DeploymentSeeder`](file:///home/jejakawan/dev/smkn6-portal/backend/database/seeders/Smkn6DeploymentSeeder.php) |
+| Repositori | Peran / Scope | Branch Utama | Remote Git | Kebijakan Sinkronisasi |
+| :--- | :--- | :--- | :--- | :--- |
+| **`ja-edusis`** | **Sistem Informasi Sekolah Terpadu (SIS)** | `main` | `git@github.com:jejak-awan/edusis.git` | **Hard-Isolated** (Selective cherry-pick bugfix kernel saja; **dilarang** global merge upstream). |
+| **`ja-katampi`** | **CBT & Assessment Engine (Aksara)** | `main` | `git@github.com:jejak-awan/ja-katampi.git` | Layanan mandiri terpisah di host `ja-aksara`, dihubungkan via API token & SSO. |
+| **`ja-core_engine`** | **Upstream Kernel Foundation** | `main` | `git@github.com:jejak-awan/ja-core_engine.git` | Induk fondasi IAM, Security, dan modul platform. |
 
 ---
 
-## 2. Batasan Kode (*Code Demarcation: What Goes Where*)
+## 2. Batasan Kode JA-EduSIS (*Code Demarcation*)
 
-### A. Wajib Masuk ke Upstream `ja-core_engine` (Core Scope):
-1. **Core Kernel & Modul Standar**:
-   - `Modules/Core` (IAM, Security, System, Infra, Data Studio).
-   - `Modules/Layout` (Theme engine, customizer, widget architecture, menu rendering).
-   - Modul standar: `Publishing`, `Library`, `Forms`, `Mail`, `Media`, `Member`, `Analytics`, `Search`, `Newsletter`.
-2. **Katalog Tema Resmi (*Theme Library*)**:
-   - Struktur komponen tema publik di `frontend/src/modules/Layout/views/themes/{janari,layung,sarangenge}`.
-3. **Seeder Demo Generik**:
-   - `JanariThemeDemoSeeder` (Portal Komunitas/Pemerintahan umum).
-   - `LayungThemeDemoSeeder` (Portal Bisnis ISP & Managed Services generik).
-   - `SarangengeThemeDemoSeeder` (Portal Sekolah Kejuruan Pusat Keunggulan generik).
-4. **Artisan Tooling & Safeguards**:
-   - `php artisan theme:seed [slug] [--all] [--force]`:
-     - Secara default berjalan dalam mode **Non-Destructive**: menggunakan `Setting::setIfMissing()` dan `ThemeSampleDataInstallOptions(force: false)`. Pengaturan identitas dan kustomisasi tema klien yang sudah ada di database downstream **tidak akan pernah ditimpa/di-reset**.
-     - Opsi `--force` hanya digunakan jika admin/developer secara sadar ingin melakukan hard-reset ke demo bawaan.
-   - `php artisan rbac:sync`
-5. **ATURAN MUTLAK CORE & CI SAFEGUARD**:
-   > [!CAUTION]
-   > **ZERO CLIENT-SPECIFIC HARDCODING!** Dilarang keras menuliskan nama legal PT klien, nomor WhatsApp marketing klien, alamat fisik kantor/sekolah, jurusan riil, atau logo berhak cipta klien di dalam upstream `ja-core_engine`.
-   >
-   > **Enforcement Otomatis:** Repositori upstream dilengkapi dengan `scripts/check-zero-client-hardcoding.mjs` yang terintegrasi pada `npm run agent:verify`. Setiap PR/commit yang mencoba memasukkan identitas klien ke file tema atau demo seeder akan otomatis ditolak.
+### A. Modul Internal JA-EduSIS:
+1. **School SIS Domain (`Modules/School/`)**:
+   - Skema entitas standar Dapodik (`sch_*`).
+   - Manajemen Akademik, Rombel, Kurikulum Merdeka, Presensi Sekolah (dengan geofencing & circuit breaker), Poin Kesiswaan/BK, dan Penilaian Rapor.
+2. **Community Domain (`Modules/Community/`)**:
+   - Portal komunitas alumni, ekstrakurikuler, dan forum komite sekolah.
+3. **Core Kernel Foundation (`Modules/Core/`)**:
+   - IAM, RBAC/ABAC, System Settings, Audit Logs, Webhook, Redis Manager.
 
-### B. Wajib Masuk ke Repositori Downstream Klien (Client Deployment Scope):
-1. **Deployment Seeder Spesifik**:
-   - Berlokasi di `backend/database/seeders/<Client>DeploymentSeeder.php`.
-   - Seeder ini **memanggil generic theme seeder** sebagai fondasi, lalu meng-override:
-     - `site_name`, `site_title`, `site_tagline`, `contact_email`.
-     - Data legalitas perusahaan / sekolah.
-     - Logo spesifik (`/logo_jejakawan.png`, `/logofull_k2net.png`, dsb.).
-2. **Aset Branding Publik**:
-   - File logo dan favicon spesifik di `frontend/public/` dan `backend/public/`.
-3. **Konfigurasi Lingkungan Runtime**:
-   - `.env`, setting database lokal (PostgreSQL), port Nginx staging/produksi.
+### B. Batasan Decoupled CBT (Dilarang Monolitik):
+> [!IMPORTANT]
+> **DECOUPLED CBT ENGINE:**  
+> Seluruh fungsionalitas Computer Based Test (CBT), bank butir soal, delivery soal real-time, anti-cheat browser lockdown, dan auto-grading ujian online **TIDAK BOLEH** dibangun sebagai modul monolitik di dalam `ja-edusis`. Fitur tersebut sepenuhnya dikelola oleh engine **JA-Katampi** di host Aksara (`ja-aksara`).
+
+### C. Perlindungan Privasi Data (PII):
+> [!CAUTION]
+> **PROTEKSI DATA PRIBADI SISWA & GURU:**  
+> Dilarang keras melakukan hardcoding atau commit data pribadi riil (NISN, NIK, alamat rumah, nomor HP orang tua, atau nilai rapor riil) ke repositori publik. Seluruh data pengujian wajib menggunakan database faker atau seeder generik.
 
 ---
 
-## 3. Strategi Sinkronisasi Git (*Two-Way River Strategy*)
+## 3. Kebijakan Percabangan Git (*Branching Policy*)
 
-### A. Menarik Pembaruan dari Upstream ke Downstream (Hilir)
-Setiap repositori downstream (`ja-cms`, `k2net-portal`, `smkn6-portal`) memiliki konfigurasi remote:
-```bash
-git remote -v
-# origin   -> git@github.com:... (repo klien)
-# upstream -> git@github.com:jejak-awan/ja-core_engine.git (core engine)
-```
-Saat ada pembaruan arsitektural di upstream:
-```bash
-git fetch upstream main
-git merge upstream/main
-```
-
-### B. Mengirimkan Bugfix / Fitur Baru dari Downstream ke Upstream (Hulu)
-Jika saat mengerjakan repositori klien seorang agen menemukan bug inti (misal: perbaikan query skema PostgreSQL di modul Mail):
-1. **Komit & Push ke `ja-core_engine/main` terlebih dahulu**.
-2. **Propagasikan ke seluruh branch downstream aktif** agar seluruh klien menikmati perbaikan bug yang sama.
-3. **JANGAN PERNAH** membiarkan bugfix core terisolasi hanya di salah satu repo klien!
+- **Trunk Utama**: `main` (selalu siap deploy).
+- **Feature / Bugfix**: Cabang pendek dari `main` (misal: `feat/sch-attendance-flow` atau `fix/redis-circuit-breaker`), diselesaikan via PR/commit terstruktur.
+- **Konvensi Pesan Commit**: Wajib menggunakan format Conventional Commits `feat(...)` / `fix(...)`.
+- **Aturan Upstream**:
+  - **Dilarang** menjalankan `git merge upstream/main` ke repositori ini.
+  - Jika terdapat perbaikan krusial pada kernel `ja-core_engine`, agen hanya diperbolehkan menyerap perbaikan tersebut menggunakan `git cherry-pick <commit-hash>`.
 
 ---
 
 ## 4. Topologi Server & Lingkungan Staging
 
 ### Host: `ja-dev` (CT 207 — `192.168.88.71` / `10.20.0.207`)
-Semua proses **development, build Vite, test Playwright, dan staging preview** dilakukan di sini:
-- **`ja-cms`**: Port **`8082`** | DB PostgreSQL `ja_cms` | Tema `janari`
-- **`k2net-portal`**: Port **`8083`** | DB PostgreSQL `k2net_portal_staging` | Tema `layung`
-- **`smkn6-portal`**: Port **`8080`** & **`49280`** | DB PostgreSQL `smkn6_portal_dev` | Tema `sarangenge`
-- **Database Engine**: PostgreSQL 16 pada `127.0.0.1:5432`
-- **Redis / Valkey Hub**: Container CT 206 (`10.20.0.206:6379`)
+Host utama pengembangan dan verifikasi:
+- **JA-EduSIS Web Console**: Port **`5273`** (Vite 8 SPA)
+- **JA-EduSIS Backend API**: Port **`8000`** (Laravel 13 API)
+- **PostgreSQL Database**: Port `5432`, Skema `edusis`
+- **Valkey / Redis Hub**: Container CT 206 (`10.20.0.206:6379`), DB 6 & 7
+
+### Host: `ja-aksara` (CT 204 — `192.168.88.68` / `10.20.0.204`)
+Host dedicated untuk mesin ujian CBT (**JA-Katampi** / CBT Engine).
 
 ### Host: `ja-srv` (CT 200 — `192.168.88.66` / `10.20.0.200`)
-Hanya sebagai **live production runtime** (`/home/jejakawan/www/*`). Diterbitkan dari `ja-dev` menggunakan script `publish-from-jadev.sh`. Tidak ada kompilasi node/composer di `ja-srv`.
+Host **runtime produksi** (`/home/jejakawan/www/...`). Deployment dilakukan dari `ja-dev` via script sinkronisasi.
 
 ---
 
-## 5. Quality Gate Sebelum Selesai Tugas (*Checklist*)
+## 5. Quality Gate Sebelum Push (*Checklist*)
 
-Setiap agen yang menyelesaikan pekerjaan di repositori manapun wajib memverifikasi:
-- [ ] Kompilasi frontend & backend: `npm run agent:verify` (atau build Vite).
-- [ ] Sinkronisasi RBAC 11 Modul: `php artisan rbac:sync` (105 permissions terdaftar).
-- [ ] Pengujian seeder: `php artisan theme:seed <theme>` atau `php artisan db:seed --class=<Client>DeploymentSeeder`.
-- [ ] Tidak meninggalkan file untracked / residu build yang melanggar `.gitignore`.
+Setiap agen wajib memverifikasi:
+- [ ] `npm run docs:links` — Tidak ada link dokumentasi yang rusak.
+- [ ] `npm run versions:check` & `npm run modules:versions:check` — Konsistensi SemVer `1.0.0-beta.2`.
+- [ ] `npm run test:backend` — Seluruh Pest feature/unit tests lulus.
+- [ ] `npm run type-check` — Pemeriksaan tipe TypeScript frontend bersih (0 error).
+

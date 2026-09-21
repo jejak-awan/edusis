@@ -1,77 +1,59 @@
-# Architectural Status — kernel + CMS line
+# Architectural Status — JA-EduSIS (`ja-edusis`)
 
-Update: 2026-08-31
+Update: 2026-09-21 · Versi Produk: **v1.0.0-beta.2**  
+Canonical trunk: **`main`** (`git@github.com:jejak-awan/edusis.git`)  
+Arsitektur Induk: **Jejakawan Core Engine (Hard-Isolated)** per [ADR-029](adr/ADR-029-edusis-domain-and-multi-repo-synthesis.md) & [ADR-030](adr/ADR-030-school-module-scaffold-and-subdomain-architecture.md)
 
-Canonical trunk: **`main`** (CMS packs, member, and `/site` landed via [PR #14](https://github.com/jejak-awan/ja-core_engine/pull/14), 2026-08-30).  
-`integrate/cms` merged and should be deleted. Branching model: [branching.md](branching.md).
+---
 
-## Kernel (`main` lineage)
+## 🏛️ 1. Domain Arsitektur Aktif
 
-| Area | Status | Path |
+Aplikasi beroperasi dalam arsitektur **Modular Monolith** dengan pemisahan domain yang ketat:
+
+| Domain Layer | Status | Modul Backend (`backend/Modules/`) | Modul Frontend (`frontend/src/modules/`) | Peran & Ruang Lingkup |
+| :--- | :--- | :--- | :--- | :--- |
+| **Core Kernel** | **Live** | `Core/app/{System,Infra,Security}` | `Core/{System,Infra,Security}` | IAM console (`srv_auth_users`), RBAC/ABAC, Data Studio, System Settings, Audit SIEM, Webhook, Redis Engine, Task Crons. |
+| **School SIS** | **Live** | `School/` (`app/{Academic,Student,Staff,Letter,PPDB,Facility,Council,Attendance,Grading}`) | `School/` (`views/{academic,student,staff,attendance,grading,rapor}`) | Manajemen operasional sekolah: Kurikulum Merdeka, entitas Dapodik (`sch_*`), presensi geofencing, poin kesiswaan & BK, penilaian rapor/ledger. |
+| **Community** | **Live** | `Community/` | `Community/` | Portal komunitas sekolah, alumni, komite sekolah, dan ekstrakurikuler. |
+| **Extensions** | **Live** | `Extensions/` | `Extensions/` | Plugin sandbox, integrasi JA-Mail transaksional, webhook external. |
+
+---
+
+## ⚡ 2. CBT Engine Decoupling (KataMPI Integration)
+
+Sesuai mandat [ADR-029](adr/ADR-029-edusis-domain-and-multi-repo-synthesis.md) dan [`docs/sis/03-integration-katampi-cbt.md`](sis/03-integration-katampi-cbt.md):
+- **JA-EduSIS TIDAK memuat mesin ujian komputer (CBT)** secara monolitik di backend.
+- Seluruh ujian online, bank soal, anti-cheat, dan evaluasi real-time dialokasikan ke **JA-Katampi** yang berjalan di node terdedikasi (`ja-aksara` / CT 204).
+- Integrasi dilakukan via API Token, SSO, dan sinkronisasi data peserta/jadwal ujian.
+
+---
+
+## 🗄️ 3. Skema Database & Caching
+
+| Komponen | Identitas / Konfigurasi | Deskripsi |
 | :--- | :--- | :--- |
-| System IAM | **Live** | `backend/Modules/Core/app/System/` |
-| Infra (data studio, backup, webhooks) | **Live** | `backend/Modules/Core/app/Infra/` |
-| Security (RBAC/ABAC, SIEM, CSP) | **Live** | `backend/Modules/Core/app/Security/` |
-| Unified console SPA | **Live** | `frontend/src/modules/Core/` |
-| Extension engine | **Live** | Registry + Mail golden sample |
-| License → JA-CP | **Live** | `LicenseService`, `license:check` |
-| Downstream bootstrap | **Live** | `scripts/bootstrap-downstream-app.sh` |
+| **Database Skema** | PostgreSQL 16 `edusis` | Seluruh tabel sekolah menggunakan prefiks resmi `sch_*` (contoh: `sch_students`, `sch_academic_years`). Tabel kernel menggunakan `sys_*`, `srv_*`. |
+| **Valkey / Redis** | CT 206 (`10.20.0.206:6379`) | Dedicated index: `REDIS_DB=6`, `REDIS_CACHE_DB=7`, prefix cache `ja_edusis_cache:`. Terlindungi dengan *circuit breaker* otomatis pada dashboard. |
+| **Session & Cookie** | Domain `edusis.example.com` | Redis session driver, secure cookies, strict CSRF validation. |
 
-## CMS packs on this branch (P0–P13)
+---
 
-Optional first-party modules, gated by `sys_extensions.status` (nwidart stays booted):
+## 🌐 4. Lingkungan Dev & Preview Runtime
 
-| Pack | Role |
-| :--- | :--- |
-| publishing, library, media, layout | Editorial + theme builder (**Janari** = default CMS reference; **Sarangenge** = school alternate, Sundanese midday sibling to Janari dawn). **Surfaces:** Site Editor = page/`builder_blocks` content + merged theme settings schema + live `/` preview; Theme Customizer = chrome/settings/CSS/bindings + menu slots; Menu Builder = menu trees + `location` (syncs theme `menu_location_*`). Deep-linked; content blocks still Janari-only. |
-| forms, newsletter, analytics, search, cms-ai | Audience / insight |
-| **member** | Reader accounts (`mem_members`, `auth:member`) — not console IAM. **Adaptive member portal** live (P0–P3): shell, portal API, Publishing/Newsletter/Forms contributions. |
-| **site** | Public theme runtime at **apex `/`** when pack active (console stays **`/dash`** + `/auth/console-*`; legacy `/site/*` redirects) |
+- **Host Pengembangan**: `ja-dev` (CT 207 — `192.168.88.71`)
+- **Frontend Console SPA**: Port **`5273`** (Vite 8, Single Unified SPA)
+- **Backend API**: Port **`8000`** (Laravel 13 serve)
+- **Production Host**: `ja-srv` (CT 200 — `192.168.88.66`) via `publish-from-jadev.sh`
+- **CBT Host**: `ja-aksara` (CT 204 — `10.20.0.204`) untuk KataMPI Engine
 
-Public surfaces landed: search, contact → Forms (`contact` slug), analytics pageviews, newsletter footer, widgets, marketing routes, public 404, member login/register/account, member verify-email via Mail.
+---
 
-**Planning (2026-08-31):** adaptive Member Area **implemented** (P0–P3) — [member-area.md](extensions/member-area.md). RBAC/lifecycle: `CmsRolesSeeder` live; `ExtensionLifecycleOrchestrator` runs manifest `lifecycle.seeders_on_activate` / `seeders_on_deactivate`; optional `INSTALL_SEED_DEMO` → `PublishingDemoContentSeeder`.
+## 🛡️ 5. Standar Tata Kelola & Verifikasi Kualitas
 
-**Apex boot gate (3 shells):**
+Setiap agen pengembang wajib memastikan:
+1. **Verifikasi Kualitas**: `npm run agent:verify` (termasuk validasi 293+ link dokumentasi dan SemVer `1.0.0-beta.2`).
+2. **Backend Testing**: `npm run test:backend` (51 Pest feature/unit tests lulus).
+3. **Frontend Type Check**: `npm run type-check` (`vue-tsc` 0 errors).
+4. **Proteksi PII Siswa**: NISN, NIK, nilai rapor, dan rekam medis/BK terlindungi RBAC ketat dan tidak diekspos ke publik.
+5. **Konvensi Git**: Wajib menggunakan format Conventional Commits `feat(...)`.
 
-| Site pack | Apex `/` | Console login |
-| :--- | :--- | :--- |
-| **off** | Kernel **landing** (`landing.html`) — no login/dashboard CTAs on the page | `/auth/console-sign-in` (documented in README / this doc; not linked from landing) |
-| **on** | Active CMS **theme** overrides landing | `/auth/console-sign-in` + `/dash` tetap |
-
-**Install profiles (durable):** `INSTALL_PROFILE=core|cms|cms_site` applied by `DatabaseSeeder` / `ja:apply-install-profile` / `POST …/extensions/apply-install-profile`. Default when `Modules/Site` ships = **`cms_site`**. Core-only SKUs set `INSTALL_PROFILE=core`.
-
-P6: kernel Identity owns `general` (site name / tagline). Publishing settings own `seo` + `comments` only (`/dash/publishing/settings`). Analytics retention lives on the Analytics pack. Kernel API refuses `seo` / `comments` / `analytics`. Identity **Media** tab is object storage (S3/FTP/disk); editorial library is the **media** pack. Core File Manager stays in Infra.
-
-P4: Data Studio (`sys_content_types`) is operational entities; Library `lib_fields` is CMS CCK. Reserved slugs block CMS collisions. See [data-studio-vs-cck.md](architecture/data-studio-vs-cck.md).
-
-Mail SHOULD (archive folder, storage quota, attachment extension + MIME blocklist) is live in JA-Mail.
-
-## Still open (docs vs backlog)
-
-| Item | Notes |
-| :--- | :--- |
-| Merge gate `integrate/cms` → `main` | **Done** — PR #14 merged 2026-08-30 (`7b5180f`). |
-| W5 naming residue | Partial: Media/Library defaults + theme docs use `publishing` / `Layout/*`. Keep API alias `Jejakawan`→`publishing`; do not rewrite customized console menus or seed brand strings. |
-| Adaptive Member Area | **Live** (P0–P3) — portal registry, pack nav, capability gates. P4 entitlements = future vertical. |
-| CMS roles seed (`admin`/`editor`/`author`) | **Live** — `CmsRolesSeeder` on `cms`/`cms_site` install profile. |
-| Lifecycle seeder orchestrator | **Live** — `ExtensionLifecycleOrchestrator`; Forms/Member/Newsletter manifest hooks. Deactivate = no truncate (by design). |
-| P5 vertical product modules | Unblocked by merge; still needs a named product before build-out. Same Mail contract. |
-| GitHub Actions | Org spending limit — **do not treat GHA as the gate**. Quality gate = `npm run agent:verify` + local Playwright smoke (Podman/`scripts/e2e-docker.sh`). Re-enable GHA only after billing is fixed. |
-| Uninstall drop tables | First-party uninstall blocked; plugins only |
-| PHP 8.5 + spreadsheets | **Done:** `maatwebsite/excel` **4.0.2** + `phpoffice/phpspreadsheet` **^5.3** (no platform ignore). Streaming alts (`openspout` / `fast-excel`) remain optional for export-heavy jobs. |
-
-**Branch hygiene (2026-08-30):** trunk = `main` only after CMS merge. Delete leftover `integrate/cms` remote/local. `feat/mail-*` already absorbed.
-
-## Removed from repo (Aug 2026)
-
-| Item | Notes |
-| :--- | :--- |
-| Branch **`develop`** | Old CMS line name — packs now live as optional modules on this kernel branch |
-| CI `develop` trigger | Single canonical `main` (CMS packs on trunk) |
-
-Console IAM (`srv_auth_users`) is **not** the public reader model. Member pack is optional CMS/audience, not ja-control-plane billing.
-
-## Downstream / JA-CP
-
-Platform billing, multi-tenant provisioning, and JA-CP licensing hub stay **outside** this repo. Fork + extra modules still apply for vertical products. See [bootstrap-downstream-app.md](product/bootstrap-downstream-app.md).

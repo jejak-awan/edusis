@@ -1,15 +1,15 @@
-# 05. Internationalization (i18n) Guidelines — Jejakawan Core Engine
+# 05. Internationalization (i18n) Guidelines — JA-EduSIS
 
-Panduan arsitektur translasi dan internasionalisasi multi-bahasa di **Jejakawan Core Engine (`ja-core_engine`)**.
+Panduan arsitektur translasi dan internasionalisasi multi-bahasa di **JA-EduSIS (`ja-edusis`)**.
 
 ---
 
 ## 🌍 1. Standar Bahasa yang Didukung
 
-Jejakawan Core Engine mendukung 3 bahasa utama secara simetris:
-1. **`id`**: Bahasa Indonesia (Default Sistem)
-2. **`en`**: English (International)
-3. **`su`**: Basa Sunda (Regional)
+JA-EduSIS mendukung 3 bahasa utama secara simetris:
+1. **`id`**: Bahasa Indonesia (Default Sistem & Standar Kemendikbudristek)
+2. **`en`**: English (International / Bilingual School Program)
+3. **`su`**: Basa Sunda (Muatan Lokal & Identitas Regional)
 
 ---
 
@@ -21,18 +21,17 @@ Translasi diorganisasi secara modular per domain fitur:
 frontend/src/
 ├── engine/i18n/
 │   ├── messages/{en,id,su}.ts    # Global + moduleLocaleBundles
-│   └── moduleLocales.ts          # Pack + theme bundles (theme.sarangenge.*, theme.janari.*)
+│   └── moduleLocales.ts          # Module bundle loader registry
 └── modules/
     ├── Core/{System,Infra,Security}/locales/{en,id,su}.json
-    ├── Publishing/locales/{en,id,su}.json
-    ├── Layout/locales/{en,id,su}.json
-    ├── Layout/locales/builder/{en,id,su}.json
-    └── Layout/views/themes/{sarangenge,janari}/locales/{en,id,su}.json
+    ├── School/locales/{en,id,su}.json
+    └── Community/locales/{en,id,su}.json
 ```
 
 ---
 
 ## 📐 3. Aturan Ketat Pembuatan Kunci Translasi
+
 
 ### A. Simetri Kunci 100% (Zero Missing Keys)
 - Setiap kunci yang didefinisikan pada `en.json` **WAJIB** ada di `id.json` dan `su.json`.

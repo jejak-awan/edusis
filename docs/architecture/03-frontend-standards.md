@@ -1,17 +1,18 @@
-# 03. Frontend Architecture & Standards — Jejakawan Core Engine
+# 03. Frontend Architecture & Standards — JA-EduSIS
 
-Panduan arsitektur dan standar pengembangan frontend Vue 3 + TypeScript di **Jejakawan Core Engine (`ja-core_engine`)**.
+Panduan arsitektur dan standar pengembangan frontend Vue 3 + TypeScript di **JA-EduSIS (`ja-edusis`)**.
 
-> **SoT per modul:** `frontend/src/modules/{Module}/README.md`. Theme host & customizer: [04-theme-system.md](04-theme-system.md) → L0 di [`naming-conventions.md`](../../frontend/src/modules/Layout/customizer/naming-conventions.md).
+> **SoT per modul:** `frontend/src/modules/{Module}/README.md`.
 
 ---
 
 ## 🎨 1. Tech Stack Frontend
 
 - **Framework**: Vue 3.5 (Composition API dengan `<script setup lang="ts">`).
-- **Build Tool**: Vite 8 + ESBuild minifier.
+- **Build Tool**: Vite 8 + ESBuild minifier (Port dev default: **`5273`**).
 - **State Management**: Pinia stores terenkapsulasi.
 - **Styling**: Tailwind CSS v4 + Radix UI primitives (`radix-vue`) + Lucide Icons (`lucide-vue-next`).
+- **Data Table**: TanStack Table untuk tabel data siswa, guru, presensi, dan penilaian.
 - **Routing**: Vue Router 4 dengan route lazy-loading dan dynamic dashboard resolver.
 - **Internationalization**: Vue I18n v9+ dengan translasi 3 bahasa (`id`, `en`, `su`).
 
@@ -29,10 +30,19 @@ frontend/src/
 │   ├── stores/                   # Console context & session stores
 │   └── types/                    # Global TypeScript interfaces
 ├── modules/                      # Domain Modules
-│   └── Core/
-│       ├── System/               # IAM, RBAC, Settings, Journals, Extensions
-│       ├── Infra/                # Data Studio, Tasks, Backups, Redis, Webhooks
-│       └── Security/             # IP firewall, 2FA, Passkeys, ABAC, Logs
+│   ├── Core/                     # IAM, Infra, Security, Settings
+│   │   ├── System/
+│   │   ├── Infra/
+│   │   └── Security/
+│   ├── School/                   # Sistem Informasi Sekolah (SIS)
+│   │   ├── views/
+│   │   │   ├── academic/         # Tahun ajaran, jadwal, rombel
+│   │   │   ├── student/          # Induk siswa, mutasi, detail profil
+│   │   │   ├── staff/            # Data guru & tendik
+│   │   │   ├── attendance/       # Presensi geofencing & circuit breaker
+│   │   │   └── grading/          # Penilaian Kurikulum Merdeka & rapor
+│   │   └── locales/              # Translasi modul sekolah (id, en, su)
+│   └── Community/                # Forum komunitas & portal alumni
 ├── shared/                       # Shared UI & Utilities
 │   ├── components/               # Atomic UI components (Button, Dialog, Card, Input)
 │   ├── composables/              # Reusable Vue composables
@@ -45,9 +55,10 @@ frontend/src/
 
 ## 🖥️ 3. Single Unified Console SPA Architecture
 
-Pada `ja-core_engine`, frontend menggunakan arsitektur **Single Unified Console SPA**:
+Pada `ja-edusis`, frontend menggunakan arsitektur **Single Unified Console SPA**:
 
 1. **Satu Entrypoint (`index.html` ➔ `src/main.ts`)**:
+
    - Tidak ada dual-shell overhead.
    - Seluruh inisialisasi kernel, router, i18n, dan registry modul dijalankan melalui `main.ts`.
 2. **Instant Auth & Landing Flow**:

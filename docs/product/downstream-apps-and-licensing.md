@@ -1,15 +1,16 @@
-# Downstream apps & licensing
+# Downstream apps & licensing — JA-EduSIS Context
 
-## Peran repo ini
+## Peran JA-EduSIS
 
-**Jejakawan Core Engine** = kernel reusable. Downstream apps (contoh: CMS penuh, portal sekolah, hub operasional) **extend** kernel dengan modul tambahan dan branding sendiri.
+**JA-EduSIS** (`ja-edusis`) adalah produk vertikal sistem informasi sekolah (*hard-isolated*) yang dibangun di atas fondasi Jejakawan Core Engine. Repositori ini mengimplementasikan domain sekolah terpadu (`Modules/School`), portal komunitas (`Modules/Community`), dan integrasi CBT eksternal (`ja-katampi`).
 
 ## Hub lisensi (JA-CP)
 
 | Komponen | Repo | Peran |
 | :--- | :--- | :--- |
-| Licensing & heartbeat | `ja-control-plane` | Aktivasi key, tier, grace period |
-| Runtime kernel | `ja-core_engine` | Menjalankan app; sync status via `license:check` |
+| Licensing & heartbeat | `ja-control-plane` | Aktivasi key, tier institusi sekolah, validasi kuota rombel/siswa |
+| Runtime aplikasi | `ja-edusis` | Menjalankan sistem informasi sekolah; sync status via `license:check` |
+
 
 Env relevan:
 

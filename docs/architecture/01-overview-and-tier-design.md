@@ -1,84 +1,82 @@
-# 01. Overview & Architecture — Jejakawan Core Engine
+# 01. Overview & Architecture — JA-EduSIS
 
-> Navigasi docs: [`DOCUMENTATION.md`](../DOCUMENTATION.md) · Theme host: [`04-theme-system.md`](04-theme-system.md) · ADRs: [`adr/README.md`](../adr/README.md)
+> Navigasi docs: [`DOCUMENTATION.md`](../DOCUMENTATION.md) · School Domain: [`docs/sis/`](../sis/) · ADRs: [`adr/README.md`](../adr/README.md)
 
 ## 🌟 1. Ikhtisar Sistem
-**Jejakawan Core Engine (`ja-core_engine`)** adalah platform Headless Kernel dan Admin Console modern berbasis arsitektur **Modular Monolith** yang dirancang untuk performa tinggi, isolasi domain yang kokoh, serta keandalan tata kelola data & infrastruktur.
+**JA-EduSIS (`ja-edusis`)** (*Jejakawan Educational School Information System*) adalah platform Sistem Informasi Sekolah (SIS) dan Manajemen Akademik modern berbasis arsitektur **Modular Monolith** yang dibangun di atas fondasi **Jejakawan Core Engine**. Dirancang untuk performa tinggi, isolasi domain yang kokoh, serta keandalan tata kelola data & infrastruktur pendidikan.
 
 Sistem ini menggabungkan:
-- **Backend**: Laravel **13** (PHP 8.2+, tested on 8.3) with domain modules under `Modules\Core\` and optional packs under `Modules/*`.
+- **Backend**: Laravel **13** (PHP 8.2+, tested on 8.3) dengan pemisahan modul yang jelas di `backend/Modules/{Core,School,Community}`.
 - **Frontend**: Vue 3.5 Single Unified Console SPA + TypeScript + Vite 8 + Tailwind CSS v4.
-- **Database**: PostgreSQL 16+ (atau SQLite untuk isolated automated testing) dengan skema terisolasi `core_engine` serta Redis untuk caching, session, dan queuing.
+- **Database**: PostgreSQL 16+ (atau SQLite untuk automated testing) dengan skema terisolasi `edusis` (`sch_*`) serta Redis/Valkey untuk caching, session, dan queuing.
+- **Decoupled Assessment**: Mesin ujian CBT/CAT dialokasikan secara independen ke **JA-Katampi** (Aksara Engine) di host terpisah via API token & SSO.
 
 ---
 
-## 🏛️ 2. Domain & Modul Core Engine
+## 🏛️ 2. Arsitektur Domain JA-EduSIS
 
-Arsitektur Core Engine berfokus pada fondasi kernel operasional:
+Struktur modular monolith JA-EduSIS dibagi ke dalam 3 tier domain utama:
 
 ```
-                          ┌───────────────────────────┐
-                          │   Jejakawan Core Engine   │
-                          └─────────────┬─────────────┘
-                                        │
-         ┌──────────────────────────────┼──────────────────────────────┐
-         │                              │                              │
-         ▼                              ▼                              ▼
+                           ┌───────────────────────────┐
+                           │         JA-EduSIS         │
+                           └─────────────┬─────────────┘
+                                         │
+          ┌──────────────────────────────┼──────────────────────────────┐
+          │                              │                              │
+          ▼                              ▼                              ▼
 ┌──────────────────┐          ┌───────────────────┐          ┌───────────────────┐
-│      System      │          │       Infra       │          │      Security     │
+│   Core Kernel    │          │     School SIS    │          │     Community     │
 ├──────────────────┤          ├───────────────────┤          ├───────────────────┤
-│ • User & IAM     │          │ • Data Studio     │          │ • RBAC + ABAC     │
-│ • RBAC Matrix    │          │ • Task Crons      │          │ • 2FA & Passkeys  │
-│ • Settings       │          │ • Backups         │          │ • Rate Limiting   │
-│ • Plugins/Ext    │          │ • Redis Cache     │          │ • IP Lists        │
-│ • Languages      │          │ • Webhooks        │          │ • Audit Journals  │
-└──────────────────┘          └───────────────────┘          └───────────────────┘
+│ • User & IAM     │          │ • Akademik & Mapel│          │ • Portal Alumni   │
+│ • RBAC + ABAC    │          │ • Siswa & Rombel  │          │ • Ekstrakurikuler │
+│ • System Settings│          │ • Kurikulum Merde.│          │ • Komite Sekolah  │
+│ • Data Studio    │          │ • Presensi Geofenc│          │ • Hub Informasi   │
+│ • Task Crons     │          │ • Poin & BK       │          └───────────────────┘
+│ • Redis & SIEM   │          │ • Rapor & Ledger  │
+└──────────────────┘          │ • Persuratan & TU │
+                              └───────────────────┘
 ```
 
-### A. System Domain (`Modules/Core/app/System/`)
-Menyediakan tata kelola sistem operasi aplikasi, otentikasi, dan konfigurasi global:
-1. **IAM (Identity and Access Management)**:
-   - User Accounts, Role Hierarchy (Spatie RBAC), Permission Registry, KYC Document Review Flow.
-   - Dual Login support: Autentikasi fleksibel menggunakan Email atau Username.
-2. **Configuration & Internationalization**:
-   - Dynamic System Settings dengan cache memori otomatis.
-   - Multi-bahasa terpadu (`id`, `en`, `su`) dengan modul lazy-loader.
-3. **Extensions & Plugins**:
-   - Extension Registry dengan AST Security Sandbox Scanner untuk memvalidasi paket pihak ketiga.
-4. **Activity & Audit Logging**:
-   - Full Activity Journaling yang mencatat seluruh lifecycle mutasi entitas dan aktivitas admin.
+### A. School SIS Domain (`Modules/School/`)
+Mengelola seluruh alur operasional pendidikan berstandar Dapodik Kemendikbudristek dan Kurikulum Merdeka:
+1. **Akademik & Kurikulum**:
+   - Tahun Ajaran, Semester, Mata Pelajaran, Jadwal Pembelajaran, Rombongan Belajar (Rombel).
+   - Capaian Pembelajaran (CP) dan Tujuan Pembelajaran (TP) Kurikulum Merdeka.
+2. **Kesiswaan & BK**:
+   - Induk Siswa (NISN, NIK, riwayat keluarga, mutasi siswa).
+   - Tata Tertib, Sistem Poin Pelanggaran/Prestasi, dan Jurnal Bimbingan Konseling (BK).
+3. **Presensi Terpadu**:
+   - Presensi Harian Siswa & Guru berbasis Geofencing dan Jam Sekolah.
+   - Dilengkapi *circuit breaker* otomatis untuk menjaga stabilitas polling antarmuka.
+4. **Penilaian & Rapor**:
+   - Asesmen Formatif & Sumatif, Ledger Nilai, Cetak Rapor Resmi Kurikulum Merdeka.
+5. **Administrasi & Tata Usaha (TU)**:
+   - Persuratan Dinas, Penomoran Surat Otomatis, Manajemen Sarana & Prasarana (Sarpras).
 
-### B. Infrastructure & Data Studio (`Modules/Core/app/Infra/`)
-Mengelola utilitas komputasi, storage, automasi, dan schema modeling:
-1. **Data Model Studio**:
-   - Desain data model dinamis (entities, custom fields, validation rules, OpenAPI schema generation).
-   - Dynamic Record CRUD engine otomatis untuk model yang dibuat di runtime.
-   - **Not** CMS CCK. Editorial fields stay in pack Library. See [data-studio-vs-cck.md](data-studio-vs-cck.md).
-2. **Task Scheduler & Automation**:
-   - Cron runner terpadu dengan reporting status eksekusi, preset runtime, dan scheduler logs.
-3. **Backup & Snapshot Manager**:
-   - Backup database terisolasi dan instant snapshot management.
-4. **Redis Cache Engine**:
-   - Key search, memory analytics, dan TTL inspection.
-5. **Webhook Dispatcher**:
-   - Outbound webhook delivery system dengan retry policy otomatis.
+### B. Core Kernel Domain (`Modules/Core/`)
+Menyediakan fondasi tata kelola sistem operasi aplikasi, otentikasi, dan konfigurasi global:
+1. **IAM & Security**:
+   - User Accounts (`srv_auth_users`), Role Hierarchy (Spatie RBAC), Permission Registry, ABAC Policies.
+   - Dual Login support: Email atau Username. TOTP 2FA & WebAuthn Passkeys.
+2. **System & Infrastructure**:
+   - Dynamic Settings dengan in-memory caching.
+   - Data Studio, Task Scheduler & Cron runner, Backup & Snapshot Manager, Webhook Dispatcher.
+   - Redis Manager dengan monitoring memori real-time.
+3. **Audit & Observability**:
+   - SIEM Security Audit Logs, full activity journaling, dan CSP (Content Security Policy) report collector.
 
-### C. Security Domain (`Modules/Core/app/Security/`)
-Perlindungan perimeter, tata kelola akses, dan observabilitas keamanan:
-1. **Access Governance**:
-   - Attribute-Based Access Control (ABAC) Policy engine.
-   - Two-Factor Authentication (TOTP 2FA) & WebAuthn / Passkeys.
-2. **Perimeter Defense**:
-   - IP Filtering (Allowlist & Blocklist) dengan progressive auto-block.
-   - Dynamic Rate Limiting & Probe Path Sinkhole.
-3. **Observability & SIEM**:
-   - Security Audit Logs, SIEM JSON Exporter, dan CSP (Content Security Policy) report collector.
+### C. Community Domain (`Modules/Community/`)
+1. **Portal Komunitas**: Forum dan ruang kolaborasi sekolah, komite, dan orang tua.
+2. **Alumni & Ekstrakurikuler**: Direktori alumni, agenda kegiatan, dan kepengurusan OSIS/ekskul.
 
 ---
 
 ## 🔒 3. Prinsip Isolasi Data & Multi-Schema
 
-Untuk menjaga kestabilan dalam integrasi multi-project:
-- `ja-core_engine` menggunakan schema terisolasi: `core_engine` pada PostgreSQL (`DB_SCHEMA=core_engine`).
-- Database Redis menggunakan dedicated database index (`REDIS_DB=6`, `REDIS_CACHE_DB=7`) dengan prefix unik `core_engine_cache:`.
-- Hal ini mencegah tabrakan data dan cache dengan instance CMS maupun Control Plane lainnya pada host yang sama.
+Untuk menjamin integritas data institusi dan performa:
+- `ja-edusis` menggunakan skema PostgreSQL terisolasi: **`edusis`** (`DB_SCHEMA=edusis`).
+- Semua entitas domain sekolah menggunakan prefiks tabel standar **`sch_*`** (contoh: `sch_students`, `sch_academic_years`, `sch_attendances`).
+- Database Redis/Valkey menggunakan dedicated index (**`REDIS_DB=6`**, **`REDIS_CACHE_DB=7`**) dengan prefix unik **`ja_edusis_cache:`**.
+- Mesin CBT terpisah di host `ja-aksara` mencegah beban komputasi ujian membebani database administratif sekolah.
+
