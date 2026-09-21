@@ -1,12 +1,12 @@
 ---
 id: 2026-09-21-school-engine-submodule-registry-and-soc-refactor
 title: "Refactoring Modul School: Engine Reusability, Sub-Modul Registry, dan Standarisasi SoC Frontend"
-status: in_progress
+status: completed
 scale: L
 repo: ja-edusis
 owner: agent
 created: 2026-09-21
-updated: 2026-09-21
+updated: 2026-09-22
 blocks: []
 related_adr: [ADR-030, ADR-031, ADR-033]
 ---
@@ -56,17 +56,18 @@ Menyelaraskan modul `School` di `ja-edusis` agar memenuhi standar arsitektur ter
 ## 4. Plan
 
 ### In Scope
-- [ ] Pembentukan direktori `types/<domain>.ts` sebagai Single Source of Truth antarmuka TypeScript.
-- [ ] Pembuatan registri rute API terpusat `services/paths.ts` (`schoolPaths`).
-- [ ] Standarisasi Pinia stores ke konvensi `use<Domain>Store.ts` dengan `parseResponse()`, `ensureArray()`, dan `logger`.
-- [ ] Reorganisasi seluruh berkas view ke dalam folder domain semantik (`academic/`, `students/`, `staff/`, `attendance/`, `grades/`, `discipline/`, `operations/`, `osis/`, `extracurricular/`, `graduation/`, `admission/`, `integrations/`, `public/`).
-- [ ] Pembaharuan `router.ts` dengan metadata `meta.extension` dan `meta.subFeature`.
-- [ ] Pembaruan `navigation.ts` dan `module.ts` dengan deklarasi sub-modul dan filter reaktif.
-- [ ] Adopsi komponen form Dapodik 5-tab `StudentForm.vue` dan `StaffForm.vue` dari `cijulang`.
-- [ ] Fork komponen e-voting (`KioskTokenModal.vue`, `QrScanner.vue`, `VoteResultChart.vue`, `ElectionResults.vue`) dari `ja-evoting` (React) ke Vue 3 SFC.
-- [ ] Fork komponen rekap presensi visual dan alumni dari `ja-sis` ke Vue 3 SFC.
-- [ ] Porting manajemen ekstrakurikuler dari logika `ja-siska`.
-- [ ] Pembersihan seluruh komentar institusi lama (Pristine Code Mandate).
+- [x] Pembentukan direktori `types/<domain>.ts` sebagai Single Source of Truth antarmuka TypeScript.
+- [x] Pembuatan registri rute API terpusat `services/paths.ts` (`schoolPaths`).
+- [x] Standarisasi Pinia stores ke konvensi `use<Domain>Store.ts` dengan `parseResponse()`, `ensureArray()`, dan `logger`.
+- [x] Reorganisasi seluruh berkas view ke dalam folder domain semantik (`academic/`, `students/`, `staff/`, `attendance/`, `grades/`, `discipline/`, `operations/`, `osis/`, `extracurricular/`, `graduation/`, `career/`, `admission/`, `integrations/`, `public/`).
+- [x] Pembaharuan `router.ts` dengan metadata `meta.extension` dan `meta.subFeature`.
+- [x] Pembaruan `navigation.ts` dan `module.ts` dengan deklarasi sub-modul dan filter reaktif.
+- [x] Adopsi komponen form Dapodik 5-tab `StudentForm.vue` dan `StaffForm.vue` dari `cijulang`.
+- [x] Fork komponen e-voting (`KioskTokenModal.vue`, `QrScanner.vue`, `VoteResultChart.vue`, `ElectionResults.vue`) dari `ja-evoting` (React) ke Vue 3 SFC.
+- [x] Fork komponen rekap presensi visual dan alumni dari `ja-sis` ke Vue 3 SFC.
+- [x] Porting manajemen ekstrakurikuler dari logika `ja-siska`.
+- [x] Adopsi Backend Alumni Tracer, Graduation Batches, dan Bursa Kerja Khusus (BKK / Job Vacancy & Applications).
+- [x] Pembersihan seluruh komentar institusi lama (Pristine Code Mandate).
 
 ### Out of Scope
 - Scheduling Engine (ditunda untuk integrasi LMS & CBT).
@@ -75,9 +76,9 @@ Menyelaraskan modul `School` di `ja-edusis` agar memenuhi standar arsitektur ter
 ### Langkah Implementasi
 
 1. **Fase 1: Fondasi Arsitektur**
-   - Buat `types/` (`common.ts`, `academic.ts`, `student.ts`, `staff.ts`, `attendance.ts`, `discipline.ts`, `operations.ts`, `osis.ts`, `extracurricular.ts`, `graduation.ts`, `admission.ts`, `index.ts`).
+   - Buat `types/` (`common.ts`, `academic.ts`, `student.ts`, `staff.ts`, `attendance.ts`, `discipline.ts`, `operations.ts`, `osis.ts`, `extracurricular.ts`, `graduation.ts`, `career.ts`, `admission.ts`, `index.ts`).
    - Buat `services/paths.ts` dan hubungkan ke service layer.
-   - Siapkan sub-modul registry manifest di `module.ts`.
+   - Siapkan sub-modul registry manifest di `registry.ts` dan `module.ts`.
    - *Gate*: `npx vue-tsc -b` lulus 0 error.
 2. **Fase 2: Standarisasi Store & Service Layer**
    - Rename store ke `use*Store.ts`.
@@ -101,21 +102,24 @@ Menyelaraskan modul `School` di `ja-edusis` agar memenuhi standar arsitektur ter
    - Implementasi `AttendanceChart.vue`, `ClassRecap.vue`, `StudentRecap.vue`.
    - Implementasi `views/graduation/Alumni.vue` dan `GraduationYearTable.vue`.
    - *Gate*: `npx vue-tsc -b` lulus 0 error.
-7. **Fase 7: Ekstrakurikuler & Polish Akhir**
+7. **Fase 7: Ekstrakurikuler, BKK Career, & Polish Akhir**
    - Implementasi `views/extracurricular/Index.vue`.
+   - Implementasi `views/career/JobPortal.vue` dan `components/career/VacancyDialog.vue`.
+   - Implementasi backend `GraduationBatch`, `Alumni`, `JobVacancy`, `JobApplication`, migrasi, dan feature test.
    - Pembersihan komentar institusi lama (*zero dead code*).
    - Update dokumentasi kontrak L1 (`README.md`, `CHANGELOG.md`).
    - *Gate Akhir*: `npx vue-tsc -b` 0 error & test backend pas.
 
 ### Acceptance Criteria
-- [ ] Seluruh antarmuka TypeScript terpusat di `types/` tanpa error kompilasi.
-- [ ] Tidak ada URL endpoint yang di-hardcode di service; seluruhnya merujuk ke `services/paths.ts`.
-- [ ] Seluruh store menggunakan konvensi `use*Store.ts` dan helper parsing standar.
-- [ ] Direktori `views/` terorganisir per sub-folder domain semantik, tidak ada berkas flat di root `views/`.
-- [ ] Seluruh route memiliki `meta.extension` dan `meta.subFeature`.
-- [ ] Fitur bilik suara e-voting dan rekap presensi berfungsi native dalam Vue 3.
-- [ ] Zero duplikasi model siswa; seluruh data terikat pada satu sumber data.
-- [ ] `npx vue-tsc -b` lulus dengan exit code 0.
+- [x] Seluruh antarmuka TypeScript terpusat di `types/` tanpa error kompilasi.
+- [x] Tidak ada URL endpoint yang di-hardcode di service; seluruhnya merujuk ke `services/paths.ts`.
+- [x] Seluruh store menggunakan konvensi `use*Store.ts` dan helper parsing standar.
+- [x] Direktori `views/` terorganisir per sub-folder domain semantik, tidak ada berkas flat di root `views/`.
+- [x] Seluruh route memiliki `meta.extension` dan `meta.subFeature`.
+- [x] Fitur bilik suara e-voting dan rekap presensi berfungsi native dalam Vue 3.
+- [x] Zero duplikasi model siswa; seluruh data terikat pada satu sumber data (`sch_students`).
+- [x] `npx vue-tsc -b` lulus dengan exit code 0.
+- [x] `php artisan test Modules/School/tests/` lulus 100% (55 tests, 565 assertions, 0 failures).
 
 ---
 
@@ -126,9 +130,40 @@ Menyelaraskan modul `School` di `ja-edusis` agar memenuhi standar arsitektur ter
 | 2026-09-21 | Antigravity | Audit komprehensif 4 repo referensi (`cijulang`, `ja-siska`, `ja-evoting`, `ja-sis`). |
 | 2026-09-21 | Antigravity | Diskusi arsitektur: Kategorisasi Engine vs Operasional, Sub-Modul Registry, Penundaan Scheduling. |
 | 2026-09-21 | Antigravity | Penerbitan ADR-033 dan penyusunan Task Brief rencana kerja refactoring. |
+| 2026-09-22 | Antigravity | Eksekusi Fase 1 s/d Fase 7 (Types, Paths, Stores, Views, Components, Fork E-Voting & Presensi, Ekskul). |
+| 2026-09-22 | Antigravity | Implementasi Backend & Frontend Alumni Tracer Study & Bursa Kerja Khusus (BKK / Job Vacancy). |
+| 2026-09-22 | Antigravity | Verifikasi quality gates: 55 tests backend PASS (565 assertions), vue-tsc -b PASS (0 errors), sync docs multi-host. |
 
 ---
 
 ## 6. Hasil
 
-*(Akan diisi setelah implementasi selesai dan diverifikasi)*
+Pekerjaan telah diselesaikan dan diverifikasi penuh:
+
+### Bukti Verifikasi Quality Gates:
+1. **Frontend Type Check (`vue-tsc -b`)**:
+   ```
+   npm run type-check
+   OK [gate]: 27 gate keys, 8690 en + 8690 id + 8690 su definitions (symmetric), JSON valid.
+   OK [i18n-dangerous-braces]: no dangerous raw braces in locale JSON
+   vue-tsc -b: Exit Code 0 (0 errors)
+   ```
+2. **Backend Unit & Feature Tests (`php artisan test`)**:
+   ```
+   PASS  Modules\School\Tests\Feature\SchoolAlumniAndCareerApiTest
+   PASS  Modules\School\Tests\Feature\SchoolPhase1ApiTest
+   PASS  Modules\School\Tests\Feature\SchoolPhase2ApiTest
+   PASS  Modules\School\Tests\Feature\SchoolPhase3ApiTest
+   PASS  Modules\School\Tests\Feature\SchoolPhase4ApiTest
+   PASS  Modules\School\Tests\Feature\SchoolPhase5ApiTest
+   PASS  Modules\School\Tests\Feature\SchoolVotingEngineApiTest
+   PASS  Modules\School\Tests\Unit\SchoolUnitTest
+   Tests: 55 passed (565 assertions)
+   Duration: 11.09s (0 failures, 0 regressions)
+   ```
+3. **Penyelarasan Dokumen L1**:
+   - `frontend/src/modules/School/CHANGELOG.md` (v1.1.0 & v1.2.0 terbit).
+   - `frontend/src/modules/School/README.md` (arsitektur sub-modul registry & taksonomi lengkap).
+4. **Multi-Host Sync**:
+   - Berkas `docs/` tersinkronisasi 100% ke `ja-srv` dan `ja-aksara` via `rsync`.
+
