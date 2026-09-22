@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Cache;
 use Modules\Core\System\Models\Extension;
 use Modules\Core\System\Models\Permission;
 use Modules\Core\System\Models\Role;
+use Modules\Core\System\Models\Setting;
 use Modules\Core\System\Models\User;
 use Spatie\Permission\PermissionRegistrar;
 
@@ -45,6 +46,8 @@ abstract class TestCase extends BaseTestCase
 
         parent::setUp();
 
+        Setting::clearRuntimeCache();
+
         // Initialize session for tests that need it (login, etc.)
         $this->withSession([]);
 
@@ -52,6 +55,13 @@ abstract class TestCase extends BaseTestCase
         RequestGuard::macro('viaRemember', function () {
             return false; // Token-based auth never uses "remember me"
         });
+    }
+
+    protected function tearDown(): void
+    {
+        Setting::clearRuntimeCache();
+
+        parent::tearDown();
     }
 
     /**

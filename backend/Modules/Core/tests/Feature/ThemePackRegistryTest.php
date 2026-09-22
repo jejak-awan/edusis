@@ -27,7 +27,18 @@ final class ThemePackRegistryTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        Setting::clearRuntimeCache();
         $this->license = app(LicenseService::class);
+    }
+
+    protected function tearDown(): void
+    {
+        Setting::set('theme_active', 'sarangenge');
+        Setting::set('license_type', 'community');
+        Setting::set('license_is_perpetual', false);
+        Setting::clearRuntimeCache();
+
+        parent::tearDown();
     }
 
     // -----------------------------------------------------------------------
@@ -374,6 +385,7 @@ final class ThemePackRegistryTest extends TestCase
 
     public function test_jacp_heartbeat_sync_updates_theme_quota_and_remediates(): void
     {
+        Setting::set('license_is_perpetual', false);
         // Activate Pro
         $this->license->activateLicense('JACP-PRO-HEARTBEAT-TEST');
         Setting::set('license_key', 'JACP-PRO-HEARTBEAT-TEST');

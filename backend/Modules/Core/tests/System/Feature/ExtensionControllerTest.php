@@ -1384,6 +1384,7 @@ class ExtensionControllerTest extends TestCase
     {
         // Delete any existing theme extensions from DB to verify raw on-demand discovery
         Extension::where('type', 'theme')->orWhere('slug', 'like', 'theme-%')->delete();
+        Setting::set('theme_active', 'sarangenge');
 
         $response = $this->actingAs($this->admin, 'sanctum')
             ->getJson('/api/v1/manage/infra/extensions')

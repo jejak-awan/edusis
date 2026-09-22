@@ -366,11 +366,13 @@ class LicenseService
                 $payloadData = $response->json('data');
                 $payload = is_array($payloadData) ? $payloadData : [];
                 $tier = isset($payload['tier']) && is_scalar($payload['tier']) ? (string) $payload['tier'] : self::TIER_PRO;
+                $isPerpetual = ! empty($payload['is_perpetual']) || $this->isPerpetualLicense($cleanKey);
 
                 $this->persistLicense([
                     'license_key' => $cleanKey,
                     'license_type' => $tier,
                     'license_status' => self::STATUS_ACTIVE,
+                    'license_is_perpetual' => $isPerpetual,
                     'license_expires_at' => $payload['expires_at'] ?? null,
                     'license_last_checked_at' => now()->toIso8601String(),
                     'license_domain' => request()->getHost() ?: 'localhost',
@@ -408,6 +410,7 @@ class LicenseService
                 'license_key' => $cleanKey,
                 'license_type' => self::TIER_PRO,
                 'license_status' => self::STATUS_ACTIVE,
+                'license_is_perpetual' => false,
                 'license_last_checked_at' => now()->toIso8601String(),
                 'license_domain' => request()->getHost() ?: 'localhost',
             ]);
@@ -460,9 +463,16 @@ class LicenseService
 
         $upper = strtoupper($rawKey);
 
-        return str_contains($upper, 'PERPETUAL')
-            || str_contains($upper, 'LIFETIME')
-            || (bool) Setting::get('license_is_perpetual', false);
+        if (str_contains($upper, 'PERPETUAL') || str_contains($upper, 'LIFETIME')) {
+            return true;
+        }
+
+        // Pro and Starter tiers are never perpetual
+        if (str_starts_with($upper, 'JACP-PRO-') || str_starts_with($upper, 'JACP-STR-')) {
+            return false;
+        }
+
+        return $key === null && (bool) Setting::get('license_is_perpetual', false);
     }
 
     /**
@@ -570,6 +580,7 @@ class LicenseService
             'license_key' => '',
             'license_type' => self::TIER_COMMUNITY,
             'license_status' => self::STATUS_ACTIVE,
+            'license_is_perpetual' => false,
             'license_expires_at' => null,
             'license_grace_until' => null,
             'license_last_checked_at' => now()->toIso8601String(),
