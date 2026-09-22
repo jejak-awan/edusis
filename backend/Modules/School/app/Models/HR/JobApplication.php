@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\School\Models\Student\Alumni;
 use Modules\School\Models\Student\Student;
+use Modules\School\Traits\ScopedBySchool;
 
 /**
  * @property int $id
@@ -31,7 +32,7 @@ use Modules\School\Models\Student\Student;
  */
 class JobApplication extends Model
 {
-    use HasFactory;
+    use HasFactory, ScopedBySchool;
 
     protected $table = 'sch_career_applications';
 

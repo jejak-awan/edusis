@@ -246,7 +246,7 @@ class SchoolPhase5Seeder extends Seeder
             [
                 'student_id' => $std1?->id,
                 'recipient_name' => 'Bapak Joko Santoso (Wali Murid)',
-                'content' => "Yth. Bapak Joko Santoso, wali dari {$std1?->full_name} (X-PPLG-1),\n\nKami menginformasikan bahwa ananda tercatat TERLAMBAT pada absensi pagi tanggal ".now()->isoFormat('D MMMM Y').".\n\nMohon pendampingan agar ananda dapat hadir tepat waktu. Terima kasih.\nSMKN 1 EduSIS",
+                'content' => "Yth. Bapak Joko Santoso, wali dari {$std1?->full_name} (X-PPLG-1),\n\nKami menginformasikan bahwa ananda tercatat TERLAMBAT pada absensi pagi tanggal ".now()->isoFormat('D MMMM Y').".\n\nMohon pendampingan agar ananda dapat hadir tepat waktu. Terima kasih.\nPihak Sekolah",
                 'status' => 'sent',
                 'sent_at' => now()->subHours(4),
                 'error_message' => null,
@@ -258,7 +258,7 @@ class SchoolPhase5Seeder extends Seeder
             [
                 'student_id' => $std2?->id,
                 'recipient_name' => 'Ibu Siti Aminah (Wali Murid)',
-                'content' => "Yth. Ibu Siti Aminah, wali dari {$std2?->full_name} (X-PPLG-1),\n\nKami menginformasikan bahwa ananda tercatat ALPA (Tanpa Keterangan) pada hari ".now()->isoFormat('D MMMM Y').".\n\nMohon segera menghubungi wali kelas untuk konfirmasi. Terima kasih.\nSMKN 1 EduSIS",
+                'content' => "Yth. Ibu Siti Aminah, wali dari {$std2?->full_name} (X-PPLG-1),\n\nKami menginformasikan bahwa ananda tercatat ALPA (Tanpa Keterangan) pada hari ".now()->isoFormat('D MMMM Y').".\n\nMohon segera menghubungi wali kelas untuk konfirmasi. Terima kasih.\nPihak Sekolah",
                 'status' => 'sent',
                 'sent_at' => now()->subHours(3),
                 'error_message' => null,
@@ -270,7 +270,7 @@ class SchoolPhase5Seeder extends Seeder
             [
                 'student_id' => null,
                 'recipient_name' => 'Seluruh Orang Tua / Komite Sekolah',
-                'content' => "Pemberitahuan SMKN 1 EduSIS:\n\nPelaksanaan Ujian Penilaian Sumatif Berbasis Komputer (KataMPI CBT) akan dimulai hari Senin depan. Mohon pastikan peserta didik membawa kartu ujian dan menjaga kesehatan.\n\nKepala Sekolah SMKN 1 EduSIS",
+                'content' => "Pemberitahuan dari Sekolah:\n\nPelaksanaan Ujian Penilaian Sumatif Berbasis Komputer (KataMPI CBT) akan dimulai hari Senin depan. Mohon pastikan peserta didik membawa kartu ujian dan menjaga kesehatan.\n\nKepala Sekolah",
                 'status' => 'sent',
                 'sent_at' => now()->subDays(1),
                 'error_message' => null,
@@ -282,7 +282,7 @@ class SchoolPhase5Seeder extends Seeder
             [
                 'student_id' => $std1?->id,
                 'recipient_name' => 'Bapak Joko Santoso',
-                'content' => "Yth. Orang Tua {$std1?->full_name},\n\nRekapitulasi rapor tengah semester ganjil tahun ajaran 2026/2027 telah terbit dan dapat diunduh melalui portal EduSIS: https://edusis.smkn1.sch.id/portal/rapor\n\nTerima kasih atas kerja samanya.",
+                'content' => "Yth. Orang Tua {$std1?->full_name},\n\nRekapitulasi rapor tengah semester ganjil tahun ajaran 2026/2027 telah terbit dan dapat diunduh melalui portal EduSIS: https://example-school.sch.id/portal/rapor\n\nTerima kasih atas kerja samanya.",
                 'status' => 'sent',
                 'sent_at' => now()->subDays(2),
                 'error_message' => null,

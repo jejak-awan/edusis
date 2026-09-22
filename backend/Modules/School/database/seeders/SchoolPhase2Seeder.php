@@ -53,7 +53,7 @@ class SchoolPhase2Seeder extends Seeder
                 'major' => 'Manajemen Pendidikan',
                 'certification_status' => true,
                 'phone' => '081223344556',
-                'email' => 'kepsek@smkn1talaga.sch.id',
+                'email' => 'kepsek@example-school.sch.id',
                 'address' => 'Talaga Kulon RT 01 RW 01',
             ],
             [
@@ -70,7 +70,7 @@ class SchoolPhase2Seeder extends Seeder
                 'major' => 'Teknik Informatika',
                 'certification_status' => true,
                 'phone' => '082122334455',
-                'email' => 'budi.hartono@smkn1talaga.sch.id',
+                'email' => 'budi.hartono@example-school.sch.id',
                 'address' => 'Kecamatan Cikijing',
             ],
             [
@@ -87,7 +87,7 @@ class SchoolPhase2Seeder extends Seeder
                 'major' => 'Pendidikan Matematika',
                 'certification_status' => false,
                 'phone' => '085233445566',
-                'email' => 'siti.rahmawati@smkn1talaga.sch.id',
+                'email' => 'siti.rahmawati@example-school.sch.id',
                 'address' => 'Kecamatan Bantarujeg',
             ],
             [
@@ -104,7 +104,7 @@ class SchoolPhase2Seeder extends Seeder
                 'major' => 'Pendidikan Bahasa Inggris',
                 'certification_status' => true,
                 'phone' => '087811223344',
-                'email' => 'rian.kurniawan@smkn1talaga.sch.id',
+                'email' => 'rian.kurniawan@example-school.sch.id',
                 'address' => 'Kecamatan Talaga',
             ],
             [
@@ -121,7 +121,7 @@ class SchoolPhase2Seeder extends Seeder
                 'major' => 'Psikologi Pendidikan',
                 'certification_status' => true,
                 'phone' => '081399887766',
-                'email' => 'nurhayati.bk@smkn1talaga.sch.id',
+                'email' => 'nurhayati.bk@example-school.sch.id',
                 'address' => 'Kecamatan Talaga',
             ],
         ];

@@ -166,13 +166,13 @@ class SchoolPhase5ApiTest extends TestCase
 
         $updateResponse = $this->actingAs($this->admin, 'sanctum')
             ->putJson('/api/v1/school/integrations/katampi/config', [
-                'cbt_url' => 'http://cbt.smkn1.sch.id',
+                'cbt_url' => 'http://cbt.example-school.sch.id',
                 'api_key' => 'custom-production-katampi-key-99',
                 'is_active' => true,
             ]);
 
         $updateResponse->assertStatus(200)
-            ->assertJsonPath('data.cbt_url', 'http://cbt.smkn1.sch.id')
+            ->assertJsonPath('data.cbt_url', 'http://cbt.example-school.sch.id')
             ->assertJsonPath('data.api_key', 'custom-production-katampi-key-99');
     }
 

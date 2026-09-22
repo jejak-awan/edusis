@@ -1,6 +1,6 @@
 /**
  * School Module — OSIS & Voting / Election Engine Types
- * Fork ja-evoting: Bilik Suara, Manajemen DPT, Token 8-Karakter, & Rekapitulasi Real-Time
+ * Voting Engine: Bilik Suara Kiosk, Manajemen DPT, Token 8-Karakter Sekali Pakai, & Rekapitulasi Real-Time
  */
 
 import type { StudentData } from './student';

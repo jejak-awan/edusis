@@ -74,7 +74,7 @@ class VoteVoter extends Model
     }
 
     /**
-     * Generate token acak 8 karakter unik untuk bilik suara (ala ja-evoting).
+     * Generate token acak 8 karakter unik untuk bilik suara kiosk (single-use, collision-safe).
      */
     public static function generateUniqueToken(int $eventId): string
     {
