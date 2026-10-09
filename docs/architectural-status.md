@@ -41,8 +41,8 @@ Sesuai mandat [ADR-029](adr/ADR-029-edusis-domain-and-multi-repo-synthesis.md) d
 ## 🌐 4. Lingkungan Dev & Preview Runtime
 
 - **Host Pengembangan**: `ja-dev` (CT 207 — `192.168.88.71`)
-- **Frontend Console SPA**: Port **`5273`** (Vite 8, Single Unified SPA)
-- **Backend API**: Port **`8000`** (Laravel 13 serve)
+- **Frontend Console SPA**: Port **`5373`** (Vite 8, Single Unified SPA). Port `5273` dipakai `ja-spek`.
+- **Backend API**: Port **`8100`** (Laravel 13 serve). Port `8000` dipakai `ja-spek`.
 - **Production Host**: `ja-srv` (CT 200 — `192.168.88.66`) via `publish-from-jadev.sh`
 - **CBT Host**: `ja-aksara` (CT 204 — `10.20.0.204`) untuk KataMPI Engine
 

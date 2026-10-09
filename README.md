@@ -125,14 +125,14 @@ cd backend
 composer install
 php artisan migrate --force
 php artisan db:seed --force
-php artisan serve --host=0.0.0.0 --port=8000
+php artisan serve --host=0.0.0.0 --port=8100
 ```
 
 ### 3. Frontend (Vite Console & Portal)
 ```bash
 cd frontend
 npm install
-npm run dev # Berjalan pada http://localhost:5273
+npm run dev # Berjalan pada http://localhost:5373
 ```
 
 ---

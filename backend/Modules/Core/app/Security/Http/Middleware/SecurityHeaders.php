@@ -162,8 +162,8 @@ class SecurityHeaders
                 'blob:',
                 'http://localhost:5173',
                 'ws://localhost:5173',
-                'http://localhost:5273',
-                'ws://localhost:5273',
+                'http://localhost:5373',
+                'ws://localhost:5373',
             ];
         } else {
             // Production: nonce-based + trusted CDN sources
@@ -237,7 +237,7 @@ class SecurityHeaders
 
         if ($allowViteDevServer) {
             $styleSrc[] = 'http://localhost:5173';
-            $styleSrc[] = 'http://localhost:5273';
+            $styleSrc[] = 'http://localhost:5373';
         }
 
         $styleSrc = array_merge($styleSrc, [
@@ -261,9 +261,9 @@ class SecurityHeaders
             $connectSrc[] = 'http://localhost:5173';
             $connectSrc[] = 'ws://localhost:5173';
             $connectSrc[] = 'wss://localhost:5173';
-            $connectSrc[] = 'http://localhost:5273';
-            $connectSrc[] = 'ws://localhost:5273';
-            $connectSrc[] = 'wss://localhost:5273';
+            $connectSrc[] = 'http://localhost:5373';
+            $connectSrc[] = 'ws://localhost:5373';
+            $connectSrc[] = 'wss://localhost:5373';
         }
 
         $connectSrc = array_merge($connectSrc, [

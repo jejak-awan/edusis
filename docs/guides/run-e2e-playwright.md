@@ -21,13 +21,13 @@ Config: [`frontend/playwright.config.ts`](../../frontend/playwright.config.ts)
 | Custom | `PLAYWRIGHT_BASE_URL=…` | override |
 | Auto webServer Vite | `PLAYWRIGHT_WEB_SERVER=1` (dan **bukan** full stack) | start `npm run dev` di :4173 |
 
-API proxy saat webServer: `VITE_DEV_API_PROXY` / `E2E_API_PROXY_TARGET` (default `http://127.0.0.1:8081` di config Playwright; Vite dev default sering `:8000`).
+API proxy saat webServer: `VITE_DEV_API_PROXY` / `E2E_API_PROXY_TARGET` (default `http://127.0.0.1:8081` di config Playwright; Vite dev default `:8100`).
 
 ## Steps — smoke cepat (disarankan)
 
 ### A. Docker / Podman (host tanpa browser)
 
-1. Pastikan app + Vite reachable dari host (contoh `:8000` / `:5273` — sesuaikan `PLAYWRIGHT_BASE_URL`).
+1. Pastikan app + Vite reachable dari host (contoh `:8100` / `:5373` — sesuaikan `PLAYWRIGHT_BASE_URL`).
 2. Dari root:
 
 ```bash

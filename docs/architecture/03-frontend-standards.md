@@ -9,7 +9,7 @@ Panduan arsitektur dan standar pengembangan frontend Vue 3 + TypeScript di **JA-
 ## 🎨 1. Tech Stack Frontend
 
 - **Framework**: Vue 3.5 (Composition API dengan `<script setup lang="ts">`).
-- **Build Tool**: Vite 8 + ESBuild minifier (Port dev default: **`5273`**).
+- **Build Tool**: Vite 8 + ESBuild minifier (Port dev default: **`5373`**).
 - **State Management**: Pinia stores terenkapsulasi.
 - **Styling**: Tailwind CSS v4 + Radix UI primitives (`radix-vue`) + Lucide Icons (`lucide-vue-next`).
 - **Data Table**: TanStack Table untuk tabel data siswa, guru, presensi, dan penilaian.

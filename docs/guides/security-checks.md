@@ -44,7 +44,7 @@ cd backend && php artisan rbac:sync
 
 ### 4. Member auth smoke (opsional, runtime)
 
-Dengan backend di `APP_URL` / `http://127.0.0.1:8000`:
+Dengan backend di `APP_URL` / `http://127.0.0.1:8100`:
 
 ```bash
 # dari root

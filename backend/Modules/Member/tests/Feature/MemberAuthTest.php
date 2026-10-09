@@ -251,13 +251,13 @@ class MemberAuthTest extends TestCase
 
     public function test_verify_email_browser_hit_redirects_to_public_site(): void
     {
-        config(['app.frontend_url' => 'http://localhost:5273']);
+        config(['app.frontend_url' => 'http://localhost:5373']);
 
         $auth = $this->registerMember();
         $member = Member::query()->findOrFail($auth['id']);
         $url = app(MemberEmailVerification::class)->signedUrl($member);
 
-        $this->get($url, ['Accept' => 'text/html'])->assertRedirect('http://localhost:5273/member/verified?status=ok');
+        $this->get($url, ['Accept' => 'text/html'])->assertRedirect('http://localhost:5373/member/verified?status=ok');
         $this->assertNotNull($member->fresh()?->email_verified_at);
     }
 

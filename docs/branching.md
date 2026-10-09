@@ -74,8 +74,8 @@ Ekosistem Jejakawan beroperasi dengan model **Upstream Core Engine + Vertikal Kh
 
 ### Host: `ja-dev` (CT 207 — `192.168.88.71` / `10.20.0.207`)
 Host utama pengembangan dan verifikasi:
-- **JA-EduSIS Web Console**: Port **`5273`** (Vite 8 SPA)
-- **JA-EduSIS Backend API**: Port **`8000`** (Laravel 13 API)
+- **JA-EduSIS Web Console**: Port **`5373`** (Vite 8 SPA)
+- **JA-EduSIS Backend API**: Port **`8100`** (Laravel 13 API)
 - **PostgreSQL Database**: Port `5432`, Skema `edusis`
 - **Valkey / Redis Hub**: Container CT 206 (`10.20.0.206:6379`), DB 6 & 7
 

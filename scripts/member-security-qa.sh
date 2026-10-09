@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-API_BASE="${API_BASE:-http://127.0.0.1:8000/api/v1}"
+API_BASE="${API_BASE:-http://127.0.0.1:8100/api/v1}"
 CAPTCHA_HEADER="${E2E_CAPTCHA_BYPASS_TOKEN:-local-e2e}"
 EMAIL="qa-member-$(date +%s)@example.com"
 PASSWORD="${E2E_MEMBER_PASSWORD:-Password12!}"

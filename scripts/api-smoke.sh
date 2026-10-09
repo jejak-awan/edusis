@@ -10,7 +10,7 @@ if [[ -z "${BASE_URL:-}" && -f "${BACKEND_DIR}/.env" ]]; then
     BASE_URL="${_app_url}"
   fi
 fi
-BASE_URL="${BASE_URL:-http://127.0.0.1:8000}"
+BASE_URL="${BASE_URL:-http://127.0.0.1:8100}"
 API="${BASE_URL}/api/v1"
 EMAIL="${SMOKE_EMAIL:-super@jejakawan.com}"
 

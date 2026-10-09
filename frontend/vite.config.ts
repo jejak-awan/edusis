@@ -14,9 +14,9 @@ const appBuildId = process.env.VITE_BUILD_ID ?? `${Date.now()}`
 const devApiProxyTarget =
   process.env.VITE_DEV_API_PROXY?.trim() ||
   process.env.E2E_API_PROXY_TARGET?.trim() ||
-  'http://127.0.0.1:8000'
+  'http://127.0.0.1:8100'
 
-const devServerPort = Number(process.env.VITE_DEV_PORT || 5273)
+const devServerPort = Number(process.env.VITE_DEV_PORT || 5373)
 
 // https://vite.dev/config/
 export default defineConfig({

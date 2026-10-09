@@ -53,7 +53,7 @@ Readers reuse Core security controls (not a parallel stack):
 
 **Portal 2FA extras (2026-09-01):** `POST /api/v1/member/2fa/regenerate-backup-codes` (password required). Audit events: `member_logout`, `member_avatar_uploaded`, `member_2fa_backup_codes_regenerated`.
 
-E2E: `cd frontend && PLAYWRIGHT_BASE_URL=http://127.0.0.1:5273 npm run test:e2e:member` (captcha bypass header; use `Password12!` or set `E2E_MEMBER_PASSWORD`). On PVE hosts without browser libs, use `npm run test:e2e:smoke:docker`.
+E2E: `cd frontend && PLAYWRIGHT_BASE_URL=http://127.0.0.1:5373 npm run test:e2e:member` (captcha bypass header; use `Password12!` or set `E2E_MEMBER_PASSWORD`). On PVE hosts without browser libs, use `npm run test:e2e:smoke:docker`.
 
 API smoke: `bash scripts/member-security-qa.sh`
 
