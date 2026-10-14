@@ -19,12 +19,7 @@ rsync -avz /home/jejakawan/dev/ja-edusis/ ja-srv:/home/jejakawan/www/edusis/
 
 ## Sync docs ops (multi-host)
 
-Sesuai [AGENTS.md](../../AGENTS.md), perubahan di `docs/` root workspace wajib disinkronkan:
-
-```bash
-rsync -avz /home/jejakawan/dev/docs/ ja-srv:/home/jejakawan/dev/docs/
-rsync -avz /home/jejakawan/dev/docs/ ja-aksara:/home/jejakawan/dev/docs/
-```
+Ikuti [AGENTS.md](../../AGENTS.md) bagian 1. `ja-srv` menerima pohon `docs/` lengkap. `ja-aksara` hanya menerima `docs/ja-aksara/`, `docs/ja-labaksara/`, `docs/README.md`, dan topologi di `docs/platform/` (tanpa `jejakawan_cred.md` dan tanpa skrip publish `ja-srv`). Jangan `rsync` seluruh `docs/` ke `ja-aksara`.
 
 ## Related
 
